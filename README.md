@@ -1,5 +1,12 @@
 # Questions
-Quiz iOS app example with support for multiple languages (English and Spanish)
+Quiz app for iOS with support for multiple languages (English and Spanish)  
+
+Screnshots
+-------
+[screenshot](http://i.imgur.com/5Xxq86Z.png)
+[screenshot](http://i.imgur.com/UyfG67E.png)
+[screenshot](http://i.imgur.com/b7h6BMU.png)  
+
 
 # ASSETS #
 
