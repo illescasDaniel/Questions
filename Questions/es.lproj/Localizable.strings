@@ -1,0 +1,90 @@
+"FLAG" = "🇪🇸";
+
+"MAIN_MENU" = "Menú principal";
+"START_GAME" = "Comenzar";
+"INSTRUCTIONS" = "Instrucciones";
+"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar juego' para ver los sets de preguntas; después de escoger uno, da un toque en una respuesta para ver si es correcta o no.";
+"OK" = "Aceptar";
+
+"QUESTIONS_SET" = "Sets de preguntas";
+
+"CORRECT_ANSWER" = "¡Correcto!";
+"INCORRECT_ANSWER" = "Incorrecto";
+"END_OF_QUESTIONS" = "Fin de preguntas";
+
+/* TODOS LOS SETS DE PREGUNTAS */
+
+// SET #1
+"S1Q1" = "¿Cómo te llamas?";
+	"S1Q1A1" = "Virginia";
+	"S1Q1A2" = "Daniel";
+	"S1Q1A3" = "Tete";
+	"S1Q1A4" = "Sr. de Incógnito";
+
+"S1Q2" = "Mejor SO móvil";
+	"S1Q2A1" = "iOS";
+	"S1Q2A2" = "Android";
+	"S1Q2A3" = "BlackBerry OS";
+	"S1Q2A4" = "Windows c:";
+
+"S1Q3" = "¿🐶 o 🐱?";
+	"S1Q3A1" = "🐱";
+	"S1Q3A2" = "🐶";
+	"S1Q3A3" = "Daniel";
+	"S1Q3A4" = "Otro";
+
+"S1Q4" = "¿Te gusta la pizza?";
+	"S1Q4A1" = "¡Me encanta!";
+	"S1Q4A2" = "Sí";
+	"S1Q4A3" = "No";
+	"S1Q4A4" = "Tal vez";
+
+// SET #2
+"S2Q1" = "Mejor SO de escritorio";
+	"S2Q1A1" = "macOS";
+	"S2Q1A2" = "Windows";
+	"S2Q1A3" = "MS-DOS 😎";
+	"S2Q1A4" = "Linux c:";
+
+"S2Q2" = "Mejor entorno de programación";
+	"S2Q2A1" = "Visual Studio";
+	"S2Q2A2" = "Xcode";
+	"S2Q2A3" = "Netbeans";
+	"S2Q2A4" = "Eclipse";
+
+"S2Q3" = "Mejor compañía de fotografía";
+	"S2Q3A1" = "Leica";
+	"S2Q3A2" = "Nikon";
+	"S2Q3A3" = "Canon";
+	"S2Q3A4" = "Sony";
+
+// SET #3
+"S3Q1" = "¿Qué edad tiene Barack Obama?";
+	"S3Q1A1" = "> 50";
+	"S3Q1A2" = "< 50";
+	"S3Q1A3" = "35 ☺️";
+	"S3Q1A4" = "> 60 👴🏿";
+
+	"S3Q2" = "Director ejecutivo de Google";
+"S3Q2A1" = "Larry Page";
+	"S3Q2A2" = "Sergey Brin";
+	"S3Q2A3" = "Sundar Pichai";
+	"S3Q2A4" = "Andy Rubin";
+
+"S3Q3" = "Última versión de macOS";
+	"S3Q3A1" = "10.11.5";
+	"S3Q3A2" = "10.2";
+	"S3Q3A3" = "11";
+	"S3Q3A4" = "10.12";
+
+"S3Q4" = "¿Cuál es la mejor versión de Windows?";
+	"S3Q4A1" = "Windows XP";
+	"S3Q4A2" = "Windows 7";
+	"S3Q4A3" = "Windows Vista";
+	"S3Q4A4" = "Windows 10";
+
+"S3Q5" = "¿iPhone, iPad or Mac?";
+	"S3Q5A1" = "iPhone";
+	"S3Q5A2" = "iPad";
+	"S3Q5A3" = "mac";
+	"S3Q5A4" = "Todos c:";
