@@ -3,9 +3,9 @@ Quiz app for iOS with support for multiple languages (English and Spanish)
 
 Screnshots
 -------
-[screenshot](http://i.imgur.com/5Xxq86Z.png)
-[screenshot](http://i.imgur.com/UyfG67E.png)
-[screenshot](http://i.imgur.com/b7h6BMU.png)  
+![Alt text](http://i.imgur.com/5Xxq86Z.png "Main menu")
+![Alt text](http://i.imgur.com/UyfG67E.png "Questions sets menu")
+![Alt text](http://i.imgur.com/b7h6BMU.png "Questions")
 
 
 # ASSETS #
