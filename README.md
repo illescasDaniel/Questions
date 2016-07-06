@@ -28,3 +28,8 @@ https://www.freesound.org/people/LittleRainySeasons/sounds/335908/
 
 'Incorrect answer' sound':  
 https://www.freesound.org/people/rhodesmas/sounds/342756/
+
+Special thanks to
+-----------------
+Jared Davidson for the "Making A Quiz Game" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  
+Caroline Begbie for this [tutorial](https://www.raywenderlich.com/113394/storyboards-tutorial-in-ios-9-part-2)
