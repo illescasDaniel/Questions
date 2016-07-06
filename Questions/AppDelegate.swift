@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Questions
-//
-//  Created by Daniel Illescas Romero on 04/07/16.
-//  Copyright © 2016 Daniel Illescas Romero. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

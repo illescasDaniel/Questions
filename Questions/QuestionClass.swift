@@ -37,12 +37,7 @@ class QuestionClass: UIViewController {
 		
 		endOfQuestions.text = "END_OF_QUESTIONS".localized(VC.language!)
 	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
+
 	func pickQuestion() {
 		
 		if !questions.isEmpty {

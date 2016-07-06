@@ -3,21 +3,20 @@ import UIKit
 
 class VC: UIViewController, UIAlertViewDelegate {
 	
-	var bgMusic: AVAudioPlayer?
+	static var bgMusic: AVAudioPlayer?
 	
 	static var language: String?
 	
-	@IBOutlet weak var langButton: UIButton!
-	@IBOutlet weak var soundButton: UIButton!
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var instructionsButton: UIButton!
+	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
 	
 	func setButtonsLanguage(lang: String) {
 		
-		langButton.setTitle("FLAG".localized(lang), forState: UIControlState.Normal)
 		startButton.setImage(UIImage(named: "START_GAME".localized(lang)), forState: UIControlState.Normal)
 		instructionsButton.setImage(UIImage(named: "INSTRUCTIONS".localized(lang)), forState: UIControlState.Normal)
+		settingsButton.setImage(UIImage(named: "SETTINGS".localized(lang)), forState: UIControlState.Normal)
 		mainMenuNavItem.title = "MAIN_MENU".localized(lang)
 	}
 	
@@ -26,11 +25,11 @@ class VC: UIViewController, UIAlertViewDelegate {
 		
 		// Set up the background music
 		if let bgMusic = setupAudioPlayerWithFile("bensound-funkyelement", type:"mp3") {
-			self.bgMusic = bgMusic
+			VC.bgMusic = bgMusic
 		}
 		
-		bgMusic?.volume = 0.06
-		bgMusic?.play()
+		VC.bgMusic?.volume = 0.06
+		VC.bgMusic?.play()
 		
 		// Set default language
 		let lang = NSLocale.preferredLanguages()[0]
@@ -39,10 +38,6 @@ class VC: UIViewController, UIAlertViewDelegate {
 		VC.language = localLanguage
 		
 		setButtonsLanguage(localLanguage)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
 	@IBAction func showInstructions(sender: AnyObject) {
@@ -57,32 +52,22 @@ class VC: UIViewController, UIAlertViewDelegate {
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
 	
-	@IBAction func changeLangButton(sender: UIButton) {
+	@IBAction func unwindWithSelectedLanguage(segue: UIStoryboardSegue) {
 		
-		if VC.language == "es" {
-			setButtonsLanguage("en")
-			VC.language = "en"
+		if let languagePickerViewController = segue.sourceViewController as? LanguageVC,
+			selectedLanguage = languagePickerViewController.selectedLanguage {
+			
+			if selectedLanguage == "SPANISH".localized(VC.language!) {
+				VC.language = "es"
+			}
+			else {
+				VC.language = "en"
+			}
+			
+			setButtonsLanguage(VC.language!)
 		}
-		else {
-			setButtonsLanguage("es")
-			VC.language = "es"
-		}
+	}
 
-	}
-	
-	@IBAction func soundButtonAction(sender: UIButton) {
-		
-		if bgMusic?.playing == true {
-			bgMusic?.stop()
-			soundButton.setTitle("🔇", forState: UIControlState.Normal)
-		}
-		else {
-			bgMusic?.play()
-			soundButton.setTitle("🔈", forState: UIControlState.Normal)
-		}
-		
-	}
-	
 }
 
 func setupAudioPlayerWithFile(file:NSString, type:NSString) -> AVAudioPlayer? {

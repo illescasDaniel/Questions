@@ -1,5 +1,3 @@
-"FLAG" = "🇬🇧";
-
 "MAIN_MENU" = "Main menu";
 "START_GAME" = "Start game";
 "INSTRUCTIONS" = "Instructions";
@@ -7,6 +5,12 @@
 "OK" = "OK";
 
 "QUESTIONS_SET" = "Questions set";
+
+"SETTINGS" = "Settings";
+"LANGUAGE" = "Language";
+"SPANISH" = "Spanish";
+"ENGLISH" = "English";
+"BG_MUSIC" = "Background music";
 
 "CORRECT_ANSWER" = "Correct!";
 "INCORRECT_ANSWER" = "Incorrect";

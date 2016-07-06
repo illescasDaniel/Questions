@@ -3,10 +3,11 @@ Quiz app for iOS with support for multiple languages (English and Spanish)
 
 Screnshots
 -------
-<img src="http://i.imgur.com/5Xxq86Z.png" width="250">
-<img src="http://i.imgur.com/UyfG67E.png" width="250">
-<img src="http://i.imgur.com/b7h6BMU.png" width="250">  
-
+<img src="http://i.imgur.com/lMVHO0G.png" width="250">
+<img src="http://i.imgur.com/Rfu0o2D.png" width="250">
+<img src="http://i.imgur.com/VXS9By1.png" width="250">  
+<img src="http://i.imgur.com/WvSz6kC.png" width="250">
+<img src="http://i.imgur.com/7Rk8lh6.png" width="250">
 
 # ASSETS #
 

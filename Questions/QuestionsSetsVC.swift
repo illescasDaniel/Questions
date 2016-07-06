@@ -11,12 +11,7 @@ class QuestionsSetsVC: UITableViewController {
 		questionsSetsNavItem.title = "QUESTIONS_SET".localized(VC.language!)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
