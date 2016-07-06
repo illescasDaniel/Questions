@@ -2,13 +2,8 @@ import UIKit
 
 class QuestionsSetsVC: UITableViewController {
 	
-	@IBOutlet weak var questionsSetsNavItem: UINavigationItem!
-	@IBOutlet weak var specialSet: UILabel!
-	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		questionsSetsNavItem.title = "QUESTIONS_SET".localized(VC.language!)
     }
 
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -18,5 +13,8 @@ class QuestionsSetsVC: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-
+	
+	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return "QUESTIONS_SET".localized(VC.language!)
+	}
 }
