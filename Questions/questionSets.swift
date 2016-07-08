@@ -54,3 +54,18 @@ func getSet3() -> [Question] {
 
 	return questions
 }
+
+// GET SET *
+func getSets(set: Int) -> [Question] {
+	
+	switch set {
+	case 1:
+		return getSet1()
+	case 2:
+		return getSet2()
+	case 3:
+		return getSet3()
+	default:
+		return getSet1()
+	}
+}

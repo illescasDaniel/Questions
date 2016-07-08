@@ -10,6 +10,8 @@ struct Question {
 
 class QuestionClass: UIViewController {
 	
+	static var nSets = 3
+	
 	var correctSound: AVAudioPlayer?
 	var incorrectSound: AVAudioPlayer?
 	
@@ -21,21 +23,16 @@ class QuestionClass: UIViewController {
 	
 	var correctAnswer = Int()
 	var qNumber = Int()
-	var questions: [Question] = [] // This value will be overwritten by the subclass in the viewDidLoad method
-	
-	func initialize(){
-		statusLabel.alpha = 0.0
-		endOfQuestions.alpha = 0.0
-		
-		pickQuestion()
-	}
+	var questions: [Question] = [] // This value will be overwritten later
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		initialize()
-		
+		statusLabel.alpha = 0.0
+		endOfQuestions.alpha = 0.0
 		endOfQuestions.text = "END_OF_QUESTIONS".localized(VC.language!)
+		
+		pickQuestion()
 	}
 
 	func pickQuestion() {

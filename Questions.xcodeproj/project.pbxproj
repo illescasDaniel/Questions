@@ -19,11 +19,8 @@
 		65C285D41D2AB6A4002F7DF8 /* QuestionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D31D2AB6A4002F7DF8 /* QuestionClass.swift */; };
 		65C285D61D2AB764002F7DF8 /* questionSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D51D2AB764002F7DF8 /* questionSets.swift */; };
 		65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */; };
-		65CB4C481D29C3E300D2E1C1 /* QuestionSet1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C471D29C3E300D2E1C1 /* QuestionSet1VC.swift */; };
 		65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C491D29C3E300D2E1C1 /* Main.storyboard */; };
 		65CB4C4D1D29C3E300D2E1C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C4C1D29C3E300D2E1C1 /* Assets.xcassets */; };
-		65E5FE8C1D2B16DF00524BF7 /* QuestionSet2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5FE8B1D2B16DF00524BF7 /* QuestionSet2VC.swift */; };
-		65E5FE8E1D2B26CB00524BF7 /* QuestionSet3VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E5FE8D1D2B26CB00524BF7 /* QuestionSet3VC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,14 +39,11 @@
 		65C285D51D2AB764002F7DF8 /* questionSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = questionSets.swift; sourceTree = "<group>"; };
 		65CB4C421D29C3E300D2E1C1 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		65CB4C471D29C3E300D2E1C1 /* QuestionSet1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSet1VC.swift; sourceTree = "<group>"; };
 		65CB4C4A1D29C3E300D2E1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65CB4C4C1D29C3E300D2E1C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65CB4C511D29C3E300D2E1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65CE0EED1D2C391500C163DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
-		65E5FE8B1D2B16DF00524BF7 /* QuestionSet2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSet2VC.swift; sourceTree = "<group>"; };
-		65E5FE8D1D2B26CB00524BF7 /* QuestionSet3VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionSet3VC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +95,6 @@
 				65456AF31D2BC9620048965E /* QuestionsSetsVC.swift */,
 				65C285D31D2AB6A4002F7DF8 /* QuestionClass.swift */,
 				65C285D51D2AB764002F7DF8 /* questionSets.swift */,
-				65CB4C471D29C3E300D2E1C1 /* QuestionSet1VC.swift */,
-				65E5FE8B1D2B16DF00524BF7 /* QuestionSet2VC.swift */,
-				65E5FE8D1D2B26CB00524BF7 /* QuestionSet3VC.swift */,
 				65456AEF1D2BBEF90048965E /* Localizable.strings */,
 				65456AF11D2BC01C0048965E /* StringExtension.swift */,
 				65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */,
@@ -124,6 +115,7 @@
 				65CB4C3E1D29C3E300D2E1C1 /* Sources */,
 				65CB4C3F1D29C3E300D2E1C1 /* Frameworks */,
 				65CB4C401D29C3E300D2E1C1 /* Resources */,
+				65E6770A1D2DB0510010C0D1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -185,6 +177,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		65E6770A1D2DB0510010C0D1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		65CB4C3E1D29C3E300D2E1C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -193,12 +201,9 @@
 				65C285D41D2AB6A4002F7DF8 /* QuestionClass.swift in Sources */,
 				65C285D61D2AB764002F7DF8 /* questionSets.swift in Sources */,
 				65A817011D2D642500BEFA2C /* LanguageVC.swift in Sources */,
-				65E5FE8E1D2B26CB00524BF7 /* QuestionSet3VC.swift in Sources */,
 				65456AF41D2BC9620048965E /* QuestionsSetsVC.swift in Sources */,
-				65E5FE8C1D2B16DF00524BF7 /* QuestionSet2VC.swift in Sources */,
 				65456AF21D2BC01C0048965E /* StringExtension.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* VC.swift in Sources */,
-				65CB4C481D29C3E300D2E1C1 /* QuestionSet1VC.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				65A816FF1D2D549B00BEFA2C /* SettingsVC.swift in Sources */,
 			);

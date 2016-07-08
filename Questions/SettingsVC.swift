@@ -1,11 +1,3 @@
-//
-//  SettingsVC.swift
-//  Questions
-//
-//  Created by Daniel Illescas Romero on 06/07/16.
-//  Copyright © 2016 Daniel Illescas Romero. All rights reserved.
-//
-
 import UIKit
 
 class SettingsVC: UITableViewController {

@@ -4,7 +4,7 @@ import UIKit
 class VC: UIViewController, UIAlertViewDelegate {
 	
 	static var bgMusic: AVAudioPlayer?
-	
+
 	static var language: String?
 	
 	@IBOutlet weak var startButton: UIButton!
