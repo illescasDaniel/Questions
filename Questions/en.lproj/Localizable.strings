@@ -1,20 +1,4 @@
-"MAIN_MENU" = "Main menu";
-"START_GAME" = "Start game";
-"INSTRUCTIONS" = "Instructions";
 "INSTRUCTIONS_TEXT" = "Tap on 'Start game' to see the questions sets; after choosing one, tap on an answer to see if is correct or not.";
-"OK" = "OK";
-
-"QUESTIONS_SET" = "Questions set";
-
-"SETTINGS" = "Settings";
-"LANGUAGE" = "Language";
-"SPANISH" = "Spanish";
-"ENGLISH" = "English";
-"BG_MUSIC" = "Background music";
-
-"CORRECT_ANSWER" = "Correct!";
-"INCORRECT_ANSWER" = "Incorrect";
-"END_OF_QUESTIONS" = "End of questions";
 
 /* ALL QUESTION SETS */
 

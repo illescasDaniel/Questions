@@ -3,10 +3,10 @@ Quiz app for iOS with support for multiple languages (English and Spanish)
 
 Screnshots
 -------
-<img src="http://i.imgur.com/lMVHO0G.png" width="250">
-<img src="http://i.imgur.com/Rfu0o2D.png" width="250">
-<img src="http://i.imgur.com/VXS9By1.png" width="250">  
-[More screenshots](http://imgur.com/a/ldiFI)
+<img src="http://i.imgur.com/Xqp3On1.png" width="250">
+<img src="http://i.imgur.com/ugqlzBz.png" width="250">
+<img src="http://i.imgur.com/d3QVqKn.png" width="250">  
+[More screenshots](http://imgur.com/a/cvA3w)
 
 # ASSETS #
 
@@ -31,5 +31,6 @@ https://www.freesound.org/people/rhodesmas/sounds/342756/
 
 Special thanks to
 -----------------
+Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))
 Jared Davidson for the "Making A Quiz Game" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  
 Caroline Begbie for this [tutorial](https://www.raywenderlich.com/113394/storyboards-tutorial-in-ios-9-part-2)

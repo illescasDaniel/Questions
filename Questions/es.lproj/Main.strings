@@ -1,84 +1,12 @@
-
-/* Class = "UILabel"; text = "Correct/Incorrect"; ObjectID = "1UV-QE-UW9"; */
-"1UV-QE-UW9.text" = "Correct/Incorrect";
-
-/* Class = "UIButton"; normalTitle = "Answer 1"; ObjectID = "1jG-DC-DEC"; */
-"1jG-DC-DEC.normalTitle" = "Answer 1";
-
-/* Class = "UIButton"; normalTitle = "Start Game"; ObjectID = "2Qp-9e-ysY"; */
-"2Qp-9e-ysY.normalTitle" = "Start Game";
-
 /* Class = "UINavigationItem"; title = "Main Menu"; ObjectID = "4da-ip-kPT"; */
 "4da-ip-kPT.title" = "Main Menu";
-
-/* Class = "UILabel"; text = "End of questions"; ObjectID = "57M-hM-0lK"; */
-"57M-hM-0lK.text" = "End of questions";
-
-/* Class = "UILabel"; text = "End of questions"; ObjectID = "5CT-4m-OlG"; */
-"5CT-4m-OlG.text" = "End of questions";
-
-/* Class = "UILabel"; text = "Question"; ObjectID = "Du5-0E-tpZ"; */
-"Du5-0E-tpZ.text" = "Question";
 
 /* Class = "UILabel"; text = "SET #|"; ObjectID = "GDX-Sp-PL1"; */
 "GDX-Sp-PL1.text" = "SET #|";
 
-/* Class = "UIButton"; normalTitle = "Instructions"; ObjectID = "LYG-O4-II1"; */
-"LYG-O4-II1.normalTitle" = "Instructions";
-
-/* Class = "UILabel"; text = "Correct/Incorrect"; ObjectID = "PHS-MM-hKH"; */
-"PHS-MM-hKH.text" = "Correct/Incorrect";
-
-/* Class = "UILabel"; text = "Question"; ObjectID = "QdA-Os-BZS"; */
-"QdA-Os-BZS.text" = "Question";
-
-/* Class = "UILabel"; text = "Correct/Incorrect"; ObjectID = "SGj-KB-roD"; */
-"SGj-KB-roD.text" = "Correct/Incorrect";
-
-/* Class = "UIButton"; normalTitle = "Answer 4"; ObjectID = "YK9-ta-Z6y"; */
-"YK9-ta-Z6y.normalTitle" = "Answer 4";
-
-/* Class = "UIButton"; normalTitle = "Answer 1"; ObjectID = "cu3-P7-gpi"; */
-"cu3-P7-gpi.normalTitle" = "Answer 1";
-
-/* Class = "UIButton"; normalTitle = "Answer 3"; ObjectID = "de8-uo-TPF"; */
-"de8-uo-TPF.normalTitle" = "Answer 3";
-
-/* Class = "UIButton"; normalTitle = "Answer 4"; ObjectID = "dqb-li-nki"; */
-"dqb-li-nki.normalTitle" = "Answer 4";
-
 /* Class = "UILabel"; text = "SET #2"; ObjectID = "eUL-JN-LC7"; */
 "eUL-JN-LC7.text" = "SET #2";
-
-/* Class = "UIButton"; normalTitle = "Answer 2"; ObjectID = "h0A-Pk-j2t"; */
-"h0A-Pk-j2t.normalTitle" = "Answer 2";
 
 /* Class = "UILabel"; text = "SET #3"; ObjectID = "h4K-3K-XYq"; */
 "h4K-3K-XYq.text" = "SET #3";
 
-/* Class = "UILabel"; text = "End of questions"; ObjectID = "ide-mK-a07"; */
-"ide-mK-a07.text" = "End of questions";
-
-/* Class = "UINavigationItem"; title = "Questions Sets"; ObjectID = "piD-Nj-KdH"; */
-"piD-Nj-KdH.title" = "Questions Sets";
-
-/* Class = "UIButton"; normalTitle = "Answer 2"; ObjectID = "qa1-0Y-nd5"; */
-"qa1-0Y-nd5.normalTitle" = "Answer 2";
-
-/* Class = "UIButton"; normalTitle = "Answer 1"; ObjectID = "rsH-9v-dEh"; */
-"rsH-9v-dEh.normalTitle" = "Answer 1";
-
-/* Class = "UIButton"; normalTitle = "Answer 3"; ObjectID = "uIU-6m-h9Z"; */
-"uIU-6m-h9Z.normalTitle" = "Answer 3";
-
-/* Class = "UILabel"; text = "Question"; ObjectID = "xDb-XE-1wI"; */
-"xDb-XE-1wI.text" = "Question";
-
-/* Class = "UIButton"; normalTitle = "Answer 3"; ObjectID = "yfV-gR-mMs"; */
-"yfV-gR-mMs.normalTitle" = "Answer 3";
-
-/* Class = "UIButton"; normalTitle = "Answer 4"; ObjectID = "ywk-9P-Qow"; */
-"ywk-9P-Qow.normalTitle" = "Answer 4";
-
-/* Class = "UIButton"; normalTitle = "Answer 2"; ObjectID = "zOB-9C-ybd"; */
-"zOB-9C-ybd.normalTitle" = "Answer 2";

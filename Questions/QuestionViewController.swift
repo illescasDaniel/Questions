@@ -1,22 +1,20 @@
 import UIKit
 import Foundation
 import AVFoundation
+import CoreGraphics
 
-struct Question {
-	var question: String
-	var answers: [String] = []
-	var answer: Int?
-}
-
-class QuestionClass: UIViewController {
-	
-	static var nSets = 3
-	
+class QuestionViewController : UIViewController {
 	var correctSound: AVAudioPlayer?
 	var incorrectSound: AVAudioPlayer?
 	
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
+	@IBOutlet var pauseButton: UIButton!
+	
+	@IBOutlet var pauseMenu: UIView!
+	@IBOutlet var goBack: UIButton!
+	@IBOutlet var muteMusic: UIButton!
+	@IBOutlet var mainMenu: UIButton!
 	
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var endOfQuestions: UILabel!
@@ -28,9 +26,22 @@ class QuestionClass: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		statusLabel.alpha = 0.0
-		endOfQuestions.alpha = 0.0
-		endOfQuestions.text = "END_OF_QUESTIONS".localized(VC.language!)
+		pauseMenu.hidden = true
+		
+		statusLabel.hidden = true
+		
+		endOfQuestions.hidden = true
+		endOfQuestions.text = "End of questions".localized
+		
+		if ((MainViewController.bgMusic?.playing) != nil) {
+			muteMusic.setTitle("Mute music".localized, forState: .Normal)
+		}
+		else {
+			muteMusic.setTitle("Play music".localized, forState: .Normal)
+		}
+		
+		goBack.setTitle("Go back".localized, forState: .Normal)
+		mainMenu.setTitle("Main menu".localized, forState: .Normal)
 		
 		pickQuestion()
 	}
@@ -45,27 +56,27 @@ class QuestionClass: UIViewController {
 			correctAnswer = questions[qNumber].answer!
 			
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle(questions[qNumber].answers[i], forState: UIControlState.Normal)
+				answersLabels[i].setTitle(questions[qNumber].answers[i], forState: .Normal)
 			}
 			
 			questions.removeAtIndex(qNumber)
 		}
 		else {
-			endOfQuestions.alpha = 1.0
+			endOfQuestions.hidden = false
 		}
 		
 	}
 	
 	func verifyAnswer(answer: Int) {
 		
-		statusLabel.alpha = 1.0
+		statusLabel.hidden = false
 		
 		if answer == correctAnswer {
-			statusLabel.textColor = UIColor.greenColor()
-			statusLabel.text = "CORRECT_ANSWER".localized(VC.language!)
+			statusLabel.textColor = .greenColor()
+			statusLabel.text = "Correct!".localized
 			
 			// Play correct sound
-			if let correctSound = setupAudioPlayerWithFile("correct", type:"mp3") {
+			if let correctSound = AVAudioPlayer(file:"correct", type:"mp3") {
 				self.correctSound = correctSound
 			}
 			
@@ -73,11 +84,11 @@ class QuestionClass: UIViewController {
 			correctSound?.play()
 		}
 		else {
-			statusLabel.textColor = UIColor.redColor()
-			statusLabel.text = "INCORRECT_ANSWER".localized(VC.language!)
+			statusLabel.textColor = .redColor()
+			statusLabel.text = "Incorrect".localized
 			
 			// Play incorrect sound
-			if let incorrectSound = setupAudioPlayerWithFile("incorrect", type:"wav") {
+			if let incorrectSound = AVAudioPlayer(file:"incorrect", type:"wav") {
 				self.incorrectSound = incorrectSound
 			}
 			
@@ -107,4 +118,22 @@ class QuestionClass: UIViewController {
 		verifyAnswer(3)
 	}
 
+	@IBAction func pauseMenu(sender: AnyObject) {
+		pauseMenu.hidden = pauseMenu.hidden ? false : true
+	}
+	
+	@IBAction func muteMusicAction(sender: UIButton) {
+		
+		if let bgMusic = MainViewController.bgMusic {
+			if bgMusic.playing {
+				bgMusic.stop()
+				muteMusic.setTitle("Play music".localized, forState: .Normal)
+			}
+			else {
+				bgMusic.play()
+				muteMusic.setTitle("Mute music".localized, forState: .Normal)
+			}
+		}
+		
+	}
 }
