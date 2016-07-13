@@ -119,6 +119,11 @@ class QuestionViewController : UIViewController {
 	}
 
 	@IBAction func pauseMenu(sender: AnyObject) {
+		
+		for i in 0..<answersLabels.count {
+			answersLabels[i].enabled = answersLabels[i].enabled ? false : true
+		}
+
 		pauseMenu.hidden = pauseMenu.hidden ? false : true
 	}
 	
