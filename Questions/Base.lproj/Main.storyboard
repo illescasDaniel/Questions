@@ -321,13 +321,6 @@
                                     <action selector="answer2Action:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="hu9-Vi-JcM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="20" width="42" height="30"/>
-                                <state key="normal" title="Pause"/>
-                                <connections>
-                                    <action selector="pauseMenu:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="1FW-Fv-lMl"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="End of questions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwY-zp-cey">
                                 <rect key="frame" x="236" y="472" width="129" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -361,7 +354,7 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToMainMenu:" id="2WG-Uc-39L"/>
+                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToMainMenu:" id="XJ4-k8-wiY"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -379,6 +372,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
+                                <rect key="frame" x="20" y="28" width="45" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="c92-Sh-B4X"/>
+                                    <constraint firstAttribute="width" constant="45" id="p31-BO-UJ4"/>
+                                </constraints>
+                                <state key="normal" title="Pause"/>
+                                <connections>
+                                    <action selector="pauseMenu:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="1FW-Fv-lMl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -415,7 +419,7 @@
                             <constraint firstItem="UdX-im-E3g" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="jr3-KT-iTo"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ecH-y2-fsh" secondAttribute="leading" id="lUX-9F-mXh"/>
                             <constraint firstItem="5bF-eX-HNQ" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="llo-rd-5ex"/>
-                            <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" id="mzH-JT-yEc"/>
+                            <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="8" id="mzH-JT-yEc"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" id="nQz-fF-zlQ"/>
                             <constraint firstItem="srs-vU-0Xc" firstAttribute="top" secondItem="Hu1-Lj-Dsc" secondAttribute="bottom" constant="15" id="p63-bn-xJL"/>
                             <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="q3s-Lr-gEQ"/>

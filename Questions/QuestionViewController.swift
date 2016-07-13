@@ -28,7 +28,7 @@ class QuestionViewController : UIViewController {
 		
 		pauseMenu.hidden = true
 		
-		statusLabel.hidden = true
+		statusLabel.alpha = 0.0
 		
 		endOfQuestions.hidden = true
 		endOfQuestions.text = "End of questions".localized
@@ -42,6 +42,7 @@ class QuestionViewController : UIViewController {
 		
 		goBack.setTitle("Go back".localized, forState: .Normal)
 		mainMenu.setTitle("Main menu".localized, forState: .Normal)
+		pauseButton.setTitle("Pause".localized, forState: .Normal)
 		
 		pickQuestion()
 	}
@@ -69,7 +70,7 @@ class QuestionViewController : UIViewController {
 	
 	func verifyAnswer(answer: Int) {
 		
-		statusLabel.hidden = false
+		statusLabel.alpha = 1.0
 		
 		if answer == correctAnswer {
 			statusLabel.textColor = .greenColor()
