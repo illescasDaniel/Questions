@@ -354,7 +354,7 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToMainMenu:" id="XJ4-k8-wiY"/>
+                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToMainMenu:" id="AtB-1a-tYm"/>
                                         </connections>
                                     </button>
                                 </subviews>

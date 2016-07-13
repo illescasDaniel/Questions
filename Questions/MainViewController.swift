@@ -21,6 +21,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		
 		MainViewController.bgMusic?.volume = 0.06
 		MainViewController.bgMusic?.play()
+		MainViewController.bgMusic?.numberOfLoops = Int.max
 		
 		startButton.setImage(UIImage(named: "Start game".localized), forState: UIControlState.Normal)
 		instructionsButton.setImage(UIImage(named: "Instructions".localized), forState: UIControlState.Normal)
@@ -40,7 +41,8 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
     
-    @IBAction func unwindToMainMenu(unwindSegue:UIStoryboardSegue) {
+    @IBAction func unwindToMainMenu(unwindSegue: UIStoryboardSegue) {
         
     }
+	
 }

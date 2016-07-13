@@ -20,9 +20,8 @@ class SettingsViewController: UITableViewController {
 	}
 
 	@IBAction func switchBGMusic(sender: UISwitch) {
-        
+		
         if let bgMusic = MainViewController.bgMusic {
-            bgMusic.numberOfLoops = Int.max
             
             if bgMusicSwitch.on {
                 bgMusic.play()
@@ -34,4 +33,7 @@ class SettingsViewController: UITableViewController {
         }
 	}
 
+	@IBAction func unwindToSettingsMenu(unwindSegue: UIStoryboardSegue) {
+		
+	}
 }
