@@ -33,7 +33,4 @@ class SettingsViewController: UITableViewController {
         }
 	}
 
-	@IBAction func unwindToSettingsMenu(unwindSegue: UIStoryboardSegue) {
-		
-	}
 }
