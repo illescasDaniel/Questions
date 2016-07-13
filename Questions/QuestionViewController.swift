@@ -27,11 +27,8 @@ class QuestionViewController : UIViewController {
 		super.viewDidLoad()
 		
 		pauseMenu.hidden = true
-		
 		statusLabel.alpha = 0.0
-		
 		endOfQuestions.hidden = true
-		endOfQuestions.text = "End of questions".localized
 		
 		if ((MainViewController.bgMusic?.playing) != nil) {
 			muteMusic.setTitle("Mute music".localized, forState: .Normal)
@@ -40,6 +37,7 @@ class QuestionViewController : UIViewController {
 			muteMusic.setTitle("Play music".localized, forState: .Normal)
 		}
 		
+		endOfQuestions.text = "End of questions".localized
 		goBack.setTitle("Go back".localized, forState: .Normal)
 		mainMenu.setTitle("Main menu".localized, forState: .Normal)
 		pauseButton.setTitle("Pause".localized, forState: .Normal)
