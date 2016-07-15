@@ -4,8 +4,8 @@ import UIKit
 class MainViewController: UIViewController, UIAlertViewDelegate {
 	
 	static var bgMusic: AVAudioPlayer?
-
-	static var language: String?
+	static var correct: AVAudioPlayer?
+	static var incorrect: AVAudioPlayer?
 	
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var instructionsButton: UIButton!
@@ -18,6 +18,17 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
         if let bgMusic = AVAudioPlayer(file:"bensound-funkyelement", type:"mp3") {
 			MainViewController.bgMusic = bgMusic
 		}
+		
+		if let correctSound = AVAudioPlayer(file:"correct", type:"mp3") {
+			MainViewController.correct = correctSound
+		}
+		
+		if let incorrectSound = AVAudioPlayer(file:"incorrect", type:"wav") {
+			MainViewController.incorrect = incorrectSound
+		}
+		
+		MainViewController.correct?.volume = 0.10
+		MainViewController.incorrect?.volume = 0.33
 		
 		MainViewController.bgMusic?.volume = 0.06
 		MainViewController.bgMusic?.play()

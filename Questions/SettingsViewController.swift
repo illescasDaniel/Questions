@@ -20,17 +20,17 @@ class SettingsViewController: UITableViewController {
 	}
 
 	@IBAction func switchBGMusic(sender: UISwitch) {
-		
-        if let bgMusic = MainViewController.bgMusic {
-            
-            if bgMusicSwitch.on {
-                bgMusic.play()
-            }
-            else {
-                bgMusic.stop()
-            }
 
-        }
+		if let bgMusic = MainViewController.bgMusic {
+
+			if bgMusicSwitch.on {
+				bgMusic.play()
+			}
+			else {
+				bgMusic.pause()
+			}
+		}
+
 	}
 
 }

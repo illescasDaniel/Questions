@@ -1,125 +1,59 @@
-/* (No Commment) */
-"Background music" = "Música de fondo";
-
-/* (No Commment) */
-"Correct!" = "¡Correcto!";
-
-/* (No Commment) */
-"End of questions" = "Fin de preguntas";
-
-/* (No Commment) */
-"ENGLISH" = "Inglés";
-
-/* (No Commment) */
-"Incorrect" = "Incorrecto";
-
-/* (No Commment) */
-"Instructions" = "Instrucciones";
-
-/* (No Commment) */
-"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar juego' para ver los sets de preguntas; después de escoger uno, da un toque en una respuesta para ver si es correcta o no.";
-
-/* (No Commment) */
-"LANGUAGE" = "Idioma";
-
-/* (No Commment) */
 "Main menu" = "Menú principal";
 
-/* (No Commment) */
-"OK" = "Aceptar";
-
-/* (No Commment) */
-"Questions set" = "Sets de preguntas";
-/* ALL QUESTION SETS */
-
-// SOCIAL
-"Social" = "Social";
-
-"S1Q1" = "¿Cómo te llamas?";
-"S1Q1A1" = "Virginia";
-"S1Q1A2" = "Daniel";
-"S1Q1A3" = "Tete";
-"S1Q1A4" = "Sr. de Incógnito";
-
-"S1Q2" = "¿🐶 o 🐱?";
-"S1Q2A1" = "🐱";
-"S1Q2A2" = "🐶";
-"S1Q2A3" = "Daniel";
-"S1Q2A4" = "Otro";
-
-"S1Q3" = "¿Te gusta la pizza?";
-"S1Q3A1" = "Me encanta!";
-"S1Q3A2" = "Sí";
-"S1Q3A3" = "No";
-"S1Q3A4" = "Tal vez";
-
-// TECH
-"Technology" = "Tecnología";
-
-"S2Q1" = "Mejor SO de escritorio";
-"S2Q1A1" = "macOS";
-"S2Q1A2" = "Windows";
-"S2Q1A3" = "MS-DOS 😎";
-"S2Q1A4" = "Linux c:";
-
-"S2Q2" = "Mejor IDE";
-"S2Q2A1" = "Visual Studio";
-"S2Q2A2" = "Xcode";
-"S2Q2A3" = "Netbeans";
-"S2Q2A4" = "Eclipse";
-
-"S2Q3" = "Mejor SO móvil";
-"S2Q3A1" = "iOS";
-"S2Q3A2" = "Android";
-"S2Q3A3" = "BlackBerry OS";
-"S2Q3A4" = "Windows c:";
-
-"S2Q4" = "Última versión de macOS";
-"S2Q4A1" = "10.11.5";
-"S2Q4A2" = "10.2";
-"S2Q4A3" = "11";
-"S3Q4A4" = "10.12";
-
-"S2Q5" = "¿Qué versión de Windows es mejor?";
-"S2Q5A1" = "Windows XP";
-"S2Q5A2" = "Windows 7";
-"S2Q5A3" = "Windows Vista";
-"S2Q5A4" = "Windows 10";
-
-"S2Q6" = "¿iPhone, iPad o Mac?";
-"S2Q6A1" = "iPhone";
-"S2Q6A2" = "iPad";
-"S2Q6A3" = "mac";
-"S2Q6A4" = "Everyone c:";
-
-// PEOPLE
-"People" = "Gente";
-
-"S3Q1" = "¿Qué edad tiene Barack Obama?";
-"S3Q1A1" = "> 50";
-"S3Q1A2" = "< 50";
-"S3Q1A3" = "35 ☺️";
-"S3Q1A4" = "> 60 👴🏿";
-
-"S3Q2" = "Director ejecutivo de Google";
-"S3Q2A1" = "Larry Page";
-"S3Q2A2" = "Sergey Brin";
-"S3Q2A3" = "Sundar Pichai";
-"S3Q2A4" = "Andy Rubin";
-
-/* (No Commment) */
-"Settings" = "Opciones";
-
-/* (No Commment) */
-"SPANISH" = "Español";
-
-/* (No Commment) */
 "Start game" = "Comenzar";
 
-"Mute music" = "Silenciar música";
+"Instructions" = "Instrucciones";
+"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar juego' para ver los sets de preguntas; después de escoger uno, da un toque en una respuesta para ver si es correcta o no.";
+"OK" = "Aceptar";
 
-"Play music" = "Reproducir música";
+"Settings" = "Opciones";
+"Background music" = "Música de fondo";
 
-"Go back" = "Ir atrás";
+
+"Questions set" = "Sets de preguntas";
+
+"Correct!" = "¡Correcto!";
+"Incorrect" = "Incorrecto";
+"End of questions" = "Fin de preguntas";
 
 "Pause" = "Pausa";
+"Continue" = "Continuar";
+"Pause music" = "Pausar música";
+"Play music" = "Reproducir música";
+"Go back" = "Ir atrás";
+
+
+/* QUESTION SETS */
+
+//
+"Social" = "Social";
+
+"What's your name?" = "¿Cómo te llamas?";
+	"Pete" = "Tete";
+	"Mr. Incognito" = "Sr. de Incógnito";
+
+"🐶 or 🐱?" = "¿🐶 o 🐱?";
+	"Other" = "Otro";
+
+"Do you like Pizza?" = "¿Te gusta la pizza?";
+	"I love it!" = "¡Me encanta!";
+	"Yes" = "Sí";
+	"Maybe" = "Tal vez";
+
+//
+"Technology" = "Tecnología";
+
+"Best desktop OS" = "Mejor SO de escritorio";
+"Best IDE" = "Mejor IDE";
+"Best smartphone OS" = "Mejor SO móvil";
+"Latest macOS version" = "Última versión de macOS";
+"Which Windows version is the best?" = "¿Qué versión de Windows es mejor?";
+
+"iPhone, iPad or Mac?" = "¿iPhone, iPad o Mac?";
+	"Everyone c:" = "Todos c:";
+
+//
+"People" = "Gente";
+
+"How old is Barack Obama?" = "¿Qué edad tiene Barack Obama?";
+"Google CEO" = "Director ejecutivo de Google";

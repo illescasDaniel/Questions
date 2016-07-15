@@ -336,10 +336,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="28" width="45" height="40"/>
+                                <rect key="frame" x="20" y="28" width="67" height="37"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="c92-Sh-B4X"/>
-                                    <constraint firstAttribute="width" constant="45" id="p31-BO-UJ4"/>
+                                    <constraint firstAttribute="width" constant="67" id="VXP-Ac-kQU"/>
+                                    <constraint firstAttribute="height" constant="37" id="uak-uo-YTW"/>
                                 </constraints>
                                 <state key="normal" title="Pause"/>
                                 <connections>
@@ -357,7 +357,6 @@
                             <constraint firstAttribute="leadingMargin" secondItem="srs-vU-0Xc" secondAttribute="leading" id="9jT-5H-g5z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ecH-y2-fsh" secondAttribute="trailing" id="AQw-gH-caH"/>
                             <constraint firstItem="UdX-im-E3g" firstAttribute="top" secondItem="srs-vU-0Xc" secondAttribute="bottom" constant="15" id="Ahy-tt-Ih2"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="liL-s5-Eng" secondAttribute="leading" id="EIL-jU-iYJ"/>
                             <constraint firstItem="vRX-6x-WvX" firstAttribute="top" secondItem="Xtz-oh-bXj" secondAttribute="bottom" constant="74" id="FfU-dZ-C94">
                                 <variation key="heightClass=compact" constant="256"/>
                             </constraint>
@@ -379,10 +378,11 @@
                             </constraint>
                             <constraint firstItem="srs-vU-0Xc" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="g8F-gj-Hzd"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Hu1-Lj-Dsc" secondAttribute="leading" id="hll-g0-YAp"/>
+                            <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="8" id="idP-oT-tHH"/>
                             <constraint firstItem="UdX-im-E3g" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="jr3-KT-iTo"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ecH-y2-fsh" secondAttribute="leading" id="lUX-9F-mXh"/>
                             <constraint firstItem="5bF-eX-HNQ" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="llo-rd-5ex"/>
-                            <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="8" id="mzH-JT-yEc"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="liL-s5-Eng" secondAttribute="leading" id="mh2-d8-Kgo"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" id="nQz-fF-zlQ"/>
                             <constraint firstItem="srs-vU-0Xc" firstAttribute="top" secondItem="Hu1-Lj-Dsc" secondAttribute="bottom" constant="15" id="p63-bn-xJL"/>
                             <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="q3s-Lr-gEQ"/>

@@ -7,32 +7,27 @@ class QuestionsSetsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		sets = ["Social".localized,"Technology".localized,"People".localized]
-    }
-
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+		sets = ["Social".localized, "Technology".localized, "People".localized]
     }
 	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		
-		let cell = tableView.dequeueReusableCellWithIdentifier("setCell")
-		
-		cell?.textLabel?.text = sets[indexPath.row]
-		
-		return cell!
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return sets.count
 	}
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sets.count
-    }
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return "Questions set".localized
 	}
 	
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+		
+		let cell = tableView.dequeueReusableCellWithIdentifier("setCell")
+		cell?.textLabel?.text = sets[indexPath.row]
+		
+		return cell!
+	}
+
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		performSegueWithIdentifier("selectQuestionSet", sender: indexPath.row + 1)
+		performSegueWithIdentifier("selectQuestionSet", sender: indexPath.row)
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -41,9 +36,9 @@ class QuestionsSetsViewController: UITableViewController {
 			
 			let controller = segue.destinationViewController as! QuestionViewController
 			
-			for i in 1...sets.count {
+			for i in 0..<sets.count {
                 if set == i {
-                    controller.questions = Question.getSets(i)
+                    controller.questions = Quiz.getSet(i)
                     break
                 }
 			}
@@ -52,6 +47,7 @@ class QuestionsSetsViewController: UITableViewController {
 	}
     
     @IBAction func unwindToQuestionSetSelector(segue: UIStoryboardSegue) {
-        
-    }
+	
+	}
+	
 }

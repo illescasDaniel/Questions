@@ -3,141 +3,148 @@ import Foundation
 import AVFoundation
 import CoreGraphics
 
-class QuestionViewController : UIViewController {
-	var correctSound: AVAudioPlayer?
-	var incorrectSound: AVAudioPlayer?
-	
+class QuestionViewController: UIViewController {
+
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
 	@IBOutlet var pauseButton: UIButton!
-	
+
 	@IBOutlet var pauseMenu: UIView!
 	@IBOutlet var goBack: UIButton!
 	@IBOutlet var muteMusic: UIButton!
 	@IBOutlet var mainMenu: UIButton!
-	
+
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var endOfQuestions: UILabel!
-	
+
+	var paused = true
 	var correctAnswer = Int()
 	var qNumber = Int()
-	var questions: [Question] = [] // This value will be overwritten later
-	
+	var questions: [Quiz] = [] // This value will be overwritten later
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		pauseMenu.hidden = true
-		statusLabel.alpha = 0.0
 		endOfQuestions.hidden = true
-		
-		if ((MainViewController.bgMusic?.playing) != nil) {
-			muteMusic.setTitle("Mute music".localized, forState: .Normal)
+		statusLabel.alpha = 0.0
+
+		if let bgMusic = MainViewController.bgMusic {
+			
+			let state = bgMusic.playing ? "Pause music" : "Play music"
+			muteMusic.setTitle(state.localized, forState: .Normal)
 		}
-		else {
-			muteMusic.setTitle("Play music".localized, forState: .Normal)
-		}
-		
+
 		endOfQuestions.text = "End of questions".localized
 		goBack.setTitle("Go back".localized, forState: .Normal)
 		mainMenu.setTitle("Main menu".localized, forState: .Normal)
 		pauseButton.setTitle("Pause".localized, forState: .Normal)
-		
+
 		pickQuestion()
 	}
 
 	func pickQuestion() {
-		
+
 		if !questions.isEmpty {
-			
+
 			qNumber = Int(arc4random_uniform(UInt32(questions.count)))
-			
+
 			questionLabel.text = questions[qNumber].question
 			correctAnswer = questions[qNumber].answer!
-			
+
 			for i in 0..<answersLabels.count {
 				answersLabels[i].setTitle(questions[qNumber].answers[i], forState: .Normal)
 			}
-			
+
 			questions.removeAtIndex(qNumber)
 		}
 		else {
 			endOfQuestions.hidden = false
+			answersLabels.forEach { $0.enabled = false }
 		}
-		
 	}
-	
+
 	func verifyAnswer(answer: Int) {
-		
+
+		stopPreviousSounds()
+
 		statusLabel.alpha = 1.0
-		
+
 		if answer == correctAnswer {
 			statusLabel.textColor = .greenColor()
 			statusLabel.text = "Correct!".localized
-			
-			// Play correct sound
-			if let correctSound = AVAudioPlayer(file:"correct", type:"mp3") {
-				self.correctSound = correctSound
+
+			if let correctSound = MainViewController.correct {
+				correctSound.play()
 			}
-			
-			correctSound?.volume = 0.10
-			correctSound?.play()
 		}
 		else {
 			statusLabel.textColor = .redColor()
 			statusLabel.text = "Incorrect".localized
-			
-			// Play incorrect sound
-			if let incorrectSound = AVAudioPlayer(file:"incorrect", type:"wav") {
-				self.incorrectSound = incorrectSound
+
+			if let incorrectSound = MainViewController.incorrect {
+				incorrectSound.play()
 			}
-			
-			incorrectSound?.volume = 0.33
-			incorrectSound?.play()
 		}
-		
+
 		// Fade out animation for statusLabel
-		UIView.animateWithDuration(1.5, animations: {self.statusLabel.alpha = 0.0})
-		
+		UIView.animateWithDuration(1.5, animations: { self.statusLabel.alpha = 0.0 })
+
 		pickQuestion()
 	}
-	
+
+	func stopPreviousSounds() {
+
+		if let incorrectSound = MainViewController.incorrect where incorrectSound.playing {
+			incorrectSound.pause()
+			incorrectSound.currentTime = 0
+		}
+
+		if let correctSound = MainViewController.correct where correctSound.playing {
+			correctSound.pause()
+			correctSound.currentTime = 0
+		}
+	}
+
 	@IBAction func answer1Action(sender: UIButton) {
 		verifyAnswer(0)
 	}
-	
+
 	@IBAction func answer2Action(sender: UIButton) {
 		verifyAnswer(1)
 	}
-	
+
 	@IBAction func answer3Action(sender: UIButton) {
 		verifyAnswer(2)
 	}
-	
+
 	@IBAction func answer4Action(sender: UIButton) {
 		verifyAnswer(3)
 	}
 
 	@IBAction func pauseMenu(sender: AnyObject) {
 		
-		for i in 0..<answersLabels.count {
-			answersLabels[i].enabled = answersLabels[i].enabled ? false : true
-		}
+		let state = paused ? "Continue" : "Pause"
+		pauseButton.setTitle(state.localized, forState: .Normal)
 
+		answersLabels.forEach { if endOfQuestions.hidden { $0.enabled = $0.enabled ? false : true } }
+		
+		paused = paused ? false : true
 		pauseMenu.hidden = pauseMenu.hidden ? false : true
 	}
-	
+
 	@IBAction func muteMusicAction(sender: UIButton) {
-		
+
 		if let bgMusic = MainViewController.bgMusic {
 			if bgMusic.playing {
-				bgMusic.stop()
+				bgMusic.pause()
 				muteMusic.setTitle("Play music".localized, forState: .Normal)
 			}
 			else {
 				bgMusic.play()
-				muteMusic.setTitle("Mute music".localized, forState: .Normal)
+				muteMusic.setTitle("Pause music".localized, forState: .Normal)
 			}
 		}
-		
+
 	}
 }
