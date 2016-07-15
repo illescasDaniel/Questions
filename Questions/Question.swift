@@ -5,8 +5,6 @@ struct Question {
     var answers: [String] = []
     var answer: Int?
     
-    static let nSets = 3
-    
     static func getSet(set: Int, nQuestions: Int) -> [Question] {
         
         var questions: [Question] = []
@@ -23,41 +21,40 @@ struct Question {
         return questions
     }
     
-    // QUESTIONS SET #1
+    // SOCIAL set
     static func getSet1() -> [Question] {
         
-        var questions: [Question] = getSet(1, nQuestions: 4)
+        var questions: [Question] = getSet(1, nQuestions: 3)
         
         questions[0].answer = 3
-        questions[1].answer = 0
+        questions[1].answer = 1
         questions[2].answer = 1
-        questions[3].answer = 1
         
         return questions
     }
     
-    // SET #2
+    // TECH set
     static func getSet2() -> [Question] {
         
-        var questions: [Question] = getSet(2, nQuestions: 3)
+        var questions: [Question] = getSet(2, nQuestions: 6)
         
         questions[0].answer = 0
         questions[1].answer = 1
-        questions[2].answer = 2
-        
+        questions[2].answer = 0
+		questions[3].answer = 3
+		questions[4].answer = 3
+		questions[5].answer = 3
+		
         return questions
     }
     
-    // SET #3
+    // PEOPLE set
     static func getSet3() -> [Question] {
         
-        var questions: [Question] = getSet(3, nQuestions: 5)
+        var questions: [Question] = getSet(3, nQuestions: 2)
         
         questions[0].answer = 0
         questions[1].answer = 2
-        questions[2].answer = 3
-        questions[3].answer = 3
-        questions[4].answer = 3
         
         return questions
     }

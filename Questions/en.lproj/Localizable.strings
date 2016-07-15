@@ -2,32 +2,26 @@
 
 /* ALL QUESTION SETS */
 
-// SET #1
+// SOCIAL
 "S1Q1" = "What's your name?";
 	"S1Q1A1" = "Virginia";
 	"S1Q1A2" = "Daniel";
 	"S1Q1A3" = "Pete";
 	"S1Q1A4" = "Mr. Incognito";
 
-"S1Q2" = "Best smartphone OS";
-	"S1Q2A1" = "iOS";
-	"S1Q2A2" = "Android";
-	"S1Q2A3" = "BlackBerry OS";
-	"S1Q2A4" = "Windows c:";
+"S1Q2" = "🐶 or 🐱?";
+	"S1Q2A1" = "🐱";
+	"S1Q2A2" = "🐶";
+	"S1Q2A3" = "Daniel";
+	"S1Q2A4" = "Other";
 
-"S1Q3" = "🐶 or 🐱?";
-	"S1Q3A1" = "🐱";
-	"S1Q3A2" = "🐶";
-	"S1Q3A3" = "Daniel";
-	"S1Q3A4" = "Other";
+"S1Q3" = "Do you like Pizza?";
+	"S1Q3A1" = "I love it!";
+	"S1Q3A2" = "Yes";
+	"S1Q3A3" = "No";
+	"S1Q3A4" = "Maybe";
 
-"S1Q4" = "Do you like Pizza?";
-	"S1Q4A1" = "I love it!";
-	"S1Q4A2" = "Yes";
-	"S1Q4A3" = "No";
-	"S1Q4A4" = "Maybe";
-
-// SET #2
+// TECH
 "S2Q1" = "Best desktop OS";
 	"S2Q1A1" = "macOS";
 	"S2Q1A2" = "Windows (aka lagOS)";
@@ -40,13 +34,31 @@
 	"S2Q2A3" = "Netbeans";
 	"S2Q2A4" = "Eclipse";
 
-"S2Q3" = "Best photography company";
-	"S2Q3A1" = "Leica";
-	"S2Q3A2" = "Nikon";
-	"S2Q3A3" = "Canon";
-	"S2Q3A4" = "Sony";
+"S2Q3" = "Best smartphone OS";
+	"S2Q3A1" = "iOS";
+	"S2Q3A2" = "Android";
+	"S2Q3A3" = "BlackBerry OS";
+	"S2Q3A4" = "Windows c:";
 
-// SET #3
+"S2Q4" = "Latest macOS version";
+	"S2Q4A1" = "10.11.5";
+	"S2Q4A2" = "10.2";
+	"S2Q4A3" = "11";
+	"S3Q4A4" = "10.12";
+
+"S2Q5" = "Which Windows version is the best?";
+	"S2Q5A1" = "Windows XP";
+	"S2Q5A2" = "Windows 7";
+	"S2Q5A3" = "Windows Vista";
+	"S2Q5A4" = "Windows 10";
+
+"S2Q6" = "iPhone, iPad or Mac?";
+	"S2Q6A1" = "iPhone";
+	"S2Q6A2" = "iPad";
+	"S2Q6A3" = "mac";
+	"S2Q6A4" = "Everyone c:";
+
+// PEOPLE
 "S3Q1" = "How old is Barack Obama?";
 	"S3Q1A1" = "> 50";
 	"S3Q1A2" = "< 50";
@@ -59,20 +71,4 @@
 	"S3Q2A3" = "Sundar Pichai";
 	"S3Q2A4" = "Andy Rubin";
 
-"S3Q3" = "Latest macOS version";
-	"S3Q3A1" = "10.11.5";
-	"S3Q3A2" = "10.2";
-	"S3Q3A3" = "11";
-	"S3Q3A4" = "10.12";
 
-"S3Q4" = "Which Windows version is the best?";
-	"S3Q4A1" = "Windows XP";
-	"S3Q4A2" = "Windows 7";
-	"S3Q4A3" = "Windows Vista";
-	"S3Q4A4" = "Windows 10";
-
-"S3Q5" = "iPhone, iPad or Mac?";
-	"S3Q5A1" = "iPhone";
-	"S3Q5A2" = "iPad";
-	"S3Q5A3" = "mac";
-	"S3Q5A4" = "Everyone c:";

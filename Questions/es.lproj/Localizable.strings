@@ -30,186 +30,82 @@
 
 /* (No Commment) */
 "Questions set" = "Sets de preguntas";
+/* ALL QUESTION SETS */
 
-/* (No Commment) */
+// SOCIAL
+"Social" = "Social";
+
 "S1Q1" = "¿Cómo te llamas?";
-
-/* (No Commment) */
 "S1Q1A1" = "Virginia";
-
-/* (No Commment) */
 "S1Q1A2" = "Daniel";
-
-/* (No Commment) */
 "S1Q1A3" = "Tete";
-
-/* (No Commment) */
 "S1Q1A4" = "Sr. de Incógnito";
 
-/* (No Commment) */
-"S1Q2" = "Mejor SO móvil";
+"S1Q2" = "¿🐶 o 🐱?";
+"S1Q2A1" = "🐱";
+"S1Q2A2" = "🐶";
+"S1Q2A3" = "Daniel";
+"S1Q2A4" = "Otro";
 
-/* (No Commment) */
-"S1Q2A1" = "iOS";
+"S1Q3" = "¿Te gusta la pizza?";
+"S1Q3A1" = "Me encanta!";
+"S1Q3A2" = "Sí";
+"S1Q3A3" = "No";
+"S1Q3A4" = "Tal vez";
 
-/* (No Commment) */
-"S1Q2A2" = "Android";
+// TECH
+"Technology" = "Tecnología";
 
-/* (No Commment) */
-"S1Q2A3" = "BlackBerry OS";
-
-/* (No Commment) */
-"S1Q2A4" = "Windows c:";
-
-/* (No Commment) */
-"S1Q3" = "¿🐶 o 🐱?";
-
-/* (No Commment) */
-"S1Q3A1" = "🐱";
-
-/* (No Commment) */
-"S1Q3A2" = "🐶";
-
-/* (No Commment) */
-"S1Q3A3" = "Daniel";
-
-/* (No Commment) */
-"S1Q3A4" = "Otro";
-
-/* (No Commment) */
-"S1Q4" = "¿Te gusta la pizza?";
-
-/* (No Commment) */
-"S1Q4A1" = "¡Me encanta!";
-
-/* (No Commment) */
-"S1Q4A2" = "Sí";
-
-/* (No Commment) */
-"S1Q4A3" = "No";
-
-/* (No Commment) */
-"S1Q4A4" = "Tal vez";
-
-/* (No Commment) */
 "S2Q1" = "Mejor SO de escritorio";
-
-/* (No Commment) */
 "S2Q1A1" = "macOS";
-
-/* (No Commment) */
 "S2Q1A2" = "Windows";
-
-/* (No Commment) */
 "S2Q1A3" = "MS-DOS 😎";
-
-/* (No Commment) */
 "S2Q1A4" = "Linux c:";
 
-/* (No Commment) */
-"S2Q2" = "Mejor entorno de programación";
-
-/* (No Commment) */
+"S2Q2" = "Mejor IDE";
 "S2Q2A1" = "Visual Studio";
-
-/* (No Commment) */
 "S2Q2A2" = "Xcode";
-
-/* (No Commment) */
 "S2Q2A3" = "Netbeans";
-
-/* (No Commment) */
 "S2Q2A4" = "Eclipse";
 
-/* (No Commment) */
-"S2Q3" = "Mejor compañía de fotografía";
+"S2Q3" = "Mejor SO móvil";
+"S2Q3A1" = "iOS";
+"S2Q3A2" = "Android";
+"S2Q3A3" = "BlackBerry OS";
+"S2Q3A4" = "Windows c:";
 
-/* (No Commment) */
-"S2Q3A1" = "Leica";
+"S2Q4" = "Última versión de macOS";
+"S2Q4A1" = "10.11.5";
+"S2Q4A2" = "10.2";
+"S2Q4A3" = "11";
+"S3Q4A4" = "10.12";
 
-/* (No Commment) */
-"S2Q3A2" = "Nikon";
+"S2Q5" = "¿Qué versión de Windows es mejor?";
+"S2Q5A1" = "Windows XP";
+"S2Q5A2" = "Windows 7";
+"S2Q5A3" = "Windows Vista";
+"S2Q5A4" = "Windows 10";
 
-/* (No Commment) */
-"S2Q3A3" = "Canon";
+"S2Q6" = "¿iPhone, iPad o Mac?";
+"S2Q6A1" = "iPhone";
+"S2Q6A2" = "iPad";
+"S2Q6A3" = "mac";
+"S2Q6A4" = "Everyone c:";
 
-/* (No Commment) */
-"S2Q3A4" = "Sony";
+// PEOPLE
+"People" = "Gente";
 
-/* (No Commment) */
 "S3Q1" = "¿Qué edad tiene Barack Obama?";
-
-/* (No Commment) */
 "S3Q1A1" = "> 50";
-
-/* (No Commment) */
 "S3Q1A2" = "< 50";
-
-/* (No Commment) */
 "S3Q1A3" = "35 ☺️";
-
-/* (No Commment) */
 "S3Q1A4" = "> 60 👴🏿";
 
-/* (No Commment) */
 "S3Q2" = "Director ejecutivo de Google";
-
-/* (No Commment) */
 "S3Q2A1" = "Larry Page";
-
-/* (No Commment) */
 "S3Q2A2" = "Sergey Brin";
-
-/* (No Commment) */
 "S3Q2A3" = "Sundar Pichai";
-
-/* (No Commment) */
 "S3Q2A4" = "Andy Rubin";
-
-/* (No Commment) */
-"S3Q3" = "Última versión de macOS";
-
-/* (No Commment) */
-"S3Q3A1" = "10.11.5";
-
-/* (No Commment) */
-"S3Q3A2" = "10.2";
-
-/* (No Commment) */
-"S3Q3A3" = "11";
-
-/* (No Commment) */
-"S3Q3A4" = "10.12";
-
-/* (No Commment) */
-"S3Q4" = "¿Cuál es la mejor versión de Windows?";
-
-/* (No Commment) */
-"S3Q4A1" = "Windows XP";
-
-/* (No Commment) */
-"S3Q4A2" = "Windows 7";
-
-/* (No Commment) */
-"S3Q4A3" = "Windows Vista";
-
-/* (No Commment) */
-"S3Q4A4" = "Windows 10";
-
-/* (No Commment) */
-"S3Q5" = "¿iPhone, iPad or Mac?";
-
-/* (No Commment) */
-"S3Q5A1" = "iPhone";
-
-/* (No Commment) */
-"S3Q5A2" = "iPad";
-
-/* (No Commment) */
-"S3Q5A3" = "mac";
-
-/* (No Commment) */
-"S3Q5A4" = "Todos c:";
 
 /* (No Commment) */
 "Settings" = "Opciones";
