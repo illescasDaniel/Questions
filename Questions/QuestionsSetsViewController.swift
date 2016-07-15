@@ -7,7 +7,7 @@ class QuestionsSetsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		sets = ["Social".localized,"Technology".localized,"People".localized] // TODO: use localized
+		sets = ["Social".localized,"Technology".localized,"People".localized]
     }
 
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -24,7 +24,7 @@ class QuestionsSetsViewController: UITableViewController {
 	}
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sets.count//Question.nSets
+        return sets.count
     }
 	
 	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
