@@ -6,8 +6,6 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	static var bgMusic: AVAudioPlayer?
 	static var correct: AVAudioPlayer?
 	static var incorrect: AVAudioPlayer?
-
-	static var settings: [String: AnyObject] = [:]
 	
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var instructionsButton: UIButton!
