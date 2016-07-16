@@ -8,7 +8,11 @@
 
 "Settings" = "Opciones";
 "Background music" = "Música de fondo";
-
+"Reset game" = "Reiniciar juego";
+"RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";
+"Cancel" = "Cancelar";
+"Restart the game" = "Reinicie el juego";
+"RESTART_GAME_TEXT" = "Reinicie el juego para que los cambios surtan efecto.";
 
 "Questions set" = "Sets de preguntas";
 

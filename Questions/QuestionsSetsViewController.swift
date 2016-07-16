@@ -22,6 +22,10 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		let cell = tableView.dequeueReusableCellWithIdentifier("setCell")
 		cell?.textLabel?.text = sets[indexPath.row]
+
+		if QuestionViewController.completedSets[indexPath.row] {
+			cell?.accessoryType = .Checkmark
+		}
 		
 		return cell!
 	}
@@ -39,6 +43,7 @@ class QuestionsSetsViewController: UITableViewController {
 			for i in 0..<sets.count {
                 if set == i {
                     controller.questions = Quiz.getSet(i)
+					controller.currentSet = i
                     break
                 }
 			}

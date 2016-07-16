@@ -4,7 +4,7 @@ import AVFoundation
 import CoreGraphics
 
 class QuestionViewController: UIViewController {
-
+	
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
 	@IBOutlet var pauseButton: UIButton!
@@ -17,6 +17,9 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var endOfQuestions: UILabel!
 
+	static var completedSets = Settings.valueForKey("Completed sets") as! [Bool]
+	var currentSet = Int()
+	
 	var paused = true
 	var correctAnswer = Int()
 	var qNumber = Int()
@@ -59,6 +62,9 @@ class QuestionViewController: UIViewController {
 			questions.removeAtIndex(qNumber)
 		}
 		else {
+			QuestionViewController.completedSets[currentSet] = true
+			Settings.saveValue(QuestionViewController.completedSets, forKey: "Completed sets")
+			
 			endOfQuestions.hidden = false
 			answersLabels.forEach { $0.enabled = false }
 		}
