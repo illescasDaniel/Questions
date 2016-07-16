@@ -35,11 +35,10 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		                                            preferredStyle: .ActionSheet)
 		
 		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .Cancel) { (action) -> Void in }
-		
 		let okAction = UIAlertAction(title: "OK".localized, style: .Destructive) {
 			(action) -> Void in
 			
-			removeFile("Settings.plist", from: documentsDirectory())
+			self.removeFile("Settings.plist", from: documentsDirectory())
 			self.restartGameAlert()
 		}
 		
@@ -75,6 +74,18 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 			}
 		}
 
+	}
+	
+	func removeFile(file: String, from: String) {
+		
+		let fileManager = NSFileManager.defaultManager()
+		
+		do {
+			try fileManager.removeItemAtPath("\(from)/\(file)")
+		}
+		catch {
+			print(error)
+		}
 	}
 
 }

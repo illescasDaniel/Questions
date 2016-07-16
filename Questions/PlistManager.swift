@@ -1,5 +1,9 @@
 import Foundation
 
+func documentsDirectory() -> String {
+	return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+}
+
 struct Plist {
 
 	enum PlistError: ErrorType {
@@ -16,7 +20,7 @@ struct Plist {
 
 	var destPath: String? {
 		guard sourcePath != .None else { return .None }
-		let dir = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+		let dir = documentsDirectory()
 		return (dir as NSString).stringByAppendingPathComponent("\(name).plist")
 	}
 

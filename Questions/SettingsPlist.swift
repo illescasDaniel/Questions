@@ -10,19 +10,3 @@ struct Settings {
 		PlistManager.sharedInstance.saveValue(value, forKey: forKey)
 	}
 }
-
-func removeFile(file: String, from: String) {
-	
-	let fileManager = NSFileManager.defaultManager()
-	
-	do {
-		try fileManager.removeItemAtPath("\(from)/\(file)")
-	}
-	catch {
-		print(error)
-	}
-}
-
-func documentsDirectory() -> String {
-	return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-}
