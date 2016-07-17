@@ -3,6 +3,9 @@ import UIKit
 class QuestionsSetsViewController: UITableViewController {
 	
 	var sets: [String] = []
+	var cell = UITableViewCell()
+
+	@IBOutlet weak var table: UITableView!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,14 +23,15 @@ class QuestionsSetsViewController: UITableViewController {
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCellWithIdentifier("setCell")
-		cell?.textLabel?.text = sets[indexPath.row]
+		// if let ??
+		cell = tableView.dequeueReusableCellWithIdentifier("setCell")!
+		cell.textLabel?.text = sets[indexPath.row]
 
 		if QuestionViewController.completedSets[indexPath.row] {
-			cell?.accessoryType = .Checkmark
+			cell.accessoryType = .Checkmark
 		}
 		
-		return cell!
+		return cell
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -52,7 +56,12 @@ class QuestionsSetsViewController: UITableViewController {
 	}
     
     @IBAction func unwindToQuestionSetSelector(segue: UIStoryboardSegue) {
-	
+
+		for i in 0..<sets.count {
+			if QuestionViewController.completedSets[i] {
+				table.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: 0)], withRowAnimation: .Automatic)
+			}
+		}
 	}
 	
 }

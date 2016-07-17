@@ -65,11 +65,11 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		if let bgMusic = MainViewController.bgMusic {
 
 			if bgMusicSwitch.on {
-				Settings.saveValue(1, forKey: "Music")
+				Settings.saveValue(true, forKey: "Music")
 				bgMusic.play()
 			}
 			else {
-				Settings.saveValue(0, forKey: "Music")
+				Settings.saveValue(false, forKey: "Music")
 				bgMusic.pause()
 			}
 		}

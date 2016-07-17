@@ -15,12 +15,12 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if Settings.valueForKey("New game") == 1 {
+		if Settings.valueForKey("New game") == true {
 			
 			let emptyBoolArray = [Bool](count: Quiz.setsCount, repeatedValue: false)
 			
 			Settings.saveValue(emptyBoolArray, forKey: "Completed sets")
-			Settings.saveValue(0, forKey: "New game")
+			Settings.saveValue(false, forKey: "New game")
 		}
 
 		if let bgMusic = AVAudioPlayer(file: "bensound-funkyelement", type: "mp3") {

@@ -41,6 +41,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="table" destination="yuD-uf-BcY" id="ady-wW-8PP"/>
                         <segue destination="w1d-Yh-0lm" kind="presentation" identifier="selectQuestionSet" id="9BN-mk-GHD"/>
                     </connections>
                 </tableViewController>
