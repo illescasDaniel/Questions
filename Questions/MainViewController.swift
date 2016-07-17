@@ -1,6 +1,9 @@
 import AVFoundation
 import UIKit
 
+// FIXME: 'You are saving a _SwiftDeferredNSArray typed value into a __NSCFArray typed value' when saving the completedSets Bool array to the plist file
+// FIXME: 'Unbalanced calls to begin/end appearance transitions' when going from the pause menu to the main menu
+
 class MainViewController: UIViewController, UIAlertViewDelegate {
 
 	static var bgMusic: AVAudioPlayer?
