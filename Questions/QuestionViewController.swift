@@ -34,8 +34,8 @@ class QuestionViewController: UIViewController {
 
 		if let bgMusic = MainViewController.bgMusic {
 			
-			let state = bgMusic.playing ? "Pause music" : "Play music"
-			muteMusic.setTitle(state.localized, forState: .Normal)
+			let title = bgMusic.playing ? "Pause music" : "Play music"
+			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
 
 		endOfQuestions.text = "End of questions".localized

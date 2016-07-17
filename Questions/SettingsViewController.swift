@@ -23,8 +23,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		
-		if indexPath.row == 1 {
+
+		if tableView.cellForRowAtIndexPath(indexPath)!.textLabel!.text == "Reset game".localized {
 			resetGameAlert()
 		}
 	}

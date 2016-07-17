@@ -37,7 +37,6 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 
 		MainViewController.correct?.volume = 0.10
 		MainViewController.incorrect?.volume = 0.33
-
 		MainViewController.bgMusic?.volume = 0.06
 
 		if Settings.valueForKey("Music") == true {
@@ -54,8 +53,8 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 
 	@IBAction func showInstructions(sender: AnyObject) {
 		let alertViewController = UIAlertController(title: "Instructions".localized,
-			message: "INSTRUCTIONS_TEXT".localized,
-			preferredStyle: .Alert)
+													message: "INSTRUCTIONS_TEXT".localized,
+													preferredStyle: .Alert)
 
 		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
 
