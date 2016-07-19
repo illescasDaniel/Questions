@@ -56,7 +56,7 @@ class QuestionViewController: UIViewController {
 			qNumber = Int(arc4random_uniform(UInt32(questions.count)))
 
 			questionLabel.text = questions[qNumber].question
-			correctAnswer = questions[qNumber].answer!
+			correctAnswer = questions[qNumber].answer
 
 			for i in 0..<answersLabels.count {
 				answersLabels[i].setTitle(questions[qNumber].answers[i], forState: .Normal)

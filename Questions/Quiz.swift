@@ -24,11 +24,11 @@ struct Quiz {
 	]
 	
 	var question: String
-	var answers: [String] = []
-	var answer: Int?
+	var answers: [String]
+	var answer: Int
 
 	static func getSet(set: Int) -> [Quiz] {
-		return (set >= 0 && set <= Quiz.sets.count) ? Quiz.sets[set]: [Quiz]()
+		return (set >= 0 && set < Quiz.sets.count) ? Quiz.sets[set]: [Quiz]()
 	}
 	
 	static var setsCount: Int {
