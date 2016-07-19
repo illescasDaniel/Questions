@@ -2,11 +2,11 @@ import UIKit
 
 class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 
-	@IBOutlet weak var settingsNavItem: UINavigationItem!
-	@IBOutlet var resetGameLabel: UILabel!
+	@IBOutlet var settingsNavItem: UINavigationItem!
 	
-	@IBOutlet weak var bgMusicLabel: UILabel!
-	@IBOutlet weak var bgMusicSwitch: UISwitch!
+	@IBOutlet var bgMusicLabel: UILabel!
+	@IBOutlet var bgMusicSwitch: UISwitch!
+	@IBOutlet var resetGameLabel: UILabel!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

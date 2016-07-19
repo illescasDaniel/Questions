@@ -4,8 +4,7 @@ class QuestionsSetsViewController: UITableViewController {
 
 	var sets: [String] = []
 	var cell = UITableViewCell()
-
-	@IBOutlet weak var table: UITableView!
+	@IBOutlet var table: UITableView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

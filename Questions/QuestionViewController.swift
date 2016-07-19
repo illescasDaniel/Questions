@@ -6,10 +6,10 @@ import CoreGraphics
 class QuestionViewController: UIViewController {
 	
 	@IBOutlet var remainingQuestionsLabel: UILabel!
-	@IBOutlet weak var questionLabel: UILabel!
+	@IBOutlet var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
-	@IBOutlet weak var statusLabel: UILabel!
-	@IBOutlet weak var endOfQuestions: UILabel!
+	@IBOutlet var statusLabel: UILabel!
+	@IBOutlet var endOfQuestions: UILabel!
 	
 	@IBOutlet var pauseButton: UIButton!
 	@IBOutlet var pauseMenu: UIView!
@@ -99,7 +99,7 @@ class QuestionViewController: UIViewController {
 		}
 
 		// Fade out animation for statusLabel
-		UIView.animateWithDuration(1.5, animations: { self.statusLabel.alpha = 0.0 })
+		UIView.animateWithDuration(1.5) { self.statusLabel.alpha = 0.0 }
 
 		pickQuestion()
 	}

@@ -10,10 +10,10 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	static var correct: AVAudioPlayer?
 	static var incorrect: AVAudioPlayer?
 	
-	@IBOutlet weak var startButton: UIButton!
-	@IBOutlet weak var instructionsButton: UIButton!
-	@IBOutlet weak var settingsButton: UIButton!
-	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
+	@IBOutlet var startButton: UIButton!
+	@IBOutlet var instructionsButton: UIButton!
+	@IBOutlet var settingsButton: UIButton!
+	@IBOutlet var mainMenuNavItem: UINavigationItem!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -59,7 +59,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 													message: "INSTRUCTIONS_TEXT".localized,
 													preferredStyle: .Alert)
 
-		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
+		let okAction = UIAlertAction(title: "OK".l, style: .Default) { (action) -> Void in }
 
 		alertViewController.addAction(okAction)
 
