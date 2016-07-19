@@ -1,12 +1,12 @@
 "Main menu" = "Menú principal";
 
-"Start game" = "Comenzar";
+"START GAME" = "COMENZAR";
 
-"Instructions" = "Instrucciones";
+"INSTRUCTIONS" = "INSTRUCCIONES";
 "INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar juego' para ver los sets de preguntas; después de escoger uno, da un toque en una respuesta para ver si es correcta o no.";
 "OK" = "Aceptar";
 
-"Settings" = "Opciones";
+"SETTINGS" = "OPCIONES";
 "Background music" = "Música de fondo";
 "Reset game" = "Reiniciar juego";
 "RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";

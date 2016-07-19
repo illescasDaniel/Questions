@@ -48,9 +48,9 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		
 		MainViewController.bgMusic?.numberOfLoops = Int.max
 
-		startButton.setImage(UIImage(named: "Start game".localized), forState: UIControlState.Normal)
-		instructionsButton.setImage(UIImage(named: "Instructions".localized), forState: UIControlState.Normal)
-		settingsButton.setImage(UIImage(named: "Settings".localized), forState: UIControlState.Normal)
+		startButton.setTitle("START GAME".localized, forState: .Normal)
+		instructionsButton.setTitle("INSTRUCTIONS".localized, forState: .Normal)
+		settingsButton.setTitle("SETTINGS".localized, forState: .Normal)
 		mainMenuNavItem.title = "Main menu".localized
 	}
 

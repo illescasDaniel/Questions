@@ -12,9 +12,6 @@ Screnshots
 
 Images
 -------
-Main menu buttons:  
-https://goo.gl/eiDVWf
-
 App background:  
 https://pixabay.com/en/banner-header-question-mark-1090830/
 
