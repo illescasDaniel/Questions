@@ -5,17 +5,17 @@ import CoreGraphics
 
 class QuestionViewController: UIViewController {
 	
+	@IBOutlet var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
+	@IBOutlet weak var statusLabel: UILabel!
+	@IBOutlet weak var endOfQuestions: UILabel!
+	
 	@IBOutlet var pauseButton: UIButton!
-
 	@IBOutlet var pauseMenu: UIView!
 	@IBOutlet var goBack: UIButton!
 	@IBOutlet var muteMusic: UIButton!
 	@IBOutlet var mainMenu: UIButton!
-
-	@IBOutlet weak var statusLabel: UILabel!
-	@IBOutlet weak var endOfQuestions: UILabel!
 
 	static var completedSets = Settings.valueForKey("Completed sets") as! [Bool]
 	var currentSet = Int()
@@ -24,7 +24,8 @@ class QuestionViewController: UIViewController {
 	var correctAnswer = Int()
 	var qNumber = Int()
 	var questions: [Quiz] = [] // This value will be overwritten later
-
+	var questionsCount = Int()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -38,6 +39,8 @@ class QuestionViewController: UIViewController {
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
 
+		questionsCount = questions.count
+		
 		endOfQuestions.text = "End of questions".localized
 		goBack.setTitle("Go back".localized, forState: .Normal)
 		mainMenu.setTitle("Main menu".localized, forState: .Normal)
@@ -60,6 +63,8 @@ class QuestionViewController: UIViewController {
 			}
 
 			questions.removeAtIndex(qNumber)
+			
+			remainingQuestionsLabel.text = "\(questionsCount - questions.count)/\(questionsCount)"
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
