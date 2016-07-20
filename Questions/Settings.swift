@@ -5,7 +5,7 @@ class Settings: NSObject, NSCoding {
 	var music = Bool()
 	//var questionSets: [[Quiz]] = [[]]
 	var completedSets: [Bool] = []
-	static var path = "\(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])/Settings.archive"
+	static var path = "\(Settings.documentsDirectory())/Settings.archive"
 	
 	override init() {
 		//questionSets = Quiz.sets
