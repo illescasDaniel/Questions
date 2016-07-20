@@ -17,7 +17,7 @@ class QuestionViewController: UIViewController {
 	@IBOutlet var muteMusic: UIButton!
 	@IBOutlet var mainMenu: UIButton!
 
-	static var completedSets = MainViewController.settings.completedSets //MainViewController.defaults.objectForKey("Completed sets") as! [Bool] //Settings.valueForKey("Completed sets") as! [Bool]
+	static var completedSets = MainViewController.settings.completedSets
 	var currentSet = Int()
 	
 	var paused = true

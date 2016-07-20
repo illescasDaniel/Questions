@@ -20,7 +20,6 @@ struct Quiz {
 		// PEOPLE SET
 		[Quiz(question: "How old is Barack Obama?".l, answers: ["> 50".l, "< 50".l, "35 ☺️".l, "> 60 👴🏿".l], answer: 0),
 			Quiz(question: "Google CEO".l, answers: ["Larry Page".l, "Sergey Brin".l, "Sundar Pichai".l, "Andy Rubin".l], answer: 2)]
-		
 	]
 	
 	var question: String
