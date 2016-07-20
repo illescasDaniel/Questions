@@ -3,16 +3,18 @@ import Foundation
 class Settings: NSObject, NSCoding {
 	
 	var music = Bool()
-	//var questionSets: [Quiz] = []
+	//var questionSets: [[Quiz]] = [[]]
 	var completedSets: [Bool] = []
 	static var path = "\(NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0])/Settings.archive"
 	
 	override init() {
+		//questionSets = Quiz.sets
 		music = true
 		completedSets = [Bool](count: Quiz.setsCount, repeatedValue: false)
 	}
 	
 	func encodeWithCoder(archiver: NSCoder) {
+		
 		archiver.encodeBool(music, forKey: "Music")
 		//archiver.encodeObject(questionSets as? AnyObject, forKey:"Question sets")
 		archiver.encodeObject(completedSets, forKey:"Completed sets")
@@ -22,7 +24,7 @@ class Settings: NSObject, NSCoding {
 		
 		super.init()
 		music = unarchiver.decodeBoolForKey("Music")
-		//questionSets = unarchiver.decodeObjectForKey("Question sets") as! [Quiz]
+		//questionSets = unarchiver.decodeObjectForKey("Question sets") as! [[Quiz]]
 		completedSets = unarchiver.decodeObjectForKey("Completed sets") as! [Bool]
 	}
 	

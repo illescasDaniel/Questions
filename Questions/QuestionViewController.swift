@@ -149,14 +149,22 @@ class QuestionViewController: UIViewController {
 	@IBAction func muteMusicAction(sender: UIButton) {
 
 		if let bgMusic = MainViewController.bgMusic {
+			
 			if bgMusic.playing {
+				
 				bgMusic.pause()
 				muteMusic.setTitle("Play music".localized, forState: .Normal)
+				
+				MainViewController.settings.music = false
 			}
 			else {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
+				
+				MainViewController.settings.music = true
 			}
+			
+			MainViewController.settings.save()
 		}
 
 	}

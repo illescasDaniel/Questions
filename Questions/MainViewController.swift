@@ -19,6 +19,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// LOAD CONFIGURATION FILE or CREATE A NEW ONE
 		if let mySettings1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
 			MainViewController.settings = mySettings1
 		}
@@ -26,6 +27,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 			MainViewController.settings.save()
 		}
 
+		// INITIALIZE SOUNDS
 		if let bgMusic = AVAudioPlayer(file: "bensound-funkyelement", type: "mp3") {
 			MainViewController.bgMusic = bgMusic
 		}
@@ -48,6 +50,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		
 		MainViewController.bgMusic?.numberOfLoops = Int.max
 
+		// SET BUTTON TITLES
 		startButton.setTitle("START GAME".localized, forState: .Normal)
 		instructionsButton.setTitle("INSTRUCTIONS".localized, forState: .Normal)
 		settingsButton.setTitle("SETTINGS".localized, forState: .Normal)
