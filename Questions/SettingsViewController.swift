@@ -38,7 +38,7 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		let okAction = UIAlertAction(title: "OK".localized, style: .Destructive) {
 			(action) -> Void in
 			
-			self.removeFile("Settings.plist", from: documentsDirectory())
+			self.removeFile("Settings.archive", from: Settings.documentsDirectory())
 			self.restartGameAlert()
 		}
 		
@@ -65,13 +65,15 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		if let bgMusic = MainViewController.bgMusic {
 
 			if bgMusicSwitch.on {
-				Settings.saveValue(true, forKey: "Music")
+				MainViewController.settings.music = true
 				bgMusic.play()
 			}
 			else {
-				Settings.saveValue(false, forKey: "Music")
+				MainViewController.settings.music = false
 				bgMusic.pause()
 			}
+			
+			MainViewController.settings.save()
 		}
 
 	}

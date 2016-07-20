@@ -1,7 +1,6 @@
 import AVFoundation
 import UIKit
 
-// FIXME: 'You are saving a _SwiftDeferredNSArray typed value into a __NSCFArray typed value' when saving the completedSets Bool array to the plist file
 // FIXME: 'Unbalanced calls to begin/end appearance transitions' when going from the pause menu to the main menu
 
 class MainViewController: UIViewController, UIAlertViewDelegate {
@@ -14,16 +13,17 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	@IBOutlet var instructionsButton: UIButton!
 	@IBOutlet var settingsButton: UIButton!
 	@IBOutlet var mainMenuNavItem: UINavigationItem!
-
+	
+	static var settings = Settings()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		if Settings.valueForKey("New game") == true {
-			
-			let emptyBoolArray = [Bool](count: Quiz.setsCount, repeatedValue: false)
-			
-			Settings.saveValue(emptyBoolArray, forKey: "Completed sets")
-			Settings.saveValue(false, forKey: "New game")
+		if let mySettings1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
+			MainViewController.settings = mySettings1
+		}
+		else {
+			MainViewController.settings.save()
 		}
 
 		if let bgMusic = AVAudioPlayer(file: "bensound-funkyelement", type: "mp3") {
@@ -42,7 +42,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		MainViewController.incorrect?.volume = 0.33
 		MainViewController.bgMusic?.volume = 0.06
 
-		if Settings.valueForKey("Music") == true {
+		if MainViewController.settings.music {
 			MainViewController.bgMusic?.play()
 		}
 		

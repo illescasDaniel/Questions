@@ -17,7 +17,7 @@ class QuestionViewController: UIViewController {
 	@IBOutlet var muteMusic: UIButton!
 	@IBOutlet var mainMenu: UIButton!
 
-	static var completedSets = Settings.valueForKey("Completed sets") as! [Bool]
+	static var completedSets = MainViewController.settings.completedSets //MainViewController.defaults.objectForKey("Completed sets") as! [Bool] //Settings.valueForKey("Completed sets") as! [Bool]
 	var currentSet = Int()
 	
 	var paused = true
@@ -68,7 +68,9 @@ class QuestionViewController: UIViewController {
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
-			Settings.saveValue(QuestionViewController.completedSets, forKey: "Completed sets")
+			
+			MainViewController.settings.completedSets = QuestionViewController.completedSets
+			MainViewController.settings.save()
 			
 			endOfQuestions.hidden = false
 			answersLabels.forEach { $0.enabled = false }
