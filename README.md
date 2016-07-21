@@ -1,5 +1,5 @@
 # Questions
-Quiz app for iOS with support for multiple languages (English and Spanish)  
+Quiz app for iOS with support for multiple languages  
 
 Screnshots
 -------
