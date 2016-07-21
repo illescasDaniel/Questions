@@ -1,4 +1,4 @@
-# Questions
+# Questions DEV (unstable version)
 Quiz app for iOS with support for multiple languages (English and Spanish)  
 
 Screnshots
