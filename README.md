@@ -29,6 +29,5 @@ https://www.freesound.org/people/rhodesmas/sounds/342756/
 # Special thanks to #
 
 Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))  
-Rebeloper for the how to read and write on plist files [tutorial](http://rebeloper.com/read-write-plist-file-swift/) and swift class  
 Jared Davidson for the "Making A Quiz Game" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  
 Caroline Begbie for this [tutorial](https://www.raywenderlich.com/113394/storyboards-tutorial-in-ios-9-part-2)

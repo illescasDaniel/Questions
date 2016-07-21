@@ -2,9 +2,9 @@ import UIKit
 
 class QuestionsSetsViewController: UITableViewController {
 
+	@IBOutlet var table: UITableView!
 	var sets: [String] = []
 	var cell = UITableViewCell()
-	@IBOutlet var table: UITableView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -43,11 +43,9 @@ class QuestionsSetsViewController: UITableViewController {
 
 			let controller = segue.destinationViewController as! QuestionViewController
 
-			for i in 0..<sets.count {
-				if set == i {
-					controller.questions = Quiz.getSet(i)
-					controller.currentSet = i
-					break
+			sets.forEach {
+				if set == sets.indexOf($0) {
+					controller.currentSet = set
 				}
 			}
 

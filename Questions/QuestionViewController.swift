@@ -1,16 +1,13 @@
 import UIKit
-import Foundation
-import AVFoundation
-import CoreGraphics
 
 class QuestionViewController: UIViewController {
-	
+
 	@IBOutlet var remainingQuestionsLabel: UILabel!
 	@IBOutlet var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
 	@IBOutlet var statusLabel: UILabel!
 	@IBOutlet var endOfQuestions: UILabel!
-	
+
 	@IBOutlet var pauseButton: UIButton!
 	@IBOutlet var pauseMenu: UIView!
 	@IBOutlet var goBack: UIButton!
@@ -19,28 +16,43 @@ class QuestionViewController: UIViewController {
 
 	static var completedSets = MainViewController.settings.completedSets
 	var currentSet = Int()
-	
+
 	var paused = true
 	var correctAnswer = Int()
-	var qNumber = Int()
-	var questions: [Quiz] = [] // This value will be overwritten later
-	var questionsCount = Int()
-	
+	var questions: [Quiz] = []
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		// LOAD AND SHUFFLE QUESTIONS AND ANSWERS
+		let shuffledQuiz = ((Quiz.set[currentSet] as! [AnyObject]).shuffle())
+
+		for quiz in shuffledQuiz as! [NSDictionary] {
+
+			let question = (quiz["question"] as! String).localized
+			var answer = quiz["answer"] as! Int
+
+			let oldAnswers = quiz["answers"] as! [String]
+			let oldAnswerString = oldAnswers[answer]
+
+			var answersLocalized: [String] = []
+			((oldAnswers.shuffle()) as! [String]).forEach { answersLocalized += [$0.localized] }
+
+			answer = answersLocalized.indexOf(oldAnswerString.localized)!
+
+			questions += [Quiz(question: question, answers: answersLocalized, answer: answer)]
+		}
 
 		pauseMenu.hidden = true
 		endOfQuestions.hidden = true
 		statusLabel.alpha = 0.0
 
 		if let bgMusic = MainViewController.bgMusic {
-			
+
 			let title = bgMusic.playing ? "Pause music" : "Play music"
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
 
-		questionsCount = questions.count
-		
 		endOfQuestions.text = "End of questions".localized
 		goBack.setTitle("Go back".localized, forState: .Normal)
 		mainMenu.setTitle("Main menu".localized, forState: .Normal)
@@ -53,25 +65,23 @@ class QuestionViewController: UIViewController {
 
 		if !questions.isEmpty {
 
-			qNumber = Int(arc4random_uniform(UInt32(questions.count)))
-
-			questionLabel.text = questions[qNumber].question
-			correctAnswer = questions[qNumber].answer
+			correctAnswer = (questions.first?.answer)!
+			questionLabel.text = questions.first?.question
 
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle(questions[qNumber].answers[i], forState: .Normal)
+				answersLabels[i].setTitle(questions.first?.answers[i], forState: .Normal)
 			}
 
-			questions.removeAtIndex(qNumber)
-			
-			remainingQuestionsLabel.text = "\(questionsCount - questions.count)/\(questionsCount)"
+			questions.removeFirst()
+
+			remainingQuestionsLabel.text = "\(Quiz.set[currentSet].count - questions.count)/\(Quiz.set[currentSet].count)"
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
-			
+
 			MainViewController.settings.completedSets = QuestionViewController.completedSets
 			MainViewController.settings.save()
-			
+
 			endOfQuestions.hidden = false
 			answersLabels.forEach { $0.enabled = false }
 		}
@@ -136,12 +146,16 @@ class QuestionViewController: UIViewController {
 	}
 
 	@IBAction func pauseMenu(sender: AnyObject) {
-		
-		let state = paused ? "Continue" : "Pause"
-		pauseButton.setTitle(state.localized, forState: .Normal)
 
-		answersLabels.forEach { if endOfQuestions.hidden { $0.enabled = $0.enabled ? false : true } }
-		
+		let title = paused ? "Continue" : "Pause"
+		pauseButton.setTitle(title.localized, forState: .Normal)
+
+		answersLabels.forEach {
+			if endOfQuestions.hidden {
+				$0.enabled = $0.enabled ? false : true
+			}
+		}
+
 		paused = paused ? false : true
 		pauseMenu.hidden = pauseMenu.hidden ? false : true
 	}
@@ -149,21 +163,20 @@ class QuestionViewController: UIViewController {
 	@IBAction func muteMusicAction(sender: UIButton) {
 
 		if let bgMusic = MainViewController.bgMusic {
-			
+
 			if bgMusic.playing {
-				
+
 				bgMusic.pause()
 				muteMusic.setTitle("Play music".localized, forState: .Normal)
-				
-				MainViewController.settings.music = false
+				MainViewController.settings.musicEnabled = false
 			}
 			else {
+
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
-				
-				MainViewController.settings.music = true
+				MainViewController.settings.musicEnabled = true
 			}
-			
+
 			MainViewController.settings.save()
 		}
 

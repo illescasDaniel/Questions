@@ -1,8 +1,6 @@
 import AVFoundation
 import UIKit
 
-// FIXME: 'Unbalanced calls to begin/end appearance transitions' when going from the pause menu to the main menu
-
 class MainViewController: UIViewController, UIAlertViewDelegate {
 
 	static var bgMusic: AVAudioPlayer?
@@ -20,8 +18,8 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		super.viewDidLoad()
 		
 		// LOAD CONFIGURATION FILE or CREATE A NEW ONE
-		if let mySettings1 = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
-			MainViewController.settings = mySettings1
+		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
+			MainViewController.settings = mySettings
 		}
 		else {
 			MainViewController.settings.save()
@@ -44,7 +42,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		MainViewController.incorrect?.volume = 0.33
 		MainViewController.bgMusic?.volume = 0.06
 
-		if MainViewController.settings.music {
+		if MainViewController.settings.musicEnabled {
 			MainViewController.bgMusic?.play()
 		}
 		
@@ -62,7 +60,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 													message: "INSTRUCTIONS_TEXT".localized,
 													preferredStyle: .Alert)
 
-		let okAction = UIAlertAction(title: "OK".l, style: .Default) { (action) -> Void in }
+		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
 
 		alertViewController.addAction(okAction)
 
