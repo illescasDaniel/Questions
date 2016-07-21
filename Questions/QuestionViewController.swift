@@ -23,7 +23,7 @@ class QuestionViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		// LOAD AND SHUFFLE QUESTIONS AND ANSWERS
 		let shuffledQuiz = ((Quiz.set[currentSet] as! [AnyObject]).shuffle())
 
@@ -67,7 +67,7 @@ class QuestionViewController: UIViewController {
 
 			correctAnswer = (questions.first?.answer)!
 			questionLabel.text = questions.first?.question
-
+			
 			for i in 0..<answersLabels.count {
 				answersLabels[i].setTitle(questions.first?.answers[i], forState: .Normal)
 			}
