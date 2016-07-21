@@ -6,7 +6,7 @@ Screnshots
 <img src="http://i.imgur.com/Xqp3On1.png" width="250">
 <img src="http://i.imgur.com/ugqlzBz.png" width="250">
 <img src="http://i.imgur.com/d3QVqKn.png" width="250">  
-[More screenshots](http://imgur.com/a/cvA3w)
+[More](http://imgur.com/a/cvA3w)
 
 # ASSETS #
 
