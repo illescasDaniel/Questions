@@ -18,20 +18,24 @@ class QuestionViewController: UIViewController {
 	var correctAnswer = Int()
 	var currentSet = Int()
 	var set: AnyObject = []
-	var quizIndex = 0
+	var quiz = NSEnumerator()
 	var paused = true
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		set = (Quiz.set[currentSet] as! [AnyObject]).shuffle()
+
+		if set.objectEnumerator() != nil {
+			quiz = set.objectEnumerator()!
+		}
 
 		pauseMenu.hidden = true
 		endOfQuestions.hidden = true
 		statusLabel.alpha = 0.0
 
 		if let bgMusic = MainViewController.bgMusic {
-			
+
 			let title = bgMusic.playing ? "Pause music" : "Play music"
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
@@ -45,20 +49,17 @@ class QuestionViewController: UIViewController {
 	}
 
 	func pickQuestion() {
-		
-		if quizIndex < set.count {
-			
-			correctAnswer = (set[quizIndex]["answer"] as! Int)
-			questionLabel.text = (set[quizIndex]["question"] as! String).localized
-			
-			let answers = set[quizIndex]["answers"] as! [String]
-			
+
+		if let quiz = quiz.nextObject() {
+
+			correctAnswer = (quiz["answer"] as! Int)
+			questionLabel.text = (quiz["question"] as! String).localized
+
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle(answers[i].localized, forState: .Normal)
+				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, forState: .Normal)
 			}
-	
-			remainingQuestionsLabel.text = "\(quizIndex + 1)/\(set.count)"
-			quizIndex += 1
+
+			remainingQuestionsLabel.text = "\(set.indexOfObject(quiz) + 1)/\(set.count)"
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
@@ -113,21 +114,10 @@ class QuestionViewController: UIViewController {
 		}
 	}
 
-	@IBAction func answer1Action(sender: UIButton) {
-		verifyAnswer(0)
-	}
-
-	@IBAction func answer2Action(sender: UIButton) {
-		verifyAnswer(1)
-	}
-
-	@IBAction func answer3Action(sender: UIButton) {
-		verifyAnswer(2)
-	}
-
-	@IBAction func answer4Action(sender: UIButton) {
-		verifyAnswer(3)
-	}
+	@IBAction func answer1Action(sender: UIButton) { verifyAnswer(0) }
+	@IBAction func answer2Action(sender: UIButton) { verifyAnswer(1) }
+	@IBAction func answer3Action(sender: UIButton) { verifyAnswer(2) }
+	@IBAction func answer4Action(sender: UIButton) { verifyAnswer(3) }
 
 	@IBAction func pauseMenu(sender: AnyObject) {
 
@@ -156,7 +146,7 @@ class QuestionViewController: UIViewController {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
 			}
-			
+
 			MainViewController.settings.musicEnabled = !bgMusic.playing
 			MainViewController.settings.save()
 		}
