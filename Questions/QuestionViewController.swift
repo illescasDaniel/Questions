@@ -16,39 +16,22 @@ class QuestionViewController: UIViewController {
 
 	static var completedSets = MainViewController.settings.completedSets
 	var currentSet = Int()
-
 	var paused = true
 	var correctAnswer = Int()
-	var questions: [Quiz] = []
+	var quizIndex = 0
+	var set: AnyObject = []
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		// LOAD AND SHUFFLE QUESTIONS AND ANSWERS
-		let shuffledQuiz = ((Quiz.set[currentSet] as! [AnyObject]).shuffle())
-
-		for quiz in shuffledQuiz as! [NSDictionary] {
-
-			let question = (quiz["question"] as! String).localized
-			var answer = quiz["answer"] as! Int
-
-			let oldAnswers = quiz["answers"] as! [String]
-			let oldAnswerString = oldAnswers[answer]
-
-			var answersLocalized: [String] = []
-			((oldAnswers.shuffle()) as! [String]).forEach { answersLocalized += [$0.localized] }
-
-			answer = answersLocalized.indexOf(oldAnswerString.localized)!
-
-			questions += [Quiz(question: question, answers: answersLocalized, answer: answer)]
-		}
+		
+		set = (Quiz.set[currentSet] as! [AnyObject]).shuffle()
 
 		pauseMenu.hidden = true
 		endOfQuestions.hidden = true
 		statusLabel.alpha = 0.0
 
 		if let bgMusic = MainViewController.bgMusic {
-
+			
 			let title = bgMusic.playing ? "Pause music" : "Play music"
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
@@ -62,19 +45,20 @@ class QuestionViewController: UIViewController {
 	}
 
 	func pickQuestion() {
-
-		if !questions.isEmpty {
-
-			correctAnswer = (questions.first?.answer)!
-			questionLabel.text = questions.first?.question
-
+		
+		if quizIndex < set.count {
+			
+			correctAnswer = (set[quizIndex]["answer"] as! Int)
+			questionLabel.text = (set[quizIndex]["question"] as! String).localized
+			
+			let answers = set[quizIndex]["answers"] as! [String]
+			
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle(questions.first?.answers[i], forState: .Normal)
+				answersLabels[i].setTitle(answers[i].localized, forState: .Normal)
 			}
-
-			questions.removeFirst()
-
-			remainingQuestionsLabel.text = "\(Quiz.set[currentSet].count - questions.count)/\(Quiz.set[currentSet].count)"
+	
+			remainingQuestionsLabel.text = "\(quizIndex + 1)/\(set.count)"
+			quizIndex += 1
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
