@@ -16,10 +16,10 @@ class QuestionViewController: UIViewController {
 
 	static var completedSets = MainViewController.settings.completedSets
 	var currentSet = Int()
-
 	var paused = true
 	var correctAnswer = Int()
-	var questions: [Quiz] = []
+	var quizIndex = 0
+	var set: AnyObject = []
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -48,7 +48,7 @@ class QuestionViewController: UIViewController {
 		statusLabel.alpha = 0.0
 
 		if let bgMusic = MainViewController.bgMusic {
-
+			
 			let title = bgMusic.playing ? "Pause music" : "Play music"
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
@@ -69,12 +69,11 @@ class QuestionViewController: UIViewController {
 			questionLabel.text = questions.first?.question
 			
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle(questions.first?.answers[i], forState: .Normal)
+				answersLabels[i].setTitle(answers[i].localized, forState: .Normal)
 			}
-
-			questions.removeFirst()
-
-			remainingQuestionsLabel.text = "\(Quiz.set[currentSet].count - questions.count)/\(Quiz.set[currentSet].count)"
+	
+			remainingQuestionsLabel.text = "\(quizIndex + 1)/\(set.count)"
+			quizIndex += 1
 		}
 		else {
 			QuestionViewController.completedSets[currentSet] = true
