@@ -44,10 +44,10 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		
 		alertViewController.addAction(cancelAction)
 		alertViewController.addAction(okAction)
-		
+
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
-	
+
 	func restartGameAlert() {
 		let alertViewController = UIAlertController(title: "Restart the game".localized,
 		                                            message: "RESTART_GAME_TEXT".localized,
