@@ -8,7 +8,7 @@ class Settings: NSObject, NSCoding {
 
 	override init() {
 		musicEnabled = true
-		completedSets = [Bool](count: 3, repeatedValue: false)//[Bool](count: Quiz.set.count, repeatedValue: false)
+		completedSets = [Bool](count: Quiz.set.count, repeatedValue: false)
 	}
 
 	func encodeWithCoder(archiver: NSCoder) {
