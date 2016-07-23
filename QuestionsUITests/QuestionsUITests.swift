@@ -1,7 +1,7 @@
 import XCTest
 
 class QuestionsUITests: XCTestCase {
-
+	
     override func setUp() {
         super.setUp()
         XCUIApplication().launch()
@@ -18,6 +18,7 @@ class QuestionsUITests: XCTestCase {
 		let backgroundMusicSwitch = tablesQuery.switches["Background music"]
 		backgroundMusicSwitch.tap()
 		backgroundMusicSwitch.tap()
+		
 		app.navigationBars["Settings"].buttons["Main menu"].tap()
 		app.buttons["INSTRUCTIONS"].tap()
 
@@ -32,5 +33,5 @@ class QuestionsUITests: XCTestCase {
 		pauseButton.tap()
 		app.buttons["Main menu"].tap()
     }
-    
+	
 }

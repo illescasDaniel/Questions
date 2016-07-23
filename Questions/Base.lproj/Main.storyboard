@@ -51,7 +51,7 @@
         <!--Main Menu-->
         <scene sceneID="syY-Yf-diQ">
             <objects>
-                <viewController id="Uw9-Bc-kPM" customClass="MainViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainViewController" id="Uw9-Bc-kPM" customClass="MainViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wSI-yt-EBN"/>
                         <viewControllerLayoutGuide type="bottom" id="eN3-98-6El"/>
@@ -139,7 +139,7 @@
         <!--Settings-->
         <scene sceneID="Thb-Dx-Tbt">
             <objects>
-                <tableViewController id="oi1-Vd-nnJ" customClass="SettingsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="settingsViewController" id="oi1-Vd-nnJ" customClass="SettingsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YSU-8t-NR6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

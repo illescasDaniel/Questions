@@ -61,9 +61,9 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 	}
 	
 	@IBAction func switchBGMusic(sender: UISwitch) {
-
+		
 		if let bgMusic = MainViewController.bgMusic {
-
+			
 			if bgMusicSwitch.on {
 				MainViewController.settings.musicEnabled = true
 				bgMusic.play()
