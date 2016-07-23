@@ -37,6 +37,21 @@
                BlueprintName = "QuestionsTests"
                ReferencedContainer = "container:Questions.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "QuestionsUITests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "653D056B1D43CD2D00865D43"
+               BuildableName = "QuestionsUITests.xctest"
+               BlueprintName = "QuestionsUITests"
+               ReferencedContainer = "container:Questions.xcodeproj">
+            </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		653D055E1D43961900865D43 /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D055D1D43961900865D43 /* QuestionsTests.swift */; };
+		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
 		65456AED1D2BBEF90048965E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65456AEF1D2BBEF90048965E /* Localizable.strings */; };
 		65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF11D2BC01C0048965E /* String+Extension.swift */; };
 		65456AF41D2BC9620048965E /* QuestionsSetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF31D2BC9620048965E /* QuestionsSetsViewController.swift */; };
@@ -35,12 +36,22 @@
 			remoteGlobalIDString = 65CB4C411D29C3E300D2E1C1;
 			remoteInfo = Questions;
 		};
+		653D05711D43CD2D00865D43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 65CB4C3A1D29C3E300D2E1C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65CB4C411D29C3E300D2E1C1;
+			remoteInfo = Questions;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		653D055B1D43961900865D43 /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D055D1D43961900865D43 /* QuestionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTests.swift; sourceTree = "<group>"; };
 		653D055F1D43961900865D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		653D056C1D43CD2D00865D43 /* QuestionsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsUITests.swift; sourceTree = "<group>"; };
+		653D05701D43CD2D00865D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65456AEA1D2BBE8C0048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		65456AEE1D2BBEF90048965E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF01D2BBF190048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -74,6 +85,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		653D05691D43CD2D00865D43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65CB4C3F1D29C3E300D2E1C1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +111,15 @@
 			path = QuestionsTests;
 			sourceTree = "<group>";
 		};
+		653D056D1D43CD2D00865D43 /* QuestionsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */,
+				653D05701D43CD2D00865D43 /* Info.plist */,
+			);
+			path = QuestionsUITests;
+			sourceTree = "<group>";
+		};
 		659B50461D2BE40500F8FA09 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +137,7 @@
 				65CE0EED1D2C391500C163DB /* README.md */,
 				65CB4C441D29C3E300D2E1C1 /* Questions */,
 				653D055C1D43961900865D43 /* QuestionsTests */,
+				653D056D1D43CD2D00865D43 /* QuestionsUITests */,
 				65CB4C431D29C3E300D2E1C1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,6 +147,7 @@
 			children = (
 				65CB4C421D29C3E300D2E1C1 /* Questions.app */,
 				653D055B1D43961900865D43 /* QuestionsTests.xctest */,
+				653D056C1D43CD2D00865D43 /* QuestionsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +220,24 @@
 			productReference = 653D055B1D43961900865D43 /* QuestionsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		653D056B1D43CD2D00865D43 /* QuestionsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 653D05731D43CD2D00865D43 /* Build configuration list for PBXNativeTarget "QuestionsUITests" */;
+			buildPhases = (
+				653D05681D43CD2D00865D43 /* Sources */,
+				653D05691D43CD2D00865D43 /* Frameworks */,
+				653D056A1D43CD2D00865D43 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				653D05721D43CD2D00865D43 /* PBXTargetDependency */,
+			);
+			name = QuestionsUITests;
+			productName = QuestionsUITests;
+			productReference = 653D056C1D43CD2D00865D43 /* QuestionsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		65CB4C411D29C3E300D2E1C1 /* Questions */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65CB4C541D29C3E300D2E1C1 /* Build configuration list for PBXNativeTarget "Questions" */;
@@ -224,6 +271,11 @@
 						DevelopmentTeam = PRK6268SLD;
 						TestTargetID = 65CB4C411D29C3E300D2E1C1;
 					};
+					653D056B1D43CD2D00865D43 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PRK6268SLD;
+						TestTargetID = 65CB4C411D29C3E300D2E1C1;
+					};
 					65CB4C411D29C3E300D2E1C1 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = PRK6268SLD;
@@ -246,12 +298,20 @@
 			targets = (
 				65CB4C411D29C3E300D2E1C1 /* Questions */,
 				653D055A1D43961900865D43 /* QuestionsTests */,
+				653D056B1D43CD2D00865D43 /* QuestionsUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		653D05591D43961900865D43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		653D056A1D43CD2D00865D43 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,6 +359,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		653D05681D43CD2D00865D43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		65CB4C3E1D29C3E300D2E1C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +391,11 @@
 			isa = PBXTargetDependency;
 			target = 65CB4C411D29C3E300D2E1C1 /* Questions */;
 			targetProxy = 653D05601D43961900865D43 /* PBXContainerItemProxy */;
+		};
+		653D05721D43CD2D00865D43 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 65CB4C411D29C3E300D2E1C1 /* Questions */;
+			targetProxy = 653D05711D43CD2D00865D43 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -369,6 +442,28 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Questions.app/Questions";
+			};
+			name = Release;
+		};
+		653D05741D43CD2D00865D43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuestionsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Questions;
+			};
+			name = Debug;
+		};
+		653D05751D43CD2D00865D43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = QuestionsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Questions;
 			};
 			name = Release;
 		};
@@ -493,6 +588,14 @@
 			buildConfigurations = (
 				653D05631D43961900865D43 /* Debug */,
 				653D05641D43961900865D43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		653D05731D43CD2D00865D43 /* Build configuration list for PBXNativeTarget "QuestionsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				653D05741D43CD2D00865D43 /* Debug */,
+				653D05751D43CD2D00865D43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
