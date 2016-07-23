@@ -62,6 +62,7 @@ class QuestionViewController: UIViewController {
 			remainingQuestionsLabel.text = "\(set.indexOfObject(quiz) + 1)/\(set.count)"
 		}
 		else {
+
 			QuestionViewController.completedSets[currentSet] = true
 
 			MainViewController.settings.completedSets = QuestionViewController.completedSets
