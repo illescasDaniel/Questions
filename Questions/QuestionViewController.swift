@@ -2,17 +2,19 @@ import UIKit
 
 class QuestionViewController: UIViewController {
 
-	@IBOutlet var remainingQuestionsLabel: UILabel!
-	@IBOutlet var questionLabel: UILabel!
+	// MARK: Properties
+	
+	@IBOutlet weak var remainingQuestionsLabel: UILabel!
+	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet var answersLabels: [UIButton]!
-	@IBOutlet var statusLabel: UILabel!
-	@IBOutlet var endOfQuestions: UILabel!
+	@IBOutlet weak var statusLabel: UILabel!
+	@IBOutlet weak var endOfQuestions: UILabel!
 
-	@IBOutlet var pauseButton: UIButton!
-	@IBOutlet var pauseMenu: UIView!
-	@IBOutlet var goBack: UIButton!
-	@IBOutlet var muteMusic: UIButton!
-	@IBOutlet var mainMenu: UIButton!
+	@IBOutlet weak var pauseButton: UIButton!
+	@IBOutlet weak var pauseMenu: UIView!
+	@IBOutlet weak var goBack: UIButton!
+	@IBOutlet weak var muteMusic: UIButton!
+	@IBOutlet weak var mainMenu: UIButton!
 
 	static var completedSets = MainViewController.settings.completedSets
 	var correctAnswer = Int()
@@ -21,6 +23,8 @@ class QuestionViewController: UIViewController {
 	var quiz = NSEnumerator()
 	var paused = true
 
+	// MARK: View life cycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -48,73 +52,8 @@ class QuestionViewController: UIViewController {
 		pickQuestion()
 	}
 
-	func pickQuestion() {
-
-		if let quiz = quiz.nextObject() {
-
-			correctAnswer = (quiz["answer"] as! Int)
-			questionLabel.text = (quiz["question"] as! String).localized
-
-			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, forState: .Normal)
-			}
-
-			remainingQuestionsLabel.text = "\(set.indexOfObject(quiz) + 1)/\(set.count)"
-		}
-		else {
-
-			QuestionViewController.completedSets[currentSet] = true
-
-			MainViewController.settings.completedSets = QuestionViewController.completedSets
-			MainViewController.settings.save()
-
-			endOfQuestions.hidden = false
-			answersLabels.forEach { $0.enabled = false }
-		}
-	}
-
-	func verifyAnswer(answer: Int) {
-
-		stopPreviousSounds()
-
-		statusLabel.alpha = 1.0
-
-		if answer == correctAnswer {
-			statusLabel.textColor = .greenColor()
-			statusLabel.text = "Correct!".localized
-
-			if let correctSound = MainViewController.correct {
-				correctSound.play()
-			}
-		}
-		else {
-			statusLabel.textColor = .redColor()
-			statusLabel.text = "Incorrect".localized
-
-			if let incorrectSound = MainViewController.incorrect {
-				incorrectSound.play()
-			}
-		}
-
-		// Fade out animation for statusLabel
-		UIView.animateWithDuration(1.5) { self.statusLabel.alpha = 0.0 }
-
-		pickQuestion()
-	}
-
-	func stopPreviousSounds() {
-
-		if let incorrectSound = MainViewController.incorrect where incorrectSound.playing {
-			incorrectSound.pause()
-			incorrectSound.currentTime = 0
-		}
-
-		if let correctSound = MainViewController.correct where correctSound.playing {
-			correctSound.pause()
-			correctSound.currentTime = 0
-		}
-	}
-
+	// MARK: IBActions
+	
 	@IBAction func answer1Action(sender: UIButton) { verifyAnswer(0) }
 	@IBAction func answer2Action(sender: UIButton) { verifyAnswer(1) }
 	@IBAction func answer3Action(sender: UIButton) { verifyAnswer(2) }
@@ -152,5 +91,74 @@ class QuestionViewController: UIViewController {
 			MainViewController.settings.save()
 		}
 
+	}
+	
+	// MARK: CONVENIENCE
+	
+	func pickQuestion() {
+		
+		if let quiz = quiz.nextObject() {
+			
+			correctAnswer = (quiz["answer"] as! Int)
+			questionLabel.text = (quiz["question"] as! String).localized
+			
+			for i in 0..<answersLabels.count {
+				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, forState: .Normal)
+			}
+			
+			remainingQuestionsLabel.text = "\(set.indexOfObject(quiz) + 1)/\(set.count)"
+		}
+		else {
+			
+			QuestionViewController.completedSets[currentSet] = true
+			
+			MainViewController.settings.completedSets = QuestionViewController.completedSets
+			MainViewController.settings.save()
+			
+			endOfQuestions.hidden = false
+			answersLabels.forEach { $0.enabled = false }
+		}
+	}
+	
+	func verifyAnswer(answer: Int) {
+		
+		stopPreviousSounds()
+		
+		statusLabel.alpha = 1.0
+		
+		if answer == correctAnswer {
+			statusLabel.textColor = .greenColor()
+			statusLabel.text = "Correct!".localized
+			
+			if let correctSound = MainViewController.correct {
+				correctSound.play()
+			}
+		}
+		else {
+			statusLabel.textColor = .redColor()
+			statusLabel.text = "Incorrect".localized
+			
+			if let incorrectSound = MainViewController.incorrect {
+				incorrectSound.play()
+			}
+		}
+		
+		// Fade out animation for statusLabel
+		UIView.animateWithDuration(1.5) { self.statusLabel.alpha = 0.0 }
+		
+		pickQuestion()
+	}
+	
+	func stopPreviousSounds() {
+		
+		if let incorrectSound = MainViewController.incorrect where incorrectSound.playing {
+			incorrectSound.pause()
+			incorrectSound.currentTime = 0
+		}
+		
+		if let correctSound = MainViewController.correct where correctSound.playing {
+			correctSound.pause()
+			correctSound.currentTime = 0
+		}
 	}
 }

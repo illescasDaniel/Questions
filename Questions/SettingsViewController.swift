@@ -2,12 +2,15 @@ import UIKit
 
 class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 
-	@IBOutlet var settingsNavItem: UINavigationItem!
+	// MARK: Properties
 	
-	@IBOutlet var bgMusicLabel: UILabel!
-	@IBOutlet var bgMusicSwitch: UISwitch!
-	@IBOutlet var resetGameLabel: UILabel!
+	@IBOutlet weak var settingsNavItem: UINavigationItem!
+	@IBOutlet weak var bgMusicLabel: UILabel!
+	@IBOutlet weak var bgMusicSwitch: UISwitch!
+	@IBOutlet weak var resetGameLabel: UILabel!
 
+	// MARK: View life cycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -18,6 +21,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		bgMusicSwitch.setOn(MainViewController.bgMusic!.playing, animated: true)
 	}
 
+	// MARK: UITableViewDataSouce
+	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 2
 	}
@@ -28,6 +33,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 			resetGameAlert()
 		}
 	}
+	
+	// MARK: Alerts
 	
 	func resetGameAlert() {
 		let alertViewController = UIAlertController(title: "",
@@ -60,6 +67,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
 	
+	// MARK: IBActions
+	
 	@IBAction func switchBGMusic(sender: UISwitch) {
 		
 		if let bgMusic = MainViewController.bgMusic {
@@ -77,6 +86,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		}
 
 	}
+	
+	// MARK: Convenience
 	
 	func removeFile(file: String, from: String) {
 		

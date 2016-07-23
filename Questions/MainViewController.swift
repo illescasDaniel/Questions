@@ -2,22 +2,25 @@ import AVFoundation
 import UIKit
 
 class MainViewController: UIViewController, UIAlertViewDelegate {
-
+	
+	// MARK: Properties
+	
+	@IBOutlet weak var startButton: UIButton!
+	@IBOutlet weak var instructionsButton: UIButton!
+	@IBOutlet weak var settingsButton: UIButton!
+	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
+	
 	static var bgMusic: AVAudioPlayer?
 	static var correct: AVAudioPlayer?
 	static var incorrect: AVAudioPlayer?
-	
-	@IBOutlet var startButton: UIButton!
-	@IBOutlet var instructionsButton: UIButton!
-	@IBOutlet var settingsButton: UIButton!
-	@IBOutlet var mainMenuNavItem: UINavigationItem!
-	
 	static var settings = Settings()
+	
+	// MARK: View life cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// LOAD CONFIGURATION FILE or CREATE A NEW ONE
+		// Load configuration file or create a new one
 		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
 			MainViewController.settings = mySettings
 		}
@@ -25,7 +28,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 			MainViewController.settings.save()
 		}
 
-		// INITIALIZE SOUNDS
+		// Initialize sounds
 		if let bgMusic = AVAudioPlayer(file: "bensound-funkyelement", type: "mp3") {
 			MainViewController.bgMusic = bgMusic
 		}
@@ -48,13 +51,15 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		
 		MainViewController.bgMusic?.numberOfLoops = Int.max
 
-		// SET BUTTON TITLES
+		// Set button titles
 		startButton.setTitle("START GAME".localized, forState: .Normal)
 		instructionsButton.setTitle("INSTRUCTIONS".localized, forState: .Normal)
 		settingsButton.setTitle("SETTINGS".localized, forState: .Normal)
 		mainMenuNavItem.title = "Main menu".localized
 	}
 
+	// MARK: Alerts
+	
 	@IBAction func showInstructions(sender: AnyObject) {
 		let alertViewController = UIAlertController(title: "Instructions".localized,
 													message: "INSTRUCTIONS_TEXT".localized,
@@ -67,8 +72,9 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
 
+	// MARK: UnwindSegue
+	
 	@IBAction func unwindToMainMenu(unwindSegue: UIStoryboardSegue) {
 
 	}
-
 }

@@ -2,16 +2,22 @@ import UIKit
 
 class QuestionsSetsViewController: UITableViewController {
 
-	@IBOutlet var table: UITableView!
+	// MARK: Properties
+	
+	@IBOutlet weak var table: UITableView!
 	var sets: [String] = []
 	var cell = UITableViewCell()
 
+	// MARK: View life cycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		sets = ["Social".localized, "Technology".localized, "People".localized]
 	}
 
+	// MARK: UITableViewDataSource
+	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return sets.count
 	}
@@ -35,6 +41,8 @@ class QuestionsSetsViewController: UITableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		performSegueWithIdentifier("selectQuestionSet", sender: indexPath.row)
 	}
+	
+	// MARK: UIStoryboardSegue Handling
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
