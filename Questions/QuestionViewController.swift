@@ -93,7 +93,7 @@ class QuestionViewController: UIViewController {
 
 	}
 	
-	// MARK: CONVENIENCE
+	// MARK: Convenience
 	
 	func pickQuestion() {
 		

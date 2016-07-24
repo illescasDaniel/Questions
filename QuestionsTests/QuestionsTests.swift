@@ -43,12 +43,12 @@ class QuestionsTests: XCTestCase {
 
 				// TEST QUESTION
 				print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nPlistQuestion: \(question)\n")
-				XCTAssert(vc.questionLabel.text! == question)
+				XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
 
 				// TEST ANSWERS
 				for k in 0..<vc.answersLabels.count {
 					print("·· Answer \(k):\nLabel: \(vc.answersLabels[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
-					XCTAssert(vc.answersLabels[k].currentTitle! == answersFromPlist[k], "Failed loading answer string \(k) from set \(vc.currentSet)")
+					XCTAssert(vc.answersLabels[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSet)")
 				}
 
 				vc.pickQuestion()
