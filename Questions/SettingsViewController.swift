@@ -41,8 +41,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		                                            message: "RESET_GAME_ADVICE".localized,
 		                                            preferredStyle: .ActionSheet)
 		
-		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .Cancel) { (action) -> Void in }
-		let okAction = UIAlertAction(title: "OK".localized, style: .Destructive) {
+		let cancelAction = UIAlertAction(title: "NO".localized, style: .Cancel) { (action) -> Void in }
+		let okAction = UIAlertAction(title: "Yes".localized, style: .Destructive) {
 			(action) -> Void in
 			
 			self.removeFile("Settings.archive", from: Settings.documentsDirectory())
