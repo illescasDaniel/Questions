@@ -29,17 +29,14 @@ class QuestionViewController: UIViewController {
 		super.viewDidLoad()
 
 		set = (Quiz.set[currentSet] as! [AnyObject]).shuffle()
-
-		if set.objectEnumerator() != nil {
-			quiz = set.objectEnumerator()!
-		}
-
+		quiz = set.objectEnumerator()
+		
 		pauseView.hidden = true
 		endOfQuestions.hidden = true
 		statusLabel.alpha = 0.0
 
 		if let bgMusic = MainViewController.bgMusic {
-
+			
 			let title = bgMusic.playing ? "Pause music" : "Play music"
 			muteMusic.setTitle(title.localized, forState: .Normal)
 		}
@@ -103,7 +100,6 @@ class QuestionViewController: UIViewController {
 			MainViewController.settings.musicEnabled = bgMusic.playing
 			MainViewController.settings.save()
 		}
-
 	}
 	
 	// MARK: Convenience
@@ -142,18 +138,12 @@ class QuestionViewController: UIViewController {
 		if answer == correctAnswer {
 			statusLabel.textColor = .greenColor()
 			statusLabel.text = "Correct!".localized
-			
-			if let correctSound = MainViewController.correct {
-				correctSound.play()
-			}
+			MainViewController.correct?.play()
 		}
 		else {
 			statusLabel.textColor = .redColor()
 			statusLabel.text = "Incorrect".localized
-			
-			if let incorrectSound = MainViewController.incorrect {
-				incorrectSound.play()
-			}
+			MainViewController.incorrect?.play()
 		}
 		
 		// Fade out animation for statusLabel

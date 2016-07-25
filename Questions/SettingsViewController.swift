@@ -1,28 +1,29 @@
 import UIKit
 
-class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
+class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 
 	// MARK: Properties
-	
+
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicLabel: UILabel!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
 	@IBOutlet weak var resetGameLabel: UILabel!
 
 	// MARK: View life cycle
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		settingsNavItem.title = "Settings".localized
 		resetGameLabel.text = "Reset game".localized
 		bgMusicLabel.text = "Background music".localized
-
-		bgMusicSwitch.setOn(MainViewController.bgMusic!.playing, animated: true)
+		
+		// Value for the switch would be false if the music couldn't load
+		bgMusicSwitch.setOn(MainViewController.bgMusic?.playing ?? false, animated: true)
 	}
 
 	// MARK: UITableViewDataSouce
-	
+
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 2
 	}
@@ -33,22 +34,22 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 			resetGameAlert()
 		}
 	}
-	
+
 	// MARK: Alerts
-	
+
 	func resetGameAlert() {
 		let alertViewController = UIAlertController(title: "",
 		                                            message: "RESET_GAME_ADVICE".localized,
 		                                            preferredStyle: .ActionSheet)
-		
+
 		let cancelAction = UIAlertAction(title: "NO".localized, style: .Cancel) { action in }
 		let okAction = UIAlertAction(title: "Yes".localized, style: .Destructive) {
 			action in
-			
+
 			self.removeFile("Settings.archive", from: Settings.documentsDirectory())
 			self.restartGameAlert()
 		}
-		
+
 		alertViewController.addAction(cancelAction)
 		alertViewController.addAction(okAction)
 
@@ -59,40 +60,36 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		let alertViewController = UIAlertController(title: "Restart the game".localized,
 		                                            message: "RESTART_GAME_TEXT".localized,
 		                                            preferredStyle: .Alert)
-		
+
 		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
-		
+
 		alertViewController.addAction(okAction)
-		
+
 		presentViewController(alertViewController, animated: true, completion: nil)
 	}
-	
+
 	// MARK: IBActions
-	
+
 	@IBAction func switchBGMusic() {
-		
-		if let bgMusic = MainViewController.bgMusic {
-			
-			if bgMusicSwitch.on {
-				MainViewController.settings.musicEnabled = true
-				bgMusic.play()
-			}
-			else {
-				MainViewController.settings.musicEnabled = false
-				bgMusic.pause()
-			}
-			
-			MainViewController.settings.save()
+
+		if bgMusicSwitch.on {
+			MainViewController.settings.musicEnabled = true
+			MainViewController.bgMusic?.play()
+		}
+		else {
+			MainViewController.settings.musicEnabled = false
+			MainViewController.bgMusic?.pause()
 		}
 
+		MainViewController.settings.save()
 	}
-	
+
 	// MARK: Convenience
-	
+
 	func removeFile(file: String, from: String) {
-		
+
 		let fileManager = NSFileManager.defaultManager()
-		
+
 		do {
 			try fileManager.removeItemAtPath("\(from)/\(file)")
 		}

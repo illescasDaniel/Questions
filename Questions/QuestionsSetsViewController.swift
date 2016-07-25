@@ -29,8 +29,8 @@ class QuestionsSetsViewController: UITableViewController {
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
 		if let cell = tableView.dequeueReusableCellWithIdentifier("setCell") {
-			self.cell = cell
 			
+			self.cell = cell
 			self.cell.textLabel?.text = sets[indexPath.row]
 			
 			if QuestionViewController.completedSets[indexPath.row] {
