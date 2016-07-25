@@ -590,6 +590,7 @@
 				653D05641D43961900865D43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		653D05731D43CD2D00865D43 /* Build configuration list for PBXNativeTarget "QuestionsUITests" */ = {
 			isa = XCConfigurationList;
@@ -598,6 +599,7 @@
 				653D05751D43CD2D00865D43 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		65CB4C3D1D29C3E300D2E1C1 /* Build configuration list for PBXProject "Questions" */ = {
 			isa = XCConfigurationList;

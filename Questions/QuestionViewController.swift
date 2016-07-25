@@ -12,6 +12,7 @@ class QuestionViewController: UIViewController {
 
 	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var pauseMenu: UIView!
+	
 	@IBOutlet weak var goBack: UIButton!
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
@@ -70,8 +71,21 @@ class QuestionViewController: UIViewController {
 			}
 		}
 
+		// FIXME: Blurred background bug when in pause mode and rotating screen
+		// BLUR BACKGROUND for pause menu
+		if paused {
+			let blurEffect = UIBlurEffect(style: .Light)
+			let blurView = UIVisualEffectView(effect: blurEffect)
+			blurView.frame = UIScreen.mainScreen().bounds
+			
+			view.insertSubview(blurView, atIndex: 8)
+		}
+		else {
+			view.subviews[8].removeFromSuperview()
+		}
+		
 		paused = paused ? false : true
-		pauseMenu.hidden = pauseMenu.hidden ? false : true
+		pauseMenu.hidden = paused
 	}
 
 	@IBAction func muteMusicAction(sender: UIButton) {
