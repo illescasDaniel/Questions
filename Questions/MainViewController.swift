@@ -60,7 +60,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 
 	// MARK: Alerts
 	
-	@IBAction func showInstructions(sender: AnyObject) {
+	@IBAction func showInstructions() {
 		let alertViewController = UIAlertController(title: "Instructions".localized,
 													message: "INSTRUCTIONS_TEXT".localized,
 													preferredStyle: .Alert)

@@ -41,9 +41,9 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 		                                            message: "RESET_GAME_ADVICE".localized,
 		                                            preferredStyle: .ActionSheet)
 		
-		let cancelAction = UIAlertAction(title: "NO".localized, style: .Cancel) { (action) -> Void in }
+		let cancelAction = UIAlertAction(title: "NO".localized, style: .Cancel) { action in }
 		let okAction = UIAlertAction(title: "Yes".localized, style: .Destructive) {
-			(action) -> Void in
+			action in
 			
 			self.removeFile("Settings.archive", from: Settings.documentsDirectory())
 			self.restartGameAlert()
@@ -69,7 +69,7 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate  {
 	
 	// MARK: IBActions
 	
-	@IBAction func switchBGMusic(sender: UISwitch) {
+	@IBAction func switchBGMusic() {
 		
 		if let bgMusic = MainViewController.bgMusic {
 			

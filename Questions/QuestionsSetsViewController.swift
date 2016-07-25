@@ -28,11 +28,14 @@ class QuestionsSetsViewController: UITableViewController {
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-		cell = tableView.dequeueReusableCellWithIdentifier("setCell")!
-		cell.textLabel!.text = sets[indexPath.row]
-
-		if QuestionViewController.completedSets[indexPath.row] {
-			cell.accessoryType = .Checkmark
+		if let cell = tableView.dequeueReusableCellWithIdentifier("setCell") {
+			self.cell = cell
+			
+			self.cell.textLabel?.text = sets[indexPath.row]
+			
+			if QuestionViewController.completedSets[indexPath.row] {
+				self.cell.accessoryType = .Checkmark
+			}
 		}
 
 		return cell

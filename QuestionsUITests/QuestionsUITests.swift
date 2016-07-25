@@ -46,5 +46,4 @@ class QuestionsUITests: XCTestCase {
 		pauseButton.tap()
 		app.buttons["Main menu"].tap()
     }
-	
 }

@@ -11,8 +11,7 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var endOfQuestions: UILabel!
 
 	@IBOutlet weak var pauseButton: UIButton!
-	@IBOutlet weak var pauseMenu: UIView!
-	
+	@IBOutlet weak var pauseView: UIView!
 	@IBOutlet weak var goBack: UIButton!
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
@@ -35,7 +34,7 @@ class QuestionViewController: UIViewController {
 			quiz = set.objectEnumerator()!
 		}
 
-		pauseMenu.hidden = true
+		pauseView.hidden = true
 		endOfQuestions.hidden = true
 		statusLabel.alpha = 0.0
 
@@ -55,12 +54,12 @@ class QuestionViewController: UIViewController {
 
 	// MARK: IBActions
 	
-	@IBAction func answer1Action(sender: UIButton) { verifyAnswer(0) }
-	@IBAction func answer2Action(sender: UIButton) { verifyAnswer(1) }
-	@IBAction func answer3Action(sender: UIButton) { verifyAnswer(2) }
-	@IBAction func answer4Action(sender: UIButton) { verifyAnswer(3) }
+	@IBAction func answer1Action() { verifyAnswer(0) }
+	@IBAction func answer2Action() { verifyAnswer(1) }
+	@IBAction func answer3Action() { verifyAnswer(2) }
+	@IBAction func answer4Action() { verifyAnswer(3) }
 
-	@IBAction func pauseMenu(sender: AnyObject) {
+	@IBAction func pauseMenu() {
 
 		let title = paused ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, forState: .Normal)
@@ -85,10 +84,10 @@ class QuestionViewController: UIViewController {
 		}
 		
 		paused = paused ? false : true
-		pauseMenu.hidden = paused
+		pauseView.hidden = paused
 	}
 
-	@IBAction func muteMusicAction(sender: UIButton) {
+	@IBAction func muteMusicAction() {
 
 		if let bgMusic = MainViewController.bgMusic {
 
@@ -101,7 +100,7 @@ class QuestionViewController: UIViewController {
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
 			}
 
-			MainViewController.settings.musicEnabled = !bgMusic.playing
+			MainViewController.settings.musicEnabled = bgMusic.playing
 			MainViewController.settings.save()
 		}
 

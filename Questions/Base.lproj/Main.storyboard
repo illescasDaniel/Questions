@@ -90,7 +90,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showInstructions:" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="kwm-LB-yDv"/>
+                                    <action selector="showInstructions" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="vdp-am-yhS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC">
@@ -157,7 +157,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m4T-Df-lj5">
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="switchBGMusic:" destination="oi1-Vd-nnJ" eventType="valueChanged" id="PtK-SU-4th"/>
+                                                        <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="JlQ-j7-zTu"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JR-ca-ZCf">
@@ -257,7 +257,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answer1Action:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="U8g-nL-uqv"/>
+                                    <action selector="answer1Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="Kjq-bC-YX5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdX-im-E3g">
@@ -271,7 +271,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answer3Action:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="JXK-Wb-bVt"/>
+                                    <action selector="answer3Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="OaH-PV-qYg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-eX-HNQ">
@@ -285,7 +285,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answer4Action:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="5Oe-cN-fPV"/>
+                                    <action selector="answer4Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="x80-SZ-pmR"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct/Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-oh-bXj" userLabel="Status Label">
@@ -305,7 +305,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="answer2Action:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="hu9-Vi-JcM"/>
+                                    <action selector="answer2Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="LmK-pU-Bej"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-zP-xHR">
@@ -320,16 +320,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="28" width="42" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="uak-uo-YTW"/>
-                                </constraints>
-                                <state key="normal" title="Pause"/>
-                                <connections>
-                                    <action selector="pauseMenu:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="1FW-Fv-lMl"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSd-Pz-OF3">
                                 <rect key="frame" x="180" y="236" width="240" height="128"/>
                                 <subviews>
@@ -342,7 +332,7 @@
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="muteMusicAction:" destination="w1d-Yh-0lm" eventType="touchUpInside" id="CCn-t5-iyH"/>
+                                            <action selector="muteMusicAction" destination="w1d-Yh-0lm" eventType="touchUpInside" id="3cX-Ow-Swx"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
@@ -378,6 +368,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
+                                <rect key="frame" x="20" y="28" width="65" height="37.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
+                                    <constraint firstAttribute="width" constant="65" id="mJL-kw-vjd"/>
+                                </constraints>
+                                <state key="normal" title="Pause"/>
+                                <connections>
+                                    <action selector="pauseMenu" destination="w1d-Yh-0lm" eventType="touchUpInside" id="VTe-zM-gEw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -457,7 +458,7 @@
                         <outlet property="mainMenu" destination="ydF-gf-Ddb" id="3sc-5V-ytk"/>
                         <outlet property="muteMusic" destination="k5D-mT-l8u" id="9HS-AU-aAi"/>
                         <outlet property="pauseButton" destination="liL-s5-Eng" id="6qj-qS-6WY"/>
-                        <outlet property="pauseMenu" destination="qSd-Pz-OF3" id="oN1-Zf-e3i"/>
+                        <outlet property="pauseView" destination="qSd-Pz-OF3" id="z2r-XG-alu"/>
                         <outlet property="questionLabel" destination="ecH-y2-fsh" id="pWU-bj-jbR"/>
                         <outlet property="remainingQuestionsLabel" destination="K5D-zP-xHR" id="nsW-zW-2EW"/>
                         <outlet property="statusLabel" destination="Xtz-oh-bXj" id="e2i-Ap-hAA"/>

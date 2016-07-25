@@ -66,11 +66,11 @@ class QuestionsTests: XCTestCase {
 			settingsVC.view.reloadInputViews()
 			
 			settingsVC.bgMusicSwitch.setOn(true, animated: true)
-			settingsVC.switchBGMusic(UISwitch())
+			settingsVC.switchBGMusic()
 			XCTAssert(bgMusic.playing, "Music not playing when switch is ON")
 
 			settingsVC.bgMusicSwitch.setOn(false, animated: true)
-			settingsVC.switchBGMusic(UISwitch())
+			settingsVC.switchBGMusic()
 			XCTAssert(!bgMusic.playing, "Music playing when switch is OFF")
 		}
 		else {
