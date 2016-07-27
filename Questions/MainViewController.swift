@@ -13,6 +13,8 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	static var bgMusic: AVAudioPlayer?
 	static var correct: AVAudioPlayer?
 	static var incorrect: AVAudioPlayer?
+	static var motionEffects = UIMotionEffectGroup()
+	static var backgroundView = UIView()
 	static var settings = Settings()
 	
 	// MARK: View life cycle
@@ -20,8 +22,10 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		MainViewController.backgroundView = view.subviews[0]
+		
 		// Add parallax effect to background image view
-		addParallaxToView(view.subviews[0])
+		MainViewController.addParallaxToView(MainViewController.backgroundView)
 		
 		// Load configuration file or create a new one
 		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
@@ -83,7 +87,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 
 	// MARK: Convenience
 
-	func addParallaxToView(view: UIView) {
+	static func addParallaxToView(view: UIView) {
 		let amount = 20
 
 		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
@@ -94,8 +98,8 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		vertical.minimumRelativeValue = -amount
 		vertical.maximumRelativeValue = amount
 
-		let group = UIMotionEffectGroup()
-		group.motionEffects = [horizontal, vertical]
-		view.addMotionEffect(group)
+		MainViewController.motionEffects = UIMotionEffectGroup()
+		MainViewController.motionEffects.motionEffects = [horizontal, vertical]
+		view.addMotionEffect(MainViewController.motionEffects)
 	}
 }

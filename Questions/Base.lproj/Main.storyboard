@@ -176,8 +176,37 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="YDO-7O-tql" style="IBUITableViewCellStyleDefault" id="sQA-3P-jBE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="R0O-qc-59k">
                                         <rect key="frame" x="0.0" y="143" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R0O-qc-59k" id="foo-ed-IEu">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-0A-rbl">
+                                                    <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="NDO-f4-yf1"/>
+                                                        <action selector="switchParallaxEffect" destination="oi1-Vd-nnJ" eventType="valueChanged" id="kai-YO-iyM"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parallax effect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vdl-0Z-d3C">
+                                                    <rect key="frame" x="15" y="11" width="104" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vdl-0Z-d3C" firstAttribute="top" secondItem="foo-ed-IEu" secondAttribute="topMargin" constant="3" id="3NX-dF-LwL"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="q2x-0A-rbl" secondAttribute="trailing" id="M8n-aK-GJs"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Vdl-0Z-d3C" secondAttribute="leading" constant="-7" id="Tdt-cq-CDG"/>
+                                                <constraint firstItem="q2x-0A-rbl" firstAttribute="top" secondItem="foo-ed-IEu" secondAttribute="topMargin" constant="-2" id="gyb-GG-wdM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="YDO-7O-tql" style="IBUITableViewCellStyleDefault" id="sQA-3P-jBE">
+                                        <rect key="frame" x="0.0" y="187" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sQA-3P-jBE" id="q4C-sO-rua">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -205,6 +234,8 @@
                     <connections>
                         <outlet property="bgMusicLabel" destination="6JR-ca-ZCf" id="YK9-M6-Rkw"/>
                         <outlet property="bgMusicSwitch" destination="m4T-Df-lj5" id="NwH-cq-rbU"/>
+                        <outlet property="parallaxEffectLabel" destination="Vdl-0Z-d3C" id="POt-R7-TMo"/>
+                        <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
                         <outlet property="resetGameLabel" destination="YDO-7O-tql" id="vaT-6T-c8F"/>
                         <outlet property="settingsNavItem" destination="opp-aP-nRJ" id="Nvr-l4-tTA"/>
                     </connections>

@@ -7,25 +7,33 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicLabel: UILabel!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
+	@IBOutlet weak var parallaxEffectLabel: UILabel!
+	@IBOutlet weak var parallaxEffectSwitch: UISwitch!
 	@IBOutlet weak var resetGameLabel: UILabel!
-
+	var options: [String] = []
+	
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		settingsNavItem.title = "Settings".localized
-		resetGameLabel.text = "Reset game".localized
-		bgMusicLabel.text = "Background music".localized
+		
+		options = ["Background music".localized, "Parallax effect".localized, "Reset game".localized]
+
+		bgMusicLabel.text = options[0]
+		parallaxEffectLabel.text = options[1]
+		resetGameLabel.text = options[2]
 		
 		// Value for the switch would be false if the music couldn't load
 		bgMusicSwitch.setOn(MainViewController.bgMusic?.playing ?? false, animated: true)
+		parallaxEffectSwitch.setOn(!MainViewController.backgroundView.motionEffects.isEmpty, animated: true)
 	}
 
 	// MARK: UITableViewDataSouce
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 2
+		return options.count
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -61,7 +69,7 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		                                            message: "RESTART_GAME_TEXT".localized,
 		                                            preferredStyle: .Alert)
 
-		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
+		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { action in }
 
 		alertViewController.addAction(okAction)
 
@@ -84,6 +92,15 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		MainViewController.settings.save()
 	}
 
+	@IBAction func switchParallaxEffect() {
+		
+		if parallaxEffectSwitch.on {
+			MainViewController.addParallaxToView(MainViewController.backgroundView)
+		}
+		else {
+			MainViewController.backgroundView.removeMotionEffect(MainViewController.motionEffects)
+		}
+	}
 	// MARK: Convenience
 
 	func removeFile(file: String, from: String) {

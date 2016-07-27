@@ -8,6 +8,7 @@
 
 "SETTINGS" = "OPCIONES";
 "Background music" = "Música de fondo";
+"Parallax effect" = "Efecto parallax";
 "Reset game" = "Reiniciar juego";
 "RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";
 "Yes" = "Sí";

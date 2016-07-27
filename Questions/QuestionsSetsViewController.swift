@@ -5,8 +5,8 @@ class QuestionsSetsViewController: UITableViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var table: UITableView!
-	var sets: [String] = []
 	var cell = UITableViewCell()
+	var sets: [String] = []
 
 	// MARK: View life cycle
 	
