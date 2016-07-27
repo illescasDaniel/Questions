@@ -20,6 +20,9 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		// Add parallax effect to background image view
+		addParallaxToView(view.subviews[0])
+		
 		// Load configuration file or create a new one
 		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
 			MainViewController.settings = mySettings
@@ -73,8 +76,26 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	}
 
 	// MARK: UnwindSegue
-	
+
 	@IBAction func unwindToMainMenu(unwindSegue: UIStoryboardSegue) {
 
+	}
+
+	// MARK: Convenience
+
+	func addParallaxToView(view: UIView) {
+		let amount = 20
+
+		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
+		horizontal.minimumRelativeValue = -amount
+		horizontal.maximumRelativeValue = amount
+
+		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
+		vertical.minimumRelativeValue = -amount
+		vertical.maximumRelativeValue = amount
+
+		let group = UIMotionEffectGroup()
+		group.motionEffects = [horizontal, vertical]
+		view.addMotionEffect(group)
 	}
 }
