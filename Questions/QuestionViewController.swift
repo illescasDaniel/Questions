@@ -67,7 +67,7 @@ class QuestionViewController: UIViewController {
 			}
 		}
 
-		// FIXME: Blurred background bug when in pause mode and rotating screen
+		// FIXME: Bug when in pause mode and rotating screen
 		// BLUR BACKGROUND for pause menu
 		if paused {
 			let blurEffect = UIBlurEffect(style: .Light)
