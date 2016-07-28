@@ -52,7 +52,6 @@
 		653D056C1D43CD2D00865D43 /* QuestionsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsUITests.swift; sourceTree = "<group>"; };
 		653D05701D43CD2D00865D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65456AEA1D2BBE8C0048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		65456AEE1D2BBEF90048965E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF01D2BBF190048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF11D2BC01C0048965E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -413,7 +412,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				65CB4C4A1D29C3E300D2E1C1 /* Base */,
-				65456AEA1D2BBE8C0048965E /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
