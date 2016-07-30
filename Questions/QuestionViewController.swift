@@ -85,7 +85,7 @@ class QuestionViewController: UIViewController {
 	}
 
 	@IBAction func muteMusicAction() {
-
+		
 		if let bgMusic = MainViewController.bgMusic {
 
 			if bgMusic.playing {

@@ -5,7 +5,7 @@ class QuestionsSetsViewController: UITableViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var table: UITableView!
-	var cell = UITableViewCell()
+	var cell: UITableViewCell?
 	var sets: [String] = []
 
 	// MARK: View life cycle
@@ -28,17 +28,14 @@ class QuestionsSetsViewController: UITableViewController {
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-		if let cell = tableView.dequeueReusableCellWithIdentifier("setCell") {
-			
-			self.cell = cell
-			self.cell.textLabel?.text = sets[indexPath.row]
-			
-			if QuestionViewController.completedSets[indexPath.row] {
-				self.cell.accessoryType = .Checkmark
-			}
+		cell = tableView.dequeueReusableCellWithIdentifier("setCell")
+		cell?.textLabel?.text = sets[indexPath.row]
+		
+		if QuestionViewController.completedSets[indexPath.row] {
+			cell?.accessoryType = .Checkmark
 		}
-
-		return cell
+		
+		return cell ?? UITableViewCell()
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
