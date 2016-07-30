@@ -62,9 +62,9 @@ class QuestionViewController: UIViewController {
 		pauseButton.setTitle(title.localized, forState: .Normal)
 
 		answersLabels.forEach {
-			if endOfQuestions.hidden {
+			//if endOfQuestions.hidden { // This is not necessary anymore since the blurView blocks the buttons | Uncomment this if you remove the blurView
 				$0.enabled = $0.enabled ? false : true
-			}
+			//}
 		}
 
 		// FIXME: Bug when in pause mode and rotating screen
