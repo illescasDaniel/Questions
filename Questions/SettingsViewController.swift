@@ -3,7 +3,7 @@ import UIKit
 class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 
 	// MARK: Properties
-
+	
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicLabel: UILabel!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
