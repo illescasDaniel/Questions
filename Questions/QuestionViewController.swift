@@ -24,7 +24,7 @@ class QuestionViewController: UIViewController {
 	var paused = true
 
 	// MARK: View life cycle
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -67,7 +67,6 @@ class QuestionViewController: UIViewController {
 			//}
 		}
 
-		// FIXME: Bug when in pause mode and rotating screen
 		// BLUR BACKGROUND for pause menu
 		if paused {
 			let blurEffect = UIBlurEffect(style: .Light)
@@ -82,6 +81,11 @@ class QuestionViewController: UIViewController {
 		
 		paused = paused ? false : true
 		pauseView.hidden = paused
+	}
+	
+	// Lock rotation if the pauseView is shown / Rotate screen if the pauseView is hidden
+	override func shouldAutorotate() -> Bool {
+		return pauseView.hidden
 	}
 
 	@IBAction func muteMusicAction() {
