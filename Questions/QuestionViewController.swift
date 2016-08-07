@@ -90,7 +90,7 @@ class QuestionViewController: UIViewController {
 	@IBAction func muteMusicAction() {
 		
 		if let bgMusic = MainViewController.bgMusic {
-
+			
 			if bgMusic.playing {
 				bgMusic.pause()
 				muteMusic.setTitle("Play music".localized, forState: .Normal)
@@ -99,7 +99,7 @@ class QuestionViewController: UIViewController {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
 			}
-
+			
 			Settings.sharedInstance.musicEnabled = bgMusic.playing
 		}
 	}
@@ -122,7 +122,6 @@ class QuestionViewController: UIViewController {
 		else {
 			
 			Settings.sharedInstance.completedSets[currentSet] = true
-			
 			endOfQuestions.hidden = false
 			answersLabels.forEach { $0.enabled = false }
 		}
@@ -130,7 +129,7 @@ class QuestionViewController: UIViewController {
 	
 	func verifyAnswer(answer: Int) {
 		
-		stopPreviousSounds()
+		pausePreviousSounds()
 		
 		statusLabel.alpha = 1.0
 		
@@ -138,19 +137,15 @@ class QuestionViewController: UIViewController {
 			statusLabel.textColor = .greenColor()
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
-			
-			if Settings.sharedInstance.completedSets[currentSet] == false {
-				Settings.sharedInstance.correctAnswers += 1
-			}
 		}
 		else {
 			statusLabel.textColor = .redColor()
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
-			
-			if Settings.sharedInstance.completedSets[currentSet] == false {
-				Settings.sharedInstance.incorrectAnswers += 1
-			}
+		}
+		
+		if !Settings.sharedInstance.completedSets[currentSet] {
+			(answer == correctAnswer) ? (Settings.sharedInstance.correctAnswers += 1) : (Settings.sharedInstance.incorrectAnswers += 1)
 		}
 		
 		// Fade out animation for statusLabel
@@ -159,7 +154,7 @@ class QuestionViewController: UIViewController {
 		pickQuestion()
 	}
 	
-	func stopPreviousSounds() {
+	func pausePreviousSounds() {
 		
 		if let incorrectSound = MainViewController.incorrect where incorrectSound.playing {
 			incorrectSound.pause()

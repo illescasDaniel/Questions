@@ -55,13 +55,12 @@ class QuestionsSetsViewController: UITableViewController {
 					controller.currentSet = set
 				}
 			}
-
 		}
 	}
 
 	@IBAction func unwindToQuestionSetSelector(segue: UIStoryboardSegue) {
 
-		for i in 0..<sets.count {
+		for i in 0..<Quiz.set.count {
 			if Settings.sharedInstance.completedSets[i] {
 				table.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: 0)], withRowAnimation: .Automatic)
 			}
