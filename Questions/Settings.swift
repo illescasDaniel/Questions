@@ -1,7 +1,7 @@
 import Foundation
 
 class Settings: NSObject, NSCoding {
-
+	
 	static let path = "\(Settings.documentsDirectory())/Settings.archive"
 	var musicEnabled = true
 	var completedSets = [Bool](count: Quiz.set.count, repeatedValue: false)
@@ -12,7 +12,6 @@ class Settings: NSObject, NSCoding {
 	private override init() { }
 
 	func encodeWithCoder(archiver: NSCoder) {
-		
 		archiver.encodeInt(correctAnswers, forKey: "Correct answers")
 		archiver.encodeInt(incorrectAnswers, forKey: "Incorrect answers")
 		archiver.encodeBool(musicEnabled, forKey: "Music")
@@ -21,7 +20,6 @@ class Settings: NSObject, NSCoding {
 
 	required init (coder unarchiver: NSCoder) {
 		super.init()
-
 		correctAnswers = unarchiver.decodeIntForKey("Correct answers")
 		incorrectAnswers = unarchiver.decodeIntForKey("Incorrect answers")
 		musicEnabled = unarchiver.decodeBoolForKey("Music")
