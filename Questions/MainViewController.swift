@@ -15,7 +15,6 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	static var incorrect: AVAudioPlayer?
 	static var motionEffects = UIMotionEffectGroup()
 	static var backgroundView = UIView()
-	static var settings = Settings()
 	
 	// MARK: View life cycle
 	
@@ -27,12 +26,9 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		// Add parallax effect to background image view
 		MainViewController.addParallaxToView(MainViewController.backgroundView)
 		
-		// Load configuration file or create a new one
+		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
-			MainViewController.settings = mySettings
-		}
-		else {
-			MainViewController.settings.save()
+			Settings.sharedInstance = mySettings
 		}
 
 		// Initialize sounds
@@ -52,7 +48,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		MainViewController.incorrect?.volume = 0.33
 		MainViewController.bgMusic?.volume = 0.06
 
-		if MainViewController.settings.musicEnabled {
+		if Settings.sharedInstance.musicEnabled {
 			MainViewController.bgMusic?.play()
 		}
 		

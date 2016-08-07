@@ -147,6 +147,13 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="vht-D6-lz1">
+                                <string key="footerTitle">
+Statistics:
+
+
+Correct answers: X
+Incorrect answers: X
+Completed sets: X</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="RlA-wW-96C">
                                         <rect key="frame" x="0.0" y="99" width="600" height="44"/>

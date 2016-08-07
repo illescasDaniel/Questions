@@ -31,7 +31,7 @@ class QuestionsSetsViewController: UITableViewController {
 		cell = tableView.dequeueReusableCellWithIdentifier("setCell")
 		cell?.textLabel?.text = sets[indexPath.row]
 		
-		if QuestionViewController.completedSets[indexPath.row] {
+		if Settings.sharedInstance.completedSets[indexPath.row] {
 			cell?.accessoryType = .Checkmark
 		}
 		
@@ -62,7 +62,7 @@ class QuestionsSetsViewController: UITableViewController {
 	@IBAction func unwindToQuestionSetSelector(segue: UIStoryboardSegue) {
 
 		for i in 0..<sets.count {
-			if QuestionViewController.completedSets[i] {
+			if Settings.sharedInstance.completedSets[i] {
 				table.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: 0)], withRowAnimation: .Automatic)
 			}
 		}

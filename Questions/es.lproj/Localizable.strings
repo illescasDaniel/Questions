@@ -15,6 +15,10 @@
 "Yes" = "Sí";
 "Restart the game" = "Reinicie el juego";
 "RESTART_GAME_TEXT" = "Reinicie el juego para que los cambios surtan efecto.";
+"Statistics" = "Estadísticas";
+"Correct answers" = "Respuestas correctas";
+"Incorrect answers" = "Respuestas incorrectas";
+"Completed sets" = "Sets completados";
 
 "Questions set" = "Sets de preguntas";
 

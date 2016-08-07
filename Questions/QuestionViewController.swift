@@ -16,7 +16,6 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
 
-	static var completedSets = MainViewController.settings.completedSets
 	var correctAnswer = Int()
 	var currentSet = Int()
 	var set: AnyObject = []
@@ -101,8 +100,7 @@ class QuestionViewController: UIViewController {
 				muteMusic.setTitle("Pause music".localized, forState: .Normal)
 			}
 
-			MainViewController.settings.musicEnabled = bgMusic.playing
-			MainViewController.settings.save()
+			Settings.sharedInstance.musicEnabled = bgMusic.playing
 		}
 	}
 	
@@ -123,10 +121,7 @@ class QuestionViewController: UIViewController {
 		}
 		else {
 			
-			QuestionViewController.completedSets[currentSet] = true
-			
-			MainViewController.settings.completedSets = QuestionViewController.completedSets
-			MainViewController.settings.save()
+			Settings.sharedInstance.completedSets[currentSet] = true
 			
 			endOfQuestions.hidden = false
 			answersLabels.forEach { $0.enabled = false }
@@ -143,11 +138,19 @@ class QuestionViewController: UIViewController {
 			statusLabel.textColor = .greenColor()
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
+			
+			if Settings.sharedInstance.completedSets[currentSet] == false {
+				Settings.sharedInstance.correctAnswers += 1
+			}
 		}
 		else {
 			statusLabel.textColor = .redColor()
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
+			
+			if Settings.sharedInstance.completedSets[currentSet] == false {
+				Settings.sharedInstance.incorrectAnswers += 1
+			}
 		}
 		
 		// Fade out animation for statusLabel

@@ -42,6 +42,17 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 			resetGameAlert()
 		}
 	}
+	
+	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		
+		var completedSets = UInt()
+		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
+		
+		return "\n\("Statistics".localized): \n\n" +
+				"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
+				"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
+				"\("Completed sets".localized): \(completedSets)"
+	}
 
 	// MARK: Alerts
 
@@ -81,15 +92,13 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	@IBAction func switchBGMusic() {
 
 		if bgMusicSwitch.on {
-			MainViewController.settings.musicEnabled = true
+			Settings.sharedInstance.musicEnabled = true
 			MainViewController.bgMusic?.play()
 		}
 		else {
-			MainViewController.settings.musicEnabled = false
+			Settings.sharedInstance.musicEnabled = false
 			MainViewController.bgMusic?.pause()
 		}
-
-		MainViewController.settings.save()
 	}
 
 	@IBAction func switchParallaxEffect() {
@@ -101,6 +110,7 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 			MainViewController.backgroundView.removeMotionEffect(MainViewController.motionEffects)
 		}
 	}
+	
 	// MARK: Convenience
 
 	func removeFile(file: String, from: String) {
