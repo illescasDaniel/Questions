@@ -255,12 +255,13 @@ Completed sets: X</string>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="opp-aP-nRJ"/>
                     <connections>
-                        <outlet property="bgMusicLabel" destination="6JR-ca-ZCf" id="YK9-M6-Rkw"/>
                         <outlet property="bgMusicSwitch" destination="m4T-Df-lj5" id="NwH-cq-rbU"/>
-                        <outlet property="parallaxEffectLabel" destination="Vdl-0Z-d3C" id="POt-R7-TMo"/>
                         <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
-                        <outlet property="resetGameLabel" destination="YDO-7O-tql" id="vaT-6T-c8F"/>
                         <outlet property="settingsNavItem" destination="opp-aP-nRJ" id="Nvr-l4-tTA"/>
+                        <outlet property="settingsTableView" destination="YSU-8t-NR6" id="XkU-0R-Dzk"/>
+                        <outletCollection property="optionsLabels" destination="6JR-ca-ZCf" collectionClass="NSMutableArray" id="Fd9-3X-hcI"/>
+                        <outletCollection property="optionsLabels" destination="Vdl-0Z-d3C" collectionClass="NSMutableArray" id="4C0-eb-iw6"/>
+                        <outletCollection property="optionsLabels" destination="YDO-7O-tql" collectionClass="NSMutableArray" id="x6N-8V-8uc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,9 +12,11 @@
 "Parallax effect" = "Efecto parallax";
 "Reset game" = "Reiniciar juego";
 "RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";
-"Yes" = "Sí";
+"What do you want to reset?" = "¿Qué desea reiniciar?";
+"Everything" = "Todos los datos";
+"Only statistics" = "Sólo estadísticas";
+"Cancel" = "Cancelar";
 "Restart the game" = "Reinicie el juego";
-"RESTART_GAME_TEXT" = "Reinicie el juego para que los cambios surtan efecto.";
 "Statistics" = "Estadísticas";
 "Correct answers" = "Respuestas correctas";
 "Incorrect answers" = "Respuestas incorrectas";
