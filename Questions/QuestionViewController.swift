@@ -18,86 +18,86 @@ class QuestionViewController: UIViewController {
 
 	var correctAnswer = Int()
 	var currentSet = Int()
-	var set: AnyObject = []
+	var set: [AnyObject] = []
 	var quiz = NSEnumerator()
 	var paused = true
-
+	
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		set = (Quiz.set[currentSet] as! [AnyObject]).shuffle()
+		set = (Quiz.set[currentSet] as! Array).shuffle()
 		quiz = set.objectEnumerator()
 		
-		pauseView.hidden = true
-		endOfQuestions.hidden = true
+		pauseView.isHidden = true
+		endOfQuestions.isHidden = true
 		statusLabel.alpha = 0.0
 
-		let title = MainViewController.bgMusic?.playing == true ? "Pause music" : "Play music"
-		muteMusic.setTitle(title.localized, forState: .Normal)
+		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
+		muteMusic.setTitle(title.localized, for: UIControlState())
 
 		endOfQuestions.text = "End of questions".localized
-		goBack.setTitle("Go back".localized, forState: .Normal)
-		mainMenu.setTitle("Main menu".localized, forState: .Normal)
-		pauseButton.setTitle("Pause".localized, forState: .Normal)
+		goBack.setTitle("Go back".localized, for: UIControlState())
+		mainMenu.setTitle("Main menu".localized, for: UIControlState())
+		pauseButton.setTitle("Pause".localized, for: UIControlState())
 
 		pickQuestion()
 	}
 
 	// MARK: IBActions
 	
-	@IBAction func answer1Action() { verifyAnswer(0) }
-	@IBAction func answer2Action() { verifyAnswer(1) }
-	@IBAction func answer3Action() { verifyAnswer(2) }
-	@IBAction func answer4Action() { verifyAnswer(3) }
+	@IBAction func answer1Action() { verify(answer: 0) }
+	@IBAction func answer2Action() { verify(answer: 1) }
+	@IBAction func answer3Action() { verify(answer: 2) }
+	@IBAction func answer4Action() { verify(answer: 3) }
 
 	@IBAction func pauseMenu() {
 
 		let title = paused ? "Continue" : "Pause"
-		pauseButton.setTitle(title.localized, forState: .Normal)
+		pauseButton.setTitle(title.localized, for: UIControlState())
 
 		answersLabels.forEach {
 			//if endOfQuestions.hidden { // This is not necessary anymore since the blurView blocks the buttons | Uncomment this if you remove the blurView
-				$0.enabled = $0.enabled ? false : true
+				$0.isEnabled = $0.isEnabled ? false : true
 			//}
 		}
 
 		// BLUR BACKGROUND for pause menu
 		if paused {
-			let blurEffect = UIBlurEffect(style: .Light)
+			let blurEffect = UIBlurEffect(style: .light)
 			let blurView = UIVisualEffectView(effect: blurEffect)
-			blurView.frame = UIScreen.mainScreen().bounds
+			blurView.frame = UIScreen.main.bounds
 			
-			view.insertSubview(blurView, atIndex: 8)
+			view.insertSubview(blurView, at: 8)
 		}
 		else {
 			view.subviews[8].removeFromSuperview()
 		}
 		
 		paused = paused ? false : true
-		pauseView.hidden = paused
+		pauseView.isHidden = paused
 	}
 	
 	// Lock rotation if the pauseView is shown / Rotate screen if the pauseView is hidden
-	override func shouldAutorotate() -> Bool {
-		return pauseView.hidden
+	override var shouldAutorotate: Bool {
+		return pauseView.isHidden
 	}
 
 	@IBAction func muteMusicAction() {
 		
 		if let bgMusic = MainViewController.bgMusic {
 			
-			if bgMusic.playing {
+			if bgMusic.isPlaying {
 				bgMusic.pause()
-				muteMusic.setTitle("Play music".localized, forState: .Normal)
+				muteMusic.setTitle("Play music".localized, for: UIControlState())
 			}
 			else {
 				bgMusic.play()
-				muteMusic.setTitle("Pause music".localized, forState: .Normal)
+				muteMusic.setTitle("Pause music".localized, for: UIControlState())
 			}
 			
-			Settings.sharedInstance.musicEnabled = bgMusic.playing
+			Settings.sharedInstance.musicEnabled = bgMusic.isPlaying
 		}
 	}
 	
@@ -105,38 +105,38 @@ class QuestionViewController: UIViewController {
 	
 	func pickQuestion() {
 		
-		if let quiz = quiz.nextObject() {
+		if let quiz = quiz.nextObject() as? NSDictionary {
 			
 			correctAnswer = (quiz["answer"] as! Int)
 			questionLabel.text = (quiz["question"] as! String).localized
 			
 			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, forState: .Normal)
+				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, for: UIControlState())
 			}
-			
-			remainingQuestionsLabel.text = "\(set.indexOfObject(quiz) + 1)/\(set.count)"
+
+			remainingQuestionsLabel.text =  "\((set as! Array).index(of: quiz)! + 1)/\(set.count)"
 		}
 		else {
 			
 			Settings.sharedInstance.completedSets[currentSet] = true
-			endOfQuestions.hidden = false
-			answersLabels.forEach { $0.enabled = false }
+			endOfQuestions.isHidden = false
+			answersLabels.forEach { $0.isEnabled = false }
 		}
 	}
-	
-	func verifyAnswer(answer: Int) {
+
+	func verify(answer: Int) {
 		
 		pausePreviousSounds()
 		
 		statusLabel.alpha = 1.0
 		
 		if answer == correctAnswer {
-			statusLabel.textColor = .greenColor()
+			statusLabel.textColor = UIColor.green
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
 		}
 		else {
-			statusLabel.textColor = .redColor()
+			statusLabel.textColor = UIColor.red
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
 		}
@@ -146,19 +146,19 @@ class QuestionViewController: UIViewController {
 		}
 		
 		// Fade out animation for statusLabel
-		UIView.animateWithDuration(1.5) { self.statusLabel.alpha = 0.0 }
+		UIView.animate(withDuration: 1.5) { self.statusLabel.alpha = 0.0 }
 		
 		pickQuestion()
 	}
 	
 	func pausePreviousSounds() {
 		
-		if let incorrectSound = MainViewController.incorrect where incorrectSound.playing {
+		if let incorrectSound = MainViewController.incorrect , incorrectSound.isPlaying {
 			incorrectSound.pause()
 			incorrectSound.currentTime = 0
 		}
 		
-		if let correctSound = MainViewController.correct where correctSound.playing {
+		if let correctSound = MainViewController.correct , correctSound.isPlaying {
 			correctSound.pause()
 			correctSound.currentTime = 0
 		}

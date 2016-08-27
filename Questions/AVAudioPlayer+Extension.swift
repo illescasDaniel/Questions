@@ -1,12 +1,14 @@
 import AVFoundation
 
 extension AVAudioPlayer {
-	convenience init?(file: NSString, type: NSString) {
-		let path = NSBundle.mainBundle().pathForResource(file as String, ofType: type as String)
-		let url = NSURL.fileURLWithPath(path!)
+	
+	convenience init?(file: String, type: String) {
+		
+		let path = Bundle.main.path(forResource: file, ofType: type)
+		let url = URL(fileURLWithPath: path!)
 
 		do {
-			try self.init(contentsOfURL: url)
+			try self.init(contentsOf: url)
 		} catch {
 			return nil
 		}

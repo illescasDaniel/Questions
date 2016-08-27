@@ -5,7 +5,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	
-	func applicationDidEnterBackground(application: UIApplication) {
-		Settings.sharedInstance.save()
+	func applicationDidEnterBackground(_ application: UIApplication) {
+		guard Settings.sharedInstance.save() else {	print("Error saving settings"); return }
 	}
 }

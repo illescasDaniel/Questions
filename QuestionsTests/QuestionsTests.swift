@@ -3,7 +3,7 @@ import XCTest
 
 class QuestionsTests: XCTestCase {
 
-	let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+	let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
 
 	override func setUp() {
 		super.setUp()
@@ -17,7 +17,7 @@ class QuestionsTests: XCTestCase {
 
 	func testQuestionsLabels() {
 
-		let vc = storyboard.instantiateViewControllerWithIdentifier("questionsViewController") as! QuestionViewController
+		let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as! QuestionViewController
 
 		var answersFromPlist: [String]
 		var numberOfQuestions: Int
@@ -61,21 +61,20 @@ class QuestionsTests: XCTestCase {
 
 		if let bgMusic = MainViewController.bgMusic {
 			
-			let settingsVC = storyboard.instantiateViewControllerWithIdentifier("settingsViewController") as! SettingsViewController
+			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController
 			
 			settingsVC.view.reloadInputViews()
 			
 			settingsVC.bgMusicSwitch.setOn(true, animated: true)
 			settingsVC.switchBGMusic()
-			XCTAssert(bgMusic.playing, "Music not playing when switch is ON")
+			XCTAssert(bgMusic.isPlaying, "Music not playing when switch is ON")
 
 			settingsVC.bgMusicSwitch.setOn(false, animated: true)
 			settingsVC.switchBGMusic()
-			XCTAssert(!bgMusic.playing, "Music playing when switch is OFF")
+			XCTAssert(!bgMusic.isPlaying, "Music playing when switch is OFF")
 		}
 		else {
 			XCTFail("Music could not load correctly")
 		}
 	}
-
 }

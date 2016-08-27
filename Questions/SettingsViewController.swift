@@ -24,24 +24,24 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		}
 
 		// Value for the switch would be false if the music couldn't load
-		bgMusicSwitch.setOn(MainViewController.bgMusic?.playing ?? false, animated: true)
+		bgMusicSwitch.setOn(MainViewController.bgMusic?.isPlaying ?? false, animated: true)
 		parallaxEffectSwitch.setOn(!MainViewController.backgroundView.motionEffects.isEmpty, animated: true)
 	}
 
 	// MARK: UITableViewDataSouce
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return optionsLabels.count
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-		if tableView.cellForRowAtIndexPath(indexPath)?.textLabel?.text == "Reset game".localized {
+		if tableView.cellForRow(at: indexPath)?.textLabel?.text == "Reset game".localized {
 			resetGameAlert()
 		}
 	}
 
-	override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 
 		var completedSets = UInt()
 		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
@@ -57,24 +57,24 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	func resetGameAlert() {
 		let alertViewController = UIAlertController(title: "",
 													message: "What do you want to reset?".localized,
-													preferredStyle: .ActionSheet)
+													preferredStyle: .actionSheet)
 
-		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .Cancel) { action in }
-		let everythingAction = UIAlertAction(title: "Everything".localized, style: .Destructive) { action in self.resetGameOptions() }
-		let statisticsAction = UIAlertAction(title: "Only statistics".localized, style: .Default) {	action in self.resetGameStatistics() }
+		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel) { action in }
+		let everythingAction = UIAlertAction(title: "Everything".localized, style: .destructive) { action in self.resetGameOptions() }
+		let statisticsAction = UIAlertAction(title: "Only statistics".localized, style: .default) {	action in self.resetGameStatistics() }
 
 		alertViewController.addAction(cancelAction)
 		alertViewController.addAction(everythingAction)
 		alertViewController.addAction(statisticsAction)
 		
-		presentViewController(alertViewController, animated: true, completion: nil)
+		present(alertViewController, animated: true, completion: nil)
 	}
 
 	// MARK: IBActions
 
 	@IBAction func switchBGMusic() {
 
-		if bgMusicSwitch.on {
+		if bgMusicSwitch.isOn {
 			Settings.sharedInstance.musicEnabled = true
 			MainViewController.bgMusic?.play()
 		}
@@ -86,8 +86,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 
 	@IBAction func switchParallaxEffect() {
 
-		if parallaxEffectSwitch.on {
-			MainViewController.addParallaxToView(MainViewController.backgroundView)
+		if parallaxEffectSwitch.isOn {
+			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 		else {
 			MainViewController.backgroundView.removeMotionEffect(MainViewController.motionEffects)
@@ -96,20 +96,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 
 	// MARK: Convenience
 
-	func removeFile(file: String, from: String) {
-
-		let fileManager = NSFileManager.defaultManager()
-
-		do {
-			try fileManager.removeItemAtPath("\(from)/\(file)")
-		}
-		catch {
-			print(error)
-		}
-	}
-
 	func resetGameStatistics() {
-		Settings.sharedInstance.completedSets = [Bool](count: Quiz.set.count, repeatedValue: false)
+		Settings.sharedInstance.completedSets = [Bool](repeating: false, count: Quiz.set.count)
 		Settings.sharedInstance.correctAnswers = 0
 		Settings.sharedInstance.incorrectAnswers = 0
 
@@ -122,8 +110,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		MainViewController.bgMusic?.play()
 		bgMusicSwitch.setOn(true, animated: true)
 		
-		if !parallaxEffectSwitch.on {
-			MainViewController.addParallaxToView(MainViewController.backgroundView) // TODO: need to test on an iDevice
+		if !parallaxEffectSwitch.isOn {
+			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 		
 		parallaxEffectSwitch.setOn(true, animated: true)

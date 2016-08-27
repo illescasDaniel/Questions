@@ -20,14 +20,14 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+
 		MainViewController.backgroundView = view.subviews[0]
 		
 		// Add parallax effect to background image view
-		MainViewController.addParallaxToView(MainViewController.backgroundView)
+		MainViewController.addParallax(toView: MainViewController.backgroundView)
 		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
-		if let mySettings = NSKeyedUnarchiver.unarchiveObjectWithFile(Settings.path) as? Settings {
+		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
 			Settings.sharedInstance = mySettings
 		}
 
@@ -55,9 +55,9 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		MainViewController.bgMusic?.numberOfLoops = Int.max
 
 		// Set button titles
-		startButton.setTitle("START GAME".localized, forState: .Normal)
-		instructionsButton.setTitle("INSTRUCTIONS".localized, forState: .Normal)
-		settingsButton.setTitle("SETTINGS".localized, forState: .Normal)
+		startButton.setTitle("START GAME".localized, for: UIControlState())
+		instructionsButton.setTitle("INSTRUCTIONS".localized, for: UIControlState())
+		settingsButton.setTitle("SETTINGS".localized, for: UIControlState())
 		mainMenuNavItem.title = "Main menu".localized
 	}
 
@@ -66,36 +66,36 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	@IBAction func showInstructions() {
 		let alertViewController = UIAlertController(title: "Instructions".localized,
 													message: "INSTRUCTIONS_TEXT".localized,
-													preferredStyle: .Alert)
+													preferredStyle: .alert)
 
-		let okAction = UIAlertAction(title: "OK".localized, style: .Default) { (action) -> Void in }
+		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in }
 
 		alertViewController.addAction(okAction)
 
-		presentViewController(alertViewController, animated: true, completion: nil)
+		present(alertViewController, animated: true, completion: nil)
 	}
 
 	// MARK: UnwindSegue
 
-	@IBAction func unwindToMainMenu(unwindSegue: UIStoryboardSegue) {
+	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
 
 	}
 
 	// MARK: Convenience
 
-	static func addParallaxToView(view: UIView) {
+	static func addParallax(toView: UIView) {
 		let amount = 20
 
-		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .TiltAlongHorizontalAxis)
+		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
 		horizontal.minimumRelativeValue = -amount
 		horizontal.maximumRelativeValue = amount
 
-		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .TiltAlongVerticalAxis)
+		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
 		vertical.minimumRelativeValue = -amount
 		vertical.maximumRelativeValue = amount
 
 		MainViewController.motionEffects = UIMotionEffectGroup()
 		MainViewController.motionEffects.motionEffects = [horizontal, vertical]
-		view.addMotionEffect(MainViewController.motionEffects)
+		toView.addMotionEffect(MainViewController.motionEffects)
 	}
 }

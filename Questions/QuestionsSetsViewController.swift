@@ -18,51 +18,51 @@ class QuestionsSetsViewController: UITableViewController {
 
 	// MARK: UITableViewDataSource
 	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return sets.count
 	}
 
-	override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return "Questions set".localized
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		cell = tableView.dequeueReusableCellWithIdentifier("setCell")
+		cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
 		cell?.textLabel?.text = sets[indexPath.row]
 		
 		if Settings.sharedInstance.completedSets[indexPath.row] {
-			cell?.accessoryType = .Checkmark
+			cell?.accessoryType = .checkmark
 		}
 		
 		return cell ?? UITableViewCell()
 	}
 
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		performSegueWithIdentifier("selectQuestionSet", sender: indexPath.row)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		performSegue(withIdentifier: "selectQuestionSet", sender: indexPath.row)
 	}
 	
 	// MARK: UIStoryboardSegue Handling
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-		if let set = sender as? Int where segue.identifier == "selectQuestionSet" {
+		if let set = sender as? Int , segue.identifier == "selectQuestionSet" {
 
-			let controller = segue.destinationViewController as! QuestionViewController
+			let controller = segue.destination as! QuestionViewController
 
 			sets.forEach {
-				if set == sets.indexOf($0) {
+				if set == sets.index(of: $0) {
 					controller.currentSet = set
 				}
 			}
 		}
 	}
 
-	@IBAction func unwindToQuestionSetSelector(segue: UIStoryboardSegue) {
+	@IBAction func unwindToQuestionSetSelector(_ segue: UIStoryboardSegue) {
 
 		for i in 0..<Quiz.set.count {
 			if Settings.sharedInstance.completedSets[i] {
-				table.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: 0)], withRowAnimation: .Automatic)
+				table.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 			}
 		}
 	}

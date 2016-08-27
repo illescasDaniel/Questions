@@ -4,26 +4,26 @@ class Settings: NSObject, NSCoding {
 	
 	static let path = "\(Settings.documentsDirectory())/Settings.archive"
 	var musicEnabled = true
-	var completedSets = [Bool](count: Quiz.set.count, repeatedValue: false)
+	var completedSets = [Bool](repeating: false, count: Quiz.set.count)
 	var correctAnswers: Int32 = 0
 	var incorrectAnswers: Int32 = 0
 
 	static var sharedInstance = Settings()
-	private override init() { }
+	fileprivate override init() { }
 
-	func encodeWithCoder(archiver: NSCoder) {
-		archiver.encodeInt(correctAnswers, forKey: "Correct answers")
-		archiver.encodeInt(incorrectAnswers, forKey: "Incorrect answers")
-		archiver.encodeBool(musicEnabled, forKey: "Music")
-		archiver.encodeObject(completedSets, forKey: "Completed sets")
+	func encode(with archiver: NSCoder) {
+		archiver.encodeCInt(correctAnswers, forKey: "Correct answers")
+		archiver.encodeCInt(incorrectAnswers, forKey: "Incorrect answers")
+		archiver.encode(musicEnabled, forKey: "Music")
+		archiver.encode(completedSets, forKey: "Completed sets")
 	}
 
 	required init (coder unarchiver: NSCoder) {
 		super.init()
-		correctAnswers = unarchiver.decodeIntForKey("Correct answers")
-		incorrectAnswers = unarchiver.decodeIntForKey("Incorrect answers")
-		musicEnabled = unarchiver.decodeBoolForKey("Music")
-		completedSets = unarchiver.decodeObjectForKey("Completed sets") as! [Bool]
+		correctAnswers = unarchiver.decodeCInt(forKey: "Correct answers")
+		incorrectAnswers = unarchiver.decodeCInt(forKey: "Incorrect answers")
+		musicEnabled = unarchiver.decodeBool(forKey: "Music")
+		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Bool]
 	}
 
 	func save() -> Bool {
@@ -31,6 +31,6 @@ class Settings: NSObject, NSCoding {
 	}
 
 	static func documentsDirectory() -> String {
-		return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+		return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 	}
 }

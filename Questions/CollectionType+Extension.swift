@@ -1,8 +1,12 @@
 import GameplayKit
 
-extension CollectionType {
+extension Array {
 
-	func shuffle() -> [AnyObject] {
-		return GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(self as! AnyObject as! [AnyObject])
+	func shuffle() -> Array {
+		return GKRandomSource.sharedRandom().arrayByShufflingObjects(in: self) as! Array<Element>
+	}
+	
+	func objectEnumerator() -> NSEnumerator {
+		return (self as NSArray).objectEnumerator()
 	}
 }
