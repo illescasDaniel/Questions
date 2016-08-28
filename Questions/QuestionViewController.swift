@@ -1,4 +1,5 @@
 import UIKit
+import GameplayKit // .shuffled()
 
 class QuestionViewController: UIViewController {
 
@@ -18,7 +19,7 @@ class QuestionViewController: UIViewController {
 
 	var correctAnswer = Int()
 	var currentSet = Int()
-	var set: [AnyObject] = []
+	var set: NSArray = []
 	var quiz = NSEnumerator()
 	var paused = true
 	
@@ -26,8 +27,14 @@ class QuestionViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		set = (Quiz.set[currentSet] as! Array).shuffle()
+		
+		if #available(iOS 10.0, *) {
+			set = (Quiz.set[currentSet] as! NSArray).shuffled() as NSArray
+		}
+		else {
+			set = (Quiz.set[currentSet] as! [AnyObject]).shuffled() as NSArray
+		}
+		
 		quiz = set.objectEnumerator()
 		
 		pauseView.isHidden = true
@@ -114,7 +121,7 @@ class QuestionViewController: UIViewController {
 				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, for: UIControlState())
 			}
 
-			remainingQuestionsLabel.text =  "\((set as! Array).index(of: quiz)! + 1)/\(set.count)"
+			remainingQuestionsLabel.text =  "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
 			
