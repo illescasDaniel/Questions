@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		652F17EC1D72FC1200F146A3 /* CollectionType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F17EB1D72FC1200F146A3 /* CollectionType+Extension.swift */; };
+		652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */; };
 		653D055E1D43961900865D43 /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D055D1D43961900865D43 /* QuestionsTests.swift */; };
 		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
 		65456AED1D2BBEF90048965E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65456AEF1D2BBEF90048965E /* Localizable.strings */; };
@@ -46,7 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		652F17EB1D72FC1200F146A3 /* CollectionType+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CollectionType+Extension.swift"; sourceTree = "<group>"; };
+		652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		653D055B1D43961900865D43 /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D055D1D43961900865D43 /* QuestionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTests.swift; sourceTree = "<group>"; };
 		653D055F1D43961900865D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 			children = (
 				65456AF11D2BC01C0048965E /* String+Extension.swift */,
 				8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */,
-				652F17EB1D72FC1200F146A3 /* CollectionType+Extension.swift */,
+				652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -380,7 +380,7 @@
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */,
-				652F17EC1D72FC1200F146A3 /* CollectionType+Extension.swift in Sources */,
+				652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */,
 				65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */,
 				65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */,
 			);
