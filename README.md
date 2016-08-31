@@ -1,5 +1,5 @@
 # Questions
-Quiz app for iOS with support for multiple languages  
+Quiz app for iOS with support for multiple languages and dark theme.
 
 Screnshots
 -------
@@ -30,4 +30,3 @@ https://www.freesound.org/people/rhodesmas/sounds/342756/
 
 Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))  
 Jared Davidson for the "Making A Quiz Game" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  
-Caroline Begbie for this [tutorial](https://www.raywenderlich.com/113394/storyboards-tutorial-in-ios-9-part-2)
