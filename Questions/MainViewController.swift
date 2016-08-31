@@ -21,6 +21,7 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+
 		MainViewController.backgroundView = view.subviews[0]
 		
 		// Add parallax effect to background image view
@@ -29,6 +30,11 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
 			Settings.sharedInstance = mySettings
+		}
+		
+		if Settings.sharedInstance.darkThemeEnabled {
+			navigationController?.navigationBar.barStyle = UIBarStyle.black
+			navigationController?.navigationBar.tintColor = UIColor.orange
 		}
 
 		// Initialize sounds

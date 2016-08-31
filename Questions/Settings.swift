@@ -7,6 +7,7 @@ class Settings: NSObject, NSCoding {
 	var completedSets = [Bool](repeating: false, count: Quiz.set.count)
 	var correctAnswers: Int32 = 0
 	var incorrectAnswers: Int32 = 0
+	var darkThemeEnabled = false
 
 	static var sharedInstance = Settings()
 	fileprivate override init() { }
@@ -14,6 +15,7 @@ class Settings: NSObject, NSCoding {
 	func encode(with archiver: NSCoder) {
 		archiver.encodeCInt(correctAnswers, forKey: "Correct answers")
 		archiver.encodeCInt(incorrectAnswers, forKey: "Incorrect answers")
+		archiver.encode(darkThemeEnabled, forKey: "DarkTheme") // new
 		archiver.encode(musicEnabled, forKey: "Music")
 		archiver.encode(completedSets, forKey: "Completed sets")
 	}
@@ -22,6 +24,7 @@ class Settings: NSObject, NSCoding {
 		super.init()
 		correctAnswers = unarchiver.decodeCInt(forKey: "Correct answers")
 		incorrectAnswers = unarchiver.decodeCInt(forKey: "Incorrect answers")
+		darkThemeEnabled = unarchiver.decodeBool(forKey: "DarkTheme")
 		musicEnabled = unarchiver.decodeBool(forKey: "Music")
 		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Bool]
 	}

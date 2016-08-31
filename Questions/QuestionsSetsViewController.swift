@@ -7,13 +7,17 @@ class QuestionsSetsViewController: UITableViewController {
 	@IBOutlet weak var table: UITableView!
 	var cell: UITableViewCell?
 	var sets: [String] = []
+	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 
 	// MARK: View life cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		sets = ["Social".localized, "Technology".localized, "People".localized]
+		
+		table.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultBGcolor
+		table.separatorColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultSeparatorColor
 	}
 
 	// MARK: UITableViewDataSource
@@ -25,6 +29,21 @@ class QuestionsSetsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return "Questions set".localized
 	}
+	
+	// CUSTOM HEADER
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+		let returnedView = UIView()
+		
+		let label = UILabel(frame: CGRect(x: 16, y: 30, width: UIScreen.main.bounds.width, height: 20))
+		label.text = ("Questions set".localized).uppercased()
+		label.textColor = darkThemeEnabled ? UIColor.lightGray : UIColor.gray
+		label.font = UIFont(name: ".SFUIText", size: 13)
+		
+		returnedView.addSubview(label)
+		
+		return returnedView
+	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -34,6 +53,11 @@ class QuestionsSetsViewController: UITableViewController {
 		if Settings.sharedInstance.completedSets[indexPath.row] {
 			cell?.accessoryType = .checkmark
 		}
+		
+		// THEME 
+		cell?.textLabel?.textColor = darkThemeEnabled ? UIColor.white : UIColor.black
+		cell?.backgroundColor = darkThemeEnabled ? UIColor.gray : UIColor.white
+		cell?.tintColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor
 		
 		return cell ?? UITableViewCell()
 	}

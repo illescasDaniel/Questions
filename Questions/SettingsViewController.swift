@@ -4,20 +4,20 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 
 	// MARK: Properties
 
-	@IBOutlet var optionsLabels: [UILabel]!
-	@IBOutlet weak var settingsTableView: UITableView!
+	@IBOutlet var optionsLabels: [UILabel]! // TODO: maybe should be changed to individual labels to avoid problems?
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
 	@IBOutlet weak var parallaxEffectSwitch: UISwitch!
-
+	@IBOutlet weak var darkThemeSwitch: UISwitch!
+	
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+	
 		settingsNavItem.title = "Settings".localized
 
-		let options = ["Background music".localized, "Parallax effect".localized, "Reset game".localized]
+		let options = ["Background music".localized, "Parallax effect".localized, "Dark theme".localized, "Reset game".localized]
 
 		for i in 0..<optionsLabels.count {
 			optionsLabels[i].text = options[i]
@@ -26,6 +26,11 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		// Value for the switch would be false if the music couldn't load
 		bgMusicSwitch.setOn(MainViewController.bgMusic?.isPlaying ?? false, animated: true)
 		parallaxEffectSwitch.setOn(!MainViewController.backgroundView.motionEffects.isEmpty, animated: true)
+		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
+		
+		tableView.reloadData()
+
+		loadTheme()
 	}
 
 	// MARK: UITableViewDataSouce
@@ -42,16 +47,26 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-
-		var completedSets = UInt()
-		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
-
-		return "\n\("Statistics".localized): \n\n" +
-				"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
-				"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
-				"\("Completed sets".localized): \(completedSets)"
+		return footerTitle()
 	}
+	
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		
+		let returnedView = UIView()
+		
+		let label = UILabel(frame: CGRect(x: 16, y: 5, width: UIScreen.main.bounds.width, height: 100))
+		label.numberOfLines = 0
+		
+		label.text = footerTitle()
+		label.textColor = darkThemeSwitch.isOn ? UIColor.lightGray : UIColor.gray
+		label.font = UIFont(name: ".SFUIText", size: 13)
+		
+		returnedView.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
+		returnedView.addSubview(label)
 
+		return returnedView
+	}
+	
 	// MARK: Alerts
 
 	func resetGameAlert() {
@@ -94,14 +109,46 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		}
 	}
 
-	// MARK: Convenience
+	@IBAction func switchTheme() {
+		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
+		loadTheme()
+		viewDidLoad()
+	}
 
+	
+	// MARK: Convenience
+	
+	func loadTheme() {
+		
+		navigationController?.navigationBar.barStyle = darkThemeSwitch.isOn ? UIBarStyle.black : UIBarStyle.default
+		navigationController?.navigationBar.tintColor = darkThemeSwitch.isOn ? UIColor.orange : UIColor.defaultTintColor
+		
+		tableView.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
+		tableView.separatorColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultSeparatorColor
+		
+		for i in 0..<optionsLabels.count {
+			optionsLabels[i].textColor = darkThemeSwitch.isOn ? UIColor.white : UIColor.black
+			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? UIColor.gray : UIColor.white
+		}
+	}
+
+	func footerTitle() -> String {
+		
+		var completedSets = UInt()
+		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
+		
+		return "\n\("Statistics".localized): \n\n" +
+			"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
+			"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
+			"\("Completed sets".localized): \(completedSets)"
+	}
+	
 	func resetGameStatistics() {
 		Settings.sharedInstance.completedSets = [Bool](repeating: false, count: Quiz.set.count)
 		Settings.sharedInstance.correctAnswers = 0
 		Settings.sharedInstance.incorrectAnswers = 0
 
-		self.settingsTableView.reloadData()
+		tableView.reloadData()
 	}
 
 	func resetGameOptions() {
@@ -115,5 +162,9 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		}
 		
 		parallaxEffectSwitch.setOn(true, animated: true)
+		darkThemeSwitch.setOn(false, animated: true)
+		Settings.sharedInstance.darkThemeEnabled = false
+		
+		viewDidLoad()
 	}
 }

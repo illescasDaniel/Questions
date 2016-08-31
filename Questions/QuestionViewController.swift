@@ -124,7 +124,6 @@ class QuestionViewController: UIViewController {
 			remainingQuestionsLabel.text =  "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
-			
 			Settings.sharedInstance.completedSets[currentSet] = true
 			endOfQuestions.isHidden = false
 			answersLabels.forEach { $0.isEnabled = false }
