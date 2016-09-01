@@ -21,7 +21,6 @@ class MainViewController: UIViewController, UIAlertViewDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-
 		MainViewController.backgroundView = view.subviews[0]
 		
 		// Add parallax effect to background image view

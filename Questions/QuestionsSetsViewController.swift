@@ -4,7 +4,6 @@ class QuestionsSetsViewController: UITableViewController {
 
 	// MARK: Properties
 	
-	@IBOutlet weak var table: UITableView!
 	var cell: UITableViewCell?
 	var sets: [String] = []
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
@@ -16,8 +15,8 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		sets = ["Social".localized, "Technology".localized, "People".localized]
 		
-		table.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultBGcolor
-		table.separatorColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultSeparatorColor
+		tableView.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultBGcolor
+		tableView.separatorColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultSeparatorColor
 	}
 
 	// MARK: UITableViewDataSource
@@ -86,7 +85,7 @@ class QuestionsSetsViewController: UITableViewController {
 
 		for i in 0..<Quiz.set.count {
 			if Settings.sharedInstance.completedSets[i] {
-				table.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
+				tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 			}
 		}
 	}

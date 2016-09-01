@@ -17,6 +17,7 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
 
+	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var correctAnswer = Int()
 	var currentSet = Int()
 	var set: NSArray = []
@@ -48,8 +49,24 @@ class QuestionViewController: UIViewController {
 		goBack.setTitle("Go back".localized, for: UIControlState())
 		mainMenu.setTitle("Main menu".localized, for: UIControlState())
 		pauseButton.setTitle("Pause".localized, for: UIControlState())
+		
+		// Theme settings
 
+		let currentThemeColor = darkThemeEnabled ? UIColor.white : UIColor.black
+
+		remainingQuestionsLabel.textColor = currentThemeColor
+		questionLabel.textColor = currentThemeColor
+		endOfQuestions.textColor = currentThemeColor
+		view.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.white
+		pauseButton.setTitleColor(darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor, for: UIControlState())
+		answersLabels.forEach { $0.backgroundColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor }
+		pauseView.backgroundColor = darkThemeEnabled ? UIColor.darkYellow : UIColor.myYellow
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? UIColor.darkGray : UIColor.black, for: UIControlState()) }
+		
 		pickQuestion()
+	}
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return darkThemeEnabled ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
 	}
 
 	// MARK: IBActions
@@ -72,7 +89,8 @@ class QuestionViewController: UIViewController {
 
 		// BLUR BACKGROUND for pause menu
 		if paused {
-			let blurEffect = UIBlurEffect(style: .light)
+			
+			let blurEffect = darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 			let blurView = UIVisualEffectView(effect: blurEffect)
 			blurView.frame = UIScreen.main.bounds
 			
@@ -137,12 +155,12 @@ class QuestionViewController: UIViewController {
 		statusLabel.alpha = 1.0
 		
 		if answer == correctAnswer {
-			statusLabel.textColor = UIColor.green
+			statusLabel.textColor = darkThemeEnabled ? UIColor.lightGreen : UIColor.green
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
 		}
 		else {
-			statusLabel.textColor = UIColor.red
+			statusLabel.textColor = darkThemeEnabled ? UIColor.lightRed : UIColor.red
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
 		}
