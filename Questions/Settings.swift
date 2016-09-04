@@ -3,10 +3,10 @@ import Foundation
 class Settings: NSObject, NSCoding {
 	
 	static let path = "\(Settings.documentsDirectory())/Settings.archive"
-	var musicEnabled = true
 	var completedSets = [Bool](repeating: false, count: Quiz.set.count)
 	var correctAnswers: Int32 = 0
 	var incorrectAnswers: Int32 = 0
+	var musicEnabled = true
 	var darkThemeEnabled = false
 
 	static var sharedInstance = Settings()

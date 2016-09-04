@@ -12,8 +12,7 @@ extension Collection {
 extension MutableCollection where Index == Int {
 	/// Shuffle the elements of `self` in-place.
 	mutating func shuffleInPlace() {
-		
-		// empty and single-element collections don't shuffle
+
 		if count < 2 { return }
 		
 		for i in 0..<count.hashValue {

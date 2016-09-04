@@ -29,21 +29,6 @@ class QuestionsSetsViewController: UITableViewController {
 		return "Questions set".localized
 	}
 	
-	// CUSTOM HEADER
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-		let returnedView = UIView()
-		
-		let label = UILabel(frame: CGRect(x: 16, y: 30, width: UIScreen.main.bounds.width, height: 20))
-		label.text = ("Questions set".localized).uppercased()
-		label.textColor = darkThemeEnabled ? UIColor.lightGray : UIColor.gray
-		label.font = UIFont(name: ".SFUIText", size: 13)
-		
-		returnedView.addSubview(label)
-		
-		return returnedView
-	}
-
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
@@ -54,6 +39,7 @@ class QuestionsSetsViewController: UITableViewController {
 		}
 		
 		// THEME 
+		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
 		cell?.textLabel?.textColor = darkThemeEnabled ? UIColor.white : UIColor.black
 		cell?.backgroundColor = darkThemeEnabled ? UIColor.gray : UIColor.white
 		cell?.tintColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor
@@ -65,29 +51,27 @@ class QuestionsSetsViewController: UITableViewController {
 		performSegue(withIdentifier: "selectQuestionSet", sender: indexPath.row)
 	}
 	
+	// MARK: UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		let footer = view as! UITableViewHeaderFooterView
+		footer.textLabel?.textColor = darkThemeEnabled ? UIColor.lightGray : UIColor.gray
+	}
+	
 	// MARK: UIStoryboardSegue Handling
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 		if let set = sender as? Int , segue.identifier == "selectQuestionSet" {
-
 			let controller = segue.destination as! QuestionViewController
-
-			sets.forEach {
-				if set == sets.index(of: $0) {
-					controller.currentSet = set
-				}
-			}
+			controller.currentSet = set
 		}
 	}
 
 	@IBAction func unwindToQuestionSetSelector(_ segue: UIStoryboardSegue) {
 
-		for i in 0..<Quiz.set.count {
-			if Settings.sharedInstance.completedSets[i] {
-				tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
-			}
+		for i in 0..<sets.count where Settings.sharedInstance.completedSets[i] {
+			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
 	}
-
 }

@@ -7,11 +7,9 @@ class QuestionsTests: XCTestCase {
 
 	override func setUp() {
 		super.setUp()
-		// Put setup code here. This method is called before the invocation of each test method in the class.
 	}
 
 	override func tearDown() {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
 	}
 
@@ -46,9 +44,9 @@ class QuestionsTests: XCTestCase {
 				XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
 
 				// TEST ANSWERS
-				for k in 0..<vc.answersLabels.count {
-					print("·· Answer \(k):\nLabel: \(vc.answersLabels[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
-					XCTAssert(vc.answersLabels[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSet)")
+				for k in 0..<vc.answersButtons.count {
+					print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
+					XCTAssert(vc.answersButtons[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSet)")
 				}
 
 				vc.pickQuestion()

@@ -1,10 +1,15 @@
 import UIKit
 
-class SettingsViewController: UITableViewController, UIAlertViewDelegate {
+class SettingsViewController: UITableViewController {
 
 	// MARK: Properties
 
-	@IBOutlet var optionsLabels: [UILabel]! // TODO: maybe should be changed to individual labels to avoid problems?
+	@IBOutlet weak var bgMusicLabel: UILabel!
+	@IBOutlet weak var parallaxEffectLabel: UILabel!
+	@IBOutlet weak var darkThemeLabel: UILabel!
+	@IBOutlet weak var resetGameLabel: UILabel!
+	
+	var optionsLabels: [UILabel]!
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
 	@IBOutlet weak var parallaxEffectSwitch: UISwitch!
@@ -16,20 +21,23 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		super.viewDidLoad()
 	
 		settingsNavItem.title = "Settings".localized
+		
+		bgMusicLabel.text = "Background music".localized
+		parallaxEffectLabel.text = "Parallax effect".localized
+		darkThemeLabel.text = "Dark theme".localized
+		resetGameLabel.text = "Reset game".localized
+		resetGameLabel.font = UIFont.preferredFont(forTextStyle: .body)
+		
+		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameLabel]
 
-		let options = ["Background music".localized, "Parallax effect".localized, "Dark theme".localized, "Reset game".localized]
-
-		for i in 0..<optionsLabels.count {
-			optionsLabels[i].text = options[i]
+		if let motionEffects = MainViewController.backgroundView?.motionEffects {
+			parallaxEffectSwitch.setOn(!motionEffects.isEmpty, animated: true)
 		}
-
-		// Value for the switch would be false if the music couldn't load
 		bgMusicSwitch.setOn(MainViewController.bgMusic?.isPlaying ?? false, animated: true)
-		parallaxEffectSwitch.setOn(!MainViewController.backgroundView.motionEffects.isEmpty, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
 		tableView.reloadData()
-
+		
 		loadTheme()
 	}
 
@@ -47,37 +55,37 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return footerTitle()
+		
+		var completedSets = UInt()
+		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
+		
+		return "\n\("Statistics".localized): \n\n" +
+			"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
+			"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
+			"\("Completed sets".localized): \(completedSets)"
 	}
 	
-	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+	// MARK: UITableViewDelegate
+	
+	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		
-		let returnedView = UIView()
-		
-		let label = UILabel(frame: CGRect(x: 16, y: 5, width: UIScreen.main.bounds.width, height: 100))
-		label.numberOfLines = 0
-		
-		label.text = footerTitle()
-		label.textColor = darkThemeSwitch.isOn ? UIColor.lightGray : UIColor.gray
-		label.font = UIFont(name: ".SFUIText", size: 13)
-		
-		returnedView.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
-		returnedView.addSubview(label)
-
-		return returnedView
+		let footer = view as! UITableViewHeaderFooterView
+		footer.textLabel?.textColor = darkThemeSwitch.isOn ? UIColor.lightGray : UIColor.gray
+		footer.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
 	}
 	
 	// MARK: Alerts
 
 	func resetGameAlert() {
+		
 		let alertViewController = UIAlertController(title: "",
 													message: "What do you want to reset?".localized,
 													preferredStyle: .actionSheet)
-
+		
 		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel) { action in }
 		let everythingAction = UIAlertAction(title: "Everything".localized, style: .destructive) { action in self.resetGameOptions() }
 		let statisticsAction = UIAlertAction(title: "Only statistics".localized, style: .default) {	action in self.resetGameStatistics() }
-
+		
 		alertViewController.addAction(cancelAction)
 		alertViewController.addAction(everythingAction)
 		alertViewController.addAction(statisticsAction)
@@ -104,8 +112,8 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		if parallaxEffectSwitch.isOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
-		else {
-			MainViewController.backgroundView.removeMotionEffect(MainViewController.motionEffects)
+		else if let effects = MainViewController.motionEffects {
+			MainViewController.backgroundView?.removeMotionEffect(effects)
 		}
 	}
 
@@ -114,7 +122,6 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 		loadTheme()
 		viewDidLoad()
 	}
-
 	
 	// MARK: Convenience
 	
@@ -131,19 +138,9 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? UIColor.gray : UIColor.white
 		}
 	}
-
-	func footerTitle() -> String {
-		
-		var completedSets = UInt()
-		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
-		
-		return "\n\("Statistics".localized): \n\n" +
-			"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
-			"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
-			"\("Completed sets".localized): \(completedSets)"
-	}
 	
 	func resetGameStatistics() {
+		
 		Settings.sharedInstance.completedSets = [Bool](repeating: false, count: Quiz.set.count)
 		Settings.sharedInstance.correctAnswers = 0
 		Settings.sharedInstance.incorrectAnswers = 0
@@ -152,6 +149,7 @@ class SettingsViewController: UITableViewController, UIAlertViewDelegate {
 	}
 
 	func resetGameOptions() {
+		
 		resetGameStatistics()
 		Settings.sharedInstance.musicEnabled = true
 		MainViewController.bgMusic?.play()

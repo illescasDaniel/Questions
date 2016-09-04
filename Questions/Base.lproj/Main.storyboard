@@ -11,7 +11,7 @@
         <scene sceneID="kgb-fJ-0La">
             <objects>
                 <tableViewController storyboardIdentifier="questionsSetsViewController" id="9QX-8c-sEy" customClass="QuestionsSetsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yuD-uf-BcY">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yuD-uf-BcY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -26,7 +26,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
                                             <frame key="frameInset" minX="15" width="345" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -136,7 +136,7 @@
         <scene sceneID="Thb-Dx-Tbt">
             <objects>
                 <tableViewController storyboardIdentifier="settingsViewController" id="oi1-Vd-nnJ" customClass="SettingsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YSU-8t-NR6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YSU-8t-NR6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,7 +164,7 @@ Completed sets: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6JR-ca-ZCf">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -199,7 +199,7 @@ Completed sets: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parallax effect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vdl-0Z-d3C">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -235,7 +235,7 @@ Completed sets: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dark theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LS5-A0-sPF">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -266,7 +266,7 @@ Completed sets: X
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Reset game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YDO-7O-tql">
                                                     <frame key="frameInset" minX="15" width="345" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -283,14 +283,14 @@ Completed sets: X
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="opp-aP-nRJ"/>
                     <connections>
+                        <outlet property="bgMusicLabel" destination="6JR-ca-ZCf" id="UFj-u8-WXm"/>
                         <outlet property="bgMusicSwitch" destination="m4T-Df-lj5" id="NwH-cq-rbU"/>
+                        <outlet property="darkThemeLabel" destination="LS5-A0-sPF" id="1l8-H9-ll1"/>
                         <outlet property="darkThemeSwitch" destination="7jI-Mw-v3H" id="IT6-td-fKs"/>
+                        <outlet property="parallaxEffectLabel" destination="Vdl-0Z-d3C" id="T1d-ck-R8T"/>
                         <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
+                        <outlet property="resetGameLabel" destination="YDO-7O-tql" id="C3z-YH-RAd"/>
                         <outlet property="settingsNavItem" destination="opp-aP-nRJ" id="Nvr-l4-tTA"/>
-                        <outletCollection property="optionsLabels" destination="6JR-ca-ZCf" collectionClass="NSMutableArray" id="B3S-f8-Vqp"/>
-                        <outletCollection property="optionsLabels" destination="Vdl-0Z-d3C" collectionClass="NSMutableArray" id="YKD-XZ-8z5"/>
-                        <outletCollection property="optionsLabels" destination="LS5-A0-sPF" collectionClass="NSMutableArray" id="N1d-1O-qbd"/>
-                        <outletCollection property="optionsLabels" destination="YDO-7O-tql" collectionClass="NSMutableArray" id="FED-GM-LjR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,8 +326,23 @@ Completed sets: X
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-y2-fsh">
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-zP-xHR">
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="End of questions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwY-zp-cey">
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct/Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-oh-bXj" userLabel="Status Label">
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hu1-Lj-Dsc">
@@ -335,6 +350,7 @@ Completed sets: X
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="4om-XX-r2C"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Answer 1">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -343,24 +359,12 @@ Completed sets: X
                                     <action selector="answer1Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="Kjq-bC-YX5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdX-im-E3g">
-                                <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="JE4-wD-CEq"/>
-                                </constraints>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Answer 3">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="answer3Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="OaH-PV-qYg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srs-vU-0Xc">
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="3VI-Nf-zOe"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Answer 2">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -369,11 +373,20 @@ Completed sets: X
                                     <action selector="answer2Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="LmK-pU-Bej"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-zP-xHR">
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdX-im-E3g">
+                                <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="JE4-wD-CEq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Answer 3">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="answer3Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="OaH-PV-qYg"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bF-eX-HNQ">
                                 <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -381,6 +394,7 @@ Completed sets: X
                                         <variation key="heightClass=compact" constant="43"/>
                                     </constraint>
                                 </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Answer 4">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -389,24 +403,15 @@ Completed sets: X
                                     <action selector="answer4Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="x80-SZ-pmR"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="End of questions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwY-zp-cey">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct/Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-oh-bXj" userLabel="Status Label">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
                                     <constraint firstAttribute="width" constant="121" id="mJL-kw-vjd">
                                         <variation key="heightClass=compact" constant="129"/>
-                                        <variation key="heightClass=regular-widthClass=compact" constant="109"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="133"/>
                                     </constraint>
                                 </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Pause/Continue"/>
                                 <connections>
                                     <action selector="pauseMenu" destination="w1d-Yh-0lm" eventType="touchUpInside" id="VTe-zM-gEw"/>
@@ -416,8 +421,9 @@ Completed sets: X
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="224" id="rrf-J6-Zvd"/>
+                                            <constraint firstAttribute="width" constant="224" id="RDT-Bc-8f5"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Play/ pause Music">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -425,15 +431,11 @@ Completed sets: X
                                             <action selector="muteMusicAction" destination="w1d-Yh-0lm" eventType="touchUpInside" id="3cX-Ow-Swx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
-                                        <state key="normal" title="Go back">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToQuestionSetSelector:" id="HoA-Iv-Fep"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-gf-Ddb">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="224" id="pv2-Jh-j67"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <state key="normal" title="Main menu">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -441,14 +443,25 @@ Completed sets: X
                                             <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToMainMenu:" id="AtB-1a-tYm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="224" id="WGu-pe-bp6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <state key="normal" title="Go back">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToQuestionSetSelector:" id="HoA-Iv-Fep"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="gby-II-zy5" firstAttribute="top" secondItem="qSd-Pz-OF3" secondAttribute="top" constant="8" id="cn9-3s-3om"/>
-                                    <constraint firstAttribute="width" constant="240" id="jUY-kY-Y0h"/>
-                                    <constraint firstItem="k5D-mT-l8u" firstAttribute="top" secondItem="gby-II-zy5" secondAttribute="bottom" constant="11" id="jyP-Yr-vpq"/>
-                                    <constraint firstItem="ydF-gf-Ddb" firstAttribute="top" secondItem="k5D-mT-l8u" secondAttribute="bottom" constant="11" id="rva-TJ-v7x"/>
-                                    <constraint firstAttribute="height" constant="128" id="t8t-cg-V7g"/>
+                                    <constraint firstAttribute="width" constant="240" id="S3k-tX-XEL"/>
+                                    <constraint firstAttribute="bottom" secondItem="ydF-gf-Ddb" secondAttribute="bottom" constant="8" id="djb-FK-o3z"/>
+                                    <constraint firstItem="gby-II-zy5" firstAttribute="top" secondItem="qSd-Pz-OF3" secondAttribute="top" constant="8" id="kaG-bW-OMB"/>
+                                    <constraint firstAttribute="height" constant="128" id="vNE-OV-ocs"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -459,17 +472,19 @@ Completed sets: X
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="29Z-Ff-lxh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UdX-im-E3g" secondAttribute="trailing" id="2wb-vh-FWG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hu1-Lj-Dsc" secondAttribute="trailing" id="6hd-Db-dug"/>
+                            <constraint firstItem="k5D-mT-l8u" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" id="8DP-VN-6EA"/>
                             <constraint firstAttribute="leadingMargin" secondItem="srs-vU-0Xc" secondAttribute="leading" id="9jT-5H-g5z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ecH-y2-fsh" secondAttribute="trailing" id="AQw-gH-caH"/>
                             <constraint firstItem="UdX-im-E3g" firstAttribute="top" secondItem="srs-vU-0Xc" secondAttribute="bottom" constant="15" id="Ahy-tt-Ih2"/>
                             <constraint firstItem="NwY-zp-cey" firstAttribute="top" secondItem="5bF-eX-HNQ" secondAttribute="bottom" constant="59" id="BA3-Ah-Dgz">
-                                <variation key="heightClass=compact" constant="-320"/>
+                                <variation key="heightClass=compact" constant="-295"/>
                                 <variation key="heightClass=regular-widthClass=compact" constant="59"/>
                             </constraint>
                             <constraint firstItem="K5D-zP-xHR" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="17" id="BLF-LQ-G7u"/>
-                            <constraint firstItem="k5D-mT-l8u" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="EqE-rN-m7Q"/>
+                            <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="E31-BC-rXU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5bF-eX-HNQ" secondAttribute="trailing" id="HB8-x2-zQN"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5bF-eX-HNQ" secondAttribute="leading" id="M0Y-mj-mMC"/>
                             <constraint firstItem="Hu1-Lj-Dsc" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="PmZ-fb-1QP"/>
@@ -480,32 +495,31 @@ Completed sets: X
                             <constraint firstItem="5bF-eX-HNQ" firstAttribute="top" secondItem="UdX-im-E3g" secondAttribute="bottom" constant="15" id="Wzh-tV-zhl">
                                 <variation key="heightClass=compact" constant="15"/>
                             </constraint>
-                            <constraint firstItem="ecH-y2-fsh" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="101" id="XJg-Cr-Jdp">
+                            <constraint firstItem="ecH-y2-fsh" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="92" id="XJg-Cr-Jdp">
                                 <variation key="heightClass=compact" constant="20"/>
                             </constraint>
-                            <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="e7d-HR-u4c"/>
+                            <constraint firstItem="k5D-mT-l8u" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="YOj-S0-GaQ"/>
+                            <constraint firstItem="gby-II-zy5" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="ebI-Nj-9Gj"/>
                             <constraint firstAttribute="leadingMargin" secondItem="NwY-zp-cey" secondAttribute="leading" id="fHX-Vd-2dt"/>
                             <constraint firstItem="srs-vU-0Xc" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="g8F-gj-Hzd"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Hu1-Lj-Dsc" secondAttribute="leading" id="hll-g0-YAp"/>
                             <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="8" id="idP-oT-tHH"/>
                             <constraint firstItem="UdX-im-E3g" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="jr3-KT-iTo"/>
-                            <constraint firstItem="gby-II-zy5" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="kie-6g-qUU"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ecH-y2-fsh" secondAttribute="leading" id="lUX-9F-mXh"/>
                             <constraint firstItem="5bF-eX-HNQ" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="llo-rd-5ex"/>
                             <constraint firstAttribute="leadingMargin" secondItem="liL-s5-Eng" secondAttribute="leading" id="mh2-d8-Kgo"/>
                             <constraint firstItem="srs-vU-0Xc" firstAttribute="top" secondItem="Hu1-Lj-Dsc" secondAttribute="bottom" constant="15" id="p63-bn-xJL"/>
+                            <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" id="pH2-TX-IP4"/>
                             <constraint firstItem="Xtz-oh-bXj" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="suu-Ll-fyw"/>
                             <constraint firstItem="ecH-y2-fsh" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="tN5-U8-BTj"/>
                             <constraint firstItem="Xtz-oh-bXj" firstAttribute="top" secondItem="NwY-zp-cey" secondAttribute="bottom" constant="12" id="tOu-CO-vcx">
                                 <variation key="heightClass=compact" constant="11"/>
                             </constraint>
-                            <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" id="tdt-Yn-xUK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K5D-zP-xHR" secondAttribute="trailing" id="vap-fw-uLv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="UdX-im-E3g" secondAttribute="leading" id="vmt-Z2-Wyj"/>
-                            <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="w2h-nN-HRH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="srs-vU-0Xc" secondAttribute="trailing" id="yfC-yz-ViL"/>
                             <constraint firstItem="Hu1-Lj-Dsc" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="176" id="zQX-av-yek">
-                                <variation key="heightClass=compact" constant="143"/>
+                                <variation key="heightClass=compact" constant="118"/>
                             </constraint>
                         </constraints>
                         <variation key="default">
@@ -536,16 +550,16 @@ Completed sets: X
                         <outlet property="questionLabel" destination="ecH-y2-fsh" id="pWU-bj-jbR"/>
                         <outlet property="remainingQuestionsLabel" destination="K5D-zP-xHR" id="nsW-zW-2EW"/>
                         <outlet property="statusLabel" destination="Xtz-oh-bXj" id="e2i-Ap-hAA"/>
-                        <outletCollection property="answersLabels" destination="Hu1-Lj-Dsc" collectionClass="NSMutableArray" id="L1r-Ql-tgU"/>
-                        <outletCollection property="answersLabels" destination="srs-vU-0Xc" collectionClass="NSMutableArray" id="jnb-6V-DEG"/>
-                        <outletCollection property="answersLabels" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="OWW-I0-Ca2"/>
-                        <outletCollection property="answersLabels" destination="5bF-eX-HNQ" collectionClass="NSMutableArray" id="udy-5l-rV8"/>
+                        <outletCollection property="answersButtons" destination="Hu1-Lj-Dsc" collectionClass="NSMutableArray" id="yfn-l9-Wun"/>
+                        <outletCollection property="answersButtons" destination="srs-vU-0Xc" collectionClass="NSMutableArray" id="s4c-8i-9Yx"/>
+                        <outletCollection property="answersButtons" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="VnQ-2E-S2s"/>
+                        <outletCollection property="answersButtons" destination="5bF-eX-HNQ" collectionClass="NSMutableArray" id="BVy-mV-2wH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>
                 <exit id="yUI-wU-QrH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1369" y="660"/>
+            <point key="canvasLocation" x="1368.8" y="659.82008995502258"/>
         </scene>
     </scenes>
     <resources>

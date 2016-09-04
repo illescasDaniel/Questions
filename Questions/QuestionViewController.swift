@@ -5,12 +5,11 @@ class QuestionViewController: UIViewController {
 
 	// MARK: Properties
 	
+	@IBOutlet var answersButtons: [UIButton]!
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
-	@IBOutlet var answersLabels: [UIButton]!
 	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var endOfQuestions: UILabel!
-
 	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var pauseView: UIView!
 	@IBOutlet weak var goBack: UIButton!
@@ -18,10 +17,13 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var mainMenu: UIButton!
 
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+	var blurViewPos = Int()
+	var correctAnswers = Int32()
+	var incorrectAnswers = Int32()
 	var correctAnswer = Int()
 	var currentSet = Int()
 	var set: NSArray = []
-	var quiz = NSEnumerator()
+	var quiz: NSEnumerator?
 	var paused = true
 	
 	// MARK: View life cycle
@@ -41,10 +43,15 @@ class QuestionViewController: UIViewController {
 		pauseView.isHidden = true
 		endOfQuestions.isHidden = true
 		statusLabel.alpha = 0.0
+		
+		// Saves the position where the blurView will be
+		for i in 0..<view.subviews.count where (view.subviews[i] == pauseView) {
+			blurViewPos = i - 1
+		}
 
 		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: UIControlState())
-
+		
 		endOfQuestions.text = "End of questions".localized
 		goBack.setTitle("Go back".localized, for: UIControlState())
 		mainMenu.setTitle("Main menu".localized, for: UIControlState())
@@ -59,14 +66,21 @@ class QuestionViewController: UIViewController {
 		endOfQuestions.textColor = currentThemeColor
 		view.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.white
 		pauseButton.setTitleColor(darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor, for: UIControlState())
-		answersLabels.forEach { $0.backgroundColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor }
+		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor }
 		pauseView.backgroundColor = darkThemeEnabled ? UIColor.darkYellow : UIColor.myYellow
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? UIColor.darkGray : UIColor.black, for: UIControlState()) }
 		
 		pickQuestion()
 	}
+	
+	// MARK: UIViewController
+	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return darkThemeEnabled ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
+	}
+
+	override var shouldAutorotate: Bool {
+		return pauseView.isHidden
 	}
 
 	// MARK: IBActions
@@ -81,34 +95,23 @@ class QuestionViewController: UIViewController {
 		let title = paused ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: UIControlState())
 
-		answersLabels.forEach {
-			//if endOfQuestions.hidden { // This is not necessary anymore since the blurView blocks the buttons | Uncomment this if you remove the blurView
-				$0.isEnabled = $0.isEnabled ? false : true
-			//}
-		}
-
 		// BLUR BACKGROUND for pause menu
+		/* Note: if this you want to remove the view and block the buttons you have to change the property .isEnabled to false of each button */
+
 		if paused {
-			
 			let blurEffect = darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 			let blurView = UIVisualEffectView(effect: blurEffect)
 			blurView.frame = UIScreen.main.bounds
-			
-			view.insertSubview(blurView, at: 8)
+			view.insertSubview(blurView, at: blurViewPos)
 		}
 		else {
-			view.subviews[8].removeFromSuperview()
+			view.subviews[blurViewPos].removeFromSuperview()
 		}
 		
 		paused = paused ? false : true
 		pauseView.isHidden = paused
 	}
 	
-	// Lock rotation if the pauseView is shown / Rotate screen if the pauseView is hidden
-	override var shouldAutorotate: Bool {
-		return pauseView.isHidden
-	}
-
 	@IBAction func muteMusicAction() {
 		
 		if let bgMusic = MainViewController.bgMusic {
@@ -130,21 +133,26 @@ class QuestionViewController: UIViewController {
 	
 	func pickQuestion() {
 		
-		if let quiz = quiz.nextObject() as? NSDictionary {
+		if let quiz = quiz?.nextObject() as? NSDictionary {
 			
 			correctAnswer = (quiz["answer"] as! Int)
 			questionLabel.text = (quiz["question"] as! String).localized
 			
-			for i in 0..<answersLabels.count {
-				answersLabels[i].setTitle((quiz["answers"] as! [String])[i].localized, for: UIControlState())
+			for i in 0..<answersButtons.count {
+				answersButtons[i].setTitle((quiz["answers"] as! [String])[i].localized, for: UIControlState())
 			}
 
-			remainingQuestionsLabel.text =  "\(set.index(of: quiz) + 1)/\(set.count)"
+			remainingQuestionsLabel.text = "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
+			if !Settings.sharedInstance.completedSets[currentSet] {
+				Settings.sharedInstance.correctAnswers += correctAnswers
+				Settings.sharedInstance.incorrectAnswers += incorrectAnswers
+			}
+			
 			Settings.sharedInstance.completedSets[currentSet] = true
 			endOfQuestions.isHidden = false
-			answersLabels.forEach { $0.isEnabled = false }
+			answersButtons.forEach { $0.isEnabled = false }
 		}
 	}
 
@@ -164,9 +172,9 @@ class QuestionViewController: UIViewController {
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
 		}
-		
+	
 		if !Settings.sharedInstance.completedSets[currentSet] {
-			(answer == correctAnswer) ? (Settings.sharedInstance.correctAnswers += 1) : (Settings.sharedInstance.incorrectAnswers += 1)
+			(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
 		}
 		
 		// Fade out animation for statusLabel
