@@ -3,10 +3,10 @@ Quiz app for iOS with support for multiple languages and dark theme.
 
 Screnshots
 -------
-<img src="http://i.imgur.com/reSYEXP.png" width="220">
-<img src="http://i.imgur.com/UmmSWHn.png" width="220">
-<img src="http://i.imgur.com/XfhRm0a.png" width="220">
-<img src="http://i.imgur.com/fGEK06o.png" width="220">  
+<img src="http://i.imgur.com/reSYEXP.png" width="200">
+<img src="http://i.imgur.com/UmmSWHn.png" width="200">
+<img src="http://i.imgur.com/XfhRm0a.png" width="200">
+<img src="http://i.imgur.com/fGEK06o.png" width="200">  
 [More](http://imgur.com/gallery/iRwBD)
 
 # ASSETS #
