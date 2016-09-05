@@ -1,12 +1,16 @@
 # Questions
 Quiz app for iOS with support for multiple languages and dark theme.
 
-Screnshots
+Screenshots
 -------
 <img src="http://i.imgur.com/reSYEXP.png" width="200">
 <img src="http://i.imgur.com/UmmSWHn.png" width="200">
 <img src="http://i.imgur.com/XfhRm0a.png" width="200">
 <img src="http://i.imgur.com/fGEK06o.png" width="200">  
+<img src="http://i.imgur.com/GCl6sDz.png" width="200">
+<img src="http://i.imgur.com/az7jhde.png" width="200">
+<img src="http://i.imgur.com/rV6t07p.png" width="200">
+<img src="http://i.imgur.com/53Y0KUQ.png" width="200">    
 [More](http://imgur.com/gallery/iRwBD)
 
 # ASSETS #
