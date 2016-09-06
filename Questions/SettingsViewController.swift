@@ -82,7 +82,7 @@ class SettingsViewController: UITableViewController {
 													message: "What do you want to reset?".localized,
 													preferredStyle: .actionSheet)
 		
-		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel) { action in }
+		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
 		let everythingAction = UIAlertAction(title: "Everything".localized, style: .destructive) { action in self.resetGameOptions() }
 		let statisticsAction = UIAlertAction(title: "Only statistics".localized, style: .default) {	action in self.resetGameStatistics() }
 		
