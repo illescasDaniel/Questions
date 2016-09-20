@@ -25,6 +25,7 @@
 		65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C491D29C3E300D2E1C1 /* Main.storyboard */; };
 		65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */; };
 		65E323641D40E67D00FB6D6E /* Quiz.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65E323631D40E67D00FB6D6E /* Quiz.plist */; };
+		65F996921D91F6CB00AD1EEE /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 65F996911D91F6CB00AD1EEE /* README.md */; };
 		8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */; };
 		8E7F0EFC1D351CEA0048F1A0 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65E323631D40E67D00FB6D6E /* Quiz.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Quiz.plist; sourceTree = "<group>"; };
+		65F996911D91F6CB00AD1EEE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Extension.swift"; sourceTree = "<group>"; };
 		8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,6 +176,7 @@
 		65F996901D91F66B00AD1EEE /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				65F996911D91F6CB00AD1EEE /* README.md */,
 			);
 			path = docs;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				65456FF81D77A07A004A13B6 /* UIColor+Extension.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
+				65F996921D91F6CB00AD1EEE /* README.md in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */,
 				652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */,
