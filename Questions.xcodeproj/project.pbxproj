@@ -76,6 +76,18 @@
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65E323631D40E67D00FB6D6E /* Quiz.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Quiz.plist; sourceTree = "<group>"; };
 		65F996911D91F6CB00AD1EEE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		65F996941D91F7AD00AD1EEE /* body-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "body-bg.jpg"; sourceTree = "<group>"; };
+		65F996951D91F7AD00AD1EEE /* download-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download-button.png"; sourceTree = "<group>"; };
+		65F996961D91F7AD00AD1EEE /* github-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github-button.png"; sourceTree = "<group>"; };
+		65F996971D91F7AD00AD1EEE /* header-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "header-bg.jpg"; sourceTree = "<group>"; };
+		65F996981D91F7AD00AD1EEE /* highlight-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "highlight-bg.jpg"; sourceTree = "<group>"; };
+		65F996991D91F7AD00AD1EEE /* sidebar-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sidebar-bg.jpg"; sourceTree = "<group>"; };
+		65F9969A1D91F7AD00AD1EEE /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = index.html; path = ../index.html; sourceTree = "<group>"; };
+		65F9969C1D91F7AD00AD1EEE /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		65F9969D1D91F7AD00AD1EEE /* params.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = params.json; path = ../params.json; sourceTree = "<group>"; };
+		65F9969F1D91F7AD00AD1EEE /* github-light.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "github-light.css"; sourceTree = "<group>"; };
+		65F996A01D91F7AD00AD1EEE /* print.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = print.css; sourceTree = "<group>"; };
+		65F996A11D91F7AD00AD1EEE /* stylesheet.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = stylesheet.css; sourceTree = "<group>"; };
 		8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Extension.swift"; sourceTree = "<group>"; };
 		8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,9 +188,48 @@
 		65F996901D91F66B00AD1EEE /* docs */ = {
 			isa = PBXGroup;
 			children = (
+				65F996931D91F7AD00AD1EEE /* images */,
+				65F9969A1D91F7AD00AD1EEE /* index.html */,
+				65F9969B1D91F7AD00AD1EEE /* javascripts */,
+				65F9969D1D91F7AD00AD1EEE /* params.json */,
+				65F9969E1D91F7AD00AD1EEE /* stylesheets */,
 				65F996911D91F6CB00AD1EEE /* README.md */,
 			);
 			path = docs;
+			sourceTree = "<group>";
+		};
+		65F996931D91F7AD00AD1EEE /* images */ = {
+			isa = PBXGroup;
+			children = (
+				65F996941D91F7AD00AD1EEE /* body-bg.jpg */,
+				65F996951D91F7AD00AD1EEE /* download-button.png */,
+				65F996961D91F7AD00AD1EEE /* github-button.png */,
+				65F996971D91F7AD00AD1EEE /* header-bg.jpg */,
+				65F996981D91F7AD00AD1EEE /* highlight-bg.jpg */,
+				65F996991D91F7AD00AD1EEE /* sidebar-bg.jpg */,
+			);
+			name = images;
+			path = ../images;
+			sourceTree = "<group>";
+		};
+		65F9969B1D91F7AD00AD1EEE /* javascripts */ = {
+			isa = PBXGroup;
+			children = (
+				65F9969C1D91F7AD00AD1EEE /* main.js */,
+			);
+			name = javascripts;
+			path = ../javascripts;
+			sourceTree = "<group>";
+		};
+		65F9969E1D91F7AD00AD1EEE /* stylesheets */ = {
+			isa = PBXGroup;
+			children = (
+				65F9969F1D91F7AD00AD1EEE /* github-light.css */,
+				65F996A01D91F7AD00AD1EEE /* print.css */,
+				65F996A11D91F7AD00AD1EEE /* stylesheet.css */,
+			);
+			name = stylesheets;
+			path = ../stylesheets;
 			sourceTree = "<group>";
 		};
 		8E7F0EFD1D351D410048F1A0 /* ViewControllers */ = {
