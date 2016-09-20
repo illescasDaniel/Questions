@@ -140,6 +140,7 @@
 				653D055C1D43961900865D43 /* QuestionsTests */,
 				653D056D1D43CD2D00865D43 /* QuestionsUITests */,
 				65CB4C431D29C3E300D2E1C1 /* Products */,
+				65F996901D91F66B00AD1EEE /* docs */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +169,13 @@
 				65E323631D40E67D00FB6D6E /* Quiz.plist */,
 			);
 			path = Questions;
+			sourceTree = "<group>";
+		};
+		65F996901D91F66B00AD1EEE /* docs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = docs;
 			sourceTree = "<group>";
 		};
 		8E7F0EFD1D351D410048F1A0 /* ViewControllers */ = {
