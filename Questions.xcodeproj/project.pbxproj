@@ -152,11 +152,7 @@
 				653D055C1D43961900865D43 /* QuestionsTests */,
 				653D056D1D43CD2D00865D43 /* QuestionsUITests */,
 				65CB4C431D29C3E300D2E1C1 /* Products */,
-				65F996B51D91F81E00AD1EEE /* images */,
-				65F996BC1D91F81E00AD1EEE /* index.html */,
-				65F996BD1D91F81E00AD1EEE /* javascripts */,
-				65F996BF1D91F81E00AD1EEE /* params.json */,
-				65F996C01D91F81E00AD1EEE /* stylesheets */,
+				65F996C51D91F87C00AD1EEE /* WEB */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +212,18 @@
 				65F996C31D91F81E00AD1EEE /* stylesheet.css */,
 			);
 			path = stylesheets;
+			sourceTree = "<group>";
+		};
+		65F996C51D91F87C00AD1EEE /* WEB */ = {
+			isa = PBXGroup;
+			children = (
+				65F996B51D91F81E00AD1EEE /* images */,
+				65F996BC1D91F81E00AD1EEE /* index.html */,
+				65F996BD1D91F81E00AD1EEE /* javascripts */,
+				65F996BF1D91F81E00AD1EEE /* params.json */,
+				65F996C01D91F81E00AD1EEE /* stylesheets */,
+			);
+			name = WEB;
 			sourceTree = "<group>";
 		};
 		8E7F0EFD1D351D410048F1A0 /* ViewControllers */ = {
