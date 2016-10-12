@@ -64,7 +64,6 @@
 		659B504C1D2BE58B00F8FA09 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		65AE3EC71D3A9C7500125EE2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		65B7E4B91DAE9AD700289530 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		65C285C51D2A8176002F7DF8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		65C285D31D2AB6A4002F7DF8 /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		65CB4C421D29C3E300D2E1C1 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +153,6 @@
 				653D056D1D43CD2D00865D43 /* QuestionsUITests */,
 				65CB4C431D29C3E300D2E1C1 /* Products */,
 				65F996C51D91F87C00AD1EEE /* WEB */,
-				65B7E4B91DAE9AD700289530 /* .travis.yml */,
 			);
 			sourceTree = "<group>";
 		};
