@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/swift-3.0-orange.svg)](https://swift.org/download/0)
-[![Version](https://img.shields.io/badge/version-v0.8.1%20pre--release-red.svg)](https://github.com/illescasDaniel/print.hpp/releases/tag/v1.0)
+[![Version](https://img.shields.io/badge/version-v0.8.1%20pre--release-red.svg)](https://github.com/illescasDaniel/Questions/releases/tag/v0.8.1)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Quiz app for iOS with support for multiple languages and dark theme.  
