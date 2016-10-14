@@ -5,8 +5,6 @@
 
 Quiz app for iOS with support for multiple languages and dark theme.  
 
-GitHub Pages web: https://illescasdaniel.github.io/Questions/  
-
 Screenshots
 -------
 <img src="http://i.imgur.com/reSYEXP.png" width="200">
