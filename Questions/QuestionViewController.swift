@@ -33,12 +33,8 @@ class QuestionViewController: UIViewController {
 		super.viewDidLoad()
 		
 		// Answers buttons position
-		var labelHeight: CGFloat = 40
-		
-		if let answerFont = answersButtons[0].titleLabel?.font {
-			labelHeight = answerFont.pointSize * 3
-		}
-		
+		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625
+	
 		let offset = labelHeight + 15
 		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)

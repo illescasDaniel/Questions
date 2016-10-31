@@ -56,6 +56,22 @@ class MainViewController: UIViewController {
 		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		mainMenuNavItem.title = "Main menu".localized
+		
+		// Set button frames
+		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
+		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
+
+		if let fontSize = instructionsButton.titleLabel?.font.pointSize {
+			buttonsHeight = fontSize * 2.0
+		}
+		
+		let spaceBetweenButtons = buttonsHeight * 1.6
+		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
+		let yPosition = UIScreen.main.bounds.maxY / 2.0
+		
+		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
+		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 	}
 
 	// MARK: Alerts
@@ -78,15 +94,17 @@ class MainViewController: UIViewController {
 	// MARK: Convenience
 
 	static func addParallax(toView: UIView?) {
-		let amount = 20
-
+		
+		let xAmount = 25
+		let yAmount = 15
+		
 		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
-		horizontal.minimumRelativeValue = -amount
-		horizontal.maximumRelativeValue = amount
+		horizontal.minimumRelativeValue = -xAmount
+		horizontal.maximumRelativeValue = xAmount
 
 		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
-		vertical.minimumRelativeValue = -amount
-		vertical.maximumRelativeValue = amount
+		vertical.minimumRelativeValue = -yAmount
+		vertical.maximumRelativeValue = yAmount
 
 		MainViewController.motionEffects = UIMotionEffectGroup()
 		MainViewController.motionEffects?.motionEffects = [horizontal, vertical]

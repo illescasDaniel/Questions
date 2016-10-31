@@ -1,10 +1,12 @@
 import XCTest
 
+@available(iOS 9.0, *)
 class QuestionsUITests: XCTestCase {
 	
     override func setUp() {
         super.setUp()
-        XCUIApplication().launch()
+
+		XCUIApplication().launch()
     }
     
     func testButtons() {
