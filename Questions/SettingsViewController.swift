@@ -7,8 +7,8 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var bgMusicLabel: UILabel!
 	@IBOutlet weak var parallaxEffectLabel: UILabel!
 	@IBOutlet weak var darkThemeLabel: UILabel!
-	@IBOutlet weak var resetGameLabel: UILabel!
-	
+	@IBOutlet weak var resetGameButton: UIButton!
+
 	var optionsLabels: [UILabel]!
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
@@ -25,10 +25,9 @@ class SettingsViewController: UITableViewController {
 		bgMusicLabel.text = "Background music".localized
 		parallaxEffectLabel.text = "Parallax effect".localized
 		darkThemeLabel.text = "Dark theme".localized
-		resetGameLabel.text = "Reset game".localized
-		resetGameLabel.font = UIFont.preferredFont(forTextStyle: .body)
-		
-		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameLabel]
+		resetGameButton.setTitle("Reset game".localized, for: .normal)
+
+		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel!]
 
 		if let motionEffects = MainViewController.backgroundView?.motionEffects {
 			parallaxEffectSwitch.setOn(!motionEffects.isEmpty, animated: true)
@@ -47,13 +46,6 @@ class SettingsViewController: UITableViewController {
 		return optionsLabels.count
 	}
 
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-		if tableView.cellForRow(at: indexPath)?.textLabel?.text == "Reset game".localized {
-			resetGameAlert()
-		}
-	}
-
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		
 		var completedSets = UInt()
@@ -70,13 +62,13 @@ class SettingsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		
 		let footer = view as! UITableViewHeaderFooterView
-		footer.textLabel?.textColor = darkThemeSwitch.isOn ? UIColor.lightGray : UIColor.gray
-		footer.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
+		footer.textLabel?.textColor = darkThemeSwitch.isOn ? .lightGray : .gray
+		footer.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
 	}
 	
 	// MARK: Alerts
 
-	func resetGameAlert() {
+	@IBAction func resetGameAlert() {
 		
 		let alertViewController = UIAlertController(title: "",
 													message: "What do you want to reset?".localized,
@@ -127,15 +119,17 @@ class SettingsViewController: UITableViewController {
 	
 	func loadTheme() {
 		
-		navigationController?.navigationBar.barStyle = darkThemeSwitch.isOn ? UIBarStyle.black : UIBarStyle.default
-		navigationController?.navigationBar.tintColor = darkThemeSwitch.isOn ? UIColor.orange : UIColor.defaultTintColor
+		navigationController?.navigationBar.barStyle = darkThemeSwitch.isOn ? .black : .default
+		navigationController?.navigationBar.tintColor = darkThemeSwitch.isOn ? .orange : .defaultTintColor
 		
-		tableView.backgroundColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultBGcolor
-		tableView.separatorColor = darkThemeSwitch.isOn ? UIColor.darkGray : UIColor.defaultSeparatorColor
+		tableView.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
+		tableView.separatorColor = darkThemeSwitch.isOn ? .darkGray : .defaultSeparatorColor
+		
+		resetGameButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
 		
 		for i in 0..<optionsLabels.count {
-			optionsLabels[i].textColor = darkThemeSwitch.isOn ? UIColor.white : UIColor.black
-			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? UIColor.gray : UIColor.white
+			optionsLabels[i].textColor = darkThemeSwitch.isOn ? .white : .black
+			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? .gray : .white
 		}
 	}
 	

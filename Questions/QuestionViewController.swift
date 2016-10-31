@@ -29,7 +29,41 @@ class QuestionViewController: UIViewController {
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
+		
 		super.viewDidLoad()
+		
+		// Answers buttons position
+		var labelHeight: CGFloat = 40
+		
+		if let answerFont = answersButtons[0].titleLabel?.font {
+			labelHeight = answerFont.pointSize * 3
+		}
+		
+		let offset = labelHeight + 15
+		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125
+		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
+		let yPosition = (UIScreen.main.bounds.maxY / 4.0) - (labelHeight / 4.0) + offset
+		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - (labelHeight / 4.0) - offset
+		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
+		let fullLabelHeight = labelHeight + spaceBetweenAnswers
+		
+		answersButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
+		answersButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
+		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
+		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
+		
+		// Labels position
+		
+		let yPosition5 = (UIScreen.main.bounds.maxY - yPosition4) / 2.0
+		let yPositionOfButtomLabel = UIScreen.main.bounds.maxY - yPosition5
+		
+		endOfQuestions.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
+		statusLabel.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
+		
+		//let yPosition6 = yPosition / 2.0
+		let statusBarHeight = UIApplication.shared.statusBarFrame.height
+		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight
+		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
 		
 		if #available(iOS 10.0, *) {
 			set = (Quiz.set[currentSet] as! NSArray).shuffled() as NSArray
@@ -50,25 +84,25 @@ class QuestionViewController: UIViewController {
 		}
 
 		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
-		muteMusic.setTitle(title.localized, for: UIControlState())
+		muteMusic.setTitle(title.localized, for: .normal)
 		
 		endOfQuestions.text = "End of questions".localized
-		goBack.setTitle("Go back".localized, for: UIControlState())
-		mainMenu.setTitle("Main menu".localized, for: UIControlState())
-		pauseButton.setTitle("Pause".localized, for: UIControlState())
+		goBack.setTitle("Go back".localized, for: .normal)
+		mainMenu.setTitle("Main menu".localized, for: .normal)
+		pauseButton.setTitle("Pause".localized, for: .normal)
 		
 		// Theme settings
 
-		let currentThemeColor = darkThemeEnabled ? UIColor.white : UIColor.black
+		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
 
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
 		endOfQuestions.textColor = currentThemeColor
-		view.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.white
-		pauseButton.setTitleColor(darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor, for: UIControlState())
-		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor }
-		pauseView.backgroundColor = darkThemeEnabled ? UIColor.darkYellow : UIColor.myYellow
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? UIColor.darkGray : UIColor.black, for: UIControlState()) }
+		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
+		pauseButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
+		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
+		pauseView.backgroundColor = darkThemeEnabled ? .darkYellow : .myYellow
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .darkGray : .black, for: .normal) }
 		
 		pickQuestion()
 	}
@@ -76,11 +110,7 @@ class QuestionViewController: UIViewController {
 	// MARK: UIViewController
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return darkThemeEnabled ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
-	}
-
-	override var shouldAutorotate: Bool {
-		return pauseView.isHidden
+		return darkThemeEnabled ? .lightContent : .default
 	}
 
 	// MARK: IBActions
@@ -93,7 +123,7 @@ class QuestionViewController: UIViewController {
 	@IBAction func pauseMenu() {
 
 		let title = paused ? "Continue" : "Pause"
-		pauseButton.setTitle(title.localized, for: UIControlState())
+		pauseButton.setTitle(title.localized, for: .normal)
 
 		// BLUR BACKGROUND for pause menu
 		/* Note: if this you want to remove the view and block the buttons you have to change the property .isEnabled to false of each button */
@@ -118,11 +148,11 @@ class QuestionViewController: UIViewController {
 			
 			if bgMusic.isPlaying {
 				bgMusic.pause()
-				muteMusic.setTitle("Play music".localized, for: UIControlState())
+				muteMusic.setTitle("Play music".localized, for: .normal)
 			}
 			else {
 				bgMusic.play()
-				muteMusic.setTitle("Pause music".localized, for: UIControlState())
+				muteMusic.setTitle("Pause music".localized, for: .normal)
 			}
 			
 			Settings.sharedInstance.musicEnabled = bgMusic.isPlaying
@@ -130,7 +160,7 @@ class QuestionViewController: UIViewController {
 	}
 	
 	// MARK: Convenience
-	
+
 	func pickQuestion() {
 		
 		if let quiz = quiz?.nextObject() as? NSDictionary {
@@ -139,7 +169,7 @@ class QuestionViewController: UIViewController {
 			questionLabel.text = (quiz["question"] as! String).localized
 			
 			for i in 0..<answersButtons.count {
-				answersButtons[i].setTitle((quiz["answers"] as! [String])[i].localized, for: UIControlState())
+				answersButtons[i].setTitle((quiz["answers"] as! [String])[i].localized, for: .normal)
 			}
 
 			remainingQuestionsLabel.text = "\(set.index(of: quiz) + 1)/\(set.count)"
@@ -163,12 +193,12 @@ class QuestionViewController: UIViewController {
 		statusLabel.alpha = 1.0
 		
 		if answer == correctAnswer {
-			statusLabel.textColor = darkThemeEnabled ? UIColor.lightGreen : UIColor.green
+			statusLabel.textColor = darkThemeEnabled ? .lightGreen : .green
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
 		}
 		else {
-			statusLabel.textColor = darkThemeEnabled ? UIColor.lightRed : UIColor.red
+			statusLabel.textColor = darkThemeEnabled ? .lightRed : .red
 			statusLabel.text = "Incorrect".localized
 			MainViewController.incorrect?.play()
 		}
@@ -178,7 +208,7 @@ class QuestionViewController: UIViewController {
 		}
 		
 		// Fade out animation for statusLabel
-		UIView.animate(withDuration: 1.5) { self.statusLabel.alpha = 0.0 }
+		UIView.animate(withDuration: 1) { self.statusLabel.alpha = 0.0 }
 		
 		pickQuestion()
 	}

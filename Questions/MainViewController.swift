@@ -32,8 +32,8 @@ class MainViewController: UIViewController {
 		}
 		
 		if Settings.sharedInstance.darkThemeEnabled {
-			navigationController?.navigationBar.barStyle = UIBarStyle.black
-			navigationController?.navigationBar.tintColor = UIColor.orange
+			navigationController?.navigationBar.barStyle = .black
+			navigationController?.navigationBar.tintColor = .orange
 		}
 
 		// Initialize sounds
@@ -52,9 +52,9 @@ class MainViewController: UIViewController {
 		MainViewController.bgMusic?.numberOfLoops = Int.max
 
 		// Set button titles
-		startButton.setTitle("START GAME".localized, for: UIControlState())
-		instructionsButton.setTitle("INSTRUCTIONS".localized, for: UIControlState())
-		settingsButton.setTitle("SETTINGS".localized, for: UIControlState())
+		startButton.setTitle("START GAME".localized, for: .normal)
+		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
+		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		mainMenuNavItem.title = "Main menu".localized
 	}
 

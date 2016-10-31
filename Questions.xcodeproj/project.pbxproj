@@ -638,6 +638,7 @@
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
+				WARNING_CFLAGS = "";
 			};
 			name = Debug;
 		};
@@ -655,6 +656,7 @@
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
+				WARNING_CFLAGS = "";
 			};
 			name = Release;
 		};

@@ -15,8 +15,8 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		sets = ["Social".localized, "Technology".localized, "People".localized]
 		
-		tableView.backgroundColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? UIColor.darkGray : UIColor.defaultSeparatorColor
+		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
+		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
 	}
 
 	// MARK: UITableViewDataSource
@@ -40,9 +40,9 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		// THEME 
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-		cell?.textLabel?.textColor = darkThemeEnabled ? UIColor.white : UIColor.black
-		cell?.backgroundColor = darkThemeEnabled ? UIColor.gray : UIColor.white
-		cell?.tintColor = darkThemeEnabled ? UIColor.orange : UIColor.defaultTintColor
+		cell?.textLabel?.textColor = darkThemeEnabled ? .white : .black
+		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
+		cell?.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
 		
 		return cell ?? UITableViewCell()
 	}
@@ -55,7 +55,7 @@ class QuestionsSetsViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let footer = view as! UITableViewHeaderFooterView
-		footer.textLabel?.textColor = darkThemeEnabled ? UIColor.lightGray : UIColor.gray
+		footer.textLabel?.textColor = darkThemeEnabled ? .lightGray : .gray
 	}
 	
 	// MARK: UIStoryboardSegue Handling
