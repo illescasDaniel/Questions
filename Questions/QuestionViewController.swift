@@ -31,36 +31,7 @@ class QuestionViewController: UIViewController {
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		
-		// Answers buttons position
-		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625
-	
-		let offset = labelHeight + 15
-		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125
-		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
-		let yPosition = (UIScreen.main.bounds.maxY / 4.0) - (labelHeight / 4.0) + offset
-		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - (labelHeight / 4.0) - offset
-		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
-		let fullLabelHeight = labelHeight + spaceBetweenAnswers
-		
-		answersButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
-		answersButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
-		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
-		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
-		
-		// Labels position
-		
-		let yPosition5 = (UIScreen.main.bounds.maxY - yPosition4) / 2.0
-		let yPositionOfButtomLabel = UIScreen.main.bounds.maxY - yPosition5
-		
-		endOfQuestions.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
-		statusLabel.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
-		
-		//let yPosition6 = yPosition / 2.0
-		let statusBarHeight = UIApplication.shared.statusBarFrame.height
-		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight
-		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
-		
+
 		if #available(iOS 10.0, *) {
 			set = (Quiz.set[currentSet] as! NSArray).shuffled() as NSArray
 		}
@@ -100,6 +71,12 @@ class QuestionViewController: UIViewController {
 		pauseView.backgroundColor = darkThemeEnabled ? .darkYellow : .myYellow
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .darkGray : .black, for: .normal) }
 		
+		setButtonsAndLabelsPosition()
+		
+		// If user rotates screen, the buttons and labels position are recalculated
+		NotificationCenter.default.addObserver(self, selector: #selector(QuestionViewController.setButtonsAndLabelsPosition),
+		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		
 		pickQuestion()
 	}
 	
@@ -107,6 +84,10 @@ class QuestionViewController: UIViewController {
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return darkThemeEnabled ? .lightContent : .default
+	}
+	
+	override var shouldAutorotate: Bool {
+		return pauseView.isHidden
 	}
 
 	// MARK: IBActions
@@ -121,7 +102,7 @@ class QuestionViewController: UIViewController {
 		let title = paused ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
 
-		// BLUR BACKGROUND for pause menu
+		// BLURRED BACKGROUND for pause menu
 		/* Note: if this you want to remove the view and block the buttons you have to change the property .isEnabled to false of each button */
 
 		if paused {
@@ -156,6 +137,36 @@ class QuestionViewController: UIViewController {
 	}
 	
 	// MARK: Convenience
+	
+	func setButtonsAndLabelsPosition() {
+		
+		// Answers buttons position
+		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625
+		
+		let offset = labelHeight + 15
+		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125
+		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
+		let yPosition = (UIScreen.main.bounds.maxY / 4.0) - (labelHeight / 4.0) + offset
+		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - (labelHeight / 4.0) - offset
+		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
+		let fullLabelHeight = labelHeight + spaceBetweenAnswers
+		
+		answersButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
+		answersButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
+		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
+		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
+		
+		// Labels position
+		let yPosition5 = (UIScreen.main.bounds.maxY - yPosition4) / 2.0
+		let yPositionOfButtomLabel = UIScreen.main.bounds.maxY - yPosition5
+		
+		endOfQuestions.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
+		statusLabel.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
+		
+		let statusBarHeight = UIApplication.shared.statusBarFrame.height
+		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight
+		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
+	}
 
 	func pickQuestion() {
 		

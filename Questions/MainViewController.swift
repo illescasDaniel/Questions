@@ -57,21 +57,12 @@ class MainViewController: UIViewController {
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		mainMenuNavItem.title = "Main menu".localized
 		
-		// Set button frames
-		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
-		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
-
-		if let fontSize = instructionsButton.titleLabel?.font.pointSize {
-			buttonsHeight = fontSize * 2.0
-		}
+		// Set button position and size
+		setButtonFrames()
 		
-		let spaceBetweenButtons = buttonsHeight * 1.6
-		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
-		let yPosition = UIScreen.main.bounds.maxY / 2.0
-		
-		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
-		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
-		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		// If user rotates screen, the buttons position and sizes are recalculated
+		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setButtonFrames),
+		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 	}
 
 	// MARK: Alerts
@@ -92,6 +83,23 @@ class MainViewController: UIViewController {
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {	}
 
 	// MARK: Convenience
+	
+	func setButtonFrames() {
+		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
+		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
+		
+		if let fontSize = instructionsButton.titleLabel?.font.pointSize {
+			buttonsHeight = fontSize * 2.0
+		}
+		
+		let spaceBetweenButtons = buttonsHeight * 1.6
+		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
+		let yPosition = UIScreen.main.bounds.maxY / 2.0
+		
+		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
+		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+	}
 
 	static func addParallax(toView: UIView?) {
 		
