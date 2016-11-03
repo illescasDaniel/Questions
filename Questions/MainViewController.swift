@@ -103,7 +103,7 @@ class MainViewController: UIViewController {
 
 	static func addParallax(toView: UIView?) {
 		
-		let xAmount = 25
+		let xAmount = 18
 		let yAmount = 15
 		
 		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
