@@ -42,7 +42,7 @@ class QuestionViewController: UIViewController {
 		quiz = set.objectEnumerator()
 		
 		pauseView.isHidden = true
-		endOfQuestions.isHidden = true
+		endOfQuestions.alpha = 0.0
 		statusLabel.alpha = 0.0
 		
 		// Saves the position where the blurView will be
@@ -188,7 +188,7 @@ class QuestionViewController: UIViewController {
 				Settings.sharedInstance.incorrectAnswers += incorrectAnswers
 			}
 			Settings.sharedInstance.completedSets[currentSet] = true
-			endOfQuestions.isHidden = false
+			UIView.animate(withDuration: 1) { self.endOfQuestions.alpha = 1.0 }
 			answersButtons.forEach { $0.isEnabled = false }
 		}
 	}
