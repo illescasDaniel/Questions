@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController {
 		darkThemeLabel.text = "Dark theme".localized
 		resetGameButton.setTitle("Reset game".localized, for: .normal)
 
-		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel!]
+		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel ?? UILabel()]
 
 		if let motionEffects = MainViewController.backgroundView?.motionEffects {
 			parallaxEffectSwitch.setOn(!motionEffects.isEmpty, animated: true)
@@ -35,9 +35,7 @@ class SettingsViewController: UITableViewController {
 		bgMusicSwitch.setOn(MainViewController.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
-		tableView.reloadData()
-		
-		loadTheme()
+		loadCurrentTheme()
 	}
 
 	// MARK: UITableViewDataSouce
@@ -52,18 +50,18 @@ class SettingsViewController: UITableViewController {
 		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
 		
 		return "\n\("Statistics".localized): \n\n" +
+			"\("Completed sets".localized): \(completedSets)\n" +
 			"\("Correct answers".localized): \(Settings.sharedInstance.correctAnswers)\n" +
-			"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n" +
-			"\("Completed sets".localized): \(completedSets)"
+			"\("Incorrect answers".localized): \(Settings.sharedInstance.incorrectAnswers)\n"
 	}
 	
 	// MARK: UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		
-		let footer = view as! UITableViewHeaderFooterView
-		footer.textLabel?.textColor = darkThemeSwitch.isOn ? .lightGray : .gray
-		footer.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
+		let footer = view as? UITableViewHeaderFooterView
+		footer?.textLabel?.textColor = darkThemeSwitch.isOn ? .lightGray : .gray
+		footer?.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
 	}
 	
 	// MARK: Alerts
@@ -89,14 +87,10 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchBGMusic() {
 
-		if bgMusicSwitch.isOn {
-			Settings.sharedInstance.musicEnabled = true
-			MainViewController.bgMusic?.play()
-		}
-		else {
-			Settings.sharedInstance.musicEnabled = false
-			MainViewController.bgMusic?.pause()
-		}
+		if bgMusicSwitch.isOn { MainViewController.bgMusic?.play() }
+		else { MainViewController.bgMusic?.pause() }
+		
+		Settings.sharedInstance.musicEnabled = bgMusicSwitch.isOn
 	}
 
 	@IBAction func switchParallaxEffect() {
@@ -111,13 +105,12 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchTheme() {
 		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
-		loadTheme()
-		viewDidLoad()
+		loadCurrentTheme()
 	}
 	
 	// MARK: Convenience
 	
-	func loadTheme() {
+	func loadCurrentTheme() {
 		
 		navigationController?.navigationBar.barStyle = darkThemeSwitch.isOn ? .black : .default
 		navigationController?.navigationBar.tintColor = darkThemeSwitch.isOn ? .orange : .defaultTintColor
@@ -127,6 +120,8 @@ class SettingsViewController: UITableViewController {
 		
 		resetGameButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
 		
+		tableView.reloadData()
+			
 		for i in 0..<optionsLabels.count {
 			optionsLabels[i].textColor = darkThemeSwitch.isOn ? .white : .black
 			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? .gray : .white
@@ -157,6 +152,7 @@ class SettingsViewController: UITableViewController {
 		darkThemeSwitch.setOn(false, animated: true)
 		Settings.sharedInstance.darkThemeEnabled = false
 		
-		viewDidLoad()
+		loadCurrentTheme()
+		tableView.reloadData()
 	}
 }

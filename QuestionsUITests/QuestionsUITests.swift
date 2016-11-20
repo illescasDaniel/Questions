@@ -30,6 +30,5 @@ class QuestionsUITests: XCTestCase {
 		tablesQuery.staticTexts["Technology"].tap()
 		pauseButton.tap()
 		app.buttons["Main menu"].tap()
-		
     }
 }

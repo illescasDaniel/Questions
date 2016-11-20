@@ -18,8 +18,6 @@ class QuestionViewController: UIViewController {
 
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
-	var correctAnswers = Int32()
-	var incorrectAnswers = Int32()
 	var correctAnswer = Int()
 	var currentSet = Int()
 	var set: NSArray = []
@@ -59,24 +57,12 @@ class QuestionViewController: UIViewController {
 		pauseButton.setTitle("Pause".localized, for: .normal)
 		
 		// Theme settings
-
-		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
-
-		remainingQuestionsLabel.textColor = currentThemeColor
-		questionLabel.textColor = currentThemeColor
-		endOfQuestions.textColor = currentThemeColor
-		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
-		pauseButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
-		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
-		pauseView.backgroundColor = darkThemeEnabled ? .darkYellow : .myYellow
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .darkGray : .black, for: .normal) }
-		
+		loadCurrentTheme()
 		setButtonsAndLabelsPosition()
 		
 		// If user rotates screen, the buttons and labels position are recalculated
 		NotificationCenter.default.addObserver(self, selector: #selector(QuestionViewController.setButtonsAndLabelsPosition),
 		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-		
 		pickQuestion()
 	}
 	
@@ -138,6 +124,20 @@ class QuestionViewController: UIViewController {
 	
 	// MARK: Convenience
 	
+	func loadCurrentTheme() {
+		
+		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
+		
+		remainingQuestionsLabel.textColor = currentThemeColor
+		questionLabel.textColor = currentThemeColor
+		endOfQuestions.textColor = currentThemeColor
+		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
+		pauseButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
+		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
+		pauseView.backgroundColor = darkThemeEnabled ? .darkYellow : .customYellow
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .darkGray : .black, for: .normal) }
+	}
+	
 	func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
@@ -175,18 +175,14 @@ class QuestionViewController: UIViewController {
 			correctAnswer = (quiz["answer"] as! Int)
 			questionLabel.text = (quiz["question"] as! String).localized
 			
+			let answers = quiz["answers"] as! [String]
+			
 			for i in 0..<answersButtons.count {
-				answersButtons[i].setTitle((quiz["answers"] as! [String])[i].localized, for: .normal)
+				answersButtons[i].setTitle(answers[i].localized, for: .normal)
 			}
-
 			remainingQuestionsLabel.text = "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
-			
-			if !Settings.sharedInstance.completedSets[currentSet] {
-				Settings.sharedInstance.correctAnswers += correctAnswers
-				Settings.sharedInstance.incorrectAnswers += incorrectAnswers
-			}
 			Settings.sharedInstance.completedSets[currentSet] = true
 			UIView.animate(withDuration: 1) { self.endOfQuestions.alpha = 1.0 }
 			answersButtons.forEach { $0.isEnabled = false }
@@ -211,7 +207,7 @@ class QuestionViewController: UIViewController {
 		}
 	
 		if !Settings.sharedInstance.completedSets[currentSet] {
-			(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
+			(answer == correctAnswer) ? (Settings.sharedInstance.correctAnswers += 1) : (Settings.sharedInstance.incorrectAnswers += 1)
 		}
 		
 		// Fade out animation for statusLabel

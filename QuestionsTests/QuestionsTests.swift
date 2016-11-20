@@ -27,7 +27,8 @@ class QuestionsTests: XCTestCase {
 		for i in 0..<Quiz.set.count {
 
 			vc.currentSet = i
-			vc.viewDidLoad() // ¿?
+			vc.viewDidLoad()
+			
 			set = (vc.set as! [NSDictionary])
 
 			numberOfQuestions = (vc.set as! [NSDictionary]).count

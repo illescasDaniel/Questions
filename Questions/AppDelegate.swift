@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		if MainViewController.bgMusic?.isPlaying ?? false {
 			MainViewController.bgMusic?.pause()
-			self.wasPlaying = true
+			wasPlaying = true
 		}
 		else {
 			wasPlaying = false

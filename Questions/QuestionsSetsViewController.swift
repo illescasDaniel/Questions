@@ -5,7 +5,7 @@ class QuestionsSetsViewController: UITableViewController {
 	// MARK: Properties
 	
 	var cell: UITableViewCell?
-	var sets: [String] = []
+	var sets: [String] = [String](repeating: "", count: Quiz.set.count)
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 
 	// MARK: View life cycle

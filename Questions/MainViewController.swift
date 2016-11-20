@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
 			MainViewController.bgMusic?.play()
 		}
 		
-		MainViewController.bgMusic?.numberOfLoops = Int.max
+		MainViewController.bgMusic?.numberOfLoops = -1
 
 		// Set button titles
 		startButton.setTitle("START GAME".localized, for: .normal)
