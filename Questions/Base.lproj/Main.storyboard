@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11760" systemVersion="16C48b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C63a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11755"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -75,6 +75,11 @@
                                 <state key="normal" title="START GAME">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="9QX-8c-sEy" kind="show" identifier="" id="7d1-l5-eCT"/>
                                 </connections>
@@ -87,6 +92,11 @@
                                 <state key="normal" title="INSTRUCTIONS">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="showInstructions" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="vdp-am-yhS"/>
                                 </connections>
@@ -99,10 +109,24 @@
                                 <state key="normal" title="SETTINGS">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="oi1-Vd-nnJ" kind="show" id="0X5-qD-MN0"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
+                                <rect key="frame" x="145" y="481" width="124" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="0.3359642551369863" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -116,6 +140,7 @@
                     <connections>
                         <outlet property="instructionsButton" destination="glT-nY-qNM" id="cnG-q4-g2F"/>
                         <outlet property="mainMenuNavItem" destination="4da-ip-kPT" id="bVf-Ec-k9q"/>
+                        <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
                         <outlet property="startButton" destination="arZ-7k-Uja" id="zAH-RX-Cfw"/>
                         <outlet property="view" destination="Sbf-MR-kXR" id="98J-ov-5jm"/>
@@ -152,6 +177,7 @@ Incorrect answers: X
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m4T-Df-lj5">
                                                     <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="JlQ-j7-zTu"/>
                                                     </connections>
@@ -180,6 +206,7 @@ Incorrect answers: X
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-0A-rbl">
                                                     <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="NDO-f4-yf1"/>
                                                         <action selector="switchParallaxEffect" destination="oi1-Vd-nnJ" eventType="valueChanged" id="kai-YO-iyM"/>
@@ -209,6 +236,7 @@ Incorrect answers: X
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7jI-Mw-v3H">
                                                     <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="igk-LH-FqC"/>
                                                         <action selector="switchParallaxEffect" destination="oi1-Vd-nnJ" eventType="valueChanged" id="r3A-MW-kb2"/>
@@ -275,9 +303,11 @@ Incorrect answers: X
                         <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
                         <outlet property="resetGameButton" destination="yKD-0v-sqg" id="azu-M5-PKp"/>
                         <outlet property="settingsNavItem" destination="opp-aP-nRJ" id="Nvr-l4-tTA"/>
+                        <segue destination="o8y-Tn-NTu" kind="unwind" identifier="refreshMainMenu" unwindAction="unwindToMainMenu:" id="fQ3-AH-O7q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="o8y-Tn-NTu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-198.55072463768118" y="1431.521739130435"/>
         </scene>
@@ -345,6 +375,11 @@ Incorrect answers: X
                                 <state key="normal" title="Answer 1">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="answer1Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="Kjq-bC-YX5"/>
                                 </connections>
@@ -358,6 +393,11 @@ Incorrect answers: X
                                 <state key="normal" title="Answer 2">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="answer2Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="LmK-pU-Bej"/>
                                 </connections>
@@ -371,6 +411,11 @@ Incorrect answers: X
                                 <state key="normal" title="Answer 3">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="answer3Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="OaH-PV-qYg"/>
                                 </connections>
@@ -384,21 +429,32 @@ Incorrect answers: X
                                 <state key="normal" title="Answer 4">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="answer4Action" destination="w1d-Yh-0lm" eventType="touchUpInside" id="x80-SZ-pmR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="28" width="133" height="37.666666666666671"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
+                                <rect key="frame" x="20" y="28" width="120" height="37.666666666666671"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
                                     <constraint firstAttribute="width" constant="121" id="mJL-kw-vjd">
                                         <variation key="heightClass=compact" constant="129"/>
-                                        <variation key="heightClass=regular-widthClass=compact" constant="133"/>
+                                        <variation key="heightClass=regular-widthClass=compact" constant="120"/>
                                     </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <state key="normal" title="Pause/Continue"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="pauseMenu" destination="w1d-Yh-0lm" eventType="touchUpInside" id="VTe-zM-gEw"/>
                                 </connections>

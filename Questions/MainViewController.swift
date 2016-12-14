@@ -9,6 +9,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var instructionsButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
+	@IBOutlet weak var scoreLabel: UILabel!
 	
 	static var bgMusic: AVAudioPlayer?
 	static var correct: AVAudioPlayer?
@@ -17,6 +18,14 @@ class MainViewController: UIViewController {
 	static var backgroundView: UIView?
 	
 	// MARK: View life cycle
+	
+	override func viewWillAppear(_ animated: Bool) {
+		
+		// Load score (20pts correct, -10 incorrect)
+		let answersScore = (Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
+		scoreLabel.text = "🏆 \(answersScore)pts"
+		scoreLabel.font = UIFont.boldSystemFont(ofSize: scoreLabel.font.pointSize)
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -57,11 +66,11 @@ class MainViewController: UIViewController {
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		mainMenuNavItem.title = "Main menu".localized
 		
-		// Set button position and size
-		setButtonFrames()
+		// Set buttons and label position and size
+		setFramesAndPosition()
 		
 		// If user rotates screen, the buttons position and sizes are recalculated
-		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setButtonFrames),
+		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
 		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 	}
 
@@ -80,11 +89,11 @@ class MainViewController: UIViewController {
 
 	// MARK: UnwindSegue
 
-	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {	}
+	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) { }
 
 	// MARK: Convenience
 	
-	func setButtonFrames() {
+	func setFramesAndPosition() {
 		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
 		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
 		
@@ -96,6 +105,7 @@ class MainViewController: UIViewController {
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
 		let yPosition = UIScreen.main.bounds.maxY / 2.0
 		
+		scoreLabel.frame = CGRect(x: xPosition, y: yPosition + 1.75*spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
 		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
