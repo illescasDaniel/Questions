@@ -74,18 +74,6 @@
 		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65E323631D40E67D00FB6D6E /* Quiz.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Quiz.plist; sourceTree = "<group>"; };
-		65F996B61D91F81E00AD1EEE /* body-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "body-bg.jpg"; sourceTree = "<group>"; };
-		65F996B71D91F81E00AD1EEE /* download-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "download-button.png"; sourceTree = "<group>"; };
-		65F996B81D91F81E00AD1EEE /* github-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github-button.png"; sourceTree = "<group>"; };
-		65F996B91D91F81E00AD1EEE /* header-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "header-bg.jpg"; sourceTree = "<group>"; };
-		65F996BA1D91F81E00AD1EEE /* highlight-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "highlight-bg.jpg"; sourceTree = "<group>"; };
-		65F996BB1D91F81E00AD1EEE /* sidebar-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "sidebar-bg.jpg"; sourceTree = "<group>"; };
-		65F996BC1D91F81E00AD1EEE /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		65F996BE1D91F81E00AD1EEE /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
-		65F996BF1D91F81E00AD1EEE /* params.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = params.json; sourceTree = "<group>"; };
-		65F996C11D91F81E00AD1EEE /* github-light.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "github-light.css"; sourceTree = "<group>"; };
-		65F996C21D91F81E00AD1EEE /* print.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = print.css; sourceTree = "<group>"; };
-		65F996C31D91F81E00AD1EEE /* stylesheet.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = stylesheet.css; sourceTree = "<group>"; };
 		8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Extension.swift"; sourceTree = "<group>"; };
 		8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,7 +140,6 @@
 				653D055C1D43961900865D43 /* QuestionsTests */,
 				653D056D1D43CD2D00865D43 /* QuestionsUITests */,
 				65CB4C431D29C3E300D2E1C1 /* Products */,
-				65F996C51D91F87C00AD1EEE /* WEB */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,49 +168,6 @@
 				65E323631D40E67D00FB6D6E /* Quiz.plist */,
 			);
 			path = Questions;
-			sourceTree = "<group>";
-		};
-		65F996B51D91F81E00AD1EEE /* images */ = {
-			isa = PBXGroup;
-			children = (
-				65F996B61D91F81E00AD1EEE /* body-bg.jpg */,
-				65F996B71D91F81E00AD1EEE /* download-button.png */,
-				65F996B81D91F81E00AD1EEE /* github-button.png */,
-				65F996B91D91F81E00AD1EEE /* header-bg.jpg */,
-				65F996BA1D91F81E00AD1EEE /* highlight-bg.jpg */,
-				65F996BB1D91F81E00AD1EEE /* sidebar-bg.jpg */,
-			);
-			path = images;
-			sourceTree = "<group>";
-		};
-		65F996BD1D91F81E00AD1EEE /* javascripts */ = {
-			isa = PBXGroup;
-			children = (
-				65F996BE1D91F81E00AD1EEE /* main.js */,
-			);
-			path = javascripts;
-			sourceTree = "<group>";
-		};
-		65F996C01D91F81E00AD1EEE /* stylesheets */ = {
-			isa = PBXGroup;
-			children = (
-				65F996C11D91F81E00AD1EEE /* github-light.css */,
-				65F996C21D91F81E00AD1EEE /* print.css */,
-				65F996C31D91F81E00AD1EEE /* stylesheet.css */,
-			);
-			path = stylesheets;
-			sourceTree = "<group>";
-		};
-		65F996C51D91F87C00AD1EEE /* WEB */ = {
-			isa = PBXGroup;
-			children = (
-				65F996B51D91F81E00AD1EEE /* images */,
-				65F996BC1D91F81E00AD1EEE /* index.html */,
-				65F996BD1D91F81E00AD1EEE /* javascripts */,
-				65F996BF1D91F81E00AD1EEE /* params.json */,
-				65F996C01D91F81E00AD1EEE /* stylesheets */,
-			);
-			name = WEB;
 			sourceTree = "<group>";
 		};
 		8E7F0EFD1D351D410048F1A0 /* ViewControllers */ = {

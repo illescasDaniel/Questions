@@ -1,6 +1,0 @@
-{
-  "name": "Questions",
-  "tagline": "Quiz iOS app",
-  "body": "It includes support for multiple languages and a dark theme.\r\n\r\nScreenshots  \r\n-------\r\n<br></br>\r\n<img src=\"http://i.imgur.com/reSYEXP.png\" width=\"200\">\r\n<img src=\"http://i.imgur.com/UmmSWHn.png\" width=\"200\">\r\n<img src=\"http://i.imgur.com/fGEK06o.png\" width=\"200\">  \r\n<img src=\"http://i.imgur.com/GCl6sDz.png\" width=\"200\">\r\n<img src=\"http://i.imgur.com/az7jhde.png\" width=\"200\">\r\n<img src=\"http://i.imgur.com/53Y0KUQ.png\" width=\"200\">    \r\n[More](http://imgur.com/gallery/iRwBD)\r\n\r\n# ASSETS  \r\n\r\nImages\r\n-------\r\nApp background:  \r\nhttps://pixabay.com/en/banner-header-question-mark-1090830/\r\n\r\nSounds\r\n-------\r\nRoyalty Free Music from Bensound:  \r\nhttp://www.bensound.com/royalty-free-music/track/funky-element\r\n\r\n'Correct answer' sound:  \r\nhttps://www.freesound.org/people/LittleRainySeasons/sounds/335908/\r\n\r\n'Incorrect answer' sound':  \r\nhttps://www.freesound.org/people/rhodesmas/sounds/342756/\r\n\r\n# Special thanks to  \r\n\r\nCarlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))  \r\nJared Davidson for the \"Making A Quiz Game\" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  ",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
