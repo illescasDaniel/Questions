@@ -147,8 +147,10 @@ class QuestionViewController: UIViewController {
 		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGrey
 		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
 		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
-		pauseView.backgroundColor = darkThemeEnabled ? .darkYellow : .customYellow
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .darkGray : .black, for: .normal) }
+		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGrey
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(.darkGray, for: .normal) }
+		pauseView.subviews.forEach { ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .darkYellow : .customYellow }
+		pauseView.subviews.forEach { ($0 as! UIButton).layer.borderColor = darkThemeEnabled ? UIColor.gray.cgColor : UIColor.lightGray.cgColor }
 	}
 	
 	func setButtonsAndLabelsPosition() {
@@ -215,7 +217,7 @@ class QuestionViewController: UIViewController {
 		statusLabel.alpha = 1.0
 		
 		if answer == correctAnswer {
-			statusLabel.textColor = darkThemeEnabled ? .lightGreen : .green
+			statusLabel.textColor = darkThemeEnabled ? .lightGreen : .darkGreen
 			statusLabel.text = "Correct!".localized
 			MainViewController.correct?.play()
 		}

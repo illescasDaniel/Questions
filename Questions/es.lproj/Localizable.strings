@@ -17,13 +17,12 @@
 "Everything" = "Todos los datos";
 "Only statistics" = "Sólo estadísticas";
 "Cancel" = "Cancelar";
-"Restart the game" = "Reinicie el juego";
 "Statistics" = "Estadísticas";
 "Correct answers" = "Respuestas correctas";
 "Incorrect answers" = "Respuestas incorrectas";
 "Completed sets" = "Sets completados";
 
-"Questions set" = "Sets de preguntas";
+"Questions sets" = "Sets de preguntas";
 
 "Correct!" = "¡Correcto!";
 "Incorrect" = "Incorrecto";

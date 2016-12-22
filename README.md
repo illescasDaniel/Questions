@@ -1,20 +1,20 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/swift-3-orange.svg)](https://swift.org/download/0)
-[![Version](https://img.shields.io/badge/version-v1.2--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v1.3--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Quiz app for iOS with support for multiple languages and dark theme.  
 
 Screenshots
 -------
-<img src="http://i.imgur.com/reSYEXP.png" width="200">
-<img src="http://i.imgur.com/UmmSWHn.png" width="200">
-<img src="http://i.imgur.com/XfhRm0a.png" width="200">
-<img src="http://i.imgur.com/fGEK06o.png" width="200">  
-<img src="http://i.imgur.com/GCl6sDz.png" width="200">
-<img src="http://i.imgur.com/az7jhde.png" width="200">
-<img src="http://i.imgur.com/rV6t07p.png" width="200">
-<img src="http://i.imgur.com/53Y0KUQ.png" width="200">    
+<img src="http://i.imgur.com/A0BfRJJ.png" width="200">
+<img src="http://i.imgur.com/IBGGrWq.png" width="200">
+<img src="http://i.imgur.com/cJQWUWv.png" width="200">
+<img src="http://i.imgur.com/7EvP14Y.png" width="200">  
+<img src="http://i.imgur.com/LN9gfwO.png" width="200">
+<img src="http://i.imgur.com/CPI78bx.png" width="200">
+<img src="http://i.imgur.com/y4WNACN.png" width="200">
+<img src="http://i.imgur.com/SXT44F6.png" width="200">    
 [More](http://imgur.com/gallery/iRwBD)
 
 # ASSETS #

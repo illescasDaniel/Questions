@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
 		// Load score (20pts correct, -10 incorrect)
 		let answersScore = (Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
 		scoreLabel.text = "🏆 \(answersScore)pts"
-		scoreLabel.font = UIFont.boldSystemFont(ofSize: scoreLabel.font.pointSize)
 	}
 	
 	override func viewDidLoad() {
@@ -46,14 +45,14 @@ class MainViewController: UIViewController {
 		}
 
 		// Initialize sounds
-		MainViewController.bgMusic = AVAudioPlayer(file: "bensound-funkyelement", type: "mp3")
+		MainViewController.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
 		MainViewController.correct = AVAudioPlayer(file: "correct", type: "mp3")
 		MainViewController.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
 
+		MainViewController.bgMusic?.volume = 0.12
 		MainViewController.correct?.volume = 0.10
-		MainViewController.incorrect?.volume = 0.33
-		MainViewController.bgMusic?.volume = 0.06
-
+		MainViewController.incorrect?.volume = 0.4
+		
 		if Settings.sharedInstance.musicEnabled {
 			MainViewController.bgMusic?.play()
 		}
