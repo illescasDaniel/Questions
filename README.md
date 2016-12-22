@@ -1,5 +1,5 @@
 # Questions
-[![Swift version](https://img.shields.io/badge/swift-3-orange.svg)](https://swift.org/download/0)
+[![Swift version](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org/download)
 [![Version](https://img.shields.io/badge/version-v1.3--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
@@ -15,7 +15,6 @@ Screenshots
 <img src="http://i.imgur.com/CPI78bx.png" width="200">
 <img src="http://i.imgur.com/y4WNACN.png" width="200">
 <img src="http://i.imgur.com/SXT44F6.png" width="200">    
-[More](http://imgur.com/gallery/iRwBD)
 
 # ASSETS #
 
@@ -27,7 +26,7 @@ https://pixabay.com/en/banner-header-question-mark-1090830/
 Sounds
 -------
 Royalty Free Music from Bensound:  
-http://www.bensound.com/royalty-free-music/track/funky-element
+http://www.bensound.com/royalty-free-music/track/the-lounge
 
 'Correct answer' sound:  
 https://www.freesound.org/people/LittleRainySeasons/sounds/335908/
