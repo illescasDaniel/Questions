@@ -38,7 +38,7 @@ class QuestionsSetsViewController: UITableViewController {
 			cell?.accessoryType = .checkmark
 		}
 		
-		// THEME 
+		// Load theme 
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
 		cell?.textLabel?.textColor = darkThemeEnabled ? .white : .black
 		cell?.backgroundColor = darkThemeEnabled ? .gray : .white

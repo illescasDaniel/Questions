@@ -25,7 +25,6 @@ class MainViewController: UIViewController {
 		let answersScore = (Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
 		scoreLabel.text = "🏆 \(answersScore)pts"
 		
-		
 		if answersScore == 0 {
 			scoreLabel.textColor = .darkGray
 		}
@@ -35,7 +34,6 @@ class MainViewController: UIViewController {
 		else {
 			scoreLabel.textColor = .darkGreen2
 		}
-		
 	}
 	
 	override func viewDidLoad() {
