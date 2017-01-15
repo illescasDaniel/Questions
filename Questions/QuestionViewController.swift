@@ -150,7 +150,6 @@ class QuestionViewController: UIViewController {
 		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGrey
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(.darkGray, for: .normal) }
 		pauseView.subviews.forEach { ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .darkYellow : .customYellow }
-		pauseView.subviews.forEach { ($0 as! UIButton).layer.borderColor = darkThemeEnabled ? UIColor.gray.cgColor : UIColor.lightGray.cgColor }
 	}
 	
 	func setButtonsAndLabelsPosition() {

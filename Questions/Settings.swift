@@ -15,7 +15,7 @@ class Settings: NSObject, NSCoding {
 	func encode(with archiver: NSCoder) {
 		archiver.encode(correctAnswers, forKey: "Correct answers")
 		archiver.encode(incorrectAnswers, forKey: "Incorrect answers")
-		archiver.encode(darkThemeEnabled, forKey: "DarkTheme") // new
+		archiver.encode(darkThemeEnabled, forKey: "DarkTheme")
 		archiver.encode(musicEnabled, forKey: "Music")
 		archiver.encode(completedSets, forKey: "Completed sets")
 	}

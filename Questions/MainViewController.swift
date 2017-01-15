@@ -24,12 +24,22 @@ class MainViewController: UIViewController {
 		// Load score (20pts correct, -10 incorrect)
 		let answersScore = (Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
 		scoreLabel.text = "🏆 \(answersScore)pts"
+		
+		
+		if answersScore == 0 {
+			scoreLabel.textColor = .darkGray
+		}
+		else if answersScore < 0 {
+			scoreLabel.textColor = .red
+		}
+		else {
+			scoreLabel.textColor = .darkGreen2
+		}
+		
 	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		MainViewController.backgroundView = view.subviews.first
 		
 		// Add parallax effect to background image view
 		MainViewController.addParallax(toView: MainViewController.backgroundView)
