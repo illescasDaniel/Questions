@@ -111,16 +111,16 @@
 		</dict>
 		<dict>
 			<key>question</key>
-			<string>iPhone, iPad or Mac?</string>
+			<string>Which one of the following terms is defined as the management of a firm&apos;s long-term investments?</string>
 			<key>answers</key>
 			<array>
-				<string>iPhone</string>
-				<string>iPad</string>
-				<string>Everyone c:</string>
-				<string>mac</string>
+				<string>Working capital management</string>
+				<string>Financial allocation</string>
+				<string>Agency cost analysis</string>
+				<string>Capital budgeting</string>
 			</array>
 			<key>answer</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<array>

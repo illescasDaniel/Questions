@@ -282,7 +282,7 @@
 					};
 					65CB4C411D29C3E300D2E1C1 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PRK6268SLD;
+						DevelopmentTeam = DZK8EVM94K;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -583,11 +583,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = PRK6268SLD;
+				DEVELOPMENT_TEAM = DZK8EVM94K;
 				INFOPLIST_FILE = Questions/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.JasonMcCoy.Questions;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -601,11 +601,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = PRK6268SLD;
+				DEVELOPMENT_TEAM = DZK8EVM94K;
 				INFOPLIST_FILE = Questions/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.JasonMcCoy.Questions;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
