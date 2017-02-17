@@ -97,7 +97,7 @@ class MainViewController: UIViewController {
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
-		MainViewController.bgMusic?.volume *= 4
+		MainViewController.bgMusic?.volume *= 5.0
 	}
 
 	// MARK: Convenience
