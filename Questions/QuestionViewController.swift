@@ -24,10 +24,9 @@ class QuestionViewController: UIViewController {
 	var currentSet = Int()
 	var set: NSArray = []
 	var quiz: NSEnumerator?
-	var paused = true
 	
 	// MARK: View life cycle
-
+	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
@@ -41,7 +40,6 @@ class QuestionViewController: UIViewController {
 		
 		quiz = set.objectEnumerator()
 		
-		pauseView.isHidden = true
 		endOfQuestions.alpha = 0.0
 		statusLabel.alpha = 0.0
 		
@@ -50,7 +48,7 @@ class QuestionViewController: UIViewController {
 			blurViewPos = i - 1
 		}
 
-		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
+		let title = MainViewController.bgMusic?.isPlaying == true ? "Stop Music" : "Play Music"
 		muteMusic.setTitle(title.localized, for: .normal)
 		
 		endOfQuestions.text = "End of questions".localized
@@ -62,10 +60,14 @@ class QuestionViewController: UIViewController {
 		loadCurrentTheme()
 		setButtonsAndLabelsPosition()
 		
-		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred bg for the pause menu
-		NotificationCenter.default.addObserver(self, selector: #selector(QuestionViewController.setButtonsAndLabelsPosition),
-		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		// If user minimize the app, the pause menu shows up
+		NotificationCenter.default.addObserver(self, selector: #selector(self.showPauseMenu),
+												name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
+		
+		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
+		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
+		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 		pickQuestion()
 	}
 	
@@ -96,14 +98,23 @@ class QuestionViewController: UIViewController {
 	@IBAction func answer4Action() { verify(answer: 3) }
 
 	@IBAction func pauseMenu() {
-
-		let title = paused ? "Continue" : "Pause"
+		
+		if MainViewController.bgMusic?.isPlaying ?? false {
+			if pauseView.isHidden {
+				MainViewController.bgMusic?.volume /= 5.0
+			}
+			else {
+				MainViewController.bgMusic?.volume *= 5.0
+			}
+		}
+		
+		let title = pauseView.isHidden ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
 
 		// BLURRED BACKGROUND for pause menu
 		/* Note: if this you want to remove the view and block the buttons you have to change the property .isEnabled to false of each button */
 
-		if paused {
+		if pauseView.isHidden {
 			let blurEffect = darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 			let blurView = UIVisualEffectView(effect: blurEffect)
 			blurView.frame = UIScreen.main.bounds
@@ -113,8 +124,13 @@ class QuestionViewController: UIViewController {
 			view.subviews[blurViewPos].removeFromSuperview()
 		}
 		
-		paused = paused ? false : true
-		pauseView.isHidden = paused
+		pauseView.isHidden = !pauseView.isHidden
+	}
+	
+	func showPauseMenu() {
+		if (pauseView.isHidden) {
+			pauseMenu()
+		}
 	}
 	
 	@IBAction func muteMusicAction() {
