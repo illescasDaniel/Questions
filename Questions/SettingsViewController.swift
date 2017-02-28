@@ -121,10 +121,9 @@ class SettingsViewController: UITableViewController {
 		resetGameButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
 		
 		let blueSwitch = UIColor(red: 80/255, green: 165/255, blue: 216/255, alpha: 1.0)
-		let orangeSwitch = UIColor(red: 216/255, green: 159/255, blue: 50/255, alpha: 1.0)
-		bgMusicSwitch.onTintColor = darkThemeSwitch.isOn ? orangeSwitch : blueSwitch
-		parallaxEffectSwitch.onTintColor = darkThemeSwitch.isOn ? orangeSwitch : blueSwitch
-		darkThemeSwitch.onTintColor = darkThemeSwitch.isOn ? orangeSwitch : blueSwitch
+		bgMusicSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
+		parallaxEffectSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
+		darkThemeSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
 		
 		tableView.reloadData()
 			

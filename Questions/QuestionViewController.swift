@@ -99,15 +99,6 @@ class QuestionViewController: UIViewController {
 
 	@IBAction func pauseMenu() {
 		
-		if MainViewController.bgMusic?.isPlaying ?? false {
-			if pauseView.isHidden {
-				MainViewController.bgMusic?.volume /= 5.0
-			}
-			else {
-				MainViewController.bgMusic?.volume *= 5.0
-			}
-		}
-		
 		let title = pauseView.isHidden ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
 
@@ -125,6 +116,13 @@ class QuestionViewController: UIViewController {
 		}
 		
 		pauseView.isHidden = !pauseView.isHidden
+		
+		if !pauseView.isHidden {
+			MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume / 5
+		}
+		else {
+			MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
+		}
 	}
 	
 	func showPauseMenu() {
@@ -164,8 +162,8 @@ class QuestionViewController: UIViewController {
 		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
 		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
 		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGrey
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(.darkGray, for: .normal)
-									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .darkYellow : .customYellow }
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .black : .darkGray, for: .normal)
+									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
 	}
 	
 	func setButtonsAndLabelsPosition() {

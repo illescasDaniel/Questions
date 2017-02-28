@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var scoreLabel: UILabel!
 	
 	static var bgMusic: AVAudioPlayer?
+	static var bgMusicVolume: Float = 0.12
 	static var correct: AVAudioPlayer?
 	static var incorrect: AVAudioPlayer?
 	static var motionEffects: UIMotionEffectGroup?
@@ -32,7 +33,7 @@ class MainViewController: UIViewController {
 			scoreLabel.textColor = .red
 		}
 		else {
-			scoreLabel.textColor = .darkGreen2
+			scoreLabel.textColor = .darkGreen
 		}
 	}
 	
@@ -40,6 +41,7 @@ class MainViewController: UIViewController {
 		super.viewDidLoad()
 		
 		// Add parallax effect to background image view
+		MainViewController.backgroundView = view.subviews.first
 		MainViewController.addParallax(toView: MainViewController.backgroundView)
 		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
@@ -57,7 +59,7 @@ class MainViewController: UIViewController {
 		MainViewController.correct = AVAudioPlayer(file: "correct", type: "mp3")
 		MainViewController.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
 
-		MainViewController.bgMusic?.volume = 0.12
+		MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
 		MainViewController.correct?.volume = 0.10
 		MainViewController.incorrect?.volume = 0.4
 		
@@ -97,7 +99,7 @@ class MainViewController: UIViewController {
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
-		MainViewController.bgMusic?.volume *= 5.0
+		MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
 	}
 
 	// MARK: Convenience
@@ -120,9 +122,9 @@ class MainViewController: UIViewController {
 		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 	}
 
-	static func addParallax(toView: UIView?) {
+	static func addParallax(toView view: UIView?) {
 		
-		let xAmount = 18
+		let xAmount = 25
 		let yAmount = 15
 		
 		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
@@ -137,7 +139,7 @@ class MainViewController: UIViewController {
 		MainViewController.motionEffects?.motionEffects = [horizontal, vertical]
 		
 		if let effects = MainViewController.motionEffects {
-			toView?.addMotionEffect(effects)
+			view?.addMotionEffect(effects)
 		}
 	}
 }
