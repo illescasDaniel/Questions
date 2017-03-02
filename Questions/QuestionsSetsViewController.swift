@@ -70,7 +70,7 @@ class QuestionsSetsViewController: UITableViewController {
 
 	@IBAction func unwindToQuestionSetSelector(_ segue: UIStoryboardSegue) {
 
-		MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
+		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		
 		for i in 0..<sets.count where Settings.sharedInstance.completedSets[i] {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)

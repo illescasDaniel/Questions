@@ -48,7 +48,7 @@ class QuestionViewController: UIViewController {
 			blurViewPos = i - 1
 		}
 
-		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
+		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 		
 		endOfQuestions.text = "End of questions".localized
@@ -117,12 +117,8 @@ class QuestionViewController: UIViewController {
 		
 		pauseView.isHidden = !pauseView.isHidden
 		
-		if !pauseView.isHidden {
-			MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume / 5
-		}
-		else {
-			MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
-		}
+		let newVolume = pauseView.isHidden ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
+		Audio.setVolumeLevel(to: newVolume)
 	}
 	
 	func showPauseMenu() {
@@ -133,7 +129,7 @@ class QuestionViewController: UIViewController {
 	
 	@IBAction func muteMusicAction() {
 		
-		if let bgMusic = MainViewController.bgMusic {
+		if let bgMusic = Audio.bgMusic {
 			
 			if bgMusic.isPlaying {
 				bgMusic.pause()
@@ -232,12 +228,12 @@ class QuestionViewController: UIViewController {
 		if answer == correctAnswer {
 			statusLabel.textColor = darkThemeEnabled ? .lightGreen : .darkGreen
 			statusLabel.text = "Correct!".localized
-			MainViewController.correct?.play()
+			Audio.correct?.play()
 		}
 		else {
 			statusLabel.textColor = darkThemeEnabled ? .lightRed : .red
 			statusLabel.text = "Incorrect".localized
-			MainViewController.incorrect?.play()
+			Audio.incorrect?.play()
 		}
 	
 		if !Settings.sharedInstance.completedSets[currentSet] {
@@ -252,12 +248,12 @@ class QuestionViewController: UIViewController {
 	
 	func pausePreviousSounds() {
 		
-		if let incorrectSound = MainViewController.incorrect , incorrectSound.isPlaying {
+		if let incorrectSound = Audio.incorrect , incorrectSound.isPlaying {
 			incorrectSound.pause()
 			incorrectSound.currentTime = 0
 		}
 		
-		if let correctSound = MainViewController.correct , correctSound.isPlaying {
+		if let correctSound = Audio.correct , correctSound.isPlaying {
 			correctSound.pause()
 			correctSound.currentTime = 0
 		}

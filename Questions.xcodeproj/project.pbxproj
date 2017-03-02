@@ -19,6 +19,7 @@
 		659B504E1D2BE58B00F8FA09 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 659B504C1D2BE58B00F8FA09 /* incorrect.wav */; };
 		65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */; };
 		65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* Settings.swift */; };
+		65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* Audio.swift */; };
 		65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285C51D2A8176002F7DF8 /* MainViewController.swift */; };
 		65C285D41D2AB6A4002F7DF8 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D31D2AB6A4002F7DF8 /* QuestionViewController.swift */; };
 		65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */; };
@@ -64,6 +65,7 @@
 		659B504C1D2BE58B00F8FA09 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		65AE3EC71D3A9C7500125EE2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		65BF7CE21E68B4F7006A7706 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		65C285C51D2A8176002F7DF8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		65C285D31D2AB6A4002F7DF8 /* QuestionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
 		65CB4C421D29C3E300D2E1C1 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +186,7 @@
 		8E7F0EFE1D351D4F0048F1A0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				65BF7CE21E68B4F7006A7706 /* Audio.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */,
 				65AE3EC71D3A9C7500125EE2 /* Settings.swift */,
 			);
@@ -376,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */,
 				65C285D41D2AB6A4002F7DF8 /* QuestionViewController.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* Quiz.swift in Sources */,
 				65456AF41D2BC9620048965E /* QuestionsSetsViewController.swift in Sources */,

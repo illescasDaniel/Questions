@@ -32,7 +32,7 @@ class SettingsViewController: UITableViewController {
 		if let motionEffects = MainViewController.backgroundView?.motionEffects {
 			parallaxEffectSwitch.setOn(!motionEffects.isEmpty, animated: true)
 		}
-		bgMusicSwitch.setOn(MainViewController.bgMusic?.isPlaying ?? false, animated: true)
+		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
 		loadCurrentTheme()
@@ -87,8 +87,8 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchBGMusic() {
 
-		if bgMusicSwitch.isOn { MainViewController.bgMusic?.play() }
-		else { MainViewController.bgMusic?.pause() }
+		if bgMusicSwitch.isOn { Audio.bgMusic?.play() }
+		else { Audio.bgMusic?.pause() }
 		
 		Settings.sharedInstance.musicEnabled = bgMusicSwitch.isOn
 	}
@@ -98,7 +98,8 @@ class SettingsViewController: UITableViewController {
 		if parallaxEffectSwitch.isOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
-		else if let effects = MainViewController.motionEffects {
+		else {
+			let effects = MainViewController.parallaxEffect
 			MainViewController.backgroundView?.removeMotionEffect(effects)
 		}
 	}
@@ -146,7 +147,7 @@ class SettingsViewController: UITableViewController {
 		
 		resetGameStatistics()
 		Settings.sharedInstance.musicEnabled = true
-		MainViewController.bgMusic?.play()
+		Audio.bgMusic?.play()
 		bgMusicSwitch.setOn(true, animated: true)
 		
 		if !parallaxEffectSwitch.isOn {

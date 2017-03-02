@@ -8,8 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		
-		if MainViewController.bgMusic?.isPlaying ?? false {
-			MainViewController.bgMusic?.pause()
+		if Audio.bgMusic?.isPlaying ?? false {
+			Audio.bgMusic?.pause()
 			wasPlaying = true
 		}
 		else {
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		
 		if wasPlaying {
-			MainViewController.bgMusic?.play()
+			Audio.bgMusic?.play()
 		}
 	}
 }

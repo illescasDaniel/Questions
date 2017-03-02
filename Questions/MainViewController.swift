@@ -11,11 +11,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
 	@IBOutlet weak var scoreLabel: UILabel!
 	
-	static var bgMusic: AVAudioPlayer?
-	static var bgMusicVolume: Float = 0.12
-	static var correct: AVAudioPlayer?
-	static var incorrect: AVAudioPlayer?
-	static var motionEffects: UIMotionEffectGroup?
+	static var parallaxEffect = UIMotionEffectGroup()
 	static var backgroundView: UIView?
 	
 	// MARK: View life cycle
@@ -55,19 +51,19 @@ class MainViewController: UIViewController {
 		}
 
 		// Initialize sounds
-		MainViewController.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
-		MainViewController.correct = AVAudioPlayer(file: "correct", type: "mp3")
-		MainViewController.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
+		Audio.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
+		Audio.correct = AVAudioPlayer(file: "correct", type: "mp3")
+		Audio.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
 
-		MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
-		MainViewController.correct?.volume = 0.10
-		MainViewController.incorrect?.volume = 0.4
+		Audio.bgMusic?.volume = Audio.bgMusicVolume
+		Audio.correct?.volume = 0.10
+		Audio.incorrect?.volume = 0.4
 		
 		if Settings.sharedInstance.musicEnabled {
-			MainViewController.bgMusic?.play()
+			Audio.bgMusic?.play()
 		}
 		
-		MainViewController.bgMusic?.numberOfLoops = -1
+		Audio.bgMusic?.numberOfLoops = -1
 
 		// Set button titles
 		startButton.setTitle("START GAME".localized, for: .normal)
@@ -99,11 +95,11 @@ class MainViewController: UIViewController {
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
-		MainViewController.bgMusic?.volume = MainViewController.bgMusicVolume
+		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 	}
 
 	// MARK: Convenience
-	
+
 	func setFramesAndPosition() {
 		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
 		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
@@ -134,12 +130,8 @@ class MainViewController: UIViewController {
 		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
 		vertical.minimumRelativeValue = -yAmount
 		vertical.maximumRelativeValue = yAmount
-
-		MainViewController.motionEffects = UIMotionEffectGroup()
-		MainViewController.motionEffects?.motionEffects = [horizontal, vertical]
 		
-		if let effects = MainViewController.motionEffects {
-			view?.addMotionEffect(effects)
-		}
+		MainViewController.parallaxEffect.motionEffects = [horizontal, vertical]
+		view?.addMotionEffect(MainViewController.parallaxEffect)
 	}
 }
