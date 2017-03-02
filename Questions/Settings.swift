@@ -33,7 +33,7 @@ class Settings: NSObject, NSCoding {
 		return NSKeyedArchiver.archiveRootObject(self, toFile: Settings.path)
 	}
 
-	static func documentsDirectory() -> String {
+	private static func documentsDirectory() -> String {
 		return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 	}
 }

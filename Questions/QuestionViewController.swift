@@ -48,7 +48,7 @@ class QuestionViewController: UIViewController {
 			blurViewPos = i - 1
 		}
 
-		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause Music" : "Play Music"
+		let title = MainViewController.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 		
 		endOfQuestions.text = "End of questions".localized

@@ -8,7 +8,7 @@
 			<string>What&apos;s your name?</string>
 			<key>answers</key>
 			<array>
-				<string>Sofía</string>
+				<string>Sophie</string>
 				<string>Daniel</string>
 				<string>Pete</string>
 				<string>Mr. Incognito</string>
@@ -78,7 +78,7 @@
 				<string>iOS</string>
 				<string>Android</string>
 				<string>BlackBerry OS</string>
-				<string>Windows c:</string>
+				<string>Windows Phone c:</string>
 			</array>
 			<key>answer</key>
 			<integer>0</integer>
@@ -103,7 +103,7 @@
 			<array>
 				<string>Windows XP</string>
 				<string>Windows 7</string>
-				<string>Windows Vista</string>
+				<string>Windows Vista 😂</string>
 				<string>Windows 10</string>
 			</array>
 			<key>answer</key>
@@ -117,7 +117,7 @@
 				<string>iPhone</string>
 				<string>iPad</string>
 				<string>Everyone c:</string>
-				<string>mac</string>
+				<string>Mac</string>
 			</array>
 			<key>answer</key>
 			<integer>2</integer>

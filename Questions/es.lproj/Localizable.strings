@@ -1,3 +1,5 @@
+/* -- UI ELEMENTS -- */
+
 "Main menu" = "Menú principal";
 
 "START GAME" = "COMENZAR";
@@ -35,37 +37,97 @@
 "Go back" = "Ir atrás";
 
 
-/* QUESTION SETS */
+/* -- QUESTION SETS -- */
 
-//
+// --- SOCIAL ---
 "Social" = "Social";
 
 "What's your name?" = "¿Cómo te llamas?";
+	"Sophie" = "Sofía";
+	// "Daniel" = "Daniel";
 	"Pete" = "Tete";
 	"Mr. Incognito" = "Sr. de Incógnito";
 
 "🐶 or 🐱?" = "¿🐶 o 🐱?";
+	/* 
+	 "🐱" = "🐱";
+	 "🐶" = "🐶";
+	 "Daniel" = "Daniel";
+	 */
 	"Other" = "Otro";
 
 "Do you like Pizza?" = "¿Te gusta la pizza?";
 	"I love it!" = "¡Me encanta!";
 	"Yes" = "Sí";
+	// "No" = "No";
 	"Maybe" = "Tal vez";
 
-//
+// --- TECHNOLOGY ---
 "Technology" = "Tecnología";
 
 "Best desktop OS" = "Mejor SO de escritorio";
+	/*
+	 "macOS" = "macOS";
+	 "Windows" = "Windows";
+	 "MS-DOS 😎" = "MS-DOS 😎";
+	 "Linux c:" = "Linux c:";
+	 */
+
 "Best IDE" = "Mejor IDE";
+	/*
+	 "Visual Studio" = "Visual Studio";
+	 "Xcode" = "Xcode";
+	 "Netbeans" = "Netbeans";
+	 "Eclipse" = "Eclipse";
+	 */
+
 "Best smartphone OS" = "Mejor SO móvil";
+	/*
+	 "iOS" = "iOS";
+	 "Android" = "Android";
+	 "BlackBerry OS" = "BlackBerry OS";
+	 "Windows Phone c:" = "Windows Phone c:";
+	 */
+
 "Latest macOS version" = "Última versión de macOS";
-"Which Windows version is the best?" = "¿Qué versión de Windows es mejor?";
+	/*
+	 "10.11.5" = "10.11.5";
+	 "10.2" = "10.2";
+	 "11" = "11";
+	 "10.12" = "10.12";
+	 */
+
+"Which Windows version is the best?" = "¿Qué versión de Windows es la mejor?";
+	/*
+	 "Windows XP" = "Windows XP";
+	 "Windows 7" = "Windows 7";
+	 "Windows Vista 😂" = "Windows Vista 😂";
+	 "Windows 10" = "Windows 10";
+	 */
 
 "iPhone, iPad or Mac?" = "¿iPhone, iPad o Mac?";
+	/*
+	 "iPhone" = "iPhone";
+	 "iPad" = "iPad";
+	 "Mac" = "Mac";
+	*/
 	"Everyone c:" = "Todos c:";
 
-//
+// --- PEOPLE ---
 "People" = "Gente";
 
 "How old is Barack Obama?" = "¿Qué edad tiene Barack Obama?";
+	/*
+	 "> 50" = "> 50";
+	 "< 50" = "< 50";
+	 "35 ☺️" = "35 ☺️";
+	 "> 60 👴🏿" = "> 60 👴🏿";
+	 */
+
 "Google CEO" = "Director ejecutivo de Google";
+	/*
+	 "Larry Page" = "Larry Page";
+	 "Sergey Brin" = "Sergey Brin";
+	 "Sundar Pichai" = "Sundar Pichai";
+	 "Andy Rubin" = "Andy Rubin";
+	 */
