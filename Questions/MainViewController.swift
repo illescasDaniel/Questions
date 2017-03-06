@@ -36,13 +36,16 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Add parallax effect to background image view
-		MainViewController.backgroundView = view.subviews.first
-		MainViewController.addParallax(toView: MainViewController.backgroundView)
-		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
 			Settings.sharedInstance = mySettings
+		}
+		
+		// Add parallax effect to background image view
+		MainViewController.backgroundView = view.subviews.first
+		
+		if Settings.sharedInstance.parallaxEnabled {
+			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 		
 		if Settings.sharedInstance.darkThemeEnabled {

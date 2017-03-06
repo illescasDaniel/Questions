@@ -29,9 +29,8 @@ class SettingsViewController: UITableViewController {
 
 		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel ?? UILabel()]
 
-		if let motionEffects = MainViewController.backgroundView?.motionEffects {
-			parallaxEffectSwitch.setOn(!motionEffects.isEmpty, animated: true)
-		}
+		parallaxEffectSwitch.setOn(Settings.sharedInstance.parallaxEnabled, animated: true)
+		
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
@@ -102,6 +101,8 @@ class SettingsViewController: UITableViewController {
 			let effects = MainViewController.parallaxEffect
 			MainViewController.backgroundView?.removeMotionEffect(effects)
 		}
+		
+		Settings.sharedInstance.parallaxEnabled = parallaxEffectSwitch.isOn
 	}
 
 	@IBAction func switchTheme() {
@@ -146,19 +147,21 @@ class SettingsViewController: UITableViewController {
 	func resetGameOptions() {
 		
 		resetGameStatistics()
-		Settings.sharedInstance.musicEnabled = true
-		Audio.bgMusic?.play()
-		bgMusicSwitch.setOn(true, animated: true)
 		
-		if !parallaxEffectSwitch.isOn {
+		if !Settings.sharedInstance.parallaxEnabled {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
+			Settings.sharedInstance.parallaxEnabled = true
 		}
+		
+		Settings.sharedInstance.musicEnabled = true
+		Settings.sharedInstance.darkThemeEnabled = false
 		
 		parallaxEffectSwitch.setOn(true, animated: true)
 		darkThemeSwitch.setOn(false, animated: true)
-		Settings.sharedInstance.darkThemeEnabled = false
+		bgMusicSwitch.setOn(true, animated: true)
+		
+		Audio.bgMusic?.play()
 		
 		loadCurrentTheme()
-		tableView.reloadData()
 	}
 }

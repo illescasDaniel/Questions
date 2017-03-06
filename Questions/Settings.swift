@@ -6,6 +6,7 @@ class Settings: NSObject, NSCoding {
 	var completedSets = [Bool](repeating: false, count: Quiz.set.count)
 	var correctAnswers: Int = 0
 	var incorrectAnswers: Int = 0
+	var parallaxEnabled = true
 	var musicEnabled = true
 	var darkThemeEnabled = false
 
@@ -16,6 +17,7 @@ class Settings: NSObject, NSCoding {
 		archiver.encode(correctAnswers, forKey: "Correct answers")
 		archiver.encode(incorrectAnswers, forKey: "Incorrect answers")
 		archiver.encode(darkThemeEnabled, forKey: "DarkTheme")
+		archiver.encode(parallaxEnabled, forKey: "Parallax")
 		archiver.encode(musicEnabled, forKey: "Music")
 		archiver.encode(completedSets, forKey: "Completed sets")
 	}
@@ -25,6 +27,7 @@ class Settings: NSObject, NSCoding {
 		correctAnswers = unarchiver.decodeInteger(forKey: "Correct answers")
 		incorrectAnswers = unarchiver.decodeInteger(forKey: "Incorrect answers")
 		darkThemeEnabled = unarchiver.decodeBool(forKey: "DarkTheme")
+		parallaxEnabled = unarchiver.decodeBool(forKey: "Parallax")
 		musicEnabled = unarchiver.decodeBool(forKey: "Music")
 		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Bool]
 	}
