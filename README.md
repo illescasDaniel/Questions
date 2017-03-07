@@ -38,3 +38,12 @@ https://www.freesound.org/people/rhodesmas/sounds/342756/
 
 Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))  
 Jared Davidson for the "Making A Quiz Game" [tutorial](https://www.youtube.com/watch?v=dyxqsfrCaeM)  
+
+Upcoming Features
+-----------------
+- Use SQLite to store and load the questions
+- Add Achievements
+- More questions
+- New tableVC with other questions of a similar topicc (?)
+- Use 3D Touch to peek & pop the new tableVC (?)
+- Move Reset Game option to the Settings app (?)
