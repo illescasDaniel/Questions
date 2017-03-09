@@ -9,7 +9,6 @@ class QuestionViewController: UIViewController {
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet weak var statusLabel: UILabel!
-	@IBOutlet weak var endOfQuestions: UILabel!
 	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var pauseView: UIView!
 	@IBOutlet weak var goBack: UIButton!
@@ -21,6 +20,7 @@ class QuestionViewController: UIViewController {
 	var correctAnswer = Int()
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
+	var repeatTimes = UInt8()
 	var currentSet = Int()
 	var set: NSArray = []
 	var quiz: NSEnumerator?
@@ -39,8 +39,6 @@ class QuestionViewController: UIViewController {
 		}
 		
 		quiz = set.objectEnumerator()
-		
-		endOfQuestions.alpha = 0.0
 		statusLabel.alpha = 0.0
 		
 		// Saves the position where the blurView will be
@@ -50,8 +48,7 @@ class QuestionViewController: UIViewController {
 
 		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
-		
-		endOfQuestions.text = "End of questions".localized
+	
 		goBack.setTitle("Go back".localized, for: .normal)
 		mainMenu.setTitle("Main menu".localized, for: .normal)
 		pauseButton.setTitle("Pause".localized, for: .normal)
@@ -152,7 +149,6 @@ class QuestionViewController: UIViewController {
 		
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
-		endOfQuestions.textColor = currentThemeColor
 		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
 		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGrey
 		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
@@ -183,8 +179,6 @@ class QuestionViewController: UIViewController {
 		// Labels position
 		let yPosition5 = (UIScreen.main.bounds.maxY - yPosition4) / 2.0
 		let yPositionOfButtomLabel = UIScreen.main.bounds.maxY - yPosition5
-		
-		endOfQuestions.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
 		statusLabel.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
 		
 		let statusBarHeight = UIApplication.shared.statusBarFrame.height
@@ -207,18 +201,54 @@ class QuestionViewController: UIViewController {
 			remainingQuestionsLabel.text = "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
-			
-			if !Settings.sharedInstance.completedSets[currentSet] {
-				Settings.sharedInstance.correctAnswers += correctAnswers
-				Settings.sharedInstance.incorrectAnswers += incorrectAnswers
-			}
-			
-			Settings.sharedInstance.completedSets[currentSet] = true
-			UIView.animate(withDuration: 1) { self.endOfQuestions.alpha = 1.0 }
-			answersButtons.forEach { $0.isEnabled = false }
+			endOfQuestionsAlert()
 		}
 	}
 
+	func endOfQuestionsAlert() {
+		
+		let title = (correctAnswers > incorrectAnswers) ? "Congratulations".localized : "Oooh :(".localized
+		let message = "Correct answers: ".localized + "\(correctAnswers)" + "\n" +
+						"Incorrect answers: ".localized + "\(incorrectAnswers)"
+		
+		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		
+		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
+		alertViewController.addAction(okAction)
+		
+		let setCompleted = Settings.sharedInstance.completedSets[self.currentSet]
+		
+		if (correctAnswers < set.count) && (repeatTimes < 2) && !setCompleted {
+			
+			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes) " +  "left".localized + ")"
+			let repeatAction = UIAlertAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
+
+			alertViewController.addAction(repeatAction)
+		}
+		
+		present(alertViewController, animated: true, completion: nil)
+	}
+	
+	func okActionDetailed() {
+		
+		if !Settings.sharedInstance.completedSets[currentSet] {
+			Settings.sharedInstance.correctAnswers += correctAnswers
+			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
+		}
+		
+		Settings.sharedInstance.completedSets[currentSet] = true
+		
+		performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+	}
+	
+	func repeatActionDetailed() {
+		repeatTimes += 1
+		correctAnswers = 0
+		incorrectAnswers = 0
+		quiz = set.objectEnumerator()
+		pickQuestion()
+	}
+	
 	func verify(answer: Int) {
 		
 		pausePreviousSounds()
@@ -236,9 +266,7 @@ class QuestionViewController: UIViewController {
 			Audio.incorrect?.play()
 		}
 	
-		if !Settings.sharedInstance.completedSets[currentSet] {
-			(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
-		}
+		(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
 		
 		// Fade out animation for statusLabel
 		UIView.animate(withDuration: 1) { self.statusLabel.alpha = 0.0 }

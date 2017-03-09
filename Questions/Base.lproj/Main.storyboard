@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16E175b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16E183b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -339,13 +339,6 @@ Incorrect answers: X
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" fixedFrame="YES" text="End of questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwY-zp-cey">
-                                <rect key="frame" x="143" y="552" width="128" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Correct/Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-oh-bXj" userLabel="Status Label">
                                 <rect key="frame" x="143" y="588" width="131" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -504,7 +497,7 @@ Incorrect answers: X
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" unwindAction="unwindToQuestionSetSelector:" id="HoA-Iv-Fep"/>
+                                            <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuestionSetSelector:" id="HoA-Iv-Fep"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
@@ -557,7 +550,6 @@ Incorrect answers: X
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="endOfQuestions" destination="NwY-zp-cey" id="WL4-8p-nlG"/>
                         <outlet property="goBack" destination="gby-II-zy5" id="mzX-tp-eBo"/>
                         <outlet property="mainMenu" destination="ydF-gf-Ddb" id="3sc-5V-ytk"/>
                         <outlet property="muteMusic" destination="k5D-mT-l8u" id="9HS-AU-aAi"/>
@@ -570,6 +562,7 @@ Incorrect answers: X
                         <outletCollection property="answersButtons" destination="srs-vU-0Xc" collectionClass="NSMutableArray" id="s4c-8i-9Yx"/>
                         <outletCollection property="answersButtons" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="VnQ-2E-S2s"/>
                         <outletCollection property="answersButtons" destination="5bF-eX-HNQ" collectionClass="NSMutableArray" id="BVy-mV-2wH"/>
+                        <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuestionSetSelector" unwindAction="unwindToQuestionSetSelector:" id="Aqe-tI-lWt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>

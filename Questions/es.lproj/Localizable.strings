@@ -28,7 +28,13 @@
 
 "Correct!" = "¡Correcto!";
 "Incorrect" = "Incorrecto";
-"End of questions" = "Fin de preguntas";
+
+"Congratulations" = "¡Enhorabuena!";
+// "Oooh :(" = "Oooh :(";
+"Correct answers: " = "Respuestas correctas: ";
+"Incorrect answers: " = "Respuestas incorrectas: ";
+"Repeat" = "Repetir";
+"left" = "restantes";
 
 "Pause" = "Pausa";
 "Continue" = "Continuar";
