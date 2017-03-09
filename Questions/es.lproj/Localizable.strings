@@ -29,19 +29,15 @@
 "Correct!" = "¡Correcto!";
 "Incorrect" = "Incorrecto";
 
-"Congratulations" = "¡Enhorabuena!";
-// "Oooh :(" = "Oooh :(";
 "Correct answers: " = "Respuestas correctas: ";
-"Incorrect answers: " = "Respuestas incorrectas: ";
+"Score: " = "Puntuación: ";
 "Repeat" = "Repetir";
-"left" = "restantes";
 
 "Pause" = "Pausa";
 "Continue" = "Continuar";
 "Pause music" = "Pausar música";
 "Play music" = "Reproducir música";
 "Go back" = "Ir atrás";
-
 
 /* -- QUESTION SETS -- */
 

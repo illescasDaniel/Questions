@@ -207,9 +207,10 @@ class QuestionViewController: UIViewController {
 
 	func endOfQuestionsAlert() {
 		
-		let title = (correctAnswers > incorrectAnswers) ? "Congratulations".localized : "Oooh :(".localized
-		let message = "Correct answers: ".localized + "\(correctAnswers)" + "\n" +
-						"Incorrect answers: ".localized + "\(incorrectAnswers)"
+		let score = (correctAnswers * 20) - (incorrectAnswers * 10)
+		
+		let title = "Score: ".localized + "\(score) pts"
+		let message = "Correct answers: ".localized + "\(correctAnswers)" + "/" + "\(set.count)"
 		
 		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		
@@ -220,7 +221,7 @@ class QuestionViewController: UIViewController {
 		
 		if (correctAnswers < set.count) && (repeatTimes < 2) && !setCompleted {
 			
-			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes) " +  "left".localized + ")"
+			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
 			let repeatAction = UIAlertAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
 
 			alertViewController.addAction(repeatAction)
