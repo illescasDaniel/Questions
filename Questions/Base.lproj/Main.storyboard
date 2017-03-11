@@ -258,17 +258,44 @@ Incorrect answers: X
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sQA-3P-jBE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MLr-FG-rd8">
                                         <rect key="frame" x="0.0" y="167" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MLr-FG-rd8" id="rBG-xV-rLD">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKt-Ka-mfE">
+                                                    <rect key="frame" x="20" y="5" width="394" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="394" id="0EE-mj-9Du"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <state key="normal" title="Licenses">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="PsA-oj-ftn" kind="show" id="BSl-Db-GgG"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FKt-Ka-mfE" firstAttribute="centerY" secondItem="rBG-xV-rLD" secondAttribute="centerY" id="4nb-o1-pd9"/>
+                                                <constraint firstItem="FKt-Ka-mfE" firstAttribute="leading" secondItem="rBG-xV-rLD" secondAttribute="leadingMargin" constant="12" id="p66-81-ErC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sQA-3P-jBE">
+                                        <rect key="frame" x="0.0" y="211" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sQA-3P-jBE" id="q4C-sO-rua">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-0v-sqg">
-                                                    <rect key="frame" x="20" y="4.6666666666666679" width="375" height="33"/>
+                                                    <rect key="frame" x="20" y="5" width="394" height="33"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="375" id="kkc-cM-H8E"/>
+                                                        <constraint firstAttribute="width" constant="394" id="kkc-cM-H8E"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <state key="normal" title="Reset game">
@@ -299,6 +326,8 @@ Incorrect answers: X
                         <outlet property="bgMusicSwitch" destination="m4T-Df-lj5" id="NwH-cq-rbU"/>
                         <outlet property="darkThemeLabel" destination="Wv8-ev-gH2" id="ZME-8e-MpN"/>
                         <outlet property="darkThemeSwitch" destination="7jI-Mw-v3H" id="IT6-td-fKs"/>
+                        <outlet property="licensesButton" destination="FKt-Ka-mfE" id="Ufi-OJ-Tel"/>
+                        <outlet property="licensesCell" destination="MLr-FG-rd8" id="Mox-aw-UeW"/>
                         <outlet property="parallaxEffectLabel" destination="2Ja-CO-1Hk" id="vTs-ML-Qy3"/>
                         <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
                         <outlet property="resetGameButton" destination="yKD-0v-sqg" id="azu-M5-PKp"/>
@@ -310,6 +339,39 @@ Incorrect answers: X
                 <exit id="o8y-Tn-NTu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-198.55072463768118" y="1431.521739130435"/>
+        </scene>
+        <!--Licenses-->
+        <scene sceneID="SKB-GU-dMW">
+            <objects>
+                <viewController id="PsA-oj-ftn" customClass="LicensesViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ihj-yn-7mh"/>
+                        <viewControllerLayoutGuide type="bottom" id="HV7-GW-c86"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GIS-qK-lWu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Licenses here :P" translatesAutoresizingMaskIntoConstraints="NO" id="Au6-PN-jKH">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES" lookupSuggestion="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Licenses" id="x4N-ng-h1F"/>
+                    <connections>
+                        <outlet property="licensesNavItem" destination="x4N-ng-h1F" id="hIK-au-Joa"/>
+                        <outlet property="textView" destination="Au6-PN-jKH" id="4dH-XU-VJZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JiO-oa-ZQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="773.91304347826087" y="1431.521739130435"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qMf-q0-piD">

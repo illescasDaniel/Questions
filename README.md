@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v1.6.1--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v1.7--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Quiz app for iOS with support for multiple languages and dark theme. 
@@ -31,7 +31,9 @@ http://www.bensound.com/royalty-free-music/track/the-lounge
 'Correct answer' sound:  
 https://www.freesound.org/people/LittleRainySeasons/sounds/335908/
 
-'Incorrect answer' sound':  
+'Incorrect answer' sound'. Failure 01.wav, creator: rhodesmas.   
+"This work is licensed under the Attribution License":  
+https://creativecommons.org/licenses/by/3.0/legalcode  
 https://www.freesound.org/people/rhodesmas/sounds/342756/
 
 # Special thanks to #

@@ -8,12 +8,14 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var parallaxEffectLabel: UILabel!
 	@IBOutlet weak var darkThemeLabel: UILabel!
 	@IBOutlet weak var resetGameButton: UIButton!
-
+	@IBOutlet weak var licensesButton: UIButton!
 	var optionsLabels: [UILabel]!
+	
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
 	@IBOutlet weak var parallaxEffectSwitch: UISwitch!
 	@IBOutlet weak var darkThemeSwitch: UISwitch!
+	@IBOutlet weak var licensesCell: UITableViewCell!
 	
 	// MARK: View life cycle
 
@@ -26,8 +28,10 @@ class SettingsViewController: UITableViewController {
 		parallaxEffectLabel.text = "Parallax effect".localized
 		darkThemeLabel.text = "Dark theme".localized
 		resetGameButton.setTitle("Reset game".localized, for: .normal)
-
-		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel ?? UILabel()]
+		licensesButton.setTitle("Licenses".localized, for: .normal)
+		licensesCell.accessoryType = .disclosureIndicator
+		
+		optionsLabels = [bgMusicLabel, parallaxEffectLabel, darkThemeLabel, resetGameButton.titleLabel ?? UILabel(), licensesButton.titleLabel ?? UILabel()]
 
 		parallaxEffectSwitch.setOn(Settings.sharedInstance.parallaxEnabled, animated: true)
 		
@@ -121,11 +125,11 @@ class SettingsViewController: UITableViewController {
 		tableView.separatorColor = darkThemeSwitch.isOn ? .darkGray : .defaultSeparatorColor
 		
 		resetGameButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
+		licensesButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
 		
-		let blueSwitch = UIColor(red: 80/255, green: 165/255, blue: 216/255, alpha: 1.0)
-		bgMusicSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
-		parallaxEffectSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
-		darkThemeSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : blueSwitch
+		bgMusicSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
+		parallaxEffectSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
+		darkThemeSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
 		
 		tableView.reloadData()
 			

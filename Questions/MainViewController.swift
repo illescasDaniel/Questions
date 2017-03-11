@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
 			scoreLabel.textColor = .darkGray
 		}
 		else if answersScore < 0 {
-			scoreLabel.textColor = .red
+			scoreLabel.textColor = .darkRed
 		}
 		else {
 			scoreLabel.textColor = .darkGreen
@@ -85,13 +85,14 @@ class MainViewController: UIViewController {
 	// MARK: Alerts
 	
 	@IBAction func showInstructions() {
+		
 		let alertViewController = UIAlertController(title: "Instructions".localized,
 													message: "INSTRUCTIONS_TEXT".localized,
 													preferredStyle: .alert)
 		
 		let okAction = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
 		alertViewController.addAction(okAction)
-		
+
 		present(alertViewController, animated: true, completion: nil)
 	}
 

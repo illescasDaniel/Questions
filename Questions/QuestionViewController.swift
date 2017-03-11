@@ -266,6 +266,12 @@ class QuestionViewController: UIViewController {
 			statusLabel.text = "Incorrect".localized
 			Audio.incorrect?.play()
 		}
+		
+		// Use haptic feedback
+		if #available(iOS 10.0, *) {
+			let feedbackGenerator = UINotificationFeedbackGenerator()
+			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
+		}
 	
 		(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
 		
