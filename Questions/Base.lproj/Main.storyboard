@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16E183b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16E183b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12078"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Questions Sets-->
+        <!--Quizzes Sets-->
         <scene sceneID="kgb-fJ-0La">
             <objects>
-                <tableViewController storyboardIdentifier="questionsSetsViewController" id="9QX-8c-sEy" userLabel="Questions Sets" customClass="QuestionsSetsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="quizzesSetsViewController" id="9QX-8c-sEy" userLabel="Quizzes Sets" customClass="QuizzesSetsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yuD-uf-BcY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="setCell" textLabel="ZWp-mS-XeB" style="IBUITableViewCellStyleDefault" id="82y-rR-A5s">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="setCell" textLabel="ZWp-mS-XeB" style="IBUITableViewCellStyleDefault" id="82y-rR-A5s">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="82y-rR-A5s" id="9kJ-y7-0rb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="381" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
-                                            <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Quiz Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
+                                            <rect key="frame" x="15" y="0.0" width="364" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,13 +44,55 @@
                             <outlet property="delegate" destination="9QX-8c-sEy" id="PMa-rf-bBB"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Quizzes sets" id="e8J-nn-9xp"/>
                     <connections>
-                        <segue destination="w1d-Yh-0lm" kind="presentation" identifier="selectQuestionSet" id="9BN-mk-GHD"/>
+                        <segue destination="kse-0a-Wtd" kind="show" identifier="selectQuizSet" id="UNn-E6-gY8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKg-Qq-kO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="611" y="660"/>
+        </scene>
+        <!--Questions Sets-->
+        <scene sceneID="pmc-7h-wN5">
+            <objects>
+                <tableViewController storyboardIdentifier="questionsSetsViewController" id="kse-0a-Wtd" userLabel="Questions Sets" customClass="QuestionsSetsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="M0t-qd-xnI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="setCell" textLabel="NP7-eY-F15" style="IBUITableViewCellStyleDefault" id="xTA-kQ-hUG">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xTA-kQ-hUG" id="e22-bg-pDg">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="QuestionSet #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NP7-eY-F15">
+                                            <rect key="frame" x="15" y="0.0" width="384" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="kse-0a-Wtd" id="LWU-RY-JZj"/>
+                            <outlet property="delegate" destination="kse-0a-Wtd" id="R88-ZF-jtb"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="w1d-Yh-0lm" kind="presentation" identifier="selectQuestionSet" id="jdk-O1-HMQ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Ia-apk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="660"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="syY-Yf-diQ">
@@ -146,7 +188,6 @@
                     <navigationItem key="navigationItem" title="Main Menu" id="4da-ip-kPT"/>
                     <connections>
                         <outlet property="instructionsButton" destination="glT-nY-qNM" id="cnG-q4-g2F"/>
-                        <outlet property="mainMenuNavItem" destination="4da-ip-kPT" id="bVf-Ec-k9q"/>
                         <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
                         <outlet property="startButton" destination="arZ-7k-Uja" id="zAH-RX-Cfw"/>
@@ -569,7 +610,7 @@ Incorrect answers: X
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuestionSetSelector:" id="HoA-Iv-Fep"/>
+                                            <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuestionSelector" unwindAction="unwindToQuestionSetSelector:" id="Pkq-Yd-mqo"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
@@ -640,15 +681,15 @@ Incorrect answers: X
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>
                 <exit id="yUI-wU-QrH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1360.8695652173915" y="659.51086956521749"/>
+            <point key="canvasLocation" x="2183" y="660"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg" width="1853" height="1853"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7d1-l5-eCT"/>
         <segue reference="0X5-qD-MN0"/>
+        <segue reference="7d1-l5-eCT"/>
         <segue reference="BSl-Db-GgG"/>
     </inferredMetricsTieBreakers>
 </document>

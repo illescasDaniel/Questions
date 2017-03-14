@@ -21,6 +21,7 @@ class QuestionViewController: UIViewController {
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
+	var currentQuiz = Int()
 	var currentSet = Int()
 	var set: NSArray = []
 	var quiz: NSEnumerator?
@@ -30,12 +31,12 @@ class QuestionViewController: UIViewController {
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
-
-		if #available(iOS 10.0, *) {
-			set = (Quiz.set[currentSet] as! NSArray).shuffled() as NSArray
-		}
-		else {
-			set = (Quiz.set[currentSet] as! [AnyObject]).shuffled() as NSArray
+		
+		switch currentQuiz {
+			case 0: set = shuffledQuiz(Quiz.technology)
+			case 1: set = shuffledQuiz(Quiz.social)
+			case 2: set = shuffledQuiz(Quiz.people)
+			default: return
 		}
 		
 		quiz = set.objectEnumerator()
@@ -143,6 +144,10 @@ class QuestionViewController: UIViewController {
 	
 	// MARK: Convenience
 	
+	func shuffledQuiz(_ name: [[NSDictionary]]) -> NSArray{
+		return name[currentSet].shuffled() as NSArray
+	}
+	
 	func loadCurrentTheme() {
 		
 		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
@@ -217,8 +222,7 @@ class QuestionViewController: UIViewController {
 		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
 		alertViewController.addAction(okAction)
 		
-		let setCompleted = Settings.sharedInstance.completedSets[self.currentSet]
-		
+		let setCompleted = Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] ?? false		
 		if (correctAnswers < set.count) && (repeatTimes < 2) && !setCompleted {
 			
 			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
@@ -232,14 +236,14 @@ class QuestionViewController: UIViewController {
 	
 	func okActionDetailed() {
 		
-		if !Settings.sharedInstance.completedSets[currentSet] {
+		if !(Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] ?? true) {
 			Settings.sharedInstance.correctAnswers += correctAnswers
 			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
 		}
 		
-		Settings.sharedInstance.completedSets[currentSet] = true
+		Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] = true
 		
-		performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+		performSegue(withIdentifier: "unwindToQuestionSelector", sender: self)
 	}
 	
 	func repeatActionDetailed() {

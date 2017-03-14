@@ -8,7 +8,6 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var instructionsButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
-	@IBOutlet weak var mainMenuNavItem: UINavigationItem!
 	@IBOutlet weak var scoreLabel: UILabel!
 	
 	static var parallaxEffect = UIMotionEffectGroup()
@@ -72,7 +71,7 @@ class MainViewController: UIViewController {
 		startButton.setTitle("START GAME".localized, for: .normal)
 		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
-		mainMenuNavItem.title = "Main menu".localized
+		self.navigationItem.title = "Main menu".localized
 		
 		// Set buttons and label position and size
 		setFramesAndPosition()

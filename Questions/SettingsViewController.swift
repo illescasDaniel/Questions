@@ -50,7 +50,15 @@ class SettingsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		
 		var completedSets = UInt()
-		Settings.sharedInstance.completedSets.forEach { if $0 { completedSets += 1 } }
+		
+		for i in 0..<Quiz.setNames.count {
+			
+			if let completedSet = Settings.sharedInstance.completedSets[i] {
+				for j in 0..<completedSet.count {
+					if completedSet[j] { completedSets += 1 }
+				}
+			}
+		}
 		
 		return "\n\("Statistics".localized): \n\n" +
 			"\("Completed sets".localized): \(completedSets)\n" +
@@ -141,7 +149,15 @@ class SettingsViewController: UITableViewController {
 	
 	func resetGameStatistics() {
 		
-		Settings.sharedInstance.completedSets = [Bool](repeating: false, count: Quiz.set.count)
+		for i in 0..<Quiz.setNames.count {
+			
+			if let completedSet = Settings.sharedInstance.completedSets[i] {
+				for j in 0..<completedSet.count {
+					Settings.sharedInstance.completedSets[i]?[j] = false
+				}
+			}
+		}
+			
 		Settings.sharedInstance.correctAnswers = 0
 		Settings.sharedInstance.incorrectAnswers = 0
 

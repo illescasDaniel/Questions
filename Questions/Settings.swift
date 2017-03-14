@@ -3,7 +3,7 @@ import Foundation
 class Settings: NSObject, NSCoding {
 	
 	static let path = "\(Settings.documentsDirectory())/Settings.archive"
-	var completedSets = [Bool](repeating: false, count: Quiz.set.count)
+	var completedSets: [Int:[Bool]] = [:]
 	var correctAnswers: Int = 0
 	var incorrectAnswers: Int = 0
 	var parallaxEnabled = true
@@ -14,6 +14,7 @@ class Settings: NSObject, NSCoding {
 	fileprivate override init() { }
 
 	func encode(with archiver: NSCoder) {
+		
 		archiver.encode(correctAnswers, forKey: "Correct answers")
 		archiver.encode(incorrectAnswers, forKey: "Incorrect answers")
 		archiver.encode(darkThemeEnabled, forKey: "DarkTheme")
@@ -29,7 +30,7 @@ class Settings: NSObject, NSCoding {
 		darkThemeEnabled = unarchiver.decodeBool(forKey: "DarkTheme")
 		parallaxEnabled = unarchiver.decodeBool(forKey: "Parallax")
 		musicEnabled = unarchiver.decodeBool(forKey: "Music")
-		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Bool]
+		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Int:[Bool]]
 	}
 
 	func save() -> Bool {

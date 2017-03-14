@@ -25,6 +25,7 @@
 "Incorrect answers" = "Respuestas incorrectas";
 "Completed sets" = "Sets completados";
 
+"Quizzes sets" = "Cuestionarios";
 "Questions sets" = "Sets de preguntas";
 
 "Correct!" = "¡Correcto!";
@@ -43,7 +44,7 @@
 /* -- QUESTION SETS -- */
 
 // --- SOCIAL ---
-"Social" = "Social";
+// "Social" = "Social";
 
 "What's your name?" = "¿Cómo te llamas?";
 	"Sophie" = "Sofía";
@@ -133,4 +134,21 @@
 	 "Sergey Brin" = "Sergey Brin";
 	 "Sundar Pichai" = "Sundar Pichai";
 	 "Andy Rubin" = "Andy Rubin";
+	 */
+
+"When was Tim Cook born?" = "¿Cuándo nació Tim Cook?";
+	/*
+	 "1967" = "1967";
+	 "1970" = "1970";
+	 "1940" = "1940";
+	 "1960" = "1960";
+	*/
+
+"When did Steve Jobs die?" = "¿Cuándo falleció Steve Jobs?";
+
+	/*
+	 "2008" = "2008";
+	 "2010" = "2010";
+	 "2011" = "2011";
+	 "2012" = "2012";
 	 */

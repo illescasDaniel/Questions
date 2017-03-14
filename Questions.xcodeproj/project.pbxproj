@@ -12,8 +12,12 @@
 		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
 		65456AED1D2BBEF90048965E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65456AEF1D2BBEF90048965E /* Localizable.strings */; };
 		65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF11D2BC01C0048965E /* String+Extension.swift */; };
-		65456AF41D2BC9620048965E /* QuestionsSetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF31D2BC9620048965E /* QuestionsSetsViewController.swift */; };
+		65456AF41D2BC9620048965E /* QuizzesSetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF31D2BC9620048965E /* QuizzesSetsViewController.swift */; };
 		65456FF81D77A07A004A13B6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456FF71D77A07A004A13B6 /* UIColor+Extension.swift */; };
+		654F9A331E774AAF002B6A82 /* Technology.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654F9A321E774AAF002B6A82 /* Technology.plist */; };
+		654F9A361E774B07002B6A82 /* Social.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654F9A351E774B07002B6A82 /* Social.plist */; };
+		654F9A381E774B38002B6A82 /* People.plist in Resources */ = {isa = PBXBuildFile; fileRef = 654F9A371E774B38002B6A82 /* People.plist */; };
+		654F9A3A1E775001002B6A82 /* QuestionsSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F9A391E775001002B6A82 /* QuestionsSetTableViewController.swift */; };
 		658D9D021E0C2279008D65B5 /* bensound-thelounge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 658D9D011E0C2279008D65B5 /* bensound-thelounge.mp3 */; };
 		659B504D1D2BE58B00F8FA09 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 659B504B1D2BE58B00F8FA09 /* correct.mp3 */; };
 		659B504E1D2BE58B00F8FA09 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 659B504C1D2BE58B00F8FA09 /* incorrect.wav */; };
@@ -59,8 +63,12 @@
 		65456AEE1D2BBEF90048965E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF01D2BBF190048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF11D2BC01C0048965E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		65456AF31D2BC9620048965E /* QuestionsSetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsSetsViewController.swift; sourceTree = "<group>"; };
+		65456AF31D2BC9620048965E /* QuizzesSetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizzesSetsViewController.swift; sourceTree = "<group>"; };
 		65456FF71D77A07A004A13B6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		654F9A321E774AAF002B6A82 /* Technology.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Technology.plist; sourceTree = "<group>"; };
+		654F9A351E774B07002B6A82 /* Social.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Social.plist; sourceTree = "<group>"; };
+		654F9A371E774B38002B6A82 /* People.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = People.plist; sourceTree = "<group>"; };
+		654F9A391E775001002B6A82 /* QuestionsSetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsSetTableViewController.swift; sourceTree = "<group>"; };
 		658D9D011E0C2279008D65B5 /* bensound-thelounge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-thelounge.mp3"; sourceTree = "<group>"; };
 		659B504B1D2BE58B00F8FA09 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		659B504C1D2BE58B00F8FA09 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
@@ -125,6 +133,25 @@
 			path = QuestionsUITests;
 			sourceTree = "<group>";
 		};
+		654F9A341E774AF4002B6A82 /* Questions */ = {
+			isa = PBXGroup;
+			children = (
+				65E323631D40E67D00FB6D6E /* Quiz.plist */,
+				654F9A3B1E77560E002B6A82 /* Quizzes */,
+			);
+			name = Questions;
+			sourceTree = "<group>";
+		};
+		654F9A3B1E77560E002B6A82 /* Quizzes */ = {
+			isa = PBXGroup;
+			children = (
+				654F9A321E774AAF002B6A82 /* Technology.plist */,
+				654F9A351E774B07002B6A82 /* Social.plist */,
+				654F9A371E774B38002B6A82 /* People.plist */,
+			);
+			name = Quizzes;
+			sourceTree = "<group>";
+		};
 		659B50461D2BE40500F8FA09 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,7 +196,7 @@
 				65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */,
 				659B50461D2BE40500F8FA09 /* Sounds */,
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
-				65E323631D40E67D00FB6D6E /* Quiz.plist */,
+				654F9A341E774AF4002B6A82 /* Questions */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -179,9 +206,10 @@
 			children = (
 				65C285C51D2A8176002F7DF8 /* MainViewController.swift */,
 				65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */,
-				65456AF31D2BC9620048965E /* QuestionsSetsViewController.swift */,
-				65C285D31D2AB6A4002F7DF8 /* QuestionViewController.swift */,
 				65DD23E01E7422C800462512 /* LicensesViewController.swift */,
+				65456AF31D2BC9620048965E /* QuizzesSetsViewController.swift */,
+				654F9A391E775001002B6A82 /* QuestionsSetTableViewController.swift */,
+				65C285D31D2AB6A4002F7DF8 /* QuestionViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -338,7 +366,10 @@
 				65456AED1D2BBEF90048965E /* Localizable.strings in Resources */,
 				65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */,
 				65E323641D40E67D00FB6D6E /* Quiz.plist in Resources */,
+				654F9A381E774B38002B6A82 /* People.plist in Resources */,
 				659B504E1D2BE58B00F8FA09 /* incorrect.wav in Resources */,
+				654F9A331E774AAF002B6A82 /* Technology.plist in Resources */,
+				654F9A361E774B07002B6A82 /* Social.plist in Resources */,
 				65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,13 +416,14 @@
 				65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */,
 				65C285D41D2AB6A4002F7DF8 /* QuestionViewController.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* Quiz.swift in Sources */,
-				65456AF41D2BC9620048965E /* QuestionsSetsViewController.swift in Sources */,
+				65456AF41D2BC9620048965E /* QuizzesSetsViewController.swift in Sources */,
 				65456FF81D77A07A004A13B6 /* UIColor+Extension.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */,
+				654F9A3A1E775001002B6A82 /* QuestionsSetTableViewController.swift in Sources */,
 				652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */,
 				65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */,
 				65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */,

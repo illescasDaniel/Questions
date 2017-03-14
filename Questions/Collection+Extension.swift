@@ -4,6 +4,11 @@ extension Collection {
 	
 	/// Return a copy of `self` with its elements shuffled
 	func shuffled() -> [Generator.Element] {
+		
+		if #available(iOS 10.0, *) {
+			return (self as! NSArray).shuffled() as! [Self.Iterator.Element]
+		}
+		
 		var list = Array(self)
 		list.shuffleInPlace()
 		return list

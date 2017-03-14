@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>question</key>
+			<string>Best desktop OS</string>
+			<key>answers</key>
+			<array>
+				<string>macOS</string>
+				<string>Windows</string>
+				<string>MS-DOS 😎</string>
+				<string>Linux c:</string>
+			</array>
+			<key>answer</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>Best IDE</string>
+			<key>answers</key>
+			<array>
+				<string>Visual Studio</string>
+				<string>Xcode</string>
+				<string>Netbeans</string>
+				<string>Eclipse</string>
+			</array>
+			<key>answer</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>Best smartphone OS</string>
+			<key>answers</key>
+			<array>
+				<string>iOS</string>
+				<string>Android</string>
+				<string>BlackBerry OS</string>
+				<string>Windows Phone c:</string>
+			</array>
+			<key>answer</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>Latest macOS version</string>
+			<key>answers</key>
+			<array>
+				<string>10.11.5</string>
+				<string>10.2</string>
+				<string>11</string>
+				<string>10.12</string>
+			</array>
+			<key>answer</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>Which Windows version is the best?</string>
+			<key>answers</key>
+			<array>
+				<string>Windows XP</string>
+				<string>Windows 7</string>
+				<string>Windows Vista 😂</string>
+				<string>Windows 10</string>
+			</array>
+			<key>answer</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>iPhone, iPad or Mac?</string>
+			<key>answers</key>
+			<array>
+				<string>iPhone</string>
+				<string>iPad</string>
+				<string>Everyone c:</string>
+				<string>Mac</string>
+			</array>
+			<key>answer</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+</array>
+</plist>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>question</key>
+			<string>What&apos;s your name?</string>
+			<key>answers</key>
+			<array>
+				<string>Sophie</string>
+				<string>Daniel</string>
+				<string>Pete</string>
+				<string>Mr. Incognito</string>
+			</array>
+			<key>answer</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>🐶 or 🐱?</string>
+			<key>answers</key>
+			<array>
+				<string>🐱</string>
+				<string>🐶</string>
+				<string>Daniel</string>
+				<string>Other</string>
+			</array>
+			<key>answer</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>question</key>
+			<string>Do you like Pizza?</string>
+			<key>answers</key>
+			<array>
+				<string>I love it!</string>
+				<string>Yes</string>
+				<string>No</string>
+				<string>Maybe</string>
+			</array>
+			<key>answer</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+</array>
+</plist>
