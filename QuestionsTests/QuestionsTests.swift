@@ -26,7 +26,7 @@ class QuestionsTests: XCTestCase {
 
 		for k in 0..<Quiz.quizzes.count {
 			
-			for i in 0..<Quiz.quizzes[k].plist.count {
+			for i in 0..<Quiz.quizzes[k].contents.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
