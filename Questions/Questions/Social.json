@@ -1,0 +1,7 @@
+[
+	[
+		{"question": "What's your name?", "answers": ["Sophie", "Daniel", "Pete", "Mr. Incognito"], "answer": 3},
+		{"question": "🐶 or 🐱?", "answers": ["🐱", "🐶", "Daniel", "Other"], "answer": 1},
+		{"question": "Do you like Pizza?", "answers": ["I love it!", "Yes", "No", "Maybe"], "answer": 1}
+	]
+]

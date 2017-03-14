@@ -1,0 +1,11 @@
+[
+	[
+		{"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "answer": 0},
+		{"question": "Google CEO", 
+			"answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "answer": 2}
+	],
+	[
+		{"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960"], "answer": 3},
+		{"question": "When did Steve Jobs die?", "answers": ["2008", "2010", "2011", "2012"], "answer": 2}
+	]
+]

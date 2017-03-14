@@ -3,11 +3,17 @@ import Foundation
 struct Quiz {
 	
 	private(set) var name = String()
-	private(set) var plist: [[NSDictionary]]!
+	private(set) var contents: [[[String: Any]]]!
 	
 	init(name: String) {
 		self.name = name
-		plist = NSArray(contentsOfFile: Bundle.main.path(forResource: name, ofType: "plist")!)! as! [[NSDictionary]]
+		
+		let path = Bundle.main.path(forResource: name, ofType: "json")
+		let url = URL(fileURLWithPath: path!)
+		
+		if let data = try? Data(contentsOf: url) {
+			contents = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[[String: Any]]]
+		}
 	}
 	
 	static let quizzes = [Quiz(name: "Technology"), Quiz(name: "Social"), Quiz(name: "People")]

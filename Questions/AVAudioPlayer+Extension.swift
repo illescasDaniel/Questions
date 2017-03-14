@@ -6,11 +6,7 @@ extension AVAudioPlayer {
 		
 		let path = Bundle.main.path(forResource: file, ofType: type)
 		let url = URL(fileURLWithPath: path!)
-
-		do {
-			try self.init(contentsOf: url)
-		} catch {
-			return nil
-		}
+		
+		try? self.init(contentsOf: url)
 	}
 }

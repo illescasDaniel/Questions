@@ -15,7 +15,7 @@ class QuestionsSetsViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		self.navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
-		setCount = Quiz.quizzes[currentTopicIndex].plist.count
+		setCount = Quiz.quizzes[currentTopicIndex].contents.count
 		
 		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
 		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor

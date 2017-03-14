@@ -31,7 +31,7 @@ class QuestionViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].plist)
+		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
 		
 		quiz = set.objectEnumerator()
 		statusLabel.alpha = 0.0
@@ -138,7 +138,7 @@ class QuestionViewController: UIViewController {
 	
 	// MARK: Convenience
 	
-	func shuffledQuiz(_ name: [[NSDictionary]]) -> NSArray{
+	func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
 		if currentSetIndex < name.count {
 			return name[currentSetIndex].shuffled() as NSArray
 		}
