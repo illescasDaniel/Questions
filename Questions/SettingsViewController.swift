@@ -51,7 +51,7 @@ class SettingsViewController: UITableViewController {
 		
 		var completedSets = UInt()
 		
-		for i in 0..<Quiz.setNames.count {
+		for i in 0..<Quiz.topicsNames.count {
 			
 			if let completedSet = Settings.sharedInstance.completedSets[i] {
 				for j in 0..<completedSet.count {
@@ -149,7 +149,7 @@ class SettingsViewController: UITableViewController {
 	
 	func resetGameStatistics() {
 		
-		for i in 0..<Quiz.setNames.count {
+		for i in 0..<Quiz.topicsNames.count {
 			
 			if let completedSet = Settings.sharedInstance.completedSets[i] {
 				for j in 0..<completedSet.count {

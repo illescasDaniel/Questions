@@ -5,7 +5,11 @@
 "START GAME" = "COMENZAR";
 
 "INSTRUCTIONS" = "INSTRUCCIONES";
-"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar juego' para ver los sets de preguntas; después de escoger uno, da un toque en una respuesta para ver si es correcta o no.";
+"Instructions" = "Instrucciones";
+"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar' para ver los temas; luego de escoger uno, da un toque en un cuestionario y ya podrás responder a las preguntas";
+
+"Tap on 'Start game' to see the Topics; after choosing one, tap on a quiz set and you can answer the questions";
+
 "OK" = "Aceptar";
 
 "SETTINGS" = "OPCIONES";
@@ -25,7 +29,7 @@
 "Incorrect answers" = "Respuestas incorrectas";
 "Completed sets" = "Sets completados";
 
-"Quizzes sets" = "Cuestionarios";
+"Topics" = "Temas";
 "Questions sets" = "Sets de preguntas";
 
 "Correct!" = "¡Correcto!";

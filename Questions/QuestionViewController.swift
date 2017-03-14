@@ -1,5 +1,4 @@
 import UIKit
-import GameplayKit // .shuffled()
 
 class QuestionViewController: UIViewController {
 
@@ -21,8 +20,8 @@ class QuestionViewController: UIViewController {
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
-	var currentQuiz = Int()
-	var currentSet = Int()
+	var currentTopicIndex = Int()
+	var currentSetIndex = Int()
 	var set: NSArray = []
 	var quiz: NSEnumerator?
 	
@@ -32,7 +31,7 @@ class QuestionViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		switch currentQuiz {
+		switch currentTopicIndex {
 			case 0: set = shuffledQuiz(Quiz.technology)
 			case 1: set = shuffledQuiz(Quiz.social)
 			case 2: set = shuffledQuiz(Quiz.people)
@@ -145,7 +144,10 @@ class QuestionViewController: UIViewController {
 	// MARK: Convenience
 	
 	func shuffledQuiz(_ name: [[NSDictionary]]) -> NSArray{
-		return name[currentSet].shuffled() as NSArray
+		if currentSetIndex < name.count {
+			return name[currentSetIndex].shuffled() as NSArray
+		}
+		return NSArray()
 	}
 	
 	func loadCurrentTheme() {
@@ -209,39 +211,39 @@ class QuestionViewController: UIViewController {
 			endOfQuestionsAlert()
 		}
 	}
+	
+	func setIsValid() -> Bool {
+		
+		let completedSets = Settings.sharedInstance.completedSets
+		
+		if currentTopicIndex < completedSets.count,
+			let completedSetOfCurrentTopic = completedSets[currentTopicIndex], currentSetIndex < completedSetOfCurrentTopic.count {
+			return true
+		}
+		return false
+	}
 
-	func endOfQuestionsAlert() {
+	func isSetCompleted() -> Bool {
+		var setCompleted = false
+		let completedSets = Settings.sharedInstance.completedSets
 		
-		let score = (correctAnswers * 20) - (incorrectAnswers * 10)
-		
-		let title = "Score: ".localized + "\(score) pts"
-		let message = "Correct answers: ".localized + "\(correctAnswers)" + "/" + "\(set.count)"
-		
-		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		
-		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
-		alertViewController.addAction(okAction)
-		
-		let setCompleted = Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] ?? false		
-		if (correctAnswers < set.count) && (repeatTimes < 2) && !setCompleted {
-			
-			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
-			let repeatAction = UIAlertAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
-
-			alertViewController.addAction(repeatAction)
+		if setIsValid() {
+			setCompleted = (completedSets[currentTopicIndex]?[currentSetIndex])!
 		}
 		
-		present(alertViewController, animated: true, completion: nil)
+		return setCompleted
 	}
 	
 	func okActionDetailed() {
 		
-		if !(Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] ?? true) {
+		if !isSetCompleted() {
 			Settings.sharedInstance.correctAnswers += correctAnswers
 			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
 		}
 		
-		Settings.sharedInstance.completedSets[currentQuiz]?[currentSet] = true
+		if setIsValid() {
+			Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
+		}
 		
 		performSegue(withIdentifier: "unwindToQuestionSelector", sender: self)
 	}
@@ -296,5 +298,30 @@ class QuestionViewController: UIViewController {
 			correctSound.pause()
 			correctSound.currentTime = 0
 		}
+	}
+	
+	// MARK: Alerts
+	
+	func endOfQuestionsAlert() {
+		
+		let score = (correctAnswers * 20) - (incorrectAnswers * 10)
+		
+		let title = "Score: ".localized + "\(score) pts"
+		let message = "Correct answers: ".localized + "\(correctAnswers)" + "/" + "\(set.count)"
+		
+		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		
+		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
+		alertViewController.addAction(okAction)
+		
+		if (correctAnswers < set.count) && (repeatTimes < 2) && !isSetCompleted() {
+			
+			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
+			let repeatAction = UIAlertAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
+			
+			alertViewController.addAction(repeatAction)
+		}
+		
+		present(alertViewController, animated: true, completion: nil)
 	}
 }

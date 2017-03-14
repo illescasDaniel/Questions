@@ -5,7 +5,7 @@ class QuestionsSetsViewController: UITableViewController {
 	// MARK: Properties
 	
 	var cell: UITableViewCell?
-	var currentQuiz = Int()
+	var currentTopicIndex = Int()
 	var setCount = Int()
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	
@@ -14,7 +14,9 @@ class QuestionsSetsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		switch currentQuiz {
+		self.navigationItem.title = Quiz.topicsNames[currentTopicIndex].localized
+		
+		switch currentTopicIndex {
 			case 0: setCount = Quiz.technology.count
 			case 1: setCount = Quiz.social.count
 			case 2: setCount = Quiz.people.count
@@ -42,7 +44,7 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		fillCompletedSets()
 		
-		if Settings.sharedInstance.completedSets[currentQuiz]?[indexPath.row] ?? false {
+		if Settings.sharedInstance.completedSets[currentTopicIndex]?[indexPath.row] ?? false {
 			cell?.accessoryType = .checkmark
 		}
 
@@ -71,10 +73,10 @@ class QuestionsSetsViewController: UITableViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
-		if let set = sender as? Int , segue.identifier == "selectQuestionSet" {
+		if let currentSetIndex = sender as? Int , segue.identifier == "selectQuestionSet" {
 			let controller = segue.destination as! QuestionViewController
-			controller.currentQuiz = currentQuiz
-			controller.currentSet = set
+			controller.currentTopicIndex = currentTopicIndex
+			controller.currentSetIndex = currentSetIndex
 		}
 	}
 	
@@ -82,7 +84,7 @@ class QuestionsSetsViewController: UITableViewController {
 		
 		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		
-		for i in 0..<setCount where (Settings.sharedInstance.completedSets[currentQuiz]?[i]) ?? false {
+		for i in 0..<setCount where (Settings.sharedInstance.completedSets[currentTopicIndex]?[i]) ?? false {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
 	}
@@ -90,10 +92,10 @@ class QuestionsSetsViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func fillCompletedSets() {
-		let completedSetsCount = (Settings.sharedInstance.completedSets[currentQuiz]?.count) ?? 0
+		let completedSetsCount = (Settings.sharedInstance.completedSets[currentTopicIndex]?.count) ?? 0
 		
 		if completedSetsCount < setCount {
-			Settings.sharedInstance.completedSets[currentQuiz] = [Bool](repeating: false, count: setCount)
+			Settings.sharedInstance.completedSets[currentTopicIndex] = [Bool](repeating: false, count: setCount)
 		}
 	}
 }

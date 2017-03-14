@@ -1,4 +1,5 @@
 import Foundation
+import GameplayKit // .shuffled
 
 extension Collection {
 	

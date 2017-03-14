@@ -21,44 +21,54 @@ class QuestionsTests: XCTestCase {
 		var numberOfQuestions: Int
 		var set: [NSDictionary]
 		var question: String
+		var currentQuiz: [[NSDictionary]]!
 
 		vc.view.reloadInputViews()
 
-		for i in 0..<Quiz.set.count {
-
-			vc.currentSet = i
-			vc.viewDidLoad()
+		for k in 0..<Quiz.topicsNames.count {
 			
-			set = (vc.set as! [NSDictionary])
-
-			numberOfQuestions = (vc.set as! [NSDictionary]).count
-
-			print("-> Set: ", vc.currentSet)
-
-			for j in 0..<numberOfQuestions {
-
-				answersFromPlist = set[j]["answers"] as! [String]
-				question = set[j]["question"] as! String
-
-				// TEST QUESTION
-				print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nPlistQuestion: \(question)\n")
-				XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
-
-				// TEST ANSWERS
-				for k in 0..<vc.answersButtons.count {
-					print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
-					XCTAssert(vc.answersButtons[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSet)")
+			switch k {
+				case 0: currentQuiz = Quiz.technology
+				case 1: currentQuiz = Quiz.social
+				case 2: currentQuiz = Quiz.people
+				default: break
+			}
+			
+			for i in 0..<currentQuiz.count {
+				
+				vc.currentSetIndex = i
+				vc.viewDidLoad()
+				
+				set = (vc.set as! [NSDictionary])
+				
+				numberOfQuestions = (vc.set as! [NSDictionary]).count
+				
+				print("-> Set: ", vc.currentSetIndex)
+				
+				for j in 0..<numberOfQuestions {
+					
+					answersFromPlist = set[j]["answers"] as! [String]
+					question = set[j]["question"] as! String
+					
+					// TEST QUESTION
+					print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nPlistQuestion: \(question)\n")
+					XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
+					
+					// TEST ANSWERS
+					for k in 0..<vc.answersButtons.count {
+						print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
+						XCTAssert(vc.answersButtons[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
+					}
+					
+					vc.pickQuestion()
 				}
-
-				vc.pickQuestion()
 			}
 		}
-
 	}
 
 	func testSettingsSwitchAction() {
 
-		if let bgMusic = MainViewController.bgMusic {
+		if let bgMusic = Audio.bgMusic {
 			
 			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController
 			

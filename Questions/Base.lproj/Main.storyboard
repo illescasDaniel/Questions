@@ -14,7 +14,7 @@
         <!--Quizzes Sets-->
         <scene sceneID="kgb-fJ-0La">
             <objects>
-                <tableViewController storyboardIdentifier="quizzesSetsViewController" id="9QX-8c-sEy" userLabel="Quizzes Sets" customClass="QuizzesSetsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="quizzesSetsViewController" id="9QX-8c-sEy" userLabel="Quizzes Sets" customClass="TopicsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="yuD-uf-BcY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +27,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="381" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Quiz Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Topic Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
                                             <rect key="frame" x="15" y="0.0" width="364" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -44,9 +44,9 @@
                             <outlet property="delegate" destination="9QX-8c-sEy" id="PMa-rf-bBB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Quizzes sets" id="e8J-nn-9xp"/>
+                    <navigationItem key="navigationItem" title="Topics" id="e8J-nn-9xp"/>
                     <connections>
-                        <segue destination="kse-0a-Wtd" kind="show" identifier="selectQuizSet" id="UNn-E6-gY8"/>
+                        <segue destination="kse-0a-Wtd" kind="show" identifier="selectTopic" id="UNn-E6-gY8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKg-Qq-kO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
