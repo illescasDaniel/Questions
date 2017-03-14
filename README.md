@@ -7,14 +7,14 @@ Quiz app for iOS with support for multiple languages and dark theme.
 
 Screenshots
 -------
-<img src="http://i.imgur.com/A0BfRJJ.png" width="200">
-<img src="http://i.imgur.com/IBGGrWq.png" width="200">
-<img src="http://i.imgur.com/cJQWUWv.png" width="200">
-<img src="http://i.imgur.com/7EvP14Y.png" width="200">  
-<img src="http://i.imgur.com/LN9gfwO.png" width="200">
-<img src="http://i.imgur.com/CPI78bx.png" width="200">
-<img src="http://i.imgur.com/y4WNACN.png" width="200">
-<img src="http://i.imgur.com/SXT44F6.png" width="200">    
+<img src="http://i.imgur.com/GH1WTMW.png" width="200">
+<img src="http://i.imgur.com/J77yGyV.png" width="200">
+<img src="http://i.imgur.com/2ziPaVx.png" width="200">
+<img src="http://i.imgur.com/32f7ndK.png" width="200">  
+<img src="http://i.imgur.com/LrK0uV6.png" width="200">
+<img src="http://i.imgur.com/sCkSuMr.png" width="200">
+<img src="http://i.imgur.com/ezw3Rkj.png" width="200">
+<img src="http://i.imgur.com/MC19b6W.png" width="200">  
 
 # ASSETS #
 
