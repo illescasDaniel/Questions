@@ -31,12 +31,7 @@ class QuestionViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		switch currentTopicIndex {
-			case 0: set = shuffledQuiz(Quiz.technology)
-			case 1: set = shuffledQuiz(Quiz.social)
-			case 2: set = shuffledQuiz(Quiz.people)
-			default: return
-		}
+		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].plist)
 		
 		quiz = set.objectEnumerator()
 		statusLabel.alpha = 0.0
@@ -211,24 +206,14 @@ class QuestionViewController: UIViewController {
 			endOfQuestionsAlert()
 		}
 	}
-	
-	func setIsValid() -> Bool {
-		
-		if let completedSets = Settings.sharedInstance.completedSets[currentTopicIndex] {
-			return completedSets.count <= set.count
-		}
-		return false
-	}
 
 	func isSetCompleted() -> Bool {
-		var setCompleted = false
-		let completedSets = Settings.sharedInstance.completedSets
 		
-		if setIsValid() {
-			setCompleted = (completedSets[currentTopicIndex]?[currentSetIndex])!
+		if let completedSets = Settings.sharedInstance.completedSets[currentTopicIndex] {
+			return completedSets[currentSetIndex]
 		}
 		
-		return setCompleted
+		return false
 	}
 	
 	func okActionDetailed() {
@@ -238,7 +223,7 @@ class QuestionViewController: UIViewController {
 			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
 		}
 		
-		if setIsValid() {
+		if Settings.sharedInstance.completedSets[currentTopicIndex] != nil {
 			Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
 		}
 		

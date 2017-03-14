@@ -30,7 +30,6 @@
 		65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C491D29C3E300D2E1C1 /* Main.storyboard */; };
 		65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */; };
 		65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD23E01E7422C800462512 /* LicensesViewController.swift */; };
-		65E323641D40E67D00FB6D6E /* QuizTopics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65E323631D40E67D00FB6D6E /* QuizTopics.plist */; };
 		8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */; };
 		8E7F0EFC1D351CEA0048F1A0 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */; };
 /* End PBXBuildFile section */
@@ -85,7 +84,6 @@
 		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65DD23E01E7422C800462512 /* LicensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
-		65E323631D40E67D00FB6D6E /* QuizTopics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QuizTopics.plist; sourceTree = "<group>"; };
 		8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Extension.swift"; sourceTree = "<group>"; };
 		8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,16 +131,7 @@
 			path = QuestionsUITests;
 			sourceTree = "<group>";
 		};
-		654F9A341E774AF4002B6A82 /* Questions */ = {
-			isa = PBXGroup;
-			children = (
-				65E323631D40E67D00FB6D6E /* QuizTopics.plist */,
-				654F9A3B1E77560E002B6A82 /* Quizzes */,
-			);
-			name = Questions;
-			sourceTree = "<group>";
-		};
-		654F9A3B1E77560E002B6A82 /* Quizzes */ = {
+		654F9A341E774AF4002B6A82 /* Quizzes */ = {
 			isa = PBXGroup;
 			children = (
 				654F9A321E774AAF002B6A82 /* Technology.plist */,
@@ -196,7 +185,7 @@
 				65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */,
 				659B50461D2BE40500F8FA09 /* Sounds */,
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
-				654F9A341E774AF4002B6A82 /* Questions */,
+				654F9A341E774AF4002B6A82 /* Quizzes */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -365,7 +354,6 @@
 				659B504D1D2BE58B00F8FA09 /* correct.mp3 in Resources */,
 				65456AED1D2BBEF90048965E /* Localizable.strings in Resources */,
 				65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */,
-				65E323641D40E67D00FB6D6E /* QuizTopics.plist in Resources */,
 				654F9A381E774B38002B6A82 /* People.plist in Resources */,
 				659B504E1D2BE58B00F8FA09 /* incorrect.wav in Resources */,
 				654F9A331E774AAF002B6A82 /* Technology.plist in Resources */,

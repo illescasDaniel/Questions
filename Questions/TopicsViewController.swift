@@ -21,13 +21,14 @@ class TopicsViewController: UITableViewController {
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return Quiz.topicsNames.count
+		return Quiz.quizzes.count
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
-		cell?.textLabel?.text = Quiz.topicsNames[indexPath.row].localized
+		cell?.textLabel?.text = Quiz.quizzes[indexPath.row].name.localized
+		
 		
 		// Load theme 
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)

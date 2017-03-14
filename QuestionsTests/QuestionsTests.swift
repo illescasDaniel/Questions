@@ -21,29 +21,20 @@ class QuestionsTests: XCTestCase {
 		var numberOfQuestions: Int
 		var set: [NSDictionary]
 		var question: String
-		var currentQuiz: [[NSDictionary]]!
 
 		vc.view.reloadInputViews()
 
-		for k in 0..<Quiz.topicsNames.count {
+		for k in 0..<Quiz.quizzes.count {
 			
-			switch k {
-				case 0: currentQuiz = Quiz.technology
-				case 1: currentQuiz = Quiz.social
-				case 2: currentQuiz = Quiz.people
-				default: break
-			}
-			
-			for i in 0..<currentQuiz.count {
+			for i in 0..<Quiz.quizzes[k].plist.count {
 				
+				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
 				vc.viewDidLoad()
 				
 				set = (vc.set as! [NSDictionary])
 				
 				numberOfQuestions = (vc.set as! [NSDictionary]).count
-				
-				print("-> Set: ", vc.currentSetIndex)
 				
 				for j in 0..<numberOfQuestions {
 					

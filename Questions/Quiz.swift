@@ -2,12 +2,13 @@ import Foundation
 
 struct Quiz {
 	
-	static let topicsNames = NSArray(contentsOfFile: Bundle.main.path(forResource: "QuizTopics", ofType: "plist")!)! as! [String]
-	static let technology = loadPlist(quiz: "Technology")
-	static let social = loadPlist(quiz: "Social")
-	static let people = loadPlist(quiz: "People")
+	private(set) var name = String()
+	private(set) var plist: [[NSDictionary]]!
 	
-	static func loadPlist(quiz: String) -> [[NSDictionary]] {
-		return NSArray(contentsOfFile: Bundle.main.path(forResource: quiz, ofType: "plist")!)! as! [[NSDictionary]]
+	init(name: String) {
+		self.name = name
+		plist = NSArray(contentsOfFile: Bundle.main.path(forResource: name, ofType: "plist")!)! as! [[NSDictionary]]
 	}
+	
+	static let quizzes = [Quiz(name: "Technology"), Quiz(name: "Social"), Quiz(name: "People")]
 }
