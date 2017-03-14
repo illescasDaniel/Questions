@@ -214,11 +214,8 @@ class QuestionViewController: UIViewController {
 	
 	func setIsValid() -> Bool {
 		
-		let completedSets = Settings.sharedInstance.completedSets
-		
-		if currentTopicIndex < completedSets.count,
-			let completedSetOfCurrentTopic = completedSets[currentTopicIndex], currentSetIndex < completedSetOfCurrentTopic.count {
-			return true
+		if let completedSets = Settings.sharedInstance.completedSets[currentTopicIndex] {
+			return completedSets.count <= set.count
 		}
 		return false
 	}
