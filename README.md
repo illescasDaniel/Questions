@@ -14,7 +14,9 @@ Screenshots
 <img src="http://i.imgur.com/LrK0uV6.png" width="200">
 <img src="http://i.imgur.com/sCkSuMr.png" width="200">
 <img src="http://i.imgur.com/ezw3Rkj.png" width="200">
-<img src="http://i.imgur.com/MC19b6W.png" width="200">  
+<img src="http://i.imgur.com/MC19b6W.png" width="200"> 
+
+[More screenshots](http://imgur.com/a/zgRKd)
 
 # ASSETS #
 
