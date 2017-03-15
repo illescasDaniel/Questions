@@ -30,7 +30,7 @@
 "Completed sets" = "Sets completados";
 
 "Topics" = "Temas";
-"Questions sets" = "Sets de preguntas";
+"Quizzes" = "Cuestionarios";
 
 "Correct!" = "¡Correcto!";
 "Incorrect" = "Incorrecto";
@@ -124,6 +124,8 @@
 // --- PEOPLE ---
 "People" = "Gente";
 
+// SET 0
+
 "How old is Barack Obama?" = "¿Qué edad tiene Barack Obama?";
 	/*
 	 "> 50" = "> 50";
@@ -139,6 +141,8 @@
 	 "Sundar Pichai" = "Sundar Pichai";
 	 "Andy Rubin" = "Andy Rubin";
 	 */
+
+// SET 1
 
 "When was Tim Cook born?" = "¿Cuándo nació Tim Cook?";
 	/*
