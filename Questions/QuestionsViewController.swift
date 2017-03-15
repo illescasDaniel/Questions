@@ -1,6 +1,6 @@
 import UIKit
 
-class QuestionViewController: UIViewController {
+class QuestionsViewController: UIViewController {
 
 	// MARK: Properties
 	
@@ -227,7 +227,7 @@ class QuestionViewController: UIViewController {
 			Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
 		}
 		
-		performSegue(withIdentifier: "unwindToQuestionSelector", sender: self)
+		performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
 	}
 	
 	func repeatActionDetailed() {

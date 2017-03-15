@@ -1,6 +1,6 @@
 import UIKit
 
-class QuestionsSetsViewController: UITableViewController {
+class QuizzesViewController: UITableViewController {
 	
 	// MARK: Properties
 	
@@ -28,7 +28,7 @@ class QuestionsSetsViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "Questions sets".localized
+		return "Quizzes".localized
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,7 +53,7 @@ class QuestionsSetsViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		fillCompletedSets()
-		performSegue(withIdentifier: "selectQuestionSet", sender: indexPath.row)
+		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
 	}
 	
 	// MARK: UITableViewDelegate
@@ -67,14 +67,14 @@ class QuestionsSetsViewController: UITableViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
-		if let currentSetIndex = sender as? Int , segue.identifier == "selectQuestionSet" {
-			let controller = segue.destination as! QuestionViewController
+		if let currentSetIndex = sender as? Int , segue.identifier == "selectQuiz" {
+			let controller = segue.destination as! QuestionsViewController
 			controller.currentTopicIndex = currentTopicIndex
 			controller.currentSetIndex = currentSetIndex
 		}
 	}
 	
-	@IBAction func unwindToQuestionSetSelector(_ segue: UIStoryboardSegue) {
+	@IBAction func unwindToQuizSelector(_ segue: UIStoryboardSegue) {
 		
 		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		

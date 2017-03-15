@@ -48,7 +48,7 @@ class TopicsViewController: UITableViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 		if let topicIndex = sender as? Int , segue.identifier == "selectTopic" {
-			let controller = segue.destination as! QuestionsSetsViewController
+			let controller = segue.destination as! QuizzesViewController
 			controller.currentTopicIndex = topicIndex
 		}
 	}
