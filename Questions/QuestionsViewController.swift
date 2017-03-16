@@ -200,7 +200,6 @@ class QuestionsViewController: UIViewController {
 					self.answersButtons[i].setTitle(answers[i].localized, for: .normal)
 				}
 				self.remainingQuestionsLabel.text = "\(self.set.index(of: quiz) + 1)/\(self.set.count)"
-					
 			}
 		}
 		else {
@@ -223,11 +222,8 @@ class QuestionsViewController: UIViewController {
 			Settings.sharedInstance.correctAnswers += correctAnswers
 			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
 		}
-		
-		if Settings.sharedInstance.completedSets[currentTopicIndex] != nil {
-			Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
-		}
-		
+		Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
+
 		performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
 	}
 	
@@ -272,12 +268,12 @@ class QuestionsViewController: UIViewController {
 	
 	func pausePreviousSounds() {
 		
-		if let incorrectSound = Audio.incorrect , incorrectSound.isPlaying {
+		if let incorrectSound = Audio.incorrect, incorrectSound.isPlaying {
 			incorrectSound.pause()
 			incorrectSound.currentTime = 0
 		}
 		
-		if let correctSound = Audio.correct , correctSound.isPlaying {
+		if let correctSound = Audio.correct, correctSound.isPlaying {
 			correctSound.pause()
 			correctSound.currentTime = 0
 		}
