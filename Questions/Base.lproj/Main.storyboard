@@ -452,18 +452,6 @@ Incorrect answers: X
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Correct/Incorrect" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtz-oh-bXj" userLabel="Status Label">
-                                <rect key="frame" x="143" y="588" width="131" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecH-y2-fsh">
                                 <rect key="frame" x="21" y="132" width="374" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -670,7 +658,6 @@ Incorrect answers: X
                         <outlet property="pauseView" destination="qSd-Pz-OF3" id="z2r-XG-alu"/>
                         <outlet property="questionLabel" destination="ecH-y2-fsh" id="pWU-bj-jbR"/>
                         <outlet property="remainingQuestionsLabel" destination="K5D-zP-xHR" id="nsW-zW-2EW"/>
-                        <outlet property="statusLabel" destination="Xtz-oh-bXj" id="e2i-Ap-hAA"/>
                         <outletCollection property="answersButtons" destination="Hu1-Lj-Dsc" collectionClass="NSMutableArray" id="yfn-l9-Wun"/>
                         <outletCollection property="answersButtons" destination="srs-vU-0Xc" collectionClass="NSMutableArray" id="s4c-8i-9Yx"/>
                         <outletCollection property="answersButtons" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="VnQ-2E-S2s"/>

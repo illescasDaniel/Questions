@@ -1,4 +1,5 @@
 import UIKit
+import AudioToolbox
 
 class QuestionsViewController: UIViewController {
 
@@ -7,7 +8,6 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet var answersButtons: [UIButton]!
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
-	@IBOutlet weak var statusLabel: UILabel!
 	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var pauseView: UIView!
 	@IBOutlet weak var goBack: UIButton!
@@ -32,9 +32,7 @@ class QuestionsViewController: UIViewController {
 		super.viewDidLoad()
 		
 		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
-		
 		quiz = set.objectEnumerator()
-		statusLabel.alpha = 0.0
 		
 		// Saves the position where the blurView will be
 		for i in 0..<view.subviews.count where (view.subviews[i] == pauseView) {
@@ -163,13 +161,12 @@ class QuestionsViewController: UIViewController {
 	func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
-		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625
-		
-		let offset = labelHeight + 15
-		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125
+		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625 // change if is on landscape
+		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125 // change on landscape!
+		let offset = labelHeight
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
-		let yPosition = (UIScreen.main.bounds.maxY / 4.0) - (labelHeight / 4.0) + offset
-		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - (labelHeight / 4.0) - offset
+		let yPosition = (UIScreen.main.bounds.maxY / 4.0) + labelHeight + offset
+		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - labelHeight + offset
 		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
 		let fullLabelHeight = labelHeight + spaceBetweenAnswers
 		
@@ -178,32 +175,31 @@ class QuestionsViewController: UIViewController {
 		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
 		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
 		
-		// Labels position
-		let yPosition5 = (UIScreen.main.bounds.maxY - yPosition4) / 2.0
-		let yPositionOfButtomLabel = UIScreen.main.bounds.maxY - yPosition5
-		statusLabel.frame = CGRect(x: xPosition, y: yPositionOfButtomLabel, width: labelWidth, height: labelHeight)
-		
 		let statusBarHeight = UIApplication.shared.statusBarFrame.height
-		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight
+		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
 	}
-
+	
 	func pickQuestion() {
 		
 		if let quiz = quiz?.nextObject() as? NSDictionary {
 			
-			correctAnswer = (quiz["answer"] as! Int)
-			questionLabel.text = (quiz["question"] as! String).localized
-			
-			let answers = quiz["answers"] as! [String]
-			
-			for i in 0..<answersButtons.count {
-				answersButtons[i].setTitle(answers[i].localized, for: .normal)
+			UIView.animate(withDuration: 0.1) {
+				
+				self.correctAnswer = (quiz["answer"] as! Int)
+				self.questionLabel.text = (quiz["question"] as! String).localized
+				
+				let answers = quiz["answers"] as! [String]
+				
+				for i in 0..<self.answersButtons.count {
+					self.answersButtons[i].setTitle(answers[i].localized, for: .normal)
+				}
+				self.remainingQuestionsLabel.text = "\(self.set.index(of: quiz) + 1)/\(self.set.count)"
+					
 			}
-			remainingQuestionsLabel.text = "\(set.index(of: quiz) + 1)/\(set.count)"
 		}
 		else {
-			endOfQuestionsAlert()
+			self.endOfQuestionsAlert()
 		}
 	}
 
@@ -242,16 +238,14 @@ class QuestionsViewController: UIViewController {
 		
 		pausePreviousSounds()
 		
-		statusLabel.alpha = 1.0
-		
 		if answer == correctAnswer {
-			statusLabel.textColor = darkThemeEnabled ? .lightGreen : .darkGreen
-			statusLabel.text = "Correct!".localized
+			correctAnswers += 1
+			answersButtons[answer].backgroundColor = .darkGreen
 			Audio.correct?.play()
 		}
 		else {
-			statusLabel.textColor = darkThemeEnabled ? .lightRed : .red
-			statusLabel.text = "Incorrect".localized
+			incorrectAnswers += 1
+			answersButtons[answer].backgroundColor = .alternativeRed
 			Audio.incorrect?.play()
 		}
 		
@@ -260,13 +254,15 @@ class QuestionsViewController: UIViewController {
 			let feedbackGenerator = UINotificationFeedbackGenerator()
 			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
 		}
-	
-		(answer == correctAnswer) ? (correctAnswers += 1) : (incorrectAnswers += 1)
 		
 		// Fade out animation for statusLabel
-		UIView.animate(withDuration: 1) { self.statusLabel.alpha = 0.0 }
+		UIView.animate(withDuration: 0.75) {
+			self.answersButtons[answer].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
+		}
 		
-		pickQuestion()
+		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
+			self.pickQuestion()
+		}
 	}
 	
 	func pausePreviousSounds() {
@@ -304,6 +300,8 @@ class QuestionsViewController: UIViewController {
 			alertViewController.addAction(repeatAction)
 		}
 		
-		present(alertViewController, animated: true, completion: nil)
+		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(140)) {
+			self.present(alertViewController, animated: true, completion: nil)
+		}
 	}
 }
