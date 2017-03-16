@@ -161,12 +161,18 @@ class QuestionsViewController: UIViewController {
 	func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
-		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * 0.0625 // change if is on landscape
-		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.125 // change on landscape!
-		let offset = labelHeight
+		
+		let isPortrait = UIDevice.current.orientation.isPortrait
+		
+		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * (isPortrait ? 0.0625 : 0.09)
+		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / (isPortrait ? 1.125 : 1.2)
+		
+		let yOffset = isPortrait ? labelHeight : 0
+		let yOffset4 = isPortrait ? labelHeight : labelHeight*1.3
+		
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
-		let yPosition = (UIScreen.main.bounds.maxY / 4.0) + labelHeight + offset
-		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - labelHeight + offset
+		let yPosition = (UIScreen.main.bounds.maxY / 4.0) + labelHeight + yOffset
+		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - labelHeight + yOffset4
 		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
 		let fullLabelHeight = labelHeight + spaceBetweenAnswers
 		

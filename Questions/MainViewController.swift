@@ -104,7 +104,10 @@ class MainViewController: UIViewController {
 	// MARK: Convenience
 
 	func setFramesAndPosition() {
-		let buttonsWidth = UIScreen.main.bounds.maxX / 2.0
+		
+		let isPortrait = UIDevice.current.orientation.isPortrait
+
+		let buttonsWidth = UIScreen.main.bounds.maxX / (isPortrait ? 1.85 : 2.0)
 		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
 		
 		if let fontSize = instructionsButton.titleLabel?.font.pointSize {
