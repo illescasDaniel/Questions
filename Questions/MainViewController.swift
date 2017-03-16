@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		
 		// Load score (20pts correct, -10 incorrect)
-		let answersScore = (Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
+		let answersScore = Settings.sharedInstance.score //(Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
 		scoreLabel.text = "🏆 \(answersScore)pts"
 		
 		if answersScore == 0 {

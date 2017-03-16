@@ -32,8 +32,9 @@
 "Topics" = "Temas";
 "Quizzes" = "Cuestionarios";
 
-"Correct!" = "¡Correcto!";
-"Incorrect" = "Incorrecto";
+"Attention" = "Atención";
+"Not enough points (5 needed)" = "Puntos insuficientes (5 al menos)";
+"Maximum help tries per question reached" = "Nº máximo de intentos de ayuda por pregunta alcanzado";
 
 "Correct answers: " = "Respuestas correctas: ";
 "Score: " = "Puntuación: ";

@@ -12,10 +12,11 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var goBack: UIButton!
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
-
+	@IBOutlet weak var helpButton: UIButton!
+	
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
-	var correctAnswer = Int()
+	var correctAnswer = UInt8()
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
@@ -58,6 +59,10 @@ class QuestionsViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
 		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
 		pickQuestion()
+		
+		if Settings.sharedInstance.score < 5 {
+			helpButton.alpha = 0.4
+		}
 	}
 	
 	// MARK: UIViewController
@@ -116,6 +121,41 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
+	@IBAction func helpAction() {
+		
+		if Settings.sharedInstance.score < 5 {
+			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
+		}
+		else {
+			
+			var timesUsed: UInt8 = 0
+			answersButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
+			
+			if timesUsed < 2 {
+				
+				Settings.sharedInstance.score -= 5
+
+				var randomQuestionIndex = UInt32()
+				
+				repeat {
+					randomQuestionIndex = arc4random_uniform(4)
+				} while((UInt8(randomQuestionIndex) == correctAnswer) || (answersButtons[Int(randomQuestionIndex)].alpha != 1.0))
+				
+				UIView.animate(withDuration: 0.4) {
+					
+					self.answersButtons[Int(randomQuestionIndex)].alpha = 0.4
+					
+					if (Settings.sharedInstance.score < 5) || (timesUsed == 1) {
+						self.helpButton.alpha = 0.4
+					}
+				}
+			}
+			else {
+				showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
+			}
+		}
+	}
+	
 	@IBAction func muteMusicAction() {
 		
 		if let bgMusic = Audio.bgMusic {
@@ -135,6 +175,15 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Convenience
 	
+	func showOKAlertWith(title: String, message: String) {
+		let alertViewController = UIAlertController(title: title.localized,
+		                                            message: message.localized,
+		                                            preferredStyle: .alert)
+		
+		alertViewController.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
+		present(alertViewController, animated: true, completion: nil)
+	}
+	
 	func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
 		if currentSetIndex < name.count {
 			return name[currentSetIndex].shuffled() as NSArray
@@ -146,6 +195,7 @@ class QuestionsViewController: UIViewController {
 		
 		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
 		
+		helpButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
 		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
@@ -167,7 +217,7 @@ class QuestionsViewController: UIViewController {
 		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / (isPortrait ? 1.125 : 1.2)
 		
 		let yOffset = isPortrait ? labelHeight : 0
-		let yOffset4 = isPortrait ? labelHeight : labelHeight*1.3
+		let yOffset4 = isPortrait ? labelHeight : (labelHeight * 1.3)
 		
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
 		let yPosition = (UIScreen.main.bounds.maxY / 4.0) + labelHeight + yOffset
@@ -187,11 +237,20 @@ class QuestionsViewController: UIViewController {
 	
 	func pickQuestion() {
 		
+		// Restore
+		UIView.animate(withDuration: 0.6) {
+			self.answersButtons.forEach { $0.alpha = 1 }
+			
+			if Settings.sharedInstance.score >= 5 {
+				self.helpButton.alpha = 1.0
+			}
+		}
+		
 		if let quiz = quiz?.nextObject() as? NSDictionary {
 			
 			UIView.animate(withDuration: 0.1) {
 				
-				self.correctAnswer = (quiz["answer"] as! Int)
+				self.correctAnswer = (quiz["answer"] as! UInt8)
 				self.questionLabel.text = (quiz["question"] as! String).localized
 				
 				let answers = quiz["answers"] as! [String]
@@ -221,6 +280,7 @@ class QuestionsViewController: UIViewController {
 		if !isSetCompleted() {
 			Settings.sharedInstance.correctAnswers += correctAnswers
 			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
+			Settings.sharedInstance.score += (correctAnswers * 20) - (incorrectAnswers * 10)
 		}
 		Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
 
@@ -231,22 +291,23 @@ class QuestionsViewController: UIViewController {
 		repeatTimes += 1
 		correctAnswers = 0
 		incorrectAnswers = 0
+		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
 		quiz = set.objectEnumerator()
 		pickQuestion()
 	}
 	
-	func verify(answer: Int) {
+	func verify(answer: UInt8) {
 		
 		pausePreviousSounds()
 		
 		if answer == correctAnswer {
 			correctAnswers += 1
-			answersButtons[answer].backgroundColor = .darkGreen
+			answersButtons[Int(answer)].backgroundColor = .darkGreen
 			Audio.correct?.play()
 		}
 		else {
 			incorrectAnswers += 1
-			answersButtons[answer].backgroundColor = .alternativeRed
+			answersButtons[Int(answer)].backgroundColor = .alternativeRed
 			Audio.incorrect?.play()
 		}
 		
@@ -256,14 +317,12 @@ class QuestionsViewController: UIViewController {
 			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
 		}
 		
-		// Fade out animation for statusLabel
-		UIView.animate(withDuration: 0.75) {
-			self.answersButtons[answer].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
+		// Restore the answers buttons to their original color
+		UIView.animate(withDuration: 0.6) {
+			self.answersButtons[Int(answer)].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
 		}
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
-			self.pickQuestion()
-		}
+		self.pickQuestion()
 	}
 	
 	func pausePreviousSounds() {

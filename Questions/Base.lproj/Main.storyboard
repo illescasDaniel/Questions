@@ -558,6 +558,16 @@ Incorrect answers: X
                                     <action selector="pauseMenu" destination="w1d-Yh-0lm" eventType="touchUpInside" id="VTe-zM-gEw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qc-tm-qF0">
+                                <rect key="frame" x="365" y="693" width="30" height="35"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <state key="normal" title="?">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="helpAction" destination="w1d-Yh-0lm" eventType="touchUpInside" id="TtK-Ap-jRD"/>
+                                </connections>
+                            </button>
                             <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSd-Pz-OF3">
                                 <rect key="frame" x="87" y="304" width="240" height="150"/>
                                 <subviews>
@@ -643,8 +653,10 @@ Incorrect answers: X
                             <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="29Z-Ff-lxh"/>
                             <constraint firstItem="K5D-zP-xHR" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="25" id="BLF-LQ-G7u"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="E31-BC-rXU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9qc-tm-qF0" secondAttribute="trailing" constant="-1" id="PZ4-Am-zKB"/>
                             <constraint firstItem="gby-II-zy5" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="ebI-Nj-9Gj"/>
                             <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="17" id="idP-oT-tHH"/>
+                            <constraint firstItem="vRX-6x-WvX" firstAttribute="top" secondItem="9qc-tm-qF0" secondAttribute="bottom" constant="8" id="m24-py-Uto"/>
                             <constraint firstAttribute="leadingMargin" secondItem="liL-s5-Eng" secondAttribute="leading" id="mh2-d8-Kgo"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" constant="11" id="pH2-TX-IP4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K5D-zP-xHR" secondAttribute="trailing" id="vap-fw-uLv"/>
@@ -652,6 +664,7 @@ Incorrect answers: X
                     </view>
                     <connections>
                         <outlet property="goBack" destination="gby-II-zy5" id="mzX-tp-eBo"/>
+                        <outlet property="helpButton" destination="9qc-tm-qF0" id="osh-JF-0Dk"/>
                         <outlet property="mainMenu" destination="ydF-gf-Ddb" id="3sc-5V-ytk"/>
                         <outlet property="muteMusic" destination="k5D-mT-l8u" id="9HS-AU-aAi"/>
                         <outlet property="pauseButton" destination="liL-s5-Eng" id="6qj-qS-6WY"/>

@@ -160,6 +160,7 @@ class SettingsViewController: UITableViewController {
 			
 		Settings.sharedInstance.correctAnswers = 0
 		Settings.sharedInstance.incorrectAnswers = 0
+		Settings.sharedInstance.score = 0
 
 		tableView.reloadData()
 	}
