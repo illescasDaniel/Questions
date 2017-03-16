@@ -38,7 +38,7 @@ class SettingsViewController: UITableViewController {
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
-		loadCurrentTheme()
+		loadCurrentTheme(animated: false)
 	}
 
 	// MARK: UITableViewDataSouce
@@ -119,31 +119,35 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchTheme() {
 		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
-		loadCurrentTheme()
+		loadCurrentTheme(animated: true)
 	}
 	
 	// MARK: Convenience
 	
-	func loadCurrentTheme() {
+	func loadCurrentTheme(animated: Bool) {
 		
-		navigationController?.navigationBar.barStyle = darkThemeSwitch.isOn ? .black : .default
-		navigationController?.navigationBar.tintColor = darkThemeSwitch.isOn ? .orange : .defaultTintColor
-		
-		tableView.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeSwitch.isOn ? .darkGray : .defaultSeparatorColor
-		
-		resetGameButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
-		licensesButton.setTitleColor(darkThemeSwitch.isOn ? .white : .black, for: .normal)
-		
-		bgMusicSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
-		parallaxEffectSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
-		darkThemeSwitch.onTintColor = darkThemeSwitch.isOn ? .warmColor : .coolBlue
-		
-		tableView.reloadData()
+		let duration: TimeInterval = animated ? 0.35 : 0
+		UIView.animate(withDuration: duration) {
 			
-		for i in 0..<optionsLabels.count {
-			optionsLabels[i].textColor = darkThemeSwitch.isOn ? .white : .black
-			tableView.visibleCells[i].backgroundColor = darkThemeSwitch.isOn ? .gray : .white
+			self.navigationController?.navigationBar.barStyle = self.darkThemeSwitch.isOn ? .black : .default
+			self.navigationController?.navigationBar.tintColor = self.darkThemeSwitch.isOn ? .orange : .defaultTintColor
+			
+			self.tableView.backgroundColor = self.darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
+			self.tableView.separatorColor = self.darkThemeSwitch.isOn ? .darkGray : .defaultSeparatorColor
+			
+			self.resetGameButton.setTitleColor(self.darkThemeSwitch.isOn ? .white : .black, for: .normal)
+			self.licensesButton.setTitleColor(self.darkThemeSwitch.isOn ? .white : .black, for: .normal)
+			
+			self.bgMusicSwitch.onTintColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
+			self.parallaxEffectSwitch.onTintColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
+			self.darkThemeSwitch.onTintColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
+			
+			self.tableView.reloadData()
+			
+			for i in 0..<self.optionsLabels.count {
+				self.optionsLabels[i].textColor = self.darkThemeSwitch.isOn ? .white : .black
+				self.tableView.visibleCells[i].backgroundColor = self.darkThemeSwitch.isOn ? .gray : .white
+			}
 		}
 	}
 	
@@ -183,6 +187,6 @@ class SettingsViewController: UITableViewController {
 		
 		Audio.bgMusic?.play()
 		
-		loadCurrentTheme()
+		loadCurrentTheme(animated: true)
 	}
 }

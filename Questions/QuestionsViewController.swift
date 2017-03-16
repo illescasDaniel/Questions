@@ -14,6 +14,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var mainMenu: UIButton!
 	@IBOutlet weak var helpButton: UIButton!
 	
+	let statusBarHeight = UIApplication.shared.statusBarFrame.height
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
 	var correctAnswer = UInt8()
@@ -57,7 +58,7 @@ class QuestionsViewController: UIViewController {
 		
 		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
-		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		pickQuestion()
 		
 		if Settings.sharedInstance.score < 5 {
@@ -70,7 +71,7 @@ class QuestionsViewController: UIViewController {
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return darkThemeEnabled ? .lightContent : .default
 	}
-	
+
 	override var shouldAutorotate: Bool {
 		
 		if !pauseView.isHidden {
@@ -115,13 +116,13 @@ class QuestionsViewController: UIViewController {
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
-	func showPauseMenu() {
-		if (pauseView.isHidden) {
-			pauseMenu()
-		}
-	}
-	
 	@IBAction func helpAction() {
+		
+		// Use haptic feedback
+		if #available(iOS 10.0, *) {
+			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+			feedbackGenerator.impactOccurred()
+		}
 		
 		if Settings.sharedInstance.score < 5 {
 			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
@@ -207,14 +208,20 @@ class QuestionsViewController: UIViewController {
 									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
 	}
 	
+	func showPauseMenu() {
+		if (pauseView.isHidden) {
+			pauseMenu()
+		}
+	}
+	
 	func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
 		
-		let isPortrait = UIDevice.current.orientation.isPortrait
+		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
 		
 		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * (isPortrait ? 0.0625 : 0.09)
-		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / (isPortrait ? 1.125 : 1.2)
+		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.2
 		
 		let yOffset = isPortrait ? labelHeight : 0
 		let yOffset4 = isPortrait ? labelHeight : (labelHeight * 1.3)
@@ -230,7 +237,7 @@ class QuestionsViewController: UIViewController {
 		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
 		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
 		
-		let statusBarHeight = UIApplication.shared.statusBarFrame.height
+		let statusBarHeight = isPortrait ? self.statusBarHeight : 0.0
 		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
 	}

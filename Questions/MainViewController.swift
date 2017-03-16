@@ -17,8 +17,8 @@ class MainViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		
-		// Load score (20pts correct, -10 incorrect)
-		let answersScore = Settings.sharedInstance.score //(Settings.sharedInstance.correctAnswers * 20) - (Settings.sharedInstance.incorrectAnswers * 10)
+		// Load score
+		let answersScore = Settings.sharedInstance.score
 		scoreLabel.text = "🏆 \(answersScore)pts"
 		
 		if answersScore == 0 {
@@ -78,7 +78,7 @@ class MainViewController: UIViewController {
 		
 		// If user rotates screen, the buttons position and sizes are recalculated
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
-		                                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 	}
 
 	// MARK: Alerts
@@ -105,8 +105,8 @@ class MainViewController: UIViewController {
 
 	func setFramesAndPosition() {
 		
-		let isPortrait = UIDevice.current.orientation.isPortrait
-
+		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
+		
 		let buttonsWidth = UIScreen.main.bounds.maxX / (isPortrait ? 1.85 : 2.0)
 		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
 		
@@ -118,7 +118,14 @@ class MainViewController: UIViewController {
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
 		let yPosition = UIScreen.main.bounds.maxY / 2.0
 		
-		scoreLabel.frame = CGRect(x: xPosition, y: yPosition + 1.75*spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		// ScoreLabel values
+		let scoreLabelHeight = scoreLabel.frame.height
+		let scoreLabelWidth = scoreLabel.frame.width
+		let yPosition2 = (UIScreen.main.bounds.maxY - ((UIScreen.main.bounds.maxY / 2.0) + spaceBetweenButtons + buttonsHeight/2.0))
+		let yPosition3 = UIScreen.main.bounds.maxY - (yPosition2 / (isPortrait ? 1.3 : 2.0))
+		let xPosition2 = (UIScreen.main.bounds.maxX / 2.0) - (scoreLabelWidth / 2.0)
+		
+		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition3, width: scoreLabelWidth, height: scoreLabelHeight)
 		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
 		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)

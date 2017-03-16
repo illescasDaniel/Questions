@@ -9,14 +9,24 @@ class LicensesViewController: UIViewController {
         super.viewDidLoad()
 		
 		licensesNavItem.title = "Licenses".localized
-		
 		textView.attributedText = licensesAttributedText()
 		
 		let darkModeEnabled = Settings.sharedInstance.darkThemeEnabled
 		textView.backgroundColor = darkModeEnabled ? .gray : .white
 		textView.textColor = darkModeEnabled ? .white : .black
 		textView.tintColor = darkModeEnabled ? .warmYellow : .coolBlue
+		textView.textAlignment = .center
+		
+		textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+		
+		setFrame()
+		NotificationCenter.default.addObserver(self, selector: #selector(self.setFrame),
+		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
+	
+	func setFrame() {
+		textView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.maxX, height: UIScreen.main.bounds.maxY)
+	}
 
 	func licensesAttributedText() -> NSMutableAttributedString {
 		
