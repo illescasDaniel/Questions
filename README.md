@@ -18,8 +18,8 @@ Main Features
 
 Screenshots
 -------
-<img src="http://i.imgur.com/MxLjAyX.png" width="200"> <img src="http://i.imgur.com/pYL2Nfh.png" width="200"> <img src="http://i.imgur.com/g15zyC0.png" width="200"> <img src="http://i.imgur.com/vKrAcer.png" width="200">  
-<img src="http://i.imgur.com/x0v508P.png" width="200"> <img src="http://i.imgur.com/sb0BfUd.png" width="200"> <img src="http://i.imgur.com/yEsZXVc.png" width="200"> <img src="http://i.imgur.com/vOq4mwm.png" width="200">  
+<img src="Images/Main Menu.png" width="200"> <img src="Images/Settings.png" width="200"> <img src="Images/Correct.png" width="200"> <img src="Images/Pause menu.png" width="200">  
+<img src="Images/Main menu dark.png" width="200"> <img src="Images/Settings dark.png" width="200"> <img src="Iamges/Questions.png" width="200"> <img src="Images/Score alert.png" width="200">  
 
 [More screenshots](http://imgur.com/a/OOrLJ)
 

@@ -72,7 +72,7 @@ class SettingsViewController: UITableViewController {
 		let correctAnswers = Settings.sharedInstance.correctAnswers
 		let incorrectAnswers = Settings.sharedInstance.incorrectAnswers
 		let numberOfAnswers = Float(incorrectAnswers + correctAnswers)
-		let ratio = Float(correctAnswers) / ((numberOfAnswers > 0) ? numberOfAnswers : 1.0)
+		let ratio = round(100 * Float(correctAnswers) / ((numberOfAnswers > 0) ? numberOfAnswers : 1.0)) / 100
 		
 		return "\n\("Statistics".localized): \n\n" +
 			"\("Completed sets".localized): \(completedSets)\n" +
