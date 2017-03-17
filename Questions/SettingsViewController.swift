@@ -10,8 +10,9 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var darkThemeLabel: UILabel!
 	@IBOutlet weak var resetGameButton: UIButton!
 	@IBOutlet weak var licensesButton: UIButton!
-	var optionsLabels: [UILabel]!
+	var optionLabels: [UILabel]!
 	
+	var optionSwitches: [UISwitch]!
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
 	@IBOutlet weak var hapticFeedbackSwitch: UISwitch!
@@ -24,39 +25,22 @@ class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	
-		settingsNavItem.title = "Settings".localized
-		
-		bgMusicLabel.text = "Background music".localized
-		hapticFeedbackLabel.text = "Haptic Feedback".localized + "*"
-		parallaxEffectLabel.text = "Parallax effect".localized
-		darkThemeLabel.text = "Dark theme".localized
-		resetGameButton.setTitle("Reset game".localized, for: .normal)
-		licensesButton.setTitle("Licenses".localized, for: .normal)
+		initializeLabelNames()
 		licensesCell.accessoryType = .disclosureIndicator
 		
-		optionsLabels = [bgMusicLabel, hapticFeedbackLabel, parallaxEffectLabel, darkThemeLabel,
+		optionLabels = [bgMusicLabel, hapticFeedbackLabel, parallaxEffectLabel, darkThemeLabel,
 		                 resetGameButton.titleLabel ?? UILabel(), licensesButton.titleLabel ?? UILabel()]
+		
+		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 
-		parallaxEffectSwitch.setOn(Settings.sharedInstance.parallaxEnabled, animated: true)
-		
-		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
-		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
-		
-		if #available(iOS 10.0, *) {
-			hapticFeedbackSwitch.setOn(Settings.sharedInstance.hapticFeedbackEnabled, animated: true)
-		} else {
-			hapticFeedbackSwitch.setOn(false, animated: false)
-			hapticFeedbackSwitch.isEnabled = false
-			Settings.sharedInstance.hapticFeedbackEnabled = false
-		}
-		
+		setSwitchesToDefaultValue()
 		loadCurrentTheme(animated: false)
 	}
 
 	// MARK: UITableViewDataSouce
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return optionsLabels.count
+		return optionLabels.count
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -146,6 +130,32 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
+	func initializeLabelNames() {
+		settingsNavItem.title = "Settings".localized
+		bgMusicLabel.text = "Background music".localized
+		hapticFeedbackLabel.text = "Haptic Feedback".localized + "*"
+		parallaxEffectLabel.text = "Parallax effect".localized
+		darkThemeLabel.text = "Dark theme".localized
+		resetGameButton.setTitle("Reset game".localized, for: .normal)
+		licensesButton.setTitle("Licenses".localized, for: .normal)
+	}
+	
+	func setSwitchesToDefaultValue() {
+		
+		parallaxEffectSwitch.setOn(Settings.sharedInstance.parallaxEnabled, animated: true)
+		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
+		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
+		
+		if #available(iOS 10.0, *) {
+			hapticFeedbackSwitch.setOn(Settings.sharedInstance.hapticFeedbackEnabled, animated: true)
+		} else {
+			hapticFeedbackSwitch.setOn(false, animated: false)
+			hapticFeedbackSwitch.isEnabled = false
+			Settings.sharedInstance.hapticFeedbackEnabled = false
+		}
+
+	}
+	
 	func loadCurrentTheme(animated: Bool) {
 		
 		let duration: TimeInterval = animated ? 0.3 : 0
@@ -171,15 +181,12 @@ class SettingsViewController: UITableViewController {
 			self.licensesButton.setTitleColor(textLabelColor, for: .normal)
 			
 			let switchTintColor: UIColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
-			self.bgMusicSwitch.onTintColor = switchTintColor
-			self.hapticFeedbackSwitch.onTintColor = switchTintColor
-			self.parallaxEffectSwitch.onTintColor = switchTintColor
-			self.darkThemeSwitch.onTintColor = switchTintColor
+			self.optionSwitches.forEach { $0.onTintColor = switchTintColor }
 			
 			self.tableView.reloadData()
 			
-			for i in 0..<self.optionsLabels.count {
-				self.optionsLabels[i].textColor = textLabelColor
+			for i in 0..<self.optionLabels.count {
+				self.optionLabels[i].textColor = textLabelColor
 				self.tableView.visibleCells[i].backgroundColor = self.darkThemeSwitch.isOn ? .gray : .white
 			}
 		}	

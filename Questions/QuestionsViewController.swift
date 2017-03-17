@@ -4,7 +4,7 @@ class QuestionsViewController: UIViewController {
 
 	// MARK: Properties
 	
-	@IBOutlet var answersButtons: [UIButton]!
+	@IBOutlet var answerButtons: [UIButton]!
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet weak var pauseButton: UIButton!
@@ -131,7 +131,7 @@ class QuestionsViewController: UIViewController {
 		else {
 			
 			var timesUsed: UInt8 = 0
-			answersButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
+			answerButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
 			
 			if timesUsed < 2 {
 				
@@ -141,11 +141,11 @@ class QuestionsViewController: UIViewController {
 				
 				repeat {
 					randomQuestionIndex = arc4random_uniform(4)
-				} while((UInt8(randomQuestionIndex) == correctAnswer) || (answersButtons[Int(randomQuestionIndex)].alpha != 1.0))
+				} while((UInt8(randomQuestionIndex) == correctAnswer) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
 					
-					self.answersButtons[Int(randomQuestionIndex)].alpha = 0.4
+					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
 					
 					if (Settings.sharedInstance.score < 5) || (timesUsed == 1) {
 						self.helpButton.alpha = 0.4
@@ -203,7 +203,7 @@ class QuestionsViewController: UIViewController {
 		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
 		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGrey
 		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
-		answersButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
+		answerButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
 		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGrey
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .black : .darkGray, for: .normal)
 									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
@@ -233,10 +233,10 @@ class QuestionsViewController: UIViewController {
 		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
 		let fullLabelHeight = labelHeight + spaceBetweenAnswers
 		
-		answersButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
-		answersButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
-		answersButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
-		answersButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
+		answerButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
+		answerButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
+		answerButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
+		answerButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
 		
 		let statusBarHeight = isPortrait ? self.statusBarHeight : 0.0
 		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight + (pauseButton.bounds.height / 2.0)
@@ -247,7 +247,7 @@ class QuestionsViewController: UIViewController {
 		
 		// Restore
 		UIView.animate(withDuration: 0.75) {
-			self.answersButtons.forEach { $0.alpha = 1 }
+			self.answerButtons.forEach { $0.alpha = 1 }
 			
 			if Settings.sharedInstance.score >= 5 {
 				self.helpButton.alpha = 1.0
@@ -263,8 +263,8 @@ class QuestionsViewController: UIViewController {
 				
 				let answers = quiz["answers"] as! [String]
 				
-				for i in 0..<self.answersButtons.count {
-					self.answersButtons[i].setTitle(answers[i].localized, for: .normal)
+				for i in 0..<self.answerButtons.count {
+					self.answerButtons[i].setTitle(answers[i].localized, for: .normal)
 				}
 				self.remainingQuestionsLabel.text = "\(self.set.index(of: quiz) + 1)/\(self.set.count)"
 			}
@@ -319,7 +319,7 @@ class QuestionsViewController: UIViewController {
 		}
 		
 		UIView.animate(withDuration: 0.75) {
-			self.answersButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
+			self.answerButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
 		}
 		
 		// Use haptic feedback
@@ -330,7 +330,7 @@ class QuestionsViewController: UIViewController {
 		
 		// Restore the answers buttons to their original color
 		UIView.animate(withDuration: 0.75) {
-			self.answersButtons[Int(answer)].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
+			self.answerButtons[Int(answer)].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
 		}
 		
 		self.pickQuestion()
