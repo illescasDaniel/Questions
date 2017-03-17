@@ -39,8 +39,8 @@ class LicensesViewController: UIViewController {
 		let correctSound = "\nCorrect.mp3, creator: LittleRainySeasons: \n"
 		let correctSoundLink = "https://www.freesound.org/people/LittleRainySeasons/sounds/335908 \n"
 		
-		let incorrectSound = "\nFailure 01.wav, creator: rhodesmas\n\"This work is licensed under the Attribution License.\": \n"
-		let incorrectSoundLink = "https://www.freesound.org/people/rhodesmas/sounds/342756/ \n https://creativecommons.org/licenses/by/3.0/legalcode"
+		let incorrectSound = "\nGame Sound Wrong.wav, creator: Bertrof\n\"This work is licensed under the Attribution License.\": \n"
+		let incorrectSoundLink = "https://www.freesound.org/people/Bertrof/sounds/131657/ \n https://creativecommons.org/licenses/by/3.0/legalcode"
 		
 		let attributedLicencesText = NSMutableAttributedString(string: bgMusicBensound + bgMusicBensoundLink +
 																		correctSound + correctSoundLink +

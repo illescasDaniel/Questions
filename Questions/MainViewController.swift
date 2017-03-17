@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
 
 		Audio.bgMusic?.volume = Audio.bgMusicVolume
 		Audio.correct?.volume = 0.10
-		Audio.incorrect?.volume = 0.4
+		Audio.incorrect?.volume = 0.25
 		
 		if Settings.sharedInstance.musicEnabled {
 			Audio.bgMusic?.play()

@@ -1,11 +1,20 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v2.6--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v2.7--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
-Quiz app for iOS with support for multiple languages and dark theme. 
+Prototype of a Quiz app for iOS
 
-This is a prototype of a Quiz app, the questions included are just some simple examples.
+Main Features
+-------------
+- Questions statistics
+- Reset statistics and/or settings
+- Parallax effect on main menu
+- Haptic feedback
+- Dark theme
+- Multilanguage support
+
+(The questions included are just some simple examples.)
 
 Screenshots
 -------
@@ -29,10 +38,10 @@ http://www.bensound.com/royalty-free-music/track/the-lounge
 'Correct answer' sound:  
 https://www.freesound.org/people/LittleRainySeasons/sounds/335908/
 
-'Incorrect answer' sound'. Failure 01.wav, creator: rhodesmas.   
+'Incorrect answer' sound'. "Game Sound Wrong.wav", creator: Bertrof.   
 "This work is licensed under the Attribution License":  
 https://creativecommons.org/licenses/by/3.0/legalcode  
-https://www.freesound.org/people/rhodesmas/sounds/342756/
+https://www.freesound.org/people/Bertrof/sounds/131657/
 
 # Special thanks to #
 
@@ -42,6 +51,5 @@ All the GitHub and StackOverflow community, also YouTube :)
 Upcoming Features
 -----------------
 
-- More questions 
 - Add Achievements
 - Move Reset Game option to the Settings app (?)

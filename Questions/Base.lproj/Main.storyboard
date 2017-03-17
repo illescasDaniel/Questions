@@ -214,7 +214,8 @@ Statistics:
 Completed sets: X
 Correct answers: X
 Incorrect answers: X
-</string>
+
+*Only available on certain devices.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="RlA-wW-96C">
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
@@ -245,8 +246,37 @@ Incorrect answers: X
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="R0O-qc-59k">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AHC-Iv-kYu">
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHC-Iv-kYu" id="ceK-4m-bhW">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twC-QC-wgR">
+                                                    <rect key="frame" x="318" y="6" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.31372549020000001" green="0.64705882349999999" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="switchHapticFeedback" destination="oi1-Vd-nnJ" eventType="valueChanged" id="ltb-Dp-Bit"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Haptic Feedback*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faz-IF-Apt" userLabel="Dark Theme Label">
+                                                    <rect key="frame" x="20" y="11" width="138" height="20.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="twC-QC-wgR" secondAttribute="trailing" id="3FI-xN-iCe"/>
+                                                <constraint firstItem="twC-QC-wgR" firstAttribute="top" secondItem="ceK-4m-bhW" secondAttribute="topMargin" constant="-2" id="9Mq-St-3ko"/>
+                                                <constraint firstItem="faz-IF-Apt" firstAttribute="centerY" secondItem="ceK-4m-bhW" secondAttribute="centerY" id="Dmv-Pj-hzo"/>
+                                                <constraint firstItem="faz-IF-Apt" firstAttribute="leading" secondItem="ceK-4m-bhW" secondAttribute="leadingMargin" constant="12" id="wfe-ec-nnx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="R0O-qc-59k">
+                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R0O-qc-59k" id="foo-ed-IEu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -276,7 +306,7 @@ Incorrect answers: X
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="vOu-hS-yKQ">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vOu-hS-yKQ" id="f7s-an-xkx">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -307,7 +337,7 @@ Incorrect answers: X
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MLr-FG-rd8">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="211" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MLr-FG-rd8" id="rBG-xV-rLD">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -337,7 +367,7 @@ Incorrect answers: X
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sQA-3P-jBE">
-                                        <rect key="frame" x="0.0" y="211" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="255" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sQA-3P-jBE" id="q4C-sO-rua">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -377,6 +407,8 @@ Incorrect answers: X
                         <outlet property="bgMusicSwitch" destination="m4T-Df-lj5" id="NwH-cq-rbU"/>
                         <outlet property="darkThemeLabel" destination="Wv8-ev-gH2" id="ZME-8e-MpN"/>
                         <outlet property="darkThemeSwitch" destination="7jI-Mw-v3H" id="IT6-td-fKs"/>
+                        <outlet property="hapticFeedbackLabel" destination="faz-IF-Apt" id="i94-7F-gPb"/>
+                        <outlet property="hapticFeedbackSwitch" destination="twC-QC-wgR" id="jLM-ZD-Vb7"/>
                         <outlet property="licensesButton" destination="FKt-Ka-mfE" id="Ufi-OJ-Tel"/>
                         <outlet property="licensesCell" destination="MLr-FG-rd8" id="Mox-aw-UeW"/>
                         <outlet property="parallaxEffectLabel" destination="2Ja-CO-1Hk" id="vTs-ML-Qy3"/>

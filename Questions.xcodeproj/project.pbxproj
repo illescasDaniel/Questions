@@ -20,9 +20,9 @@
 		6560434E1E787E2700A96192 /* Technology.json in Resources */ = {isa = PBXBuildFile; fileRef = 6560434D1E787E2700A96192 /* Technology.json */; };
 		656043531E787FEE00A96192 /* bensound-thelounge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043501E787FEE00A96192 /* bensound-thelounge.mp3 */; };
 		656043541E787FEE00A96192 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043511E787FEE00A96192 /* correct.mp3 */; };
-		656043551E787FEE00A96192 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 656043521E787FEE00A96192 /* incorrect.wav */; };
 		65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */; };
 		65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* Settings.swift */; };
+		65B25B481E7C138100771F20 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 65B25B471E7C138100771F20 /* incorrect.wav */; };
 		65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* Audio.swift */; };
 		65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285C51D2A8176002F7DF8 /* MainViewController.swift */; };
 		65C285D41D2AB6A4002F7DF8 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */; };
@@ -70,9 +70,9 @@
 		6560434D1E787E2700A96192 /* Technology.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Technology.json; sourceTree = "<group>"; };
 		656043501E787FEE00A96192 /* bensound-thelounge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-thelounge.mp3"; sourceTree = "<group>"; };
 		656043511E787FEE00A96192 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
-		656043521E787FEE00A96192 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		65AE3EC71D3A9C7500125EE2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		65B25B471E7C138100771F20 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65BF7CE21E68B4F7006A7706 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		65C285C51D2A8176002F7DF8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 			children = (
 				656043501E787FEE00A96192 /* bensound-thelounge.mp3 */,
 				656043511E787FEE00A96192 /* correct.mp3 */,
-				656043521E787FEE00A96192 /* incorrect.wav */,
+				65B25B471E7C138100771F20 /* incorrect.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -354,7 +354,7 @@
 				6560434E1E787E2700A96192 /* Technology.json in Resources */,
 				6560434A1E787D9D00A96192 /* People.json in Resources */,
 				656043541E787FEE00A96192 /* correct.mp3 in Resources */,
-				656043551E787FEE00A96192 /* incorrect.wav in Resources */,
+				65B25B481E7C138100771F20 /* incorrect.wav in Resources */,
 				6560434C1E787DC700A96192 /* Social.json in Resources */,
 				65456AED1D2BBEF90048965E /* Localizable.strings in Resources */,
 				65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */,

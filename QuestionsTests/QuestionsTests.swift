@@ -17,7 +17,7 @@ class QuestionsTests: XCTestCase {
 
 		let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as! QuestionsViewController
 
-		var answersFromPlist: [String]
+		var answersFromJson: [String]
 		var numberOfQuestions: Int
 		var set: [NSDictionary]
 		var question: String
@@ -38,17 +38,17 @@ class QuestionsTests: XCTestCase {
 				
 				for j in 0..<numberOfQuestions {
 					
-					answersFromPlist = set[j]["answers"] as! [String]
+					answersFromJson = set[j]["answers"] as! [String]
 					question = set[j]["question"] as! String
 					
 					// TEST QUESTION
-					print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nPlistQuestion: \(question)\n")
+					print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nJsonQuestion: \(question)\n")
 					XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
 					
 					// TEST ANSWERS
 					for k in 0..<vc.answersButtons.count {
-						print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nPlist: \(answersFromPlist[k])\n")
-						XCTAssert(vc.answersButtons[k].currentTitle! == answersFromPlist[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
+						print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nJson: \(answersFromJson[k])\n")
+						XCTAssert(vc.answersButtons[k].currentTitle! == answersFromJson[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
 					}
 					
 					vc.pickQuestion()
@@ -57,8 +57,19 @@ class QuestionsTests: XCTestCase {
 		}
 	}
 
+	func testSettingsEnabled() {
+		
+		let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController
+		settingsVC.view.reloadInputViews()
+		
+		XCTAssert(Settings.sharedInstance.musicEnabled == settingsVC.bgMusicSwitch.isOn, "Background music switch not working")
+		XCTAssert(Settings.sharedInstance.parallaxEnabled == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")
+		XCTAssert(Settings.sharedInstance.darkThemeEnabled == settingsVC.darkThemeSwitch.isOn, "Dark theme switch not working")
+		XCTAssert(Settings.sharedInstance.hapticFeedbackEnabled == settingsVC.hapticFeedbackSwitch.isOn, "Haptic feedback switch not working")
+	}
+	
 	func testSettingsSwitchAction() {
-
+		
 		if let bgMusic = Audio.bgMusic {
 			
 			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController

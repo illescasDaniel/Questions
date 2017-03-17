@@ -14,6 +14,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var mainMenu: UIButton!
 	@IBOutlet weak var helpButton: UIButton!
 	
+	let oldScore = Settings.sharedInstance.score
 	let statusBarHeight = UIApplication.shared.statusBarFrame.height
 	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
@@ -119,7 +120,7 @@ class QuestionsViewController: UIViewController {
 	@IBAction func helpAction() {
 		
 		// Use haptic feedback
-		if #available(iOS 10.0, *) {
+		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
 			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 			feedbackGenerator.impactOccurred()
 		}
@@ -245,7 +246,7 @@ class QuestionsViewController: UIViewController {
 	func pickQuestion() {
 		
 		// Restore
-		UIView.animate(withDuration: 0.6) {
+		UIView.animate(withDuration: 0.75) {
 			self.answersButtons.forEach { $0.alpha = 1 }
 			
 			if Settings.sharedInstance.score >= 5 {
@@ -300,6 +301,7 @@ class QuestionsViewController: UIViewController {
 		incorrectAnswers = 0
 		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
 		quiz = set.objectEnumerator()
+		Settings.sharedInstance.score = oldScore
 		pickQuestion()
 	}
 	
@@ -309,23 +311,25 @@ class QuestionsViewController: UIViewController {
 		
 		if answer == correctAnswer {
 			correctAnswers += 1
-			answersButtons[Int(answer)].backgroundColor = .darkGreen
 			Audio.correct?.play()
 		}
 		else {
 			incorrectAnswers += 1
-			answersButtons[Int(answer)].backgroundColor = .alternativeRed
 			Audio.incorrect?.play()
 		}
 		
+		UIView.animate(withDuration: 0.75) {
+			self.answersButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
+		}
+		
 		// Use haptic feedback
-		if #available(iOS 10.0, *) {
+		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
 			let feedbackGenerator = UINotificationFeedbackGenerator()
 			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
 		}
 		
 		// Restore the answers buttons to their original color
-		UIView.animate(withDuration: 0.6) {
+		UIView.animate(withDuration: 0.75) {
 			self.answersButtons[Int(answer)].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
 		}
 		
@@ -349,7 +353,8 @@ class QuestionsViewController: UIViewController {
 	
 	func endOfQuestionsAlert() {
 		
-		let score = (correctAnswers * 20) - (incorrectAnswers * 10)
+		let helpScore = oldScore - Settings.sharedInstance.score
+		let score = (correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
 		let title = "Score: ".localized + "\(score) pts"
 		let message = "Correct answers: ".localized + "\(correctAnswers)" + "/" + "\(set.count)"
@@ -367,7 +372,7 @@ class QuestionsViewController: UIViewController {
 			alertViewController.addAction(repeatAction)
 		}
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(140)) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
 			self.present(alertViewController, animated: true, completion: nil)
 		}
 	}

@@ -9,6 +9,7 @@ class Settings: NSObject, NSCoding {
 	var score: Int = 0
 	var parallaxEnabled = true
 	var musicEnabled = true
+	var hapticFeedbackEnabled = true
 	var darkThemeEnabled = false
 
 	static var sharedInstance = Settings()
