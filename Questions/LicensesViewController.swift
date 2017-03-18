@@ -25,7 +25,7 @@ class LicensesViewController: UIViewController {
     }
 	
 	func setFrame() {
-		textView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.maxX, height: UIScreen.main.bounds.maxY)
+		textView.frame = UIScreen.main.bounds
 	}
 
 	func licensesAttributedText() -> NSMutableAttributedString {
@@ -63,4 +63,6 @@ class LicensesViewController: UIViewController {
 		
 		return attributedLicencesText
 	}
+	
+	@IBAction func unwindToLicenses(_ unwindSegue: UIStoryboardSegue) {	}
 }

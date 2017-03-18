@@ -13,10 +13,11 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
 	@IBOutlet weak var helpButton: UIButton!
+	@IBOutlet weak var blurView: UIVisualEffectView!
 	
 	let oldScore = Settings.sharedInstance.score
 	let statusBarHeight = UIApplication.shared.statusBarFrame.height
-	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
 	var correctAnswer = UInt8()
 	var correctAnswers = Int()
@@ -36,17 +37,16 @@ class QuestionsViewController: UIViewController {
 		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
 		quiz = set.objectEnumerator()
 		
-		// Saves the position where the blurView will be
-		for i in 0..<view.subviews.count where (view.subviews[i] == pauseView) {
-			blurViewPos = i - 1
-		}
-
+		blurView.frame = UIScreen.main.bounds
+		
 		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 	
 		goBack.setTitle("Go back".localized, for: .normal)
 		mainMenu.setTitle("Main menu".localized, for: .normal)
 		pauseButton.setTitle("Pause".localized, for: .normal)
+		pauseView.alpha = 0.0
+		blurView.alpha = 0.0
 		
 		// Theme settings
 		loadCurrentTheme()
@@ -60,10 +60,72 @@ class QuestionsViewController: UIViewController {
 		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-		pickQuestion()
 		
 		if Settings.sharedInstance.score < 5 {
 			helpButton.alpha = 0.4
+		}
+		
+		//addSwipeGestures()
+		
+		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		swipeUp.direction = .up
+		swipeUp.numberOfTouchesRequired = 2
+		self.view.addGestureRecognizer(swipeUp)
+		
+		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		swipeDown.direction = .down
+		swipeDown.numberOfTouchesRequired = 2
+		self.view.addGestureRecognizer(swipeDown)
+		
+		pickQuestion()
+	}
+
+	func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+		
+		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+
+			if darkThemeEnabled != true && (swipeGesture.direction == .down) {
+				Settings.sharedInstance.darkThemeEnabled = true
+				darkThemeEnabled = true
+			}
+			else if darkThemeEnabled && (swipeGesture.direction == .up) {
+				Settings.sharedInstance.darkThemeEnabled = false
+				darkThemeEnabled = false
+			}
+			else { return }
+			
+			UIView.animate(withDuration: 0.3) {
+				self.loadCurrentTheme()
+				self.setNeedsStatusBarAppearanceUpdate()
+			}
+		}
+	}
+
+	// If user shake the device, an alert to repeat the quiz pop ups
+	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+		if motion == .motionShake {
+			
+			let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
+			
+			if repeatTimes < 2 && (currentQuestion > 1) {
+				
+				if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+					let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+					feedbackGenerator.impactOccurred()
+				}
+				
+				let alertViewController = UIAlertController(title: "Repeat?".localized,
+				                                            message: "Do you want to start again?".localized,
+				                                            preferredStyle: .alert)
+				
+				let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
+				let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
+				
+				alertViewController.addAction(okAction)
+				alertViewController.addAction(cancelAction)
+				
+				present(alertViewController, animated: true, completion: nil)
+			}
 		}
 	}
 	
@@ -71,19 +133,6 @@ class QuestionsViewController: UIViewController {
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return darkThemeEnabled ? .lightContent : .default
-	}
-
-	override var shouldAutorotate: Bool {
-		
-		if !pauseView.isHidden {
-			view.subviews[blurViewPos].removeFromSuperview()
-			
-			let blurEffect = darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
-			let blurView = UIVisualEffectView(effect: blurEffect)
-			blurView.frame = UIScreen.main.bounds
-			view.insertSubview(blurView, at: blurViewPos)
-		}
-		return true
 	}
 
 	// MARK: IBActions
@@ -95,25 +144,17 @@ class QuestionsViewController: UIViewController {
 
 	@IBAction func pauseMenu() {
 		
-		let title = pauseView.isHidden ? "Continue" : "Pause"
+		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
-
+		
 		// BLURRED BACKGROUND for pause menu
-		/* Note: if this you want to remove the view and block the buttons you have to change the property .isEnabled to false of each button */
-
-		if pauseView.isHidden {
-			let blurEffect = darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
-			let blurView = UIVisualEffectView(effect: blurEffect)
-			blurView.frame = UIScreen.main.bounds
-			view.insertSubview(blurView, at: blurViewPos)
-		}
-		else {
-			view.subviews[blurViewPos].removeFromSuperview()
-		}
 		
-		pauseView.isHidden = !pauseView.isHidden
-		
-		let newVolume = pauseView.isHidden ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
+		UIView.animate(withDuration: 0.2) {
+			self.pauseView.alpha = (self.pauseView.alpha == 0.0) ? 0.9 : 0.0
+			self.blurView.alpha = (self.blurView.alpha == 0.0) ? 1.0 : 0.0
+		}
+	
+		let newVolume = (pauseView.alpha == 0.0) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
@@ -170,7 +211,6 @@ class QuestionsViewController: UIViewController {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, for: .normal)
 			}
-			
 			Settings.sharedInstance.musicEnabled = bgMusic.isPlaying
 		}
 	}
@@ -201,16 +241,16 @@ class QuestionsViewController: UIViewController {
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
 		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
-		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGrey
+		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGray
 		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
 		answerButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
-		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGrey
+		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGray
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .black : .darkGray, for: .normal)
 									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
 	}
 	
 	func showPauseMenu() {
-		if (pauseView.isHidden) {
+		if pauseView.alpha == 0.0 {
 			pauseMenu()
 		}
 	}
@@ -241,6 +281,8 @@ class QuestionsViewController: UIViewController {
 		let statusBarHeight = isPortrait ? self.statusBarHeight : 0.0
 		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
+		
+		blurView.frame = UIScreen.main.bounds
 	}
 	
 	func pickQuestion() {

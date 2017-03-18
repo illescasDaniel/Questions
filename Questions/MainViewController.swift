@@ -30,6 +30,10 @@ class MainViewController: UIViewController {
 		else {
 			scoreLabel.textColor = .darkGreen
 		}
+		
+		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
+		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
 	}
 	
 	override func viewDidLoad() {
@@ -45,11 +49,6 @@ class MainViewController: UIViewController {
 		
 		if Settings.sharedInstance.parallaxEnabled {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
-		}
-		
-		if Settings.sharedInstance.darkThemeEnabled {
-			navigationController?.navigationBar.barStyle = .black
-			navigationController?.navigationBar.tintColor = .orange
 		}
 
 		// Initialize sounds

@@ -4,33 +4,36 @@ class TopicsViewController: UITableViewController {
 
 	// MARK: Properties
 	
-	var cell: UITableViewCell?
-	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 
 	// MARK: View life cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		self.navigationItem.title = "Topics".localized
-		
-		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
+		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		tableView.reloadData()
+	}
+	
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return Quiz.quizzes.count
 	}
 	
+	// MARK: UITableViewDelegate
+	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
+		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
 		cell?.textLabel?.text = Quiz.quizzes[indexPath.row].name.localized
 		
-		
-		// Load theme 
+		// Load theme
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
 		cell?.textLabel?.textColor = darkThemeEnabled ? .white : .black
 		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
@@ -41,6 +44,23 @@ class TopicsViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+	}
+	
+	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+		
+		let cell = tableView.cellForRow(at: indexPath)
+		
+		let cellColor: UIColor = darkThemeEnabled ? .lightGray : .highlighedGray
+		cell?.backgroundColor = cellColor
+		
+		let view = UIView()
+		view.backgroundColor = cellColor
+		cell?.selectedBackgroundView = view
+	}
+
+	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath)
+		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
 	}
 	
 	// MARK: UIStoryboardSegue Handling

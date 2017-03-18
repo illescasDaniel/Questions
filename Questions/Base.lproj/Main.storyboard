@@ -217,7 +217,7 @@ Incorrect answers: X
 
 *Only available on certain devices.</string>
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="RlA-wW-96C">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="RlA-wW-96C">
                                         <rect key="frame" x="0.0" y="35" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RlA-wW-96C" id="UPD-s3-LjW">
@@ -336,33 +336,23 @@ Incorrect answers: X
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="MLr-FG-rd8">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="licensesCell" id="MLr-FG-rd8">
                                         <rect key="frame" x="0.0" y="211" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MLr-FG-rd8" id="rBG-xV-rLD">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="381" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKt-Ka-mfE">
-                                                    <rect key="frame" x="20" y="5" width="394" height="33"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="394" id="0EE-mj-9Du"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Licenses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anA-G4-TTq">
+                                                    <rect key="frame" x="20" y="12" width="67.666666666666671" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <state key="normal" title="Licenses">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="PsA-oj-ftn" kind="show" id="BSl-Db-GgG">
-                                                            <segue key="commit" inheritsFrom="parent" id="3fp-hp-4xT"/>
-                                                            <segue key="preview" inheritsFrom="commit" id="cI8-tY-yZz"/>
-                                                        </segue>
-                                                    </connections>
-                                                </button>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="FKt-Ka-mfE" firstAttribute="centerY" secondItem="rBG-xV-rLD" secondAttribute="centerY" id="4nb-o1-pd9"/>
-                                                <constraint firstItem="FKt-Ka-mfE" firstAttribute="leading" secondItem="rBG-xV-rLD" secondAttribute="leadingMargin" constant="12" id="p66-81-ErC"/>
+                                                <constraint firstItem="anA-G4-TTq" firstAttribute="leading" secondItem="rBG-xV-rLD" secondAttribute="leadingMargin" constant="12" id="BSR-J7-ese"/>
+                                                <constraint firstItem="anA-G4-TTq" firstAttribute="centerY" secondItem="rBG-xV-rLD" secondAttribute="centerY" constant="0.25" id="oe6-AN-ki1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -409,13 +399,14 @@ Incorrect answers: X
                         <outlet property="darkThemeSwitch" destination="7jI-Mw-v3H" id="IT6-td-fKs"/>
                         <outlet property="hapticFeedbackLabel" destination="faz-IF-Apt" id="i94-7F-gPb"/>
                         <outlet property="hapticFeedbackSwitch" destination="twC-QC-wgR" id="jLM-ZD-Vb7"/>
-                        <outlet property="licensesButton" destination="FKt-Ka-mfE" id="Ufi-OJ-Tel"/>
                         <outlet property="licensesCell" destination="MLr-FG-rd8" id="Mox-aw-UeW"/>
+                        <outlet property="licensesLabel" destination="anA-G4-TTq" id="yi1-ol-gvT"/>
                         <outlet property="parallaxEffectLabel" destination="2Ja-CO-1Hk" id="vTs-ML-Qy3"/>
                         <outlet property="parallaxEffectSwitch" destination="q2x-0A-rbl" id="PbY-vH-7bk"/>
                         <outlet property="resetGameButton" destination="yKD-0v-sqg" id="azu-M5-PKp"/>
                         <outlet property="settingsNavItem" destination="opp-aP-nRJ" id="Nvr-l4-tTA"/>
                         <segue destination="o8y-Tn-NTu" kind="unwind" identifier="refreshMainMenu" unwindAction="unwindToMainMenu:" id="fQ3-AH-O7q"/>
+                        <segue destination="PsA-oj-ftn" kind="show" identifier="unwindToLicenses" id="Jiw-3x-VJw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -579,6 +570,28 @@ Incorrect answers: X
                                     <action selector="helpAction" destination="w1d-Yh-0lm" eventType="touchUpInside" id="TtK-Ap-jRD"/>
                                 </connections>
                             </button>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ep-v4-uci">
+                                <rect key="frame" x="72" y="259" width="272" height="218"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="5ks-sl-YM0">
+                                    <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1r4-uo-ifr">
+                                            <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="DfN-U8-f7l">
+                                                <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
                                 <rect key="frame" x="20" y="37" width="120" height="37.666666666666671"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -600,7 +613,7 @@ Incorrect answers: X
                                     <action selector="pauseMenu" destination="w1d-Yh-0lm" eventType="touchUpInside" id="VTe-zM-gEw"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSd-Pz-OF3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSd-Pz-OF3">
                                 <rect key="frame" x="87" y="304" width="240" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-gf-Ddb">
@@ -681,6 +694,7 @@ Incorrect answers: X
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ydF-gf-Ddb" firstAttribute="centerX" secondItem="4NN-TN-OZq" secondAttribute="centerX" id="29Z-Ff-lxh"/>
                             <constraint firstItem="K5D-zP-xHR" firstAttribute="top" secondItem="WNe-2J-DRe" secondAttribute="bottom" constant="25" id="BLF-LQ-G7u"/>
@@ -695,6 +709,7 @@ Incorrect answers: X
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="9ep-v4-uci" id="Dpf-2X-TYz"/>
                         <outlet property="goBack" destination="gby-II-zy5" id="mzX-tp-eBo"/>
                         <outlet property="helpButton" destination="9qc-tm-qF0" id="osh-JF-0Dk"/>
                         <outlet property="mainMenu" destination="ydF-gf-Ddb" id="3sc-5V-ytk"/>
@@ -703,25 +718,24 @@ Incorrect answers: X
                         <outlet property="pauseView" destination="qSd-Pz-OF3" id="z2r-XG-alu"/>
                         <outlet property="questionLabel" destination="ecH-y2-fsh" id="pWU-bj-jbR"/>
                         <outlet property="remainingQuestionsLabel" destination="K5D-zP-xHR" id="nsW-zW-2EW"/>
-                        <outletCollection property="answerButtons" destination="Hu1-Lj-Dsc" id="C2S-Rq-qp4"/>
-                        <outletCollection property="answerButtons" destination="srs-vU-0Xc" id="zpx-0p-Ujo"/>
-                        <outletCollection property="answerButtons" destination="UdX-im-E3g" id="4Ck-l9-l6U"/>
-                        <outletCollection property="answerButtons" destination="5bF-eX-HNQ" id="Z1Q-MP-lok"/>
+                        <outletCollection property="answerButtons" destination="Hu1-Lj-Dsc" collectionClass="NSMutableArray" id="C2S-Rq-qp4"/>
+                        <outletCollection property="answerButtons" destination="srs-vU-0Xc" collectionClass="NSMutableArray" id="zpx-0p-Ujo"/>
+                        <outletCollection property="answerButtons" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="4Ck-l9-l6U"/>
+                        <outletCollection property="answerButtons" destination="5bF-eX-HNQ" collectionClass="NSMutableArray" id="Z1Q-MP-lok"/>
                         <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuizSelector:" id="Aqe-tI-lWt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>
                 <exit id="yUI-wU-QrH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2183" y="660"/>
+            <point key="canvasLocation" x="2182.608695652174" y="659.51086956521749"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg" width="1853" height="1853"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0X5-qD-MN0"/>
         <segue reference="7d1-l5-eCT"/>
-        <segue reference="BSl-Db-GgG"/>
+        <segue reference="0X5-qD-MN0"/>
     </inferredMetricsTieBreakers>
 </document>

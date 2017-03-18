@@ -13,6 +13,7 @@ extension UIColor {
 	static let coolBlue = UIColor(red: 80/255, green: 165/255, blue: 216/255, alpha: 1.0)
 	static let warmYellow = UIColor(red: 253/255, green: 237/255, blue: 100/255, alpha: 1.0)
 	static let warmColor = UIColor(red: 244/255, green: 196/255, blue: 92/255, alpha: 1.0)
-	static let veryLightGrey = UIColor(red: 0.93, green: 0.93, blue: 0.95, alpha: 1.0)
-	static let veryVeryLightGrey = UIColor(red: 0.98, green: 0.98, blue: 0.97, alpha: 1.0)
+	static let highlighedGray = UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+	static let veryLightGray = UIColor(red: 0.93, green: 0.93, blue: 0.95, alpha: 1.0)
+	static let veryVeryLightGray = UIColor(red: 0.98, green: 0.98, blue: 0.97, alpha: 1.0)
 }

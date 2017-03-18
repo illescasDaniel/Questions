@@ -39,6 +39,8 @@
 "Not enough points (5 needed)" = "Puntos insuficientes (5 al menos)";
 "Maximum help tries per question reached" = "Nº máximo de intentos de ayuda por pregunta alcanzado";
 
+"Repeat?" = "¿Repetir?";
+"Do you want to start again?" = "¿Quieres empezar de nuevo?";
 "Correct answers: " = "Respuestas correctas: ";
 "Score: " = "Puntuación: ";
 "Repeat" = "Repetir";

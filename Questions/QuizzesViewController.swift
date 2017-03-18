@@ -4,10 +4,9 @@ class QuizzesViewController: UITableViewController {
 	
 	// MARK: Properties
 	
-	var cell: UITableViewCell?
 	var currentTopicIndex = Int()
 	var setCount = Int()
-	let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	
 	// MARK: View life cycle
 	
@@ -16,9 +15,15 @@ class QuizzesViewController: UITableViewController {
 		
 		self.navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
 		setCount = Quiz.quizzes[currentTopicIndex].contents.count
-		
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
+		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
 		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
 		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		tableView.reloadData()
 	}
 	
 	// MARK: UITableViewDataSource
@@ -33,7 +38,7 @@ class QuizzesViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
+		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
 		cell?.textLabel?.text = "Set \(indexPath.row)"
 		
 		fillCompletedSets()
@@ -51,16 +56,33 @@ class QuizzesViewController: UITableViewController {
 		return cell ?? UITableViewCell()
 	}
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		fillCompletedSets()
-		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
-	}
-	
 	// MARK: UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
 		header.textLabel?.textColor = darkThemeEnabled ? .lightGray : .gray
+	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		fillCompletedSets()
+		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
+	}
+	
+	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+		
+		let cell = tableView.cellForRow(at: indexPath)
+		
+		let cellColor: UIColor = darkThemeEnabled ? .lightGray : .highlighedGray
+		cell?.backgroundColor = cellColor
+		
+		let view = UIView()
+		view.backgroundColor = cellColor
+		cell?.selectedBackgroundView = view
+	}
+	
+	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath)
+		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
 	}
 	
 	// MARK: UIStoryboardSegue Handling

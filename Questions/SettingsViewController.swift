@@ -7,11 +7,11 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var bgMusicLabel: UILabel!
 	@IBOutlet weak var hapticFeedbackLabel: UILabel!
 	@IBOutlet weak var parallaxEffectLabel: UILabel!
+	@IBOutlet weak var licensesLabel: UILabel!
 	@IBOutlet weak var darkThemeLabel: UILabel!
 	@IBOutlet weak var resetGameButton: UIButton!
-	@IBOutlet weak var licensesButton: UIButton!
 	var optionLabels: [UILabel]!
-	
+
 	var optionSwitches: [UISwitch]!
 	@IBOutlet weak var settingsNavItem: UINavigationItem!
 	@IBOutlet weak var bgMusicSwitch: UISwitch!
@@ -28,8 +28,8 @@ class SettingsViewController: UITableViewController {
 		initializeLabelNames()
 		licensesCell.accessoryType = .disclosureIndicator
 		
-		optionLabels = [bgMusicLabel, hapticFeedbackLabel, parallaxEffectLabel, darkThemeLabel,
-		                 resetGameButton.titleLabel ?? UILabel(), licensesButton.titleLabel ?? UILabel()]
+		optionLabels = [bgMusicLabel, hapticFeedbackLabel, parallaxEffectLabel, darkThemeLabel, licensesLabel,
+		                 resetGameButton.titleLabel ?? UILabel()]
 		
 		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 
@@ -68,11 +68,37 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: UITableViewDelegate
 	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if optionLabels[indexPath.row].text == "Licenses".localized {
+			performSegue(withIdentifier: "unwindToLicenses", sender: self)
+		}
+	}
+	
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-		
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = darkThemeSwitch.isOn ? .lightGray : .gray
 		footer?.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
+	}
+	
+	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+		
+		let cell = tableView.cellForRow(at: indexPath)
+			
+		let cellColor: UIColor = darkThemeSwitch.isOn ? .lightGray : .highlighedGray
+		cell?.backgroundColor = cellColor
+		
+		let view = UIView()
+		view.backgroundColor = cellColor
+		cell?.selectedBackgroundView = view
+	}
+	
+	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+		let cell = tableView.cellForRow(at: indexPath)
+		cell?.backgroundColor = darkThemeSwitch.isOn ? .gray : .white
+	}
+	
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		return indexPath.row >= optionSwitches.count
 	}
 	
 	// MARK: Alerts
@@ -137,7 +163,7 @@ class SettingsViewController: UITableViewController {
 		parallaxEffectLabel.text = "Parallax effect".localized
 		darkThemeLabel.text = "Dark theme".localized
 		resetGameButton.setTitle("Reset game".localized, for: .normal)
-		licensesButton.setTitle("Licenses".localized, for: .normal)
+		licensesLabel.text = "Licenses".localized
 	}
 	
 	func setSwitchesToDefaultValue() {
@@ -153,7 +179,6 @@ class SettingsViewController: UITableViewController {
 			hapticFeedbackSwitch.isEnabled = false
 			Settings.sharedInstance.hapticFeedbackEnabled = false
 		}
-
 	}
 	
 	func loadCurrentTheme(animated: Bool) {
@@ -178,7 +203,6 @@ class SettingsViewController: UITableViewController {
 			
 			let textLabelColor: UIColor = self.darkThemeSwitch.isOn ? .white : .black
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
-			self.licensesButton.setTitleColor(textLabelColor, for: .normal)
 			
 			let switchTintColor: UIColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
 			self.optionSwitches.forEach { $0.onTintColor = switchTintColor }
