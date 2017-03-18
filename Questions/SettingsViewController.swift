@@ -33,6 +33,10 @@ class SettingsViewController: UITableViewController {
 		
 		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 
+		// If user enables Reduce Motion setting, the parallax effect switch updates its value
+		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch),
+		                                       name: NSNotification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
+		
 		setSwitchesToDefaultValue()
 		loadCurrentTheme(animated: false)
 	}
@@ -109,14 +113,13 @@ class SettingsViewController: UITableViewController {
 													message: "What do you want to reset?".localized,
 													preferredStyle: .actionSheet)
 		
-		let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-		let everythingAction = UIAlertAction(title: "Everything".localized, style: .destructive) { action in self.resetGameOptions() }
-		let statisticsAction = UIAlertAction(title: "Only statistics".localized, style: .default) {	action in self.resetGameStatistics() }
-		
-		alertViewController.addAction(cancelAction)
-		alertViewController.addAction(everythingAction)
-		alertViewController.addAction(statisticsAction)
-		
+		alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
+		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
+			self.resetGameOptions()
+		}
+		alertViewController.addAction(title: "Only Statistics", style: .default) { action in
+			self.resetGameStatistics()
+		}
 		present(alertViewController, animated: true, completion: nil)
 	}
 
@@ -156,19 +159,16 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	func initializeLabelNames() {
-		settingsNavItem.title = "Settings".localized
-		bgMusicLabel.text = "Background music".localized
-		hapticFeedbackLabel.text = "Haptic Feedback".localized + "*"
-		parallaxEffectLabel.text = "Parallax effect".localized
-		darkThemeLabel.text = "Dark theme".localized
-		resetGameButton.setTitle("Reset game".localized, for: .normal)
-		licensesLabel.text = "Licenses".localized
+	func setParallaxEffectSwitch() {
+		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
+		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.sharedInstance.parallaxEnabled
+		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
+		parallaxEffectSwitch.isEnabled = !reduceMotionEnabled
 	}
 	
 	func setSwitchesToDefaultValue() {
 		
-		parallaxEffectSwitch.setOn(Settings.sharedInstance.parallaxEnabled, animated: true)
+		setParallaxEffectSwitch()
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
@@ -179,6 +179,16 @@ class SettingsViewController: UITableViewController {
 			hapticFeedbackSwitch.isEnabled = false
 			Settings.sharedInstance.hapticFeedbackEnabled = false
 		}
+	}
+	
+	func initializeLabelNames() {
+		settingsNavItem.title = "Settings".localized
+		bgMusicLabel.text = "Background music".localized
+		hapticFeedbackLabel.text = "Haptic Feedback".localized + "*"
+		parallaxEffectLabel.text = "Parallax effect".localized
+		darkThemeLabel.text = "Dark theme".localized
+		resetGameButton.setTitle("Reset game".localized, for: .normal)
+		licensesLabel.text = "Licenses".localized
 	}
 	
 	func loadCurrentTheme(animated: Bool) {
@@ -247,7 +257,11 @@ class SettingsViewController: UITableViewController {
 		Settings.sharedInstance.darkThemeEnabled = false
 		Settings.sharedInstance.hapticFeedbackEnabled = true
 		
-		parallaxEffectSwitch.setOn(true, animated: true)
+		
+		let reduceMotion = UIAccessibilityIsReduceMotionEnabled()
+		parallaxEffectSwitch.setOn(!reduceMotion, animated: true)
+		parallaxEffectSwitch.isEnabled = !reduceMotion
+		
 		darkThemeSwitch.setOn(false, animated: true)
 		bgMusicSwitch.setOn(true, animated: true)
 		

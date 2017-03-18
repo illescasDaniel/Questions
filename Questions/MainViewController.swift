@@ -88,9 +88,7 @@ class MainViewController: UIViewController {
 													message: "INSTRUCTIONS_TEXT".localized,
 													preferredStyle: .alert)
 		
-		let okAction = UIAlertAction(title: "OK".localized, style: .default, handler: nil)
-		alertViewController.addAction(okAction)
-
+		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
 		present(alertViewController, animated: true, completion: nil)
 	}
 

@@ -24,7 +24,7 @@
 "RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";
 "What do you want to reset?" = "¿Qué desea reiniciar?";
 "Everything" = "Todos los datos";
-"Only statistics" = "Sólo estadísticas";
+"Only Statistics" = "Sólo estadísticas";
 "Cancel" = "Cancelar";
 "Statistics" = "Estadísticas";
 "Correct answers" = "Respuestas correctas";

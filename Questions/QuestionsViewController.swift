@@ -65,41 +65,12 @@ class QuestionsViewController: UIViewController {
 			helpButton.alpha = 0.4
 		}
 		
-		//addSwipeGestures()
-		
-		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-		swipeUp.direction = .up
-		swipeUp.numberOfTouchesRequired = 2
-		self.view.addGestureRecognizer(swipeUp)
-		
-		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
-		swipeDown.direction = .down
-		swipeDown.numberOfTouchesRequired = 2
-		self.view.addGestureRecognizer(swipeDown)
+		addSwipeGestures()
 		
 		pickQuestion()
 	}
 
-	func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-		
-		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-
-			if darkThemeEnabled != true && (swipeGesture.direction == .down) {
-				Settings.sharedInstance.darkThemeEnabled = true
-				darkThemeEnabled = true
-			}
-			else if darkThemeEnabled && (swipeGesture.direction == .up) {
-				Settings.sharedInstance.darkThemeEnabled = false
-				darkThemeEnabled = false
-			}
-			else { return }
-			
-			UIView.animate(withDuration: 0.3) {
-				self.loadCurrentTheme()
-				self.setNeedsStatusBarAppearanceUpdate()
-			}
-		}
-	}
+	// MARK: UIResponder
 
 	// If user shake the device, an alert to repeat the quiz pop ups
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -118,11 +89,8 @@ class QuestionsViewController: UIViewController {
 				                                            message: "Do you want to start again?".localized,
 				                                            preferredStyle: .alert)
 				
-				let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
-				let cancelAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-				
-				alertViewController.addAction(okAction)
-				alertViewController.addAction(cancelAction)
+				alertViewController.addAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
+				alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
 				
 				present(alertViewController, animated: true, completion: nil)
 			}
@@ -217,20 +185,45 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Convenience
 	
-	func showOKAlertWith(title: String, message: String) {
-		let alertViewController = UIAlertController(title: title.localized,
-		                                            message: message.localized,
-		                                            preferredStyle: .alert)
-		
-		alertViewController.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: nil))
-		present(alertViewController, animated: true, completion: nil)
-	}
-	
 	func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
 		if currentSetIndex < name.count {
 			return name[currentSetIndex].shuffled() as NSArray
 		}
 		return NSArray()
+	}
+	
+	func addSwipeGestures() {
+		
+		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		swipeUp.direction = .up
+		swipeUp.numberOfTouchesRequired = 2
+		self.view.addGestureRecognizer(swipeUp)
+		
+		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		swipeDown.direction = .down
+		swipeDown.numberOfTouchesRequired = 2
+		self.view.addGestureRecognizer(swipeDown)
+	}
+	
+	func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+		
+		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+			
+			if !darkThemeEnabled && (swipeGesture.direction == .down) {
+				Settings.sharedInstance.darkThemeEnabled = true
+				darkThemeEnabled = true
+			}
+			else if darkThemeEnabled && (swipeGesture.direction == .up) {
+				Settings.sharedInstance.darkThemeEnabled = false
+				darkThemeEnabled = false
+			}
+			else { return }
+			
+			UIView.animate(withDuration: 0.3) {
+				self.loadCurrentTheme()
+				self.setNeedsStatusBarAppearanceUpdate()
+			}
+		}
 	}
 	
 	func loadCurrentTheme() {
@@ -403,19 +396,25 @@ class QuestionsViewController: UIViewController {
 		
 		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		
-		let okAction = UIAlertAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
-		alertViewController.addAction(okAction)
+		alertViewController.addAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
 		
 		if (correctAnswers < set.count) && (repeatTimes < 2) && !isSetCompleted() {
 			
 			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
-			let repeatAction = UIAlertAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
-			
-			alertViewController.addAction(repeatAction)
+			alertViewController.addAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
 		}
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
 			self.present(alertViewController, animated: true, completion: nil)
 		}
+	}
+	
+	func showOKAlertWith(title: String, message: String) {
+		let alertViewController = UIAlertController(title: title.localized,
+		                                            message: message.localized,
+		                                            preferredStyle: .alert)
+		
+		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
+		present(alertViewController, animated: true, completion: nil)
 	}
 }

@@ -5,6 +5,8 @@ class LicensesViewController: UIViewController {
 	@IBOutlet weak var licensesNavItem: UINavigationItem!
 	@IBOutlet weak var textView: UITextView!
 	
+	// MARK: View life cycle
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -23,6 +25,8 @@ class LicensesViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setFrame),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
     }
+	
+	// MARK: Convenience
 	
 	func setFrame() {
 		textView.frame = UIScreen.main.bounds
@@ -63,6 +67,8 @@ class LicensesViewController: UIViewController {
 		
 		return attributedLicencesText
 	}
+	
+	// MARK: UnwindSegue
 	
 	@IBAction func unwindToLicenses(_ unwindSegue: UIStoryboardSegue) {	}
 }
