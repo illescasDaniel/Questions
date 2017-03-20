@@ -14,6 +14,32 @@ class MainViewController: UIViewController {
 	static var backgroundView: UIView?
 	
 	// MARK: View life cycle
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
+		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
+			Settings.sharedInstance = mySettings
+		}
+		
+		// Add parallax effect to background image view
+		MainViewController.backgroundView = view.subviews.first
+		
+		if Settings.sharedInstance.parallaxEnabled {
+			MainViewController.addParallax(toView: MainViewController.backgroundView)
+		}
+
+		initializeSounds()
+		initializeLables()
+		
+		// Set buttons and label position and size
+		setFramesAndPosition()
+		
+		// If user rotates screen, the buttons position and sizes are recalculated
+		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
+		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		
@@ -35,50 +61,6 @@ class MainViewController: UIViewController {
 		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
 		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
 	}
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
-		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
-			Settings.sharedInstance = mySettings
-		}
-		
-		// Add parallax effect to background image view
-		MainViewController.backgroundView = view.subviews.first
-		
-		if Settings.sharedInstance.parallaxEnabled {
-			MainViewController.addParallax(toView: MainViewController.backgroundView)
-		}
-
-		// Initialize sounds
-		Audio.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
-		Audio.correct = AVAudioPlayer(file: "correct", type: "mp3")
-		Audio.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
-
-		Audio.bgMusic?.volume = Audio.bgMusicVolume
-		Audio.correct?.volume = 0.10
-		Audio.incorrect?.volume = 0.25
-		
-		if Settings.sharedInstance.musicEnabled {
-			Audio.bgMusic?.play()
-		}
-		
-		Audio.bgMusic?.numberOfLoops = -1
-
-		// Set button titles
-		startButton.setTitle("START GAME".localized, for: .normal)
-		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
-		settingsButton.setTitle("SETTINGS".localized, for: .normal)
-		self.navigationItem.title = "Main menu".localized
-		
-		// Set buttons and label position and size
-		setFramesAndPosition()
-		
-		// If user rotates screen, the buttons position and sizes are recalculated
-		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
-		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-	}
 
 	// MARK: Alerts
 	
@@ -99,6 +81,30 @@ class MainViewController: UIViewController {
 	}
 
 	// MARK: Convenience
+	
+	func initializeSounds() {
+		
+		Audio.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
+		Audio.correct = AVAudioPlayer(file: "correct", type: "mp3")
+		Audio.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
+		
+		Audio.bgMusic?.volume = Audio.bgMusicVolume
+		Audio.correct?.volume = 0.10
+		Audio.incorrect?.volume = 0.25
+		
+		if Settings.sharedInstance.musicEnabled {
+			Audio.bgMusic?.play()
+		}
+		
+		Audio.bgMusic?.numberOfLoops = -1
+	}
+	
+	func initializeLables() {
+		startButton.setTitle("START GAME".localized, for: .normal)
+		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
+		settingsButton.setTitle("SETTINGS".localized, for: .normal)
+		self.navigationItem.title = "Main menu".localized
+	}
 
 	func setFramesAndPosition() {
 		

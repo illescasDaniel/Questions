@@ -26,7 +26,7 @@ class QuestionsTests: XCTestCase {
 
 		for k in 0..<Quiz.quizzes.count {
 			
-			for i in 0..<Quiz.quizzes[k].contents.count {
+			for i in 0..<Quiz.quizzes[k].content.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
@@ -46,9 +46,9 @@ class QuestionsTests: XCTestCase {
 					XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
 					
 					// TEST ANSWERS
-					for k in 0..<vc.answersButtons.count {
-						print("·· Answer \(k):\nLabel: \(vc.answersButtons[k].currentTitle!)\nJson: \(answersFromJson[k])\n")
-						XCTAssert(vc.answersButtons[k].currentTitle! == answersFromJson[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
+					for k in 0..<vc.answerButtons.count {
+						print("·· Answer \(k):\nLabel: \(vc.answerButtons[k].currentTitle!)\nJson: \(answersFromJson[k])\n")
+						XCTAssert(vc.answerButtons[k].currentTitle! == answersFromJson[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
 					}
 					
 					vc.pickQuestion()
