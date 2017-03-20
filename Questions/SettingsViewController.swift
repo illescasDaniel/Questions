@@ -109,8 +109,7 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func resetGameAlert() {
 		
-		let alertViewController = UIAlertController(title: "",
-													message: "What do you want to reset?".localized,
+		let alertViewController = UIAlertController(title: "", message: "What do you want to reset?".localized,
 													preferredStyle: .actionSheet)
 		
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)

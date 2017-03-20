@@ -14,7 +14,7 @@ class QuizzesViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		self.navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
-		setCount = Quiz.quizzes[currentTopicIndex].contents.count
+		setCount = Quiz.quizzes[currentTopicIndex].content.count
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +89,7 @@ class QuizzesViewController: UITableViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
-		if let currentSetIndex = sender as? Int , segue.identifier == "selectQuiz" {
+		if let currentSetIndex = sender as? Int, segue.identifier == "selectQuiz" {
 			let controller = segue.destination as! QuestionsViewController
 			controller.currentTopicIndex = currentTopicIndex
 			controller.currentSetIndex = currentSetIndex

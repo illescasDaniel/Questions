@@ -34,7 +34,7 @@ class QuestionsViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
+		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
 		quiz = set.objectEnumerator()
 		
 		blurView.frame = UIScreen.main.bounds
@@ -74,6 +74,7 @@ class QuestionsViewController: UIViewController {
 
 	// If user shake the device, an alert to repeat the quiz pop ups
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+		
 		if motion == .motionShake {
 			
 			let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
@@ -114,8 +115,6 @@ class QuestionsViewController: UIViewController {
 		
 		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
-		
-		// BLURRED BACKGROUND for pause menu
 		
 		UIView.animate(withDuration: 0.2) {
 			self.pauseView.alpha = (self.pauseView.alpha == 0.0) ? 0.9 : 0.0
@@ -334,7 +333,7 @@ class QuestionsViewController: UIViewController {
 		repeatTimes += 1
 		correctAnswers = 0
 		incorrectAnswers = 0
-		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].contents)
+		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
 		quiz = set.objectEnumerator()
 		Settings.sharedInstance.score = oldScore
 		pickQuestion()
