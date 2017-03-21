@@ -34,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if #available(iOS 9.0, *) {
 			
 			let nightMode = UIMutableApplicationShortcutItem(type: "DarkTheme",
-															 localizedTitle: "Night Mode".localized,
-															 localizedSubtitle: "Switches to dark theme".localized,
+															 localizedTitle: "Dark Theme".localized,
+															 localizedSubtitle: nil,
 															 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"),
 															 userInfo: nil)
 			
 			let lightMode = UIMutableApplicationShortcutItem(type: "LightTheme",
-															 localizedTitle: "Light Mode".localized,
-															 localizedSubtitle: "Switches to light theme".localized,
+															 localizedTitle: "Light Theme".localized,
+															 localizedSubtitle: nil,
 															 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"),
 															 userInfo: nil)
 			

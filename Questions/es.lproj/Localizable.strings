@@ -1,10 +1,8 @@
 
 /* UI App Icon shorcuts */
 
-"Night Mode" = "Modo nocturno";
-"Switches to dark theme" = "Cambia al tema oscuro";
-"Light Mode" = "Modo diurno";
-"Switches to light theme" = "Cambia al tema claro";
+"Dark Theme" = "Tema Oscuro";
+"Light Theme" = "Tema Claro";
 
 /* -- UI ELEMENTS -- */
 

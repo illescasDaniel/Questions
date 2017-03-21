@@ -81,7 +81,7 @@ class QuestionsViewController: UIViewController {
 			
 			let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
 			
-			if repeatTimes < 2 && (currentQuestion > 1) {
+			if repeatTimes < 2 && currentQuestion > 1 {
 				
 				if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
 					let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -96,6 +96,9 @@ class QuestionsViewController: UIViewController {
 				alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
 				
 				present(alertViewController, animated: true, completion: nil)
+			}
+			else if repeatTimes >= 2 {
+				showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
 			}
 		}
 	}
