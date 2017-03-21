@@ -53,13 +53,14 @@ class QuestionsViewController: UIViewController {
 		setButtonsAndLabelsPosition()
 		
 		// If user minimize the app, the pause menu shows up
-		NotificationCenter.default.addObserver(self, selector: #selector(self.showPauseMenu),
+		NotificationCenter.default.addObserver(self, selector: #selector(showPauseMenu),
 												name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 		
 		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
-		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
+		NotificationCenter.default.addObserver(self, selector: #selector(setButtonsAndLabelsPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
+		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
 		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		
@@ -70,6 +71,13 @@ class QuestionsViewController: UIViewController {
 		addSwipeGestures()
 		
 		pickQuestion()
+	}
+	
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
 	}
 
 	// MARK: UIResponder
@@ -117,17 +125,7 @@ class QuestionsViewController: UIViewController {
 	@IBAction func answer4Action() { verify(answer: 3) }
 
 	@IBAction func pauseMenu() {
-		
-		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
-		pauseButton.setTitle(title.localized, for: .normal)
-		
-		UIView.animate(withDuration: 0.2) {
-			self.pauseView.alpha = (self.pauseView.alpha == 0.0) ? 0.9 : 0.0
-			self.blurView.alpha = (self.blurView.alpha == 0.0) ? 1.0 : 0.0
-		}
-	
-		let newVolume = (pauseView.alpha == 0.0) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
-		Audio.setVolumeLevel(to: newVolume)
+		pauseMenuAction()
 	}
 	
 	@IBAction func helpAction() {
@@ -189,6 +187,21 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Convenience
 	
+	func pauseMenuAction(animated: Bool = true) {
+		
+		let duration: TimeInterval = animated ? 0.2 : 0.0
+		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
+		pauseButton.setTitle(title.localized, for: .normal)
+		
+		UIView.animate(withDuration: duration) {
+			self.pauseView.alpha = (self.pauseView.alpha == 0.0) ? 0.9 : 0.0
+			self.blurView.alpha = (self.blurView.alpha == 0.0) ? 1.0 : 0.0
+		}
+		
+		let newVolume = (pauseView.alpha == 0.0) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
+		Audio.setVolumeLevel(to: newVolume)
+	}
+	
 	func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
 		if currentSetIndex < name.count {
 			return name[currentSetIndex].shuffled() as NSArray
@@ -232,7 +245,6 @@ class QuestionsViewController: UIViewController {
 	
 	func loadCurrentTheme() {
 		
-		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
 		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 		
 		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
@@ -253,7 +265,7 @@ class QuestionsViewController: UIViewController {
 	
 	func showPauseMenu() {
 		if pauseView.alpha == 0.0 {
-			pauseMenu()
+			pauseMenuAction(animated: false)
 		}
 	}
 	

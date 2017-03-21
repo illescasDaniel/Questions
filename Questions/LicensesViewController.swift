@@ -11,22 +11,36 @@ class LicensesViewController: UIViewController {
         super.viewDidLoad()
 		
 		licensesNavItem.title = "Licenses".localized
-		textView.attributedText = licensesAttributedText()
 		
+		loadCurrentTheme()
+		textView.attributedText = licensesAttributedText()
+		textView.textAlignment = .center
+		textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+		
+		setFrame()
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(self.setFrame),
+		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+	
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
+	}
+	
+	// MARK: Convenience
+	
+	func loadCurrentTheme() {
 		let darkModeEnabled = Settings.sharedInstance.darkThemeEnabled
 		textView.backgroundColor = darkModeEnabled ? .gray : .white
 		textView.textColor = darkModeEnabled ? .white : .black
 		textView.tintColor = darkModeEnabled ? .warmYellow : .coolBlue
-		textView.textAlignment = .center
-		
-		textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
-		
-		setFrame()
-		NotificationCenter.default.addObserver(self, selector: #selector(self.setFrame),
-		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
-    }
-	
-	// MARK: Convenience
+	}
 	
 	func setFrame() {
 		textView.frame = UIScreen.main.bounds

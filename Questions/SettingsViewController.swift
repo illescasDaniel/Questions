@@ -34,7 +34,7 @@ class SettingsViewController: UITableViewController {
 		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 
 		// If user enables Reduce Motion setting, the parallax effect switch updates its value
-		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch),
+		NotificationCenter.default.addObserver(self, selector: #selector(setParallaxEffectSwitch),
 		                                       name: NSNotification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
@@ -44,6 +44,13 @@ class SettingsViewController: UITableViewController {
 		loadCurrentTheme(animated: false)
 	}
 
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
+	}
+	
 	// MARK: UITableViewDataSouce
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,7 +163,6 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchTheme() {
 		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
-		AppDelegate.nightModeEnabled = Settings.sharedInstance.darkThemeEnabled
 		loadCurrentTheme(animated: true)
 	}
 	
@@ -195,10 +201,8 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	func loadTheme() {
-		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
 		self.darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
-		
-		loadCurrentTheme(animated: true)
+		loadCurrentTheme(animated: false)
 	}
 	
 	func loadCurrentTheme(animated: Bool) {

@@ -20,6 +20,13 @@ class TopicsViewController: UITableViewController {
 		loadCurrentTheme()
 	}
 	
+	deinit {		
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
+	}
+	
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,7 +83,6 @@ class TopicsViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
 		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
 		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor

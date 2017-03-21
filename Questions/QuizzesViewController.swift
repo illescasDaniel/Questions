@@ -24,6 +24,13 @@ class QuizzesViewController: UITableViewController {
 		loadCurrentTheme()
 	}
 	
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
+	}
+	
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,7 +113,6 @@ class QuizzesViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
 		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
 		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor

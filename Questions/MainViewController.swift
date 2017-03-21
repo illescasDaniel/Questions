@@ -18,11 +18,6 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
-		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
-			Settings.sharedInstance = mySettings
-		}
-		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = view.subviews.first
 		
@@ -52,15 +47,19 @@ class MainViewController: UIViewController {
 		
 		if answersScore == 0 {
 			scoreLabel.textColor = .darkGray
-		}
-		else if answersScore < 0 {
+		} else if answersScore < 0 {
 			scoreLabel.textColor = .darkRed
-		}
-		else {
+		} else {
 			scoreLabel.textColor = .darkGreen
 		}
-		
 		loadTheme()
+	}
+	
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
 	}
 
 	// MARK: Alerts
@@ -136,7 +135,6 @@ class MainViewController: UIViewController {
 	}
 
 	func loadTheme() {
-		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
 		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
 		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor

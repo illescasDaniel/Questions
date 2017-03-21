@@ -5,31 +5,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	var wasPlaying = Bool()
-	static var nightModeEnabled = false
-	
-	func applicationDidEnterBackground(_ application: UIApplication) {
-		
-		if Audio.bgMusic?.isPlaying ?? false {
-			Audio.bgMusic?.pause()
-			wasPlaying = true
-		}
-		else {
-			wasPlaying = false
-		}
-		
-		guard Settings.sharedInstance.save() else {	print("Error saving settings"); return }
-	}
-	
-	func applicationDidBecomeActive(_ application: UIApplication) {
-		
-		if wasPlaying {
-			Audio.bgMusic?.play()
-		}
-	}
 	
 	// Home Screen Quick Actions [3D Touch]
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+		
+		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
+		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
+			Settings.sharedInstance = mySettings
+		}
 		
 		if #available(iOS 9.0, *) {
 			
@@ -62,10 +46,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if let itemType = ShortcutItemType(rawValue: shortcutItem.type) {
 			switch itemType {
 				case .DarkTheme:
-					AppDelegate.nightModeEnabled = true
+					Settings.sharedInstance.darkThemeEnabled = true
+					//AppDelegate.nightModeEnabled = true
 				case .LightTheme:
-					AppDelegate.nightModeEnabled = false
+					Settings.sharedInstance.darkThemeEnabled = false
+					//AppDelegate.nightModeEnabled = false
 			}
+		}
+	}
+	
+	func applicationDidEnterBackground(_ application: UIApplication) {
+		
+		if Audio.bgMusic?.isPlaying ?? false {
+			Audio.bgMusic?.pause()
+			wasPlaying = true
+		}
+		else {
+			wasPlaying = false
+		}
+		
+		guard Settings.sharedInstance.save() else {	print("Error saving settings"); return }
+	}
+	
+	func applicationDidBecomeActive(_ application: UIApplication) {
+		
+		if wasPlaying {
+			Audio.bgMusic?.play()
 		}
 	}
 }
