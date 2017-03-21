@@ -11,13 +11,13 @@ class TopicsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.navigationItem.title = "Topics".localized
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
-		tableView.reloadData()
+		loadCurrentTheme()
 	}
 	
 	// MARK: UITableViewDataSource
@@ -71,5 +71,15 @@ class TopicsViewController: UITableViewController {
 			let controller = segue.destination as! QuizzesViewController
 			controller.currentTopicIndex = topicIndex
 		}
+	}
+	
+	// MARK: Convenience
+	
+	func loadCurrentTheme() {
+		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
+		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
+		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		tableView.reloadData()
 	}
 }

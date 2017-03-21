@@ -55,11 +55,13 @@ class QuestionsViewController: UIViewController {
 		// If user minimize the app, the pause menu shows up
 		NotificationCenter.default.addObserver(self, selector: #selector(self.showPauseMenu),
 												name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-
 		
 		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setButtonsAndLabelsPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 		
 		if Settings.sharedInstance.score < 5 {
 			helpButton.alpha = 0.4
@@ -227,6 +229,9 @@ class QuestionsViewController: UIViewController {
 	
 	func loadCurrentTheme() {
 		
+		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
+		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		
 		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
 		
 		helpButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
@@ -239,6 +244,8 @@ class QuestionsViewController: UIViewController {
 		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGray
 		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .black : .darkGray, for: .normal)
 									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
+		
+		self.setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	func showPauseMenu() {

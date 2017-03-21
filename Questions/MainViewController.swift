@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
 	
 	static var parallaxEffect = UIMotionEffectGroup()
 	static var backgroundView: UIView?
-	
+
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
@@ -39,6 +39,9 @@ class MainViewController: UIViewController {
 		// If user rotates screen, the buttons position and sizes are recalculated
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -57,9 +60,7 @@ class MainViewController: UIViewController {
 			scoreLabel.textColor = .darkGreen
 		}
 		
-		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
-		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+		loadTheme()
 	}
 
 	// MARK: Alerts
@@ -134,6 +135,13 @@ class MainViewController: UIViewController {
 		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 	}
 
+	func loadTheme() {
+		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
+		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
+		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+	}
+	
 	static func addParallax(toView view: UIView?) {
 		
 		let xAmount = 25

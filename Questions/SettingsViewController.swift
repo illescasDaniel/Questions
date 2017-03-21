@@ -37,6 +37,9 @@ class SettingsViewController: UITableViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch),
 		                                       name: NSNotification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		
 		setSwitchesToDefaultValue()
 		loadCurrentTheme(animated: false)
 	}
@@ -153,6 +156,7 @@ class SettingsViewController: UITableViewController {
 
 	@IBAction func switchTheme() {
 		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
+		AppDelegate.nightModeEnabled = Settings.sharedInstance.darkThemeEnabled
 		loadCurrentTheme(animated: true)
 	}
 	
@@ -188,6 +192,13 @@ class SettingsViewController: UITableViewController {
 		darkThemeLabel.text = "Dark theme".localized
 		resetGameButton.setTitle("Reset game".localized, for: .normal)
 		licensesLabel.text = "Licenses".localized
+	}
+	
+	func loadTheme() {
+		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
+		self.darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
+		
+		loadCurrentTheme(animated: true)
 	}
 	
 	func loadCurrentTheme(animated: Bool) {

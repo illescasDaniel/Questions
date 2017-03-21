@@ -15,15 +15,13 @@ class QuizzesViewController: UITableViewController {
 		
 		self.navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
 		setCount = Quiz.quizzes[currentTopicIndex].content.count
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
+		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
-		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
-		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
-		tableView.reloadData()
+		loadCurrentTheme()
 	}
 	
 	// MARK: UITableViewDataSource
@@ -106,6 +104,16 @@ class QuizzesViewController: UITableViewController {
 	}
 	
 	// MARK: Convenience
+	
+	func loadCurrentTheme() {
+		Settings.sharedInstance.darkThemeEnabled = AppDelegate.nightModeEnabled
+		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
+		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
+		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		tableView.reloadData()
+	}
 	
 	func fillCompletedSets() {
 		let completedSetsCount = (Settings.sharedInstance.completedSets[currentTopicIndex]?.count) ?? 0
