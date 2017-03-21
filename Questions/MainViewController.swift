@@ -35,6 +35,7 @@ class MainViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
+		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
 		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 	}

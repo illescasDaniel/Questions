@@ -17,19 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		if #available(iOS 9.0, *) {
 			
-			let nightMode = UIMutableApplicationShortcutItem(type: "DarkTheme",
+			let darkTheme = UIMutableApplicationShortcutItem(type: "DarkTheme",
 															 localizedTitle: "Dark Theme".localized,
 															 localizedSubtitle: nil,
 															 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"),
 															 userInfo: nil)
 			
-			let lightMode = UIMutableApplicationShortcutItem(type: "LightTheme",
+			let lightTheme = UIMutableApplicationShortcutItem(type: "LightTheme",
 															 localizedTitle: "Light Theme".localized,
 															 localizedSubtitle: nil,
 															 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"),
 															 userInfo: nil)
 			
-			application.shortcutItems = [nightMode, lightMode]
+			application.shortcutItems = [darkTheme, lightTheme]
 		}
 		
 		return true
@@ -47,10 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			switch itemType {
 				case .DarkTheme:
 					Settings.sharedInstance.darkThemeEnabled = true
-					//AppDelegate.nightModeEnabled = true
 				case .LightTheme:
 					Settings.sharedInstance.darkThemeEnabled = false
-					//AppDelegate.nightModeEnabled = false
 			}
 		}
 	}
