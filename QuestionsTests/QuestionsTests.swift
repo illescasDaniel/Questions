@@ -16,7 +16,7 @@ class QuestionsTests: XCTestCase {
 	func testQuestionsLabels() {
 
 		let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as! QuestionsViewController
-
+		
 		var answersFromJson: [String]
 		var numberOfQuestions: Int
 		var set: [NSDictionary]

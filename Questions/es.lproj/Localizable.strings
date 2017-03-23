@@ -3,6 +3,7 @@
 
 "Dark Theme" = "Tema Oscuro";
 "Light Theme" = "Tema Claro";
+"Read QR Code" = "Leer código QR";
 
 /* -- UI ELEMENTS -- */
 
@@ -14,7 +15,6 @@
 "Camera access required for QR Scanning" = "Acceso a cámara requerido para escanear el código QR";
 "Allow camera access" = "Permita acceso a la cámara";
 "Allow Camera" = "Permitir cámara";
-
 
 "INSTRUCTIONS" = "INSTRUCCIONES";
 "Instructions" = "Instrucciones";

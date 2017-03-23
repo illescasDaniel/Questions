@@ -35,10 +35,10 @@ class SettingsViewController: UITableViewController {
 
 		// If user enables Reduce Motion setting, the parallax effect switch updates its value
 		NotificationCenter.default.addObserver(self, selector: #selector(setParallaxEffectSwitch),
-		                                       name: NSNotification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
+		                                       name: Notification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
-		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
 		
 		setSwitchesToDefaultValue()
 		loadCurrentTheme(animated: false)

@@ -13,7 +13,7 @@ class TopicsViewController: UITableViewController {
 		self.navigationItem.title = "Topics".localized
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
-		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {

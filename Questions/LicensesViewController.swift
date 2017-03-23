@@ -20,10 +20,10 @@ class LicensesViewController: UIViewController {
 		setFrame()
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(setFrame),
-		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		                                       name: Notification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
-		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 	
 	deinit {

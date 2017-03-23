@@ -17,7 +17,7 @@ class QuizzesViewController: UITableViewController {
 		setCount = Quiz.quizzes[currentTopicIndex].content.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
-		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

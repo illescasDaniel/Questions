@@ -40,13 +40,22 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 			
 			captureSession.startRunning()
 			
-			NotificationCenter.default.addObserver(self, selector: #selector(self.loadPreview),
-												   name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(loadPreview),
+												   name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
 		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
 		loadTheme()
+	}
+	
+	deinit {
+		if #available(iOS 9.0, *) { }
+		else {
+			NotificationCenter.default.removeObserver(self)
+		}
 	}
 	
 	// MARK: AVCaptureMetadataOutputObjectsDelegate
@@ -55,18 +64,22 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 		
 		if !codeIsRead {
 			
-			let metadataObj = metadataObjects.first as! AVMetadataMachineReadableCodeObject
+			let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject
 			
-			if metadataObj.type == AVMetadataObjectTypeQRCode {
-				
-				// READ JSON format
-				
-				if let data = metadataObj.stringValue.data(using: .utf8) {
-					let content = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[String: Any]]
-					performSegue(withIdentifier: "unwindToQuestions", sender: content)
-					codeIsRead = true
-				}
+			guard let metadata = metadataObject, metadata.type == AVMetadataObjectTypeQRCode else { invalidQRCodeFormat(); return }
+			guard let data = metadata.stringValue.data(using: .utf8) else { invalidQRCodeFormat(); return }
+
+			var content: [[String: Any]]?
+			
+			do {
+				content = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]]
+			} catch { invalidQRCodeFormat(); } //return }
+			
+			if let validContent = content {
+				performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
+				codeIsRead = true
 			}
+			else { invalidQRCodeFormat(); }
 		}
 	}
 	
@@ -82,6 +95,8 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 	}
 	
 	@IBAction func unwindToQRScanner(_ segue: UIStoryboardSegue) { }
+	
+	// MARK: Alerts
 	
 	@IBAction func allowCameraAction() {
 		let alertViewController = UIAlertController(title: "Attention".localized,
@@ -122,5 +137,14 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
 		view.backgroundColor = darkThemeEnabled ? .gray : .white
 		allowCameraButton.setTitleColor(darkThemeEnabled ? .warmYellow : .coolBlue, for: .normal)
+	}
+	
+	func invalidQRCodeFormat() {
+		let alertViewController = UIAlertController(title: "Attention".localized,
+		                                            message: "Invalid QR Code format",
+		                                            preferredStyle: .alert)
+		
+		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
+		present(alertViewController, animated: true, completion: nil)
 	}
 }

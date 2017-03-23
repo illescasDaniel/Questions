@@ -34,11 +34,11 @@ class MainViewController: UIViewController {
 		
 		// If user rotates screen, the buttons position and sizes are recalculated
 		NotificationCenter.default.addObserver(self, selector: #selector(setFramesAndPosition),
-		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		                                       name: Notification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
-		                                       name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
