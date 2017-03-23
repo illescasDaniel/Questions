@@ -25,6 +25,7 @@ class QuestionsViewController: UIViewController {
 	var repeatTimes = UInt8()
 	var currentTopicIndex = Int()
 	var currentSetIndex = Int()
+	var isSetFromJSON = false
 	var set: NSArray = []
 	var quiz: NSEnumerator?
 	
@@ -34,7 +35,12 @@ class QuestionsViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
+		if !isSetFromJSON {
+			set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
+		} else {
+			set = set.shuffled() as NSArray
+		}
+		
 		quiz = set.objectEnumerator()
 		
 		blurView.frame = UIScreen.main.bounds
@@ -117,6 +123,18 @@ class QuestionsViewController: UIViewController {
 		return darkThemeEnabled ? .lightContent : .default
 	}
 
+	// MARK: UIStoryboardSegue Handling
+	
+	@IBAction func unwindToQuestions(_ segue: UIStoryboardSegue) { }
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "unwindToQRScanner" {
+			let controller = segue.destination as! QRScannerController
+			controller.codeIsRead = false
+			Audio.setVolumeLevel(to: Audio.bgMusicVolume)
+		}
+	}
+	
 	// MARK: IBActions
 	
 	@IBAction func answer1Action() { verify(answer: 0) }
@@ -126,6 +144,14 @@ class QuestionsViewController: UIViewController {
 
 	@IBAction func pauseMenu() {
 		pauseMenuAction()
+	}
+	
+	@IBAction func goBackAction() {
+		if !isSetFromJSON {
+			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+		} else {
+			performSegue(withIdentifier: "unwindToQRScanner", sender: self)
+		}
 	}
 	
 	@IBAction func helpAction() {
@@ -348,7 +374,11 @@ class QuestionsViewController: UIViewController {
 		}
 		Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
 
-		performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+		if !isSetFromJSON {
+			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+		} else {
+			performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+		}
 	}
 	
 	func repeatActionDetailed() {

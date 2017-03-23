@@ -12,14 +12,14 @@ class LicensesViewController: UIViewController {
 		
 		licensesNavItem.title = "Licenses".localized
 		
-		loadCurrentTheme()
 		textView.attributedText = licensesAttributedText()
 		textView.textAlignment = .center
 		textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+		loadCurrentTheme()
 		
 		setFrame()
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.setFrame),
+		NotificationCenter.default.addObserver(self, selector: #selector(setFrame),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),

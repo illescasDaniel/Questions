@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16E189a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16E192b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -51,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKg-Qq-kO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="611" y="660"/>
+            <point key="canvasLocation" x="538" y="154"/>
         </scene>
         <!--Questions Sets-->
         <scene sceneID="pmc-7h-wN5">
@@ -92,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Ia-apk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1400" y="660"/>
+            <point key="canvasLocation" x="1335" y="153"/>
         </scene>
         <!--Main Menu-->
         <scene sceneID="syY-Yf-diQ">
@@ -110,7 +110,7 @@
                                 <rect key="frame" x="-12" y="53" width="438" height="697"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja">
-                                <rect key="frame" x="97" y="278" width="180" height="46"/>
+                                <rect key="frame" x="117" y="247" width="180" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
@@ -130,25 +130,8 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glT-nY-qNM">
-                                <rect key="frame" x="97" y="344" width="180" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
-                                <state key="normal" title="INSTRUCTIONS">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showInstructions" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="vdp-am-yhS"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC">
-                                <rect key="frame" x="97" y="410" width="180" height="46"/>
+                                <rect key="frame" x="117" y="468" width="180" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529411764708" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
@@ -167,8 +150,42 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW">
+                                <rect key="frame" x="117" y="323" width="180" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
+                                <state key="normal" title="READ QR CODE">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="I6B-9U-azf" kind="show" id="MLK-gp-ovr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glT-nY-qNM">
+                                <rect key="frame" x="117" y="400" width="180" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
+                                <state key="normal" title="INSTRUCTIONS">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showInstructions" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="vdp-am-yhS"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                <rect key="frame" x="145" y="481" width="124" height="22"/>
+                                <rect key="frame" x="145" y="542" width="124" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -188,6 +205,7 @@
                     <navigationItem key="navigationItem" title="Main Menu" id="4da-ip-kPT"/>
                     <connections>
                         <outlet property="instructionsButton" destination="glT-nY-qNM" id="cnG-q4-g2F"/>
+                        <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
                         <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
                         <outlet property="startButton" destination="arZ-7k-Uja" id="zAH-RX-Cfw"/>
@@ -196,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTT-Cg-fex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-197.59999999999999" y="659.82008995502258"/>
+            <point key="canvasLocation" x="-199" y="483"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Thb-Dx-Tbt">
@@ -412,7 +430,7 @@ Incorrect answers: X
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="o8y-Tn-NTu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-198.55072463768118" y="1431.521739130435"/>
+            <point key="canvasLocation" x="-200" y="1536"/>
         </scene>
         <!--Licenses-->
         <scene sceneID="SKB-GU-dMW">
@@ -445,7 +463,7 @@ Incorrect answers: X
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiO-oa-ZQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="773.91304347826087" y="1431.521739130435"/>
+            <point key="canvasLocation" x="765" y="1536"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qMf-q0-piD">
@@ -461,7 +479,43 @@ Incorrect answers: X
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Bo-JA-WCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1020" y="660"/>
+            <point key="canvasLocation" x="-1020" y="483"/>
+        </scene>
+        <!--Scanner Controller-->
+        <scene sceneID="ZsB-0h-1jt">
+            <objects>
+                <viewController id="I6B-9U-azf" customClass="QRScannerController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N5n-ZC-GmR"/>
+                        <viewControllerLayoutGuide type="bottom" id="eJ0-2H-qhf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qne-cH-WDM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enF-0f-cBp">
+                                <rect key="frame" x="108" y="350.66666666666669" width="198" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <state key="normal" title="Allow Camera access!"/>
+                                <connections>
+                                    <action selector="allowCameraAction" destination="I6B-9U-azf" eventType="touchUpInside" id="Eho-Ae-oMO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="enF-0f-cBp" firstAttribute="centerY" secondItem="qne-cH-WDM" secondAttribute="centerY" id="88q-4t-T3R"/>
+                            <constraint firstItem="enF-0f-cBp" firstAttribute="centerX" secondItem="qne-cH-WDM" secondAttribute="centerX" id="kgr-IM-QLn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allowCameraButton" destination="enF-0f-cBp" id="URO-hX-rCO"/>
+                        <segue destination="w1d-Yh-0lm" kind="presentation" identifier="unwindToQuestions" id="5HC-8S-knP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NFA-9m-saj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="538" y="827"/>
         </scene>
         <!--Questions-->
         <scene sceneID="5t4-2T-bYY">
@@ -653,7 +707,7 @@ Incorrect answers: X
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuizSelector:" id="Pkq-Yd-mqo"/>
+                                            <action selector="goBackAction" destination="w1d-Yh-0lm" eventType="touchUpInside" id="kbY-gK-Tuj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
@@ -723,12 +777,14 @@ Incorrect answers: X
                         <outletCollection property="answerButtons" destination="UdX-im-E3g" collectionClass="NSMutableArray" id="4Ck-l9-l6U"/>
                         <outletCollection property="answerButtons" destination="5bF-eX-HNQ" collectionClass="NSMutableArray" id="Z1Q-MP-lok"/>
                         <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuizSelector:" id="Aqe-tI-lWt"/>
+                        <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToMainMenu" unwindAction="unwindToMainMenu:" id="t1m-UB-778"/>
+                        <segue destination="yUI-wU-QrH" kind="unwind" identifier="unwindToQRScanner" unwindAction="unwindToQRScanner:" id="Vcn-R3-yqa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>
                 <exit id="yUI-wU-QrH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2182.608695652174" y="659.51086956521749"/>
+            <point key="canvasLocation" x="2113" y="483"/>
         </scene>
     </scenes>
     <resources>
@@ -737,5 +793,6 @@ Incorrect answers: X
     <inferredMetricsTieBreakers>
         <segue reference="7d1-l5-eCT"/>
         <segue reference="0X5-qD-MN0"/>
+        <segue reference="5HC-8S-knP"/>
     </inferredMetricsTieBreakers>
 </document>

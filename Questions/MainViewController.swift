@@ -8,6 +8,7 @@ class MainViewController: UIViewController {
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var instructionsButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
+	@IBOutlet weak var readQRCodeButton: UIButton!
 	@IBOutlet weak var scoreLabel: UILabel!
 	
 	static var parallaxEffect = UIMotionEffectGroup()
@@ -32,7 +33,7 @@ class MainViewController: UIViewController {
 		setFramesAndPosition()
 		
 		// If user rotates screen, the buttons position and sizes are recalculated
-		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.setFramesAndPosition),
+		NotificationCenter.default.addObserver(self, selector: #selector(setFramesAndPosition),
 		                                       name: NSNotification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		// Loads the theme if user uses a home quick action
@@ -102,6 +103,7 @@ class MainViewController: UIViewController {
 	
 	func initializeLables() {
 		startButton.setTitle("START GAME".localized, for: .normal)
+		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		self.navigationItem.title = "Main menu".localized
@@ -118,21 +120,21 @@ class MainViewController: UIViewController {
 			buttonsHeight = fontSize * 2.0
 		}
 		
-		let spaceBetweenButtons = buttonsHeight * 1.6
+		let spaceBetweenButtons = buttonsHeight * 1.4
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
 		let yPosition = UIScreen.main.bounds.maxY / 2.0
+
+		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons*1.5, width: buttonsWidth, height: buttonsHeight)
+		readQRCodeButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons/2.0, width: buttonsWidth, height: buttonsHeight)
+		instructionsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons/2.0, width: buttonsWidth, height: buttonsHeight)
+		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons*1.5, width: buttonsWidth, height: buttonsHeight)
 		
 		// ScoreLabel values
 		let scoreLabelHeight = scoreLabel.frame.height
 		let scoreLabelWidth = scoreLabel.frame.width
-		let yPosition2 = (UIScreen.main.bounds.maxY - ((UIScreen.main.bounds.maxY / 2.0) + spaceBetweenButtons + buttonsHeight/2.0))
-		let yPosition3 = UIScreen.main.bounds.maxY - (yPosition2 / (isPortrait ? 1.3 : 2.0))
 		let xPosition2 = (UIScreen.main.bounds.maxX / 2.0) - (scoreLabelWidth / 2.0)
 		
-		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition3, width: scoreLabelWidth, height: scoreLabelHeight)
-		instructionsButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
-		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
-		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2.5, width: scoreLabelWidth, height: scoreLabelHeight)
 	}
 
 	func loadTheme() {
