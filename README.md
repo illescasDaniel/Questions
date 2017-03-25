@@ -13,6 +13,7 @@ Main Features
 - Haptic feedback
 - Multilanguage support
 - Repeat quizzes by shaking the device
+- Read Questions from a QR Code
 - Dark theme
 - Switch between themes by {
 	- swiping up/down with 2 fingers or
