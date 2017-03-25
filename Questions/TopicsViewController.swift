@@ -2,10 +2,6 @@ import UIKit
 
 class TopicsViewController: UITableViewController {
 
-	// MARK: Properties
-	
-	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-
 	// MARK: View life cycle
 	
 	override func viewDidLoad() {
@@ -42,9 +38,9 @@ class TopicsViewController: UITableViewController {
 		
 		// Load theme
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-		cell?.textLabel?.textColor = darkThemeEnabled ? .white : .black
-		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
-		cell?.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		
 		return cell ?? UITableViewCell()
 	}
@@ -57,7 +53,7 @@ class TopicsViewController: UITableViewController {
 		
 		let cell = tableView.cellForRow(at: indexPath)
 		
-		let cellColor: UIColor = darkThemeEnabled ? .lightGray : .highlighedGray
+		let cellColor = UIColor.themeStyle(dark: .lightGray, light: .highlighedGray)
 		cell?.backgroundColor = cellColor
 		
 		let view = UIView()
@@ -67,7 +63,7 @@ class TopicsViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
-		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
+		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
 	}
 	
 	// MARK: UIStoryboardSegue Handling
@@ -83,9 +79,8 @@ class TopicsViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
+		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
 	}
 }

@@ -15,7 +15,6 @@ extension UIColor {
 		self.init(P3ReadyRed: RGBred/255.0, green: green/255.0, blue: blue/255.0, alpha: alpha/255.0)
 	}
 	
-	static let defaultBGcolor = UIColor(P3ReadyRed: 0.92, green: 0.92, blue: 0.95)
 	static let lightGreen = UIColor(P3ReadyRed: 0.36, green: 0.98, blue: 0.52)
 	static let darkGreen = UIColor(P3ReadyRed: 0.2, green: 0.85, blue: 0.2, alpha: 1)
 	static let defaultSeparatorColor = UIColor(P3ReadyRed: 0.783922, green: 0.780392, blue: 0.8)
@@ -29,4 +28,26 @@ extension UIColor {
 	static let highlighedGray = UIColor(RGBred: 217, green: 217, blue: 217)
 	static let veryLightGray = UIColor(P3ReadyRed: 0.93, green: 0.93, blue: 0.95)
 	static let veryVeryLightGray = UIColor(P3ReadyRed: 0.98, green: 0.98, blue: 0.97)
+	
+	static func themeStyle(dark: UIColor, light: UIColor) -> UIColor {
+		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+	}
+}
+
+extension UIBarStyle {
+	static func themeStyle(dark: UIBarStyle, light: UIBarStyle) -> UIBarStyle {
+		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+	}
+}
+
+extension UIStatusBarStyle {
+	static func themeStyle(dark: UIStatusBarStyle, light: UIStatusBarStyle) -> UIStatusBarStyle {
+		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+	}
+}
+
+extension UIButton {
+	func setTitleColor(dark: UIColor, light: UIColor, for state: UIControlState) {
+		self.setTitleColor(UIColor.themeStyle(dark: dark, light: light), for: state)
+	}
 }

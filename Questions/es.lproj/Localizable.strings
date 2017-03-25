@@ -11,16 +11,13 @@
 
 "START GAME" = "COMENZAR";
 "READ QR CODE" = "LEER CÓDIGO QR";
+"Invalid QR Code format" = "Formato de Código QR inválido";
+"Text to encode format" = "Formato de texto a codificar";
+"READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correcta\", \"Bla\"], \"correct\": 2}, ... ]";
 // "We need to access your camera for scanning QR code." = "Necesitamos acceder a la cámara para escanear el código QR.";
 "Camera access required for QR Scanning" = "Acceso a cámara requerido para escanear el código QR";
 "Allow camera access" = "Permita acceso a la cámara";
 "Allow Camera" = "Permitir cámara";
-
-"INSTRUCTIONS" = "INSTRUCCIONES";
-"Instructions" = "Instrucciones";
-"INSTRUCTIONS_TEXT" = "Da un toque en 'Comenzar' para ver los temas; luego de escoger uno, da un toque en un cuestionario y ya podrás responder a las preguntas";
-
-"Tap on 'Start game' to see the Topics; after choosing one, tap on a quiz set and you can answer the questions";
 
 "OK" = "Aceptar";
 

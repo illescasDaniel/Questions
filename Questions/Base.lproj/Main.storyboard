@@ -110,7 +110,7 @@
                                 <rect key="frame" x="-12" y="53" width="438" height="697"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja">
-                                <rect key="frame" x="117" y="247" width="180" height="46"/>
+                                <rect key="frame" x="117" y="265" width="180" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
@@ -131,7 +131,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC">
-                                <rect key="frame" x="117" y="468" width="180" height="46"/>
+                                <rect key="frame" x="117" y="421" width="180" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529411764708" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
@@ -151,7 +151,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW">
-                                <rect key="frame" x="117" y="323" width="180" height="46"/>
+                                <rect key="frame" x="117" y="345" width="180" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
@@ -167,25 +167,8 @@
                                     <segue destination="I6B-9U-azf" kind="show" identifier="QRScannerVC" id="MLK-gp-ovr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="glT-nY-qNM">
-                                <rect key="frame" x="117" y="400" width="180" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
-                                <state key="normal" title="INSTRUCTIONS">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="showInstructions" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="vdp-am-yhS"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                <rect key="frame" x="145" y="542" width="124" height="22"/>
+                                <rect key="frame" x="145" y="515" width="124" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -204,7 +187,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Main Menu" id="4da-ip-kPT"/>
                     <connections>
-                        <outlet property="instructionsButton" destination="glT-nY-qNM" id="cnG-q4-g2F"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
                         <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
@@ -375,6 +357,7 @@ Incorrect answers: X
                                                 <constraint firstItem="anA-G4-TTq" firstAttribute="centerY" secondItem="rBG-xV-rLD" secondAttribute="centerY" constant="0.25" id="oe6-AN-ki1"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sQA-3P-jBE">
                                         <rect key="frame" x="0.0" y="255" width="414" height="44"/>
@@ -483,10 +466,10 @@ Incorrect answers: X
             </objects>
             <point key="canvasLocation" x="-1020" y="483"/>
         </scene>
-        <!--Scanner Controller-->
+        <!--Scanner View Controller-->
         <scene sceneID="ZsB-0h-1jt">
             <objects>
-                <viewController storyboardIdentifier="QRScannerVC" id="I6B-9U-azf" customClass="QRScannerController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="QRScannerVC" id="I6B-9U-azf" customClass="QRScannerViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N5n-ZC-GmR"/>
                         <viewControllerLayoutGuide type="bottom" id="eJ0-2H-qhf"/>
@@ -496,22 +479,33 @@ Incorrect answers: X
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enF-0f-cBp">
-                                <rect key="frame" x="111" y="350.66666666666669" width="192" height="36"/>
+                                <rect key="frame" x="111" y="350" width="192" height="36"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <state key="normal" title="Allow Camera access"/>
                                 <connections>
                                     <action selector="allowCameraAction" destination="I6B-9U-azf" eventType="touchUpInside" id="Eho-Ae-oMO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpZ-Da-QvA">
+                                <rect key="frame" x="376" y="72" width="30" height="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <state key="normal" title="?"/>
+                                <connections>
+                                    <action selector="helpButtonAction" destination="I6B-9U-azf" eventType="touchUpInside" id="SCE-d0-9yz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="enF-0f-cBp" firstAttribute="centerY" secondItem="qne-cH-WDM" secondAttribute="centerY" id="88q-4t-T3R"/>
+                            <constraint firstItem="IpZ-Da-QvA" firstAttribute="top" secondItem="N5n-ZC-GmR" secondAttribute="bottom" constant="8" id="E2I-0r-DO9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IpZ-Da-QvA" secondAttribute="trailing" constant="-12" id="axg-M1-lHS"/>
                             <constraint firstItem="enF-0f-cBp" firstAttribute="centerX" secondItem="qne-cH-WDM" secondAttribute="centerX" id="kgr-IM-QLn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="allowCameraButton" destination="enF-0f-cBp" id="URO-hX-rCO"/>
+                        <outlet property="helpButton" destination="IpZ-Da-QvA" id="83N-vv-MMm"/>
                         <segue destination="w1d-Yh-0lm" kind="presentation" identifier="unwindToQuestions" id="5HC-8S-knP"/>
                     </connections>
                 </viewController>

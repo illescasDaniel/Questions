@@ -1,2 +1,2 @@
-"INSTRUCTIONS_TEXT" = "Tap on 'Start game' to see the Topics; after choosing one, tap on a quiz set and tap the answers.";
+"READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correct\", \"Bla\"], \"correct\": 2}, ... ]";
 "RESET_GAME_ADVICE" = "Are you sure you want to reset the game configuration and progress?";

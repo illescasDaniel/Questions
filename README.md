@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v2.13--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v2.14--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Prototype of a Quiz app for iOS.
@@ -16,7 +16,7 @@ Main Features
 - Dark theme
 - Switch between themes by {
 	- swiping up/down with 2 fingers or
-	- using a home quick action
+	- using a home quick action  
 }
 
 (The questions included are just some simple examples.)

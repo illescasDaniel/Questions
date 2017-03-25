@@ -90,15 +90,15 @@ class SettingsViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		let footer = view as? UITableViewHeaderFooterView
-		footer?.textLabel?.textColor = darkThemeSwitch.isOn ? .lightGray : .gray
-		footer?.backgroundView?.backgroundColor = darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
+		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+		footer?.backgroundView?.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 	}
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
 		
 		let cell = tableView.cellForRow(at: indexPath)
 			
-		let cellColor: UIColor = darkThemeSwitch.isOn ? .lightGray : .highlighedGray
+		let cellColor: UIColor = .themeStyle(dark: .lightGray, light: .highlighedGray)
 		cell?.backgroundColor = cellColor
 		
 		let view = UIView()
@@ -108,7 +108,7 @@ class SettingsViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
-		cell?.backgroundColor = darkThemeSwitch.isOn ? .gray : .white
+		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -211,31 +211,30 @@ class SettingsViewController: UITableViewController {
 		
 		if #available(iOS 10.0, *) {
 			UIView.animate(withDuration: duration) {
-				self.navigationController?.navigationBar.barStyle = self.darkThemeSwitch.isOn ? .black : .default
+				self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 			}
 		}
 		else { // On iOS 9, the barStyle animation is not very nice...
-			self.navigationController?.navigationBar.barStyle = self.darkThemeSwitch.isOn ? .black : .default
+			self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		}
 		
 		UIView.animate(withDuration: duration) {
 			
-			self.navigationController?.navigationBar.tintColor = self.darkThemeSwitch.isOn ? .orange : .defaultTintColor
+			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			self.tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
+			self.tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 			
-			self.tableView.backgroundColor = self.darkThemeSwitch.isOn ? .darkGray : .defaultBGcolor
-			self.tableView.separatorColor = self.darkThemeSwitch.isOn ? .darkGray : .defaultSeparatorColor
-			
-			let textLabelColor: UIColor = self.darkThemeSwitch.isOn ? .white : .black
+			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
 			
-			let switchTintColor: UIColor = self.darkThemeSwitch.isOn ? .warmColor : .coolBlue
+			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
 			self.optionSwitches.forEach { $0.onTintColor = switchTintColor }
 			
 			self.tableView.reloadData()
 			
 			for i in 0..<self.optionLabels.count {
 				self.optionLabels[i].textColor = textLabelColor
-				self.tableView.visibleCells[i].backgroundColor = self.darkThemeSwitch.isOn ? .gray : .white
+				self.tableView.visibleCells[i].backgroundColor = .themeStyle(dark: .gray, light: .white)
 			}
 		}	
 	}

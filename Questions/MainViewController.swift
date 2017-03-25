@@ -6,7 +6,6 @@ class MainViewController: UIViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var startButton: UIButton!
-	@IBOutlet weak var instructionsButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var readQRCodeButton: UIButton!
 	@IBOutlet weak var scoreLabel: UILabel!
@@ -64,18 +63,6 @@ class MainViewController: UIViewController {
 		}
 	}
 
-	// MARK: Alerts
-	
-	@IBAction func showInstructions() {
-		
-		let alertViewController = UIAlertController(title: "Instructions".localized,
-													message: "INSTRUCTIONS_TEXT".localized,
-													preferredStyle: .alert)
-		
-		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
-		present(alertViewController, animated: true, completion: nil)
-	}
-
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
@@ -104,7 +91,6 @@ class MainViewController: UIViewController {
 	func initializeLables() {
 		startButton.setTitle("START GAME".localized, for: .normal)
 		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
-		instructionsButton.setTitle("INSTRUCTIONS".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		self.navigationItem.title = "Main menu".localized
 	}
@@ -116,31 +102,29 @@ class MainViewController: UIViewController {
 		let buttonsWidth = UIScreen.main.bounds.maxX / (isPortrait ? 1.85 : 2.0)
 		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
 		
-		if let fontSize = instructionsButton.titleLabel?.font.pointSize {
+		if let fontSize = startButton.titleLabel?.font.pointSize {
 			buttonsHeight = fontSize * 2.0
 		}
 		
 		let spaceBetweenButtons = buttonsHeight * 1.4
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
 		let yPosition = UIScreen.main.bounds.maxY / 2.0
-
-		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons*1.5, width: buttonsWidth, height: buttonsHeight)
-		readQRCodeButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons/2.0, width: buttonsWidth, height: buttonsHeight)
-		instructionsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons/2.0, width: buttonsWidth, height: buttonsHeight)
-		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons*1.5, width: buttonsWidth, height: buttonsHeight)
+		
+		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
+		readQRCodeButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
+		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
 		
 		// ScoreLabel values
 		let scoreLabelHeight = scoreLabel.frame.height
 		let scoreLabelWidth = scoreLabel.frame.width
 		let xPosition2 = (UIScreen.main.bounds.maxX / 2.0) - (scoreLabelWidth / 2.0)
 		
-		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2.5, width: scoreLabelWidth, height: scoreLabelHeight)
+		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2, width: scoreLabelWidth, height: scoreLabelHeight)
 	}
 
 	func loadTheme() {
-		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
-		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 	}
 	
 	static func addParallax(toView view: UIView?) {

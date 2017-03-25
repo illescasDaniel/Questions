@@ -6,7 +6,6 @@ class QuizzesViewController: UITableViewController {
 	
 	var currentTopicIndex = Int()
 	var setCount = Int()
-	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	
 	// MARK: View life cycle
 	
@@ -54,9 +53,9 @@ class QuizzesViewController: UITableViewController {
 
 		// Load theme
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-		cell?.textLabel?.textColor = darkThemeEnabled ? .white : .black
-		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
-		cell?.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
+		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		
 		return cell ?? UITableViewCell()
 	}
@@ -65,7 +64,7 @@ class QuizzesViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
-		header.textLabel?.textColor = darkThemeEnabled ? .lightGray : .gray
+		header.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -77,7 +76,7 @@ class QuizzesViewController: UITableViewController {
 		
 		let cell = tableView.cellForRow(at: indexPath)
 		
-		let cellColor: UIColor = darkThemeEnabled ? .lightGray : .highlighedGray
+		let cellColor = UIColor.themeStyle(dark: .lightGray, light: .highlighedGray)
 		cell?.backgroundColor = cellColor
 		
 		let view = UIView()
@@ -87,7 +86,7 @@ class QuizzesViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
-		cell?.backgroundColor = darkThemeEnabled ? .gray : .white
+		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
 	}
 	
 	// MARK: UIStoryboardSegue Handling
@@ -113,11 +112,10 @@ class QuizzesViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
-		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
-		tableView.backgroundColor = darkThemeEnabled ? .darkGray : .defaultBGcolor
-		tableView.separatorColor = darkThemeEnabled ? .darkGray : .defaultSeparatorColor
+		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
+		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
 	}
 	

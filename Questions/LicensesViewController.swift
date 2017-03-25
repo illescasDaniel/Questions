@@ -36,10 +36,9 @@ class LicensesViewController: UIViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		let darkModeEnabled = Settings.sharedInstance.darkThemeEnabled
-		textView.backgroundColor = darkModeEnabled ? .gray : .white
-		textView.textColor = darkModeEnabled ? .white : .black
-		textView.tintColor = darkModeEnabled ? .warmYellow : .coolBlue
+		textView.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		textView.textColor = .themeStyle(dark: .white, light: .black)
+		textView.tintColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
 	}
 	
 	func setFrame() {

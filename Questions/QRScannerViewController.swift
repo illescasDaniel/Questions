@@ -1,11 +1,12 @@
 import UIKit
 import AVFoundation
 
-class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 	
 	// MARK: Properties
 	
 	@IBOutlet weak var allowCameraButton: UIButton!
+	@IBOutlet weak var helpButton: UIButton!
 	
 	var videoPreviewLayer: AVCaptureVideoPreviewLayer?
 	var codeIsRead = false
@@ -34,11 +35,13 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 			captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
 			captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
 			
-			self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-			self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-			self.loadPreview()
+			videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+			videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+			loadPreview()
 			
 			captureSession.startRunning()
+			
+			view.bringSubview(toFront: helpButton)
 			
 			NotificationCenter.default.addObserver(self, selector: #selector(loadPreview),
 												   name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -48,6 +51,7 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 	override func viewWillAppear(_ animated: Bool) {
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
 		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+		
 		loadTheme()
 	}
 	
@@ -73,7 +77,7 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 			
 			do {
 				content = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]]
-			} catch { invalidQRCodeFormat(); } //return }
+			} catch { invalidQRCodeFormat(); }
 			
 			if let validContent = content {
 				performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
@@ -98,6 +102,17 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 	
 	// MARK: Alerts
 	
+	@IBAction func helpButtonAction() {
+		
+		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+			feedbackGenerator.impactOccurred()
+		}
+		
+		let alertViewController = UIAlertController.OKAlert(title: "Text to encode format", message: "READ_QR_FORMAT")
+		present(alertViewController, animated: true, completion: nil)
+	}
+	
 	@IBAction func allowCameraAction() {
 		let alertViewController = UIAlertController(title: "Attention".localized,
 		                                            message: "Camera access required for QR Scanning".localized,
@@ -109,7 +124,7 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 				UIApplication.shared.openURL(settingsURL)
 			}
 		}
-		self.present(alertViewController, animated: true, completion: nil)
+		present(alertViewController, animated: true, completion: nil)
 	}
 	
 	// MARK: Convenience
@@ -132,19 +147,16 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
 	}
 	
 	func loadTheme() {
-		let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
-		self.navigationController?.navigationBar.barStyle = darkThemeEnabled ? .black : .default
-		self.navigationController?.navigationBar.tintColor = darkThemeEnabled ? .orange : .defaultTintColor
-		view.backgroundColor = darkThemeEnabled ? .gray : .white
-		allowCameraButton.setTitleColor(darkThemeEnabled ? .warmYellow : .coolBlue, for: .normal)
+		view.bringSubview(toFront: helpButton)
+		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		view.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 	}
 	
 	func invalidQRCodeFormat() {
-		let alertViewController = UIAlertController(title: "Attention".localized,
-		                                            message: "Invalid QR Code format",
-		                                            preferredStyle: .alert)
-		
-		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
+		let alertViewController = UIAlertController.OKAlert(title: "Attention", message: "Invalid QR Code format")
 		present(alertViewController, animated: true, completion: nil)
 	}
 }

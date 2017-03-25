@@ -17,7 +17,6 @@ class QuestionsViewController: UIViewController {
 	
 	let oldScore = Settings.sharedInstance.score
 	let statusBarHeight = UIApplication.shared.statusBarFrame.height
-	var darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
 	var blurViewPos = Int()
 	var correctAnswer = UInt8()
 	var correctAnswers = Int()
@@ -120,7 +119,7 @@ class QuestionsViewController: UIViewController {
 	// MARK: UIViewController
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
-		return darkThemeEnabled ? .lightContent : .default
+		return .themeStyle(dark: .lightContent, light: .default)
 	}
 
 	// MARK: UIStoryboardSegue Handling
@@ -129,7 +128,7 @@ class QuestionsViewController: UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "unwindToQRScanner" {
-			let controller = segue.destination as! QRScannerController
+			let controller = segue.destination as! QRScannerViewController
 			controller.codeIsRead = false
 			Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		}
@@ -237,28 +236,28 @@ class QuestionsViewController: UIViewController {
 	
 	func addSwipeGestures() {
 		
-		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
 		swipeUp.direction = .up
 		swipeUp.numberOfTouchesRequired = 2
-		self.view.addGestureRecognizer(swipeUp)
+		view.addGestureRecognizer(swipeUp)
 		
-		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
 		swipeDown.direction = .down
 		swipeDown.numberOfTouchesRequired = 2
-		self.view.addGestureRecognizer(swipeDown)
+		view.addGestureRecognizer(swipeDown)
 	}
 	
 	func respondToSwipeGesture(gesture: UIGestureRecognizer) {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
+			let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+			
 			if !darkThemeEnabled && (swipeGesture.direction == .down) {
 				Settings.sharedInstance.darkThemeEnabled = true
-				darkThemeEnabled = true
 			}
 			else if darkThemeEnabled && (swipeGesture.direction == .up) {
 				Settings.sharedInstance.darkThemeEnabled = false
-				darkThemeEnabled = false
 			}
 			else { return }
 			
@@ -271,22 +270,20 @@ class QuestionsViewController: UIViewController {
 	
 	func loadCurrentTheme() {
 		
-		darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
-		let currentThemeColor: UIColor = darkThemeEnabled ? .white : .black
-		
-		helpButton.setTitleColor(darkThemeEnabled ? .orange : .defaultTintColor, for: .normal)
+		helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
-		view.backgroundColor = darkThemeEnabled ? .darkGray : .white
-		pauseButton.backgroundColor = darkThemeEnabled ? .lightGray : .veryLightGray
-		pauseButton.setTitleColor(darkThemeEnabled ? .white : .defaultTintColor, for: .normal)
-		answerButtons.forEach { $0.backgroundColor = darkThemeEnabled ? .orange : .defaultTintColor }
-		pauseView.backgroundColor = darkThemeEnabled ? .lightGray : .veryVeryLightGray
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(darkThemeEnabled ? .black : .darkGray, for: .normal)
-									 ($0 as! UIButton).backgroundColor = darkThemeEnabled ? .warmColor : .warmYellow }
+		view.backgroundColor = .themeStyle(dark: .darkGray, light: .white)
+		pauseButton.backgroundColor = .themeStyle(dark: .lightGray, light: .veryLightGray)
+		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
+		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
+		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
+		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(dark: .black, light: .darkGray, for: .normal)
+									($0 as! UIButton).backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		self.setNeedsStatusBarAppearanceUpdate()
+		setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	func showPauseMenu() {
@@ -318,8 +315,8 @@ class QuestionsViewController: UIViewController {
 		answerButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
 		answerButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
 		
-		let statusBarHeight = isPortrait ? self.statusBarHeight : 0.0
-		let yPosition6 = ((yPosition / 2.0) - labelHeight) + statusBarHeight + (pauseButton.bounds.height / 2.0)
+		let currentStatusBarHeight = isPortrait ? self.statusBarHeight : 0.0
+		let yPosition6 = ((yPosition / 2.0) - labelHeight) + currentStatusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
 		
 		blurView.frame = UIScreen.main.bounds
@@ -340,7 +337,7 @@ class QuestionsViewController: UIViewController {
 			
 			UIView.animate(withDuration: 0.1) {
 				
-				self.correctAnswer = (quiz["answer"] as! UInt8)
+				self.correctAnswer = (quiz["correct"] as! UInt8)
 				self.questionLabel.text = (quiz["question"] as! String).localized
 				
 				let answers = quiz["answers"] as! [String]
@@ -416,7 +413,7 @@ class QuestionsViewController: UIViewController {
 		
 		// Restore the answers buttons to their original color
 		UIView.animate(withDuration: 0.75) {
-			self.answerButtons[Int(answer)].backgroundColor = self.darkThemeEnabled ? .orange : .defaultTintColor
+			self.answerButtons[Int(answer)].backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		}
 		
 		self.pickQuestion()
@@ -461,11 +458,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	func showOKAlertWith(title: String, message: String) {
-		let alertViewController = UIAlertController(title: title.localized,
-		                                            message: message.localized,
-		                                            preferredStyle: .alert)
-		
-		alertViewController.addAction(title: "OK".localized, style: .default, handler: nil)
+		let alertViewController = UIAlertController.OKAlert(title: title, message: message)
 		present(alertViewController, animated: true, completion: nil)
 	}
 }
