@@ -192,11 +192,9 @@
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
                         <outlet property="startButton" destination="arZ-7k-Uja" id="zAH-RX-Cfw"/>
                         <outlet property="view" destination="Sbf-MR-kXR" id="98J-ov-5jm"/>
-                        <segue destination="SmG-TC-mxg" kind="unwind" identifier="unwindToQRScanner" unwindAction="unwindToQRScanner:" id="Oqx-qv-Z0k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TTT-Cg-fex" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="SmG-TC-mxg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-199" y="483"/>
         </scene>

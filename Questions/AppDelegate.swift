@@ -47,28 +47,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	
-	
 	@available(iOS 9.0, *)
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 		
 		if let itemType = ShortcutItemType(rawValue: shortcutItem.type) {
 		
 			switch itemType {
-				case .QRCode:
-
-					let storyboard = UIStoryboard(name: "Main", bundle: nil)
-					let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
-					
-					let navController = UINavigationController.init(rootViewController: viewController)
-					window?.rootViewController?.present(navController, animated: false, completion: nil)
+			
+			case .QRCode:
 				
-					viewController.performSegue(withIdentifier: "QRScannerVC", sender: self)
+				let storyboard = UIStoryboard(name: "Main", bundle: nil)
+				let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
+				
+				let navController = UINavigationController.init(rootViewController: viewController)
+				window?.rootViewController?.present(navController, animated: false, completion: nil)
+			
+				viewController.performSegue(withIdentifier: "QRScannerVC", sender: self) // Works only the first time, I don't know why
 
-				case .DarkTheme:
-					Settings.sharedInstance.darkThemeEnabled = true
-				case .LightTheme:
-					Settings.sharedInstance.darkThemeEnabled = false
+			case .DarkTheme:
+				Settings.sharedInstance.darkThemeEnabled = true
+				
+			case .LightTheme:
+				Settings.sharedInstance.darkThemeEnabled = false
 			}
 		}
 	}

@@ -27,7 +27,6 @@ class Settings: NSObject, NSCoding {
 
 	required init (coder unarchiver: NSCoder) {
 		super.init()
-		print(Settings.path)
 		correctAnswers = unarchiver.decodeInteger(forKey: "Correct answers")
 		incorrectAnswers = unarchiver.decodeInteger(forKey: "Incorrect answers")
 		darkThemeEnabled = unarchiver.decodeBool(forKey: "DarkTheme")

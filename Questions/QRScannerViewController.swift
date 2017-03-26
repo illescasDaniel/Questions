@@ -18,40 +18,36 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
 		
-		if !self.codeIsRead {
+		let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+		let input: AVCaptureInput?
 			
-			let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-			let input: AVCaptureInput?
-				
-			do { input = try AVCaptureDeviceInput(device: captureDevice) }
-			catch { return }
-			
-			let captureSession = AVCaptureSession()
-			captureSession.addInput(input)
-			
-			let captureMetadataOutput = AVCaptureMetadataOutput()
-			captureSession.addOutput(captureMetadataOutput)
-			
-			captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-			captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-			
-			videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-			videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-			loadPreview()
-			
-			captureSession.startRunning()
-			
-			view.bringSubview(toFront: helpButton)
-			
-			NotificationCenter.default.addObserver(self, selector: #selector(loadPreview),
-												   name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
-		}
+		do { input = try AVCaptureDeviceInput(device: captureDevice) }
+		catch { return }
+		
+		let captureSession = AVCaptureSession()
+		captureSession.addInput(input)
+		
+		let captureMetadataOutput = AVCaptureMetadataOutput()
+		captureSession.addOutput(captureMetadataOutput)
+		
+		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+		captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+		
+		videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+		videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+		loadPreview()
+		
+		captureSession.startRunning()
+		
+		view.bringSubview(toFront: helpButton)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview),
+											   name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
 		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-		
 		loadTheme()
 	}
 	

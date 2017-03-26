@@ -27,12 +27,11 @@ class MainViewController: UIViewController {
 
 		initializeSounds()
 		initializeLables()
-		
-		// Set buttons and label position and size
-		setFramesAndPosition()
+	
+		setFramesPositionAndSize()
 		
 		// If user rotates screen, the buttons position and sizes are recalculated
-		NotificationCenter.default.addObserver(self, selector: #selector(setFramesAndPosition),
+		NotificationCenter.default.addObserver(self, selector: #selector(setFramesPositionAndSize),
 		                                       name: Notification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		// Loads the theme if user uses a home quick action
@@ -93,7 +92,7 @@ class MainViewController: UIViewController {
 		self.navigationItem.title = "Main menu".localized
 	}
 
-	func setFramesAndPosition() {
+	func setFramesPositionAndSize() {
 		
 		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
 		
@@ -104,7 +103,7 @@ class MainViewController: UIViewController {
 			buttonsHeight = fontSize * 2.0
 		}
 		
-		let spaceBetweenButtons = buttonsHeight * 1.4
+		let spaceBetweenButtons = buttonsHeight * (isPortrait ? 1.6 : 1.4)
 		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
 		let yPosition = UIScreen.main.bounds.maxY / 2.0
 		
