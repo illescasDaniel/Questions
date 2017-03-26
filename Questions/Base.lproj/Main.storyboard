@@ -51,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKg-Qq-kO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="154"/>
+            <point key="canvasLocation" x="571" y="152"/>
         </scene>
         <!--Questions Sets-->
         <scene sceneID="pmc-7h-wN5">
@@ -415,7 +415,7 @@ Incorrect answers: X
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7B-bQ-FBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="o8y-Tn-NTu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-200" y="1536"/>
+            <point key="canvasLocation" x="-200.00000000000003" y="1535.8695652173915"/>
         </scene>
         <!--Licenses-->
         <scene sceneID="SKB-GU-dMW">
@@ -448,7 +448,7 @@ Incorrect answers: X
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiO-oa-ZQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="765" y="1536"/>
+            <point key="canvasLocation" x="570" y="1536"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qMf-q0-piD">
@@ -464,7 +464,7 @@ Incorrect answers: X
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Bo-JA-WCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1020" y="483"/>
+            <point key="canvasLocation" x="-996" y="483"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="ZsB-0h-1jt">
@@ -511,7 +511,7 @@ Incorrect answers: X
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFA-9m-saj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="827"/>
+            <point key="canvasLocation" x="571" y="826"/>
         </scene>
         <!--Questions-->
         <scene sceneID="5t4-2T-bYY">
@@ -780,7 +780,7 @@ Incorrect answers: X
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pdp-Cc-vZJ" sceneMemberID="firstResponder"/>
                 <exit id="yUI-wU-QrH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2113" y="483"/>
+            <point key="canvasLocation" x="2103" y="483"/>
         </scene>
     </scenes>
     <resources>

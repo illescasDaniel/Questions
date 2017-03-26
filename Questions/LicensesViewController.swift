@@ -26,11 +26,9 @@ class LicensesViewController: UIViewController {
 		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 	
+	@available(iOS, deprecated: 9.0)
 	deinit {
-		if #available(iOS 9.0, *) { }
-		else {
-			NotificationCenter.default.removeObserver(self)
-		}
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: Convenience

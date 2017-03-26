@@ -23,11 +23,9 @@ class QuizzesViewController: UITableViewController {
 		loadCurrentTheme()
 	}
 	
+	@available(iOS, deprecated: 9.0)
 	deinit {
-		if #available(iOS 9.0, *) { }
-		else {
-			NotificationCenter.default.removeObserver(self)
-		}
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: UITableViewDataSource

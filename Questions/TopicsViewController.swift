@@ -16,11 +16,9 @@ class TopicsViewController: UITableViewController {
 		loadCurrentTheme()
 	}
 	
-	deinit {		
-		if #available(iOS 9.0, *) { }
-		else {
-			NotificationCenter.default.removeObserver(self)
-		}
+	@available(iOS, deprecated: 9.0)
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: UITableViewDataSource
