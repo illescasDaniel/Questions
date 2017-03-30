@@ -16,20 +16,14 @@ class QuestionsUITests: XCTestCase {
 		let app = XCUIApplication()
 		app.buttons["SETTINGS"].tap()
 		app.navigationBars["Settings"].buttons["Main menu"].tap()
-		app.buttons["INSTRUCTIONS"].tap()
-		app.alerts["Instructions"].buttons["OK"].tap()
+		app.buttons["READ QR CODE"].tap()
+		app.navigationBars["Questions.QRScannerView"].buttons["Main menu"].tap()
 		app.buttons["START GAME"].tap()
 		
 		let tablesQuery = app.tables
 		tablesQuery.staticTexts["Technology"].tap()
 		tablesQuery.staticTexts["Set 0"].tap()
-		
-		let pauseButton = app.buttons["Pause"]
-		pauseButton.tap()
-		app.buttons["Continue"].tap()
-		pauseButton.tap()
-		app.buttons["Go back"].tap()
-		app.navigationBars["Technology"].buttons["Topics"].tap()
-		app.navigationBars["Topics"].buttons["Main menu"].tap()
-    }
+		app.buttons["Pause"].tap()
+		app.buttons["Main menu"].tap()
+	}
 }
