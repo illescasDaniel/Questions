@@ -2,7 +2,7 @@ import Foundation
 
 class Settings: NSObject, NSCoding {
 	
-	static let path = "\(Settings.documentsDirectory())/Settings.archive"
+	static let path = Settings.documentsDirectory() + "/Settings.archive"
 	var completedSets: [Int:[Bool]] = [:]
 	var correctAnswers: Int = 0
 	var incorrectAnswers: Int = 0

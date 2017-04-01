@@ -19,10 +19,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
 		
 		let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-		let input: AVCaptureInput?
-			
-		do { input = try AVCaptureDeviceInput(device: captureDevice) }
-		catch { return }
+		
+		guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 		
 		let captureSession = AVCaptureSession()
 		captureSession.addInput(input)
@@ -60,11 +58,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
 		
-		if !codeIsRead {
+		let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject
+		
+		guard !codeIsRead, let metadata = metadataObject else { return }
+		
+		if metadata.type == AVMetadataObjectTypeQRCode {
 			
-			let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject
-			
-			guard let metadata = metadataObject, metadata.type == AVMetadataObjectTypeQRCode else { invalidQRCodeFormat(); return }
 			guard let data = metadata.stringValue.data(using: .utf8) else { invalidQRCodeFormat(); return }
 
 			var content: [[String: Any]]?

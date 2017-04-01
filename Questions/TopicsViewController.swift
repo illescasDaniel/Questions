@@ -6,7 +6,7 @@ class TopicsViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.navigationItem.title = "Topics".localized
+		navigationItem.title = "Topics".localized
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
 		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)

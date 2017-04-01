@@ -12,7 +12,7 @@ class QuizzesViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
+		navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
 		setCount = Quiz.quizzes[currentTopicIndex].content.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
@@ -110,8 +110,8 @@ class QuizzesViewController: UITableViewController {
 	// MARK: Convenience
 	
 	func loadCurrentTheme() {
-		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()

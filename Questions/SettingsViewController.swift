@@ -199,7 +199,7 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	func loadTheme() {
-		self.darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
+		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
 		loadCurrentTheme(animated: false)
 	}
 	
@@ -213,7 +213,7 @@ class SettingsViewController: UITableViewController {
 			}
 		}
 		else { // On iOS 9, the barStyle animation is not very nice...
-			self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+			navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		}
 		
 		UIView.animate(withDuration: duration) {

@@ -88,29 +88,28 @@ class QuestionsViewController: UIViewController {
 	// If user shake the device, an alert to repeat the quiz pop ups
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 		
-		if motion == .motionShake {
+		guard motion == .motionShake else { return }
+		
+		let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
+		
+		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+			feedbackGenerator.impactOccurred()
+		}
+		
+		if repeatTimes < 2 && currentQuestion > 1 {
 			
-			let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
+			let alertViewController = UIAlertController(title: "Repeat?".localized,
+														message: "Do you want to start again?".localized,
+														preferredStyle: .alert)
 			
-			if repeatTimes < 2 && currentQuestion > 1 {
-				
-				if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
-					let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-					feedbackGenerator.impactOccurred()
-				}
-				
-				let alertViewController = UIAlertController(title: "Repeat?".localized,
-				                                            message: "Do you want to start again?".localized,
-				                                            preferredStyle: .alert)
-				
-				alertViewController.addAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
-				alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
-				
-				present(alertViewController, animated: true, completion: nil)
-			}
-			else if repeatTimes >= 2 {
-				showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
-			}
+			alertViewController.addAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
+			alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
+			
+			present(alertViewController, animated: true, completion: nil)
+		}
+		else if repeatTimes >= 2 {
+			showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
 		}
 	}
 	
@@ -313,7 +312,7 @@ class QuestionsViewController: UIViewController {
 		answerButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
 		answerButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
 		
-		let currentStatusBarHeight = isPortrait ? self.statusBarHeight : 0.0
+		let currentStatusBarHeight = isPortrait ? statusBarHeight : 0.0
 		let yPosition6 = ((yPosition / 2.0) - labelHeight) + currentStatusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
 		
@@ -347,7 +346,7 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		else {
-			self.endOfQuestionsAlert()
+			endOfQuestionsAlert()
 		}
 	}
 
@@ -414,7 +413,7 @@ class QuestionsViewController: UIViewController {
 			self.answerButtons[Int(answer)].backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		}
 		
-		self.pickQuestion()
+		pickQuestion()
 	}
 	
 	func pausePreviousSounds() {

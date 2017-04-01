@@ -89,7 +89,7 @@ class MainViewController: UIViewController {
 		startButton.setTitle("START GAME".localized, for: .normal)
 		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
-		self.navigationItem.title = "Main menu".localized
+		navigationItem.title = "Main menu".localized
 	}
 
 	func setFramesPositionAndSize() {
@@ -120,8 +120,8 @@ class MainViewController: UIViewController {
 	}
 
 	func loadTheme() {
-		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 	}
 	
 	static func addParallax(toView view: UIView?) {
