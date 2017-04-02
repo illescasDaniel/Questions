@@ -104,9 +104,9 @@ class QuestionsViewController: UIViewController {
 														preferredStyle: .alert)
 			
 			alertViewController.addAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
-			alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
+			alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 			
-			present(alertViewController, animated: true, completion: nil)
+			present(alertViewController, animated: true)
 		}
 		else if repeatTimes >= 2 {
 			showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
@@ -450,12 +450,12 @@ class QuestionsViewController: UIViewController {
 		}
 		
 		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
-			self.present(alertViewController, animated: true, completion: nil)
+			self.present(alertViewController, animated: true)
 		}
 	}
 	
 	func showOKAlertWith(title: String, message: String) {
 		let alertViewController = UIAlertController.OKAlert(title: title, message: message)
-		present(alertViewController, animated: true, completion: nil)
+		present(alertViewController, animated: true)
 	}
 }

@@ -120,14 +120,14 @@ class SettingsViewController: UITableViewController {
 		let alertViewController = UIAlertController(title: "", message: "What do you want to reset?".localized,
 													preferredStyle: .actionSheet)
 		
-		alertViewController.addAction(title: "Cancel".localized, style: .cancel, handler: nil)
+		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
 			self.resetGameOptions()
 		}
 		alertViewController.addAction(title: "Only Statistics", style: .default) { action in
 			self.resetGameStatistics()
 		}
-		present(alertViewController, animated: true, completion: nil)
+		present(alertViewController, animated: true)
 	}
 
 	// MARK: IBActions
