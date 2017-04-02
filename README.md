@@ -15,10 +15,9 @@ Main Features
 - Repeat quizzes by shaking the device
 - Read Questions from a QR Code
 - Dark theme
-- Switch between themes by {
+- Switch between themes by:
 	- swiping up/down with 2 fingers or
 	- using a home quick action  
-}
 
 (The questions included are just some simple examples.)
 
