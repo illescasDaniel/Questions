@@ -48,10 +48,10 @@ class LicensesViewController: UIViewController {
 		let subheadFontStyle = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline)]
 		let headlineFontStyle = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)]
 		
-		let bgMusicBensound = "Royalty Free Music from Bensound: \n"
+		let bgMusicBensound = "Royalty Free Music from Bensound:\n"
 		let bgMusicBensoundLink = "http://www.bensound.com/royalty-free-music/track/the-lounge \n"
 		
-		let correctSound = "\nCorrect.mp3, creator: LittleRainySeasons: \n"
+		let correctSound = "\nCorrect.mp3, creator: LittleRainySeasons:\n"
 		let correctSoundLink = "https://www.freesound.org/people/LittleRainySeasons/sounds/335908 \n"
 		
 		let incorrectSound = "\nGame Sound Wrong.wav, creator: Bertrof\n\"This work is licensed under the Attribution License.\": \n"

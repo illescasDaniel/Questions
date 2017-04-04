@@ -24,7 +24,7 @@ Main Features
 Screenshots
 -------
 <img src="Images/Main Menu.png" width="200"> <img src="Images/Settings.png" width="200"> <img src="Images/Correct.png" width="200"> <img src="Images/Pause menu.png" width="200">  
-<img src="Images/Main menu dark.png" width="200"> <img src="Images/Settings dark.png" width="200"> <img src="Iamges/Questions.png" width="200"> <img src="Images/Score alert.png" width="200">  
+<img src="Images/Main menu dark.png" width="200"> <img src="Images/Settings dark.png" width="200"> <img src="Images/Questions.png" width="200"> <img src="Images/Score alert.png" width="200">  
 
 [More screenshots](http://imgur.com/a/OOrLJ)
 

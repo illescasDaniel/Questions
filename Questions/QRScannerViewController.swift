@@ -145,7 +145,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 				var isAnswersLenghtCorrect = true
 				answers.forEach { if ($0.characters.count == 0) { isAnswersLenghtCorrect = false } }
 				
-				if !isAnswersLenghtCorrect { return nil }
+				guard isAnswersLenghtCorrect else { return nil }
 			}
 			
 			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
@@ -159,13 +159,14 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	func loadPreview() {
 		
 		switch UIDevice.current.orientation {
-			case .portrait, .faceUp, .faceDown, .portraitUpsideDown, .unknown:
-				videoPreviewLayer?.connection.videoOrientation = .portrait
 			case .landscapeRight:
 				videoPreviewLayer?.connection.videoOrientation = .landscapeLeft
 			case .landscapeLeft:
 				videoPreviewLayer?.connection.videoOrientation = .landscapeRight
+			default:
+				videoPreviewLayer?.connection.videoOrientation = .portrait
 		}
+		
 		videoPreviewLayer?.frame = view.layer.bounds
 		
 		if let newLayer = videoPreviewLayer {
