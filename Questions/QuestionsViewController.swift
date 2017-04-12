@@ -58,16 +58,13 @@ class QuestionsViewController: UIViewController {
 		setButtonsAndLabelsPosition()
 		
 		// If user minimize the app, the pause menu shows up
-		NotificationCenter.default.addObserver(self, selector: #selector(showPauseMenu),
-												name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(showPauseMenu), name: .UIApplicationDidEnterBackground, object: nil)
 		
-		// If user rotates screen, the buttons and labels position are recalculated, aswell as the bluerred background for the pause menu
-		NotificationCenter.default.addObserver(self, selector: #selector(setButtonsAndLabelsPosition),
-		                                       name: Notification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		// If user rotates screen, the buttons and labels position are recalculated, aswell as the blurred background for the pause menu
+		NotificationCenter.default.addObserver(self, selector: #selector(setButtonsAndLabelsPosition), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 		
 		// Loads the theme if user uses a home quick action
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
-		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
 		if Settings.sharedInstance.score < 5 {
 			helpButton.alpha = 0.4

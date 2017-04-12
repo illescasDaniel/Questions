@@ -3,14 +3,14 @@
 
 "Dark Theme" = "Tema Oscuro";
 "Light Theme" = "Tema Claro";
-"Read QR Code" = "Leer código QR";
+"Scan QR Code" = "Leer código QR";
 
 /* -- UI ELEMENTS -- */
 
 "Main menu" = "Menú principal";
 
 "START GAME" = "COMENZAR";
-"READ QR CODE" = "LEER CÓDIGO QR";
+"SCAN QR CODE" = "LEER CÓDIGO QR";
 "Invalid QR Code format" = "Formato de Código QR inválido";
 "Text to encode format" = "Formato de texto a codificar";
 "READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correcta\", \"Bla\"], \"correct\": 2}, ... ]";

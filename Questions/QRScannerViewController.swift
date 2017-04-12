@@ -37,13 +37,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		
 		view.bringSubview(toFront: helpButton)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview),
-											   name: Notification.Name.UIApplicationDidChangeStatusBarOrientation, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
-		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
 		if !captureSession.isRunning {
 			captureSession.startRunning()
@@ -158,13 +156,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	func loadPreview() {
 		
-		switch UIDevice.current.orientation {
-			case .landscapeRight:
-				videoPreviewLayer?.connection.videoOrientation = .landscapeLeft
-			case .landscapeLeft:
-				videoPreviewLayer?.connection.videoOrientation = .landscapeRight
-			default:
-				videoPreviewLayer?.connection.videoOrientation = .portrait
+		switch UIApplication.shared.statusBarOrientation {
+		case .landscapeLeft:
+			videoPreviewLayer?.connection.videoOrientation = .landscapeLeft
+		case .landscapeRight:
+			videoPreviewLayer?.connection.videoOrientation = .landscapeRight
+		default:
+			videoPreviewLayer?.connection.videoOrientation = .portrait
 		}
 		
 		videoPreviewLayer?.frame = view.layer.bounds

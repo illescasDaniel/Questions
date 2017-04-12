@@ -8,8 +8,7 @@ class TopicsViewController: UITableViewController {
 		super.viewDidLoad()
 		navigationItem.title = "Topics".localized
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme),
-		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -35,7 +34,7 @@ class TopicsViewController: UITableViewController {
 		cell?.textLabel?.text = Quiz.quizzes[indexPath.row].name.localized
 		
 		// Load theme
-		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		cell?.textLabel?.font = .preferredFont(forTextStyle: .body)
 		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
 		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
 		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)

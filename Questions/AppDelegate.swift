@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if #available(iOS 9.0, *) {
 			
 			let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
-			                                                 localizedTitle: "Read QR Code".localized,
+			                                                 localizedTitle: "Scan QR Code".localized,
 			                                                 localizedSubtitle: nil,
 			                                                 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"),
 			                                                 userInfo: nil)

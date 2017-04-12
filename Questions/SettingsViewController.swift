@@ -34,11 +34,9 @@ class SettingsViewController: UITableViewController {
 		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 
 		// If user enables Reduce Motion setting, the parallax effect switch updates its value
-		NotificationCenter.default.addObserver(self, selector: #selector(setParallaxEffectSwitch),
-		                                       name: Notification.Name.UIAccessibilityReduceMotionStatusDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(setParallaxEffectSwitch), name: .UIAccessibilityReduceMotionStatusDidChange, object: nil)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme),
-		                                       name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
 		setSwitchesToDefaultValue()
 		loadCurrentTheme(animated: false)
@@ -89,7 +87,7 @@ class SettingsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
-		footer?.backgroundView?.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
+		footer?.contentView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 	}
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -115,10 +113,11 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: Alerts
 
-	@IBAction func resetGameAlert() {
-		
+	@IBAction func resetGameAlert(_ sender: UIButton) {
 		let alertViewController = UIAlertController(title: "", message: "What do you want to reset?".localized,
-													preferredStyle: .actionSheet)
+		                                            preferredStyle: .actionSheet)
+		
+		alertViewController.modalPresentationStyle = .popover
 		
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
@@ -127,6 +126,10 @@ class SettingsViewController: UITableViewController {
 		alertViewController.addAction(title: "Only Statistics", style: .default) { action in
 			self.resetGameStatistics()
 		}
+		
+		alertViewController.popoverPresentationController?.sourceRect = sender.frame
+		alertViewController.popoverPresentationController?.sourceView = sender
+		
 		present(alertViewController, animated: true)
 	}
 
