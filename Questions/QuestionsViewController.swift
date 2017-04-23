@@ -122,8 +122,6 @@ class QuestionsViewController: UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "unwindToQRScanner" {
-			let controller = segue.destination as! QRScannerViewController
-			controller.codeIsRead = false
 			Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		}
 	}
@@ -308,10 +306,12 @@ class QuestionsViewController: UIViewController {
 		answerButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
 		answerButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
 		answerButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
+		answerButtons.forEach { $0.titleLabel?.adjustsFontSizeToFitWidth = true }
 		
 		let currentStatusBarHeight = isPortrait ? statusBarHeight : 0.0
 		let yPosition6 = ((yPosition / 2.0) - labelHeight) + currentStatusBarHeight + (pauseButton.bounds.height / 2.0)
 		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
+		questionLabel.adjustsFontSizeToFitWidth = true
 		
 		blurView.frame = UIScreen.main.bounds
 	}

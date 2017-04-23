@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Questions
+
+  Created by Daniel Illescas Romero on 23/04/2017.
+  Copyright © 2017 Daniel Illescas Romero. All rights reserved.
+*/
+
+NSCameraUsageDescription = "La app necesita acceso a la cámara si deseas leer preguntas a partir de un código QR";

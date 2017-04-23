@@ -7,10 +7,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	@IBOutlet weak var allowCameraButton: UIButton!
 	@IBOutlet weak var helpButton: UIButton!
-	var captureSession = AVCaptureSession()
 	
+	var captureDevice: AVCaptureDevice?
+	var captureSession = AVCaptureSession()
 	var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-	var codeIsRead = false
 	
 	// MARK: View life cycle
 	
@@ -19,7 +19,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
 		
-		let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+		captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
 		
 		guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 		
@@ -35,24 +35,30 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
 		loadPreview()
 		
-		view.bringSubview(toFront: helpButton)
-		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
-		
-		if !captureSession.isRunning {
-			captureSession.startRunning()
-		}
-		
 		loadTheme()
+		
+		guard self.captureDevice != nil else { return }
+		
+		DispatchQueue.main.async {
+			
+			if !self.captureSession.isRunning {
+				self.captureSession.startRunning()
+			}
+		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		if captureSession.isRunning {
-			captureSession.stopRunning()
+		
+		DispatchQueue.main.async {
+			if self.captureSession.isRunning {
+				self.captureSession.stopRunning()
+			}
 		}
 	}
 	
@@ -67,7 +73,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 		let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject
 		
-		guard !codeIsRead, let metadata = metadataObject else { return }
+		guard let metadata = metadataObject else { return }
 		
 		if metadata.type == AVMetadataObjectTypeQRCode {
 			
@@ -82,7 +88,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			guard let validContent = validQuestions(from: content) else { invalidQRCodeFormat(); return }
 			
 			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
-			codeIsRead = true
+			captureSession.stopRunning()
 		}
 	}
 	
@@ -147,7 +153,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			}
 			
 			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
-			codeIsRead = true
 		}
 		else { return nil }
 		

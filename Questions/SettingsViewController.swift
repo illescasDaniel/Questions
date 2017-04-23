@@ -182,7 +182,7 @@ class SettingsViewController: UITableViewController {
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
 		
-		if #available(iOS 10.0, *) {
+		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available  {
 			hapticFeedbackSwitch.setOn(Settings.sharedInstance.hapticFeedbackEnabled, animated: true)
 		} else {
 			hapticFeedbackSwitch.setOn(false, animated: false)

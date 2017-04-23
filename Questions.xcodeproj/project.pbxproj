@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650745EE1EACCDF200BC178E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 650745F01EACCDF200BC178E /* InfoPlist.strings */; };
 		652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */; };
 		653D055E1D43961900865D43 /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D055D1D43961900865D43 /* QuestionsTests.swift */; };
 		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650745EF1EACCDF200BC178E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		653D055B1D43961900865D43 /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D055D1D43961900865D43 /* QuestionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTests.swift; sourceTree = "<group>"; };
@@ -208,8 +210,9 @@
 				8E7F0EFD1D351D410048F1A0 /* ViewControllers */,
 				65CB4C491D29C3E300D2E1C1 /* Main.storyboard */,
 				65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */,
-				65456AEF1D2BBEF90048965E /* Localizable.strings */,
 				65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */,
+				65456AEF1D2BBEF90048965E /* Localizable.strings */,
+				650745F01EACCDF200BC178E /* InfoPlist.strings */,
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
 				6560434F1E787FEE00A96192 /* Sounds */,
 				656043481E787D9D00A96192 /* Questions */,
@@ -389,6 +392,7 @@
 				65456AED1D2BBEF90048965E /* Localizable.strings in Resources */,
 				65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */,
 				65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */,
+				650745EE1EACCDF200BC178E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +470,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		650745F01EACCDF200BC178E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				650745EF1EACCDF200BC178E /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		65456AEF1D2BBEF90048965E /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

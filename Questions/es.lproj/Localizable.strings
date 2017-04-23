@@ -10,7 +10,7 @@
 "Main menu" = "Menú principal";
 
 "START GAME" = "COMENZAR";
-"SCAN QR CODE" = "LEER CÓDIGO QR";
+"READ QR CODE" = "LEER CÓDIGO QR";
 "Invalid QR Code format" = "Formato de Código QR inválido";
 "Text to encode format" = "Formato de texto a codificar";
 "READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correcta\", \"Bla\"], \"correct\": 2}, ... ]";
