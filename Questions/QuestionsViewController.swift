@@ -126,7 +126,7 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	// MARK: IBActions
+	// MARK: Actions
 	
 	@IBAction func answer1Action() { verify(answer: 0) }
 	@IBAction func answer2Action() { verify(answer: 1) }
@@ -204,7 +204,7 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Convenience
 	
-	func pauseMenuAction(animated: Bool = true) {
+	private func pauseMenuAction(animated: Bool = true) {
 		
 		let duration: TimeInterval = animated ? 0.2 : 0.0
 		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
@@ -219,14 +219,14 @@ class QuestionsViewController: UIViewController {
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
-	func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
+	private func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
 		if currentSetIndex < name.count {
 			return name[currentSetIndex].shuffled() as NSArray
 		}
 		return NSArray()
 	}
 	
-	func addSwipeGestures() {
+	private func addSwipeGestures() {
 		
 		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
 		swipeUp.direction = .up
@@ -239,7 +239,7 @@ class QuestionsViewController: UIViewController {
 		view.addGestureRecognizer(swipeDown)
 	}
 	
-	func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+	internal func respondToSwipeGesture(gesture: UIGestureRecognizer) {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
@@ -260,7 +260,7 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	func loadCurrentTheme() {
+	internal func loadCurrentTheme() {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
@@ -278,13 +278,13 @@ class QuestionsViewController: UIViewController {
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
-	func showPauseMenu() {
+	internal func showPauseMenu() {
 		if pauseView.alpha == 0.0 {
 			pauseMenuAction(animated: false)
 		}
 	}
 	
-	func setButtonsAndLabelsPosition() {
+	internal func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
 		
@@ -316,7 +316,7 @@ class QuestionsViewController: UIViewController {
 		blurView.frame = UIScreen.main.bounds
 	}
 	
-	func pickQuestion() {
+	private func pickQuestion() {
 		
 		// Restore
 		UIView.animate(withDuration: 0.75) {
@@ -347,7 +347,7 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 
-	func isSetCompleted() -> Bool {
+	private func isSetCompleted() -> Bool {
 		
 		if let completedSets = Settings.sharedInstance.completedSets[currentTopicIndex] {
 			return completedSets[currentSetIndex]
@@ -356,7 +356,7 @@ class QuestionsViewController: UIViewController {
 		return false
 	}
 	
-	func okActionDetailed() {
+	private func okActionDetailed() {
 		
 		if !isSetCompleted() {
 			Settings.sharedInstance.correctAnswers += correctAnswers
@@ -372,7 +372,7 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	func repeatActionDetailed() {
+	private func repeatActionDetailed() {
 		repeatTimes += 1
 		correctAnswers = 0
 		incorrectAnswers = 0
@@ -382,7 +382,7 @@ class QuestionsViewController: UIViewController {
 		pickQuestion()
 	}
 	
-	func verify(answer: UInt8) {
+	private func verify(answer: UInt8) {
 		
 		pausePreviousSounds()
 		
@@ -413,7 +413,7 @@ class QuestionsViewController: UIViewController {
 		pickQuestion()
 	}
 	
-	func pausePreviousSounds() {
+	private func pausePreviousSounds() {
 		
 		if let incorrectSound = Audio.incorrect, incorrectSound.isPlaying {
 			incorrectSound.pause()
@@ -426,9 +426,9 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	// MARK: Alerts
+	// Alerts
 	
-	func endOfQuestionsAlert() {
+	private func endOfQuestionsAlert() {
 		
 		let helpScore = oldScore - Settings.sharedInstance.score
 		let score = (correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
@@ -451,8 +451,9 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	func showOKAlertWith(title: String, message: String) {
+	private func showOKAlertWith(title: String, message: String) {
 		let alertViewController = UIAlertController.OKAlert(title: title, message: message)
 		present(alertViewController, animated: true)
 	}
+
 }

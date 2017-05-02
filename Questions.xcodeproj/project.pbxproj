@@ -14,7 +14,7 @@
 		65456AED1D2BBEF90048965E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65456AEF1D2BBEF90048965E /* Localizable.strings */; };
 		65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF11D2BC01C0048965E /* String+Extension.swift */; };
 		65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF31D2BC9620048965E /* TopicsViewController.swift */; };
-		65456FF81D77A07A004A13B6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456FF71D77A07A004A13B6 /* UIColor+Extension.swift */; };
+		65456FF81D77A07A004A13B6 /* Colors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456FF71D77A07A004A13B6 /* Colors+Extension.swift */; };
 		654F9A3A1E775001002B6A82 /* QuizzesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F9A391E775001002B6A82 /* QuizzesViewController.swift */; };
 		6560434A1E787D9D00A96192 /* People.json in Resources */ = {isa = PBXBuildFile; fileRef = 656043491E787D9D00A96192 /* People.json */; };
 		6560434C1E787DC700A96192 /* Social.json in Resources */ = {isa = PBXBuildFile; fileRef = 6560434B1E787DC700A96192 /* Social.json */; };
@@ -67,7 +67,7 @@
 		65456AF01D2BBF190048965E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		65456AF11D2BC01C0048965E /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		65456AF31D2BC9620048965E /* TopicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicsViewController.swift; sourceTree = "<group>"; };
-		65456FF71D77A07A004A13B6 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		65456FF71D77A07A004A13B6 /* Colors+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Colors+Extension.swift"; sourceTree = "<group>"; };
 		654F9A391E775001002B6A82 /* QuizzesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizzesViewController.swift; sourceTree = "<group>"; };
 		656043491E787D9D00A96192 /* People.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = People.json; sourceTree = "<group>"; };
 		6560434B1E787DC700A96192 /* Social.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Social.json; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 				65456AF11D2BC01C0048965E /* String+Extension.swift */,
 				8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */,
 				652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */,
-				65456FF71D77A07A004A13B6 /* UIColor+Extension.swift */,
+				65456FF71D77A07A004A13B6 /* Colors+Extension.swift */,
 				65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */,
 			);
 			name = Extensions;
@@ -440,7 +440,7 @@
 				8E7F0EFC1D351CEA0048F1A0 /* Quiz.swift in Sources */,
 				65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */,
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,
-				65456FF81D77A07A004A13B6 /* UIColor+Extension.swift in Sources */,
+				65456FF81D77A07A004A13B6 /* Colors+Extension.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
 				65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */,
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,

@@ -26,20 +26,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
 			                                                 localizedTitle: "Scan QR Code".localized,
 			                                                 localizedSubtitle: nil,
-			                                                 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"),
-			                                                 userInfo: nil)
+			                                                 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
 			
 			let darkTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.DarkTheme.rawValue,
 															 localizedTitle: "Dark Theme".localized,
 															 localizedSubtitle: nil,
-															 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"),
-															 userInfo: nil)
+															 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"))
 			
 			let lightTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.LightTheme.rawValue,
 															 localizedTitle: "Light Theme".localized,
 															 localizedSubtitle: nil,
-															 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"),
-															 userInfo: nil)
+															 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"))
 			
 			application.shortcutItems = [readQRCode, darkTheme, lightTheme]
 		}
@@ -60,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
 				
 				let navController = UINavigationController.init(rootViewController: viewController)
-				window?.rootViewController?.present(navController, animated: false, completion: nil)
+				window?.rootViewController?.present(navController, animated: false)
 			
 				viewController.performSegue(withIdentifier: "QRScannerVC", sender: self) // Works only the first time, I don't know why
 

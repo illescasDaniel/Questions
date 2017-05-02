@@ -75,7 +75,7 @@ class TopicsViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	func loadCurrentTheme() {
+	internal func loadCurrentTheme() {
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()

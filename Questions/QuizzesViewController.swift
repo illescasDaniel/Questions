@@ -108,7 +108,7 @@ class QuizzesViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	func loadCurrentTheme() {
+	internal func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
@@ -116,7 +116,7 @@ class QuizzesViewController: UITableViewController {
 		tableView.reloadData()
 	}
 	
-	func fillCompletedSets() {
+	private func fillCompletedSets() {
 		let completedSetsCount = (Settings.sharedInstance.completedSets[currentTopicIndex]?.count) ?? 0
 		
 		if completedSetsCount < setCount {

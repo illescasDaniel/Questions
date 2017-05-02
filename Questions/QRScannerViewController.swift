@@ -134,7 +134,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	// MARK: Convenience
 	
-	func validQuestions(from content: [[String: Any]]?) -> [[String: Any]]? {
+	private func validQuestions(from content: [[String: Any]]?) -> [[String: Any]]? {
 		
 		if let validContent = content, validContent.count > 0 {
 			
@@ -159,7 +159,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		return content
 	}
 	
-	func loadPreview() {
+	internal func loadPreview() {
 		
 		switch UIApplication.shared.statusBarOrientation {
 		case .landscapeLeft:
@@ -179,7 +179,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		view.bringSubview(toFront: helpButton)
 	}
 	
-	func loadTheme() {
+	internal func loadTheme() {
 		
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
@@ -188,7 +188,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 	}
 	
-	func invalidQRCodeFormat() {
+	internal func invalidQRCodeFormat() {
 		let alertViewController = UIAlertController.OKAlert(title: "Attention", message: "Invalid QR Code format")
 		present(alertViewController, animated: true)
 	}

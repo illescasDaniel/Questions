@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
 
 	// MARK: Convenience
 	
-	func initializeSounds() {
+	private func initializeSounds() {
 		
 		Audio.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
 		Audio.correct = AVAudioPlayer(file: "correct", type: "mp3")
@@ -83,14 +83,14 @@ class MainViewController: UIViewController {
 		Audio.bgMusic?.numberOfLoops = -1
 	}
 	
-	func initializeLables() {
+	private func initializeLables() {
 		startButton.setTitle("START GAME".localized, for: .normal)
 		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		navigationItem.title = "Main menu".localized
 	}
 
-	func setFramesPositionAndSize() {
+	internal func setFramesPositionAndSize() {
 		
 		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
 		
@@ -117,7 +117,7 @@ class MainViewController: UIViewController {
 		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2, width: scoreLabelWidth, height: scoreLabelHeight)
 	}
 
-	func loadTheme() {
+	internal func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 	}

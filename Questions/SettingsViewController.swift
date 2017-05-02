@@ -144,7 +144,7 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	@IBAction func switchHapticFeedback() {
-		if #available(iOS 10.0, *) {
+		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available {
 			Settings.sharedInstance.hapticFeedbackEnabled = hapticFeedbackSwitch.isOn
 		}
 	}
@@ -169,14 +169,14 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	func setParallaxEffectSwitch() {
+	internal func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
 		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.sharedInstance.parallaxEnabled
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
 		parallaxEffectSwitch.isEnabled = !reduceMotionEnabled
 	}
 	
-	func setSwitchesToDefaultValue() {
+	private func setSwitchesToDefaultValue() {
 		
 		setParallaxEffectSwitch()
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
@@ -191,7 +191,7 @@ class SettingsViewController: UITableViewController {
 		}
 	}
 	
-	func initializeLabelNames() {
+	private func initializeLabelNames() {
 		settingsNavItem.title = "Settings".localized
 		bgMusicLabel.text = "Background music".localized
 		hapticFeedbackLabel.text = "Haptic Feedback".localized + "*"
@@ -201,12 +201,12 @@ class SettingsViewController: UITableViewController {
 		licensesLabel.text = "Licenses".localized
 	}
 	
-	func loadTheme() {
+	internal func loadTheme() {
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
 		loadCurrentTheme(animated: false)
 	}
 	
-	func loadCurrentTheme(animated: Bool) {
+	private func loadCurrentTheme(animated: Bool) {
 		
 		let duration: TimeInterval = animated ? 0.3 : 0
 		
@@ -240,7 +240,7 @@ class SettingsViewController: UITableViewController {
 		}	
 	}
 	
-	func resetGameStatistics() {
+	private func resetGameStatistics() {
 		
 		for i in 0..<Quiz.quizzes.count {
 			
@@ -258,7 +258,7 @@ class SettingsViewController: UITableViewController {
 		tableView.reloadData()
 	}
 
-	func resetGameOptions() {
+	private func resetGameOptions() {
 		
 		resetGameStatistics()
 		
