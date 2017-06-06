@@ -1,5 +1,5 @@
 # Questions
-[![Swift version](https://img.shields.io/badge/Swift-3-orange.svg)](https://swift.org/download)
+[![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
 [![Version](https://img.shields.io/badge/version-v2.16--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
@@ -56,5 +56,4 @@ All the GitHub and StackOverflow community, also YouTube :)
 Upcoming Features
 -----------------
 
-- Add Achievements
-- Move Reset Game option to the Settings app (?)
+- Add Achievements (?)
