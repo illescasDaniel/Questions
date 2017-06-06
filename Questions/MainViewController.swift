@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
 		navigationItem.title = "Main menu".localized
 	}
 
-	internal func setFramesPositionAndSize() {
+	@objc func setFramesPositionAndSize() {
 		
 		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
 		
@@ -117,7 +117,7 @@ class MainViewController: UIViewController {
 		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2, width: scoreLabelWidth, height: scoreLabelHeight)
 	}
 
-	internal func loadTheme() {
+	@objc func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 	}
@@ -139,3 +139,4 @@ class MainViewController: UIViewController {
 		view?.addMotionEffect(MainViewController.parallaxEffect)
 	}
 }
+

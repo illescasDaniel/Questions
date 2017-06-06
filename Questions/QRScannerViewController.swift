@@ -19,9 +19,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 
 		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
 		
-		captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+		captureDevice = AVCaptureDevice.default(for: .video)
 		
-		guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
+		guard let captureDevice = captureDevice, let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
 		
 		captureSession.addInput(input)
 		
@@ -29,10 +29,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		captureSession.addOutput(captureMetadataOutput)
 		
 		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-		captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+		captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
 		
 		videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+		videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
 		loadPreview()
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
@@ -69,15 +69,15 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	// MARK: AVCaptureMetadataOutputObjectsDelegate
 	
-	func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+	func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 
 		let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject
 		
 		guard let metadata = metadataObject else { return }
 		
-		if metadata.type == AVMetadataObjectTypeQRCode {
+		if metadata.type == AVMetadataObject.ObjectType.qr {
 			
-			guard let data = metadata.stringValue.data(using: .utf8) else { invalidQRCodeFormat(); return }
+			guard let data = metadata.stringValue?.data(using: .utf8) else { invalidQRCodeFormat(); return }
 			
 			var content: [[String: Any]]?
 			
@@ -159,15 +159,15 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		return content
 	}
 	
-	internal func loadPreview() {
+	@objc func loadPreview() {
 		
 		switch UIApplication.shared.statusBarOrientation {
 		case .landscapeLeft:
-			videoPreviewLayer?.connection.videoOrientation = .landscapeLeft
+			videoPreviewLayer?.connection?.videoOrientation = .landscapeLeft
 		case .landscapeRight:
-			videoPreviewLayer?.connection.videoOrientation = .landscapeRight
+			videoPreviewLayer?.connection?.videoOrientation = .landscapeRight
 		default:
-			videoPreviewLayer?.connection.videoOrientation = .portrait
+			videoPreviewLayer?.connection?.videoOrientation = .portrait
 		}
 		
 		videoPreviewLayer?.frame = view.layer.bounds
@@ -179,7 +179,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		view.bringSubview(toFront: helpButton)
 	}
 	
-	internal func loadTheme() {
+	@objc func loadTheme() {
 		
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
@@ -188,8 +188,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 	}
 	
-	internal func invalidQRCodeFormat() {
+	func invalidQRCodeFormat() {
 		let alertViewController = UIAlertController.OKAlert(title: "Attention", message: "Invalid QR Code format")
 		present(alertViewController, animated: true)
 	}
 }
+

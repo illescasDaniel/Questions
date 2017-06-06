@@ -169,7 +169,7 @@ class SettingsViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	internal func setParallaxEffectSwitch() {
+	@objc func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
 		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.sharedInstance.parallaxEnabled
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
@@ -201,7 +201,7 @@ class SettingsViewController: UITableViewController {
 		licensesLabel.text = "Licenses".localized
 	}
 	
-	internal func loadTheme() {
+	@objc func loadTheme() {
 		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
 		loadCurrentTheme(animated: false)
 	}
@@ -292,3 +292,4 @@ class SettingsViewController: UITableViewController {
 		loadCurrentTheme(animated: true)
 	}
 }
+

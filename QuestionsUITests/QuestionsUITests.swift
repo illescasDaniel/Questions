@@ -5,13 +5,13 @@ class QuestionsUITests: XCTestCase {
 	
     override func setUp() {
         super.setUp()
-
+		
 		XCUIApplication().launch()
     }
     
     func testButtons() {
 		
-		XCUIDevice.shared().orientation = .portrait
+		XCUIDevice.shared.orientation = .portrait
 		
 		let app = XCUIApplication()
 		app.buttons["SETTINGS"].tap()

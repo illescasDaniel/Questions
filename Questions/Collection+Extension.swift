@@ -4,7 +4,7 @@ import GameplayKit // .shuffled
 extension Collection {
 	
 	/// Return a copy of `self` with its elements shuffled
-	func shuffled() -> [Generator.Element] {
+	func shuffled() -> [Iterator.Element] {
 		
 		if #available(iOS 10.0, *) {
 			return (self as! NSArray).shuffled() as! [Self.Iterator.Element]
@@ -26,7 +26,9 @@ extension MutableCollection where Index == Int {
 		for i in 0..<count.hashValue {
 			let j = Int(arc4random_uniform(UInt32(count.hashValue - i))) + i
 			guard i != j else { continue }
-			swap(&self[i], &self[j])
+			// swap(&self[i], &self[j])
+			self.swapAt(i, j)
 		}
 	}
 }
+

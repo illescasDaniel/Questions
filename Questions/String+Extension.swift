@@ -6,7 +6,7 @@ extension String {
 		return NSLocalizedString(self, comment: "")
 	}
 	
-	func attributedStringWith(_ attributes: [String : Any]? = nil) -> NSAttributedString {
+	func attributedStringWith(_ attributes: [NSAttributedStringKey : Any]? = nil) -> NSAttributedString {
 		return NSAttributedString(string: self, attributes: attributes)
 	}
 }

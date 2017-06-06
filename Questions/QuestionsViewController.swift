@@ -239,7 +239,7 @@ class QuestionsViewController: UIViewController {
 		view.addGestureRecognizer(swipeDown)
 	}
 	
-	internal func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+	@objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
@@ -260,7 +260,7 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	internal func loadCurrentTheme() {
+	@objc func loadCurrentTheme() {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
@@ -278,13 +278,13 @@ class QuestionsViewController: UIViewController {
 		setNeedsStatusBarAppearanceUpdate()
 	}
 	
-	internal func showPauseMenu() {
+	@objc func showPauseMenu() {
 		if pauseView.alpha == 0.0 {
 			pauseMenuAction(animated: false)
 		}
 	}
 	
-	internal func setButtonsAndLabelsPosition() {
+	@objc func setButtonsAndLabelsPosition() {
 		
 		// Answers buttons position
 		
@@ -316,7 +316,7 @@ class QuestionsViewController: UIViewController {
 		blurView.frame = UIScreen.main.bounds
 	}
 	
-	private func pickQuestion() {
+	public func pickQuestion() {
 		
 		// Restore
 		UIView.animate(withDuration: 0.75) {
@@ -457,3 +457,4 @@ class QuestionsViewController: UIViewController {
 	}
 
 }
+

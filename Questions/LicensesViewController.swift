@@ -7,8 +7,8 @@ class LicensesViewController: UIViewController {
 	
 	private lazy var licensesAttributedText: NSAttributedString = {
 
-		let headlineFontStyle = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline)]
-		let subheadFontStyle = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline)]
+		let headlineFontStyle = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .headline)]
+		let subheadFontStyle = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline)]
 		
 		let bgMusicBensound = "Royalty Free Music from Bensound:\n".attributedStringWith(headlineFontStyle)
 		let bgMusicBensoundLink = "http://www.bensound.com/royalty-free-music/track/the-lounge \n".attributedStringWith(subheadFontStyle)
@@ -49,13 +49,13 @@ class LicensesViewController: UIViewController {
 	
 	// MARK: Convenience
 	
-	internal func loadCurrentTheme() {
+	@objc func loadCurrentTheme() {
 		textView.backgroundColor = .themeStyle(dark: .gray, light: .white)
 		textView.textColor = .themeStyle(dark: .white, light: .black)
 		textView.tintColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
 	}
 	
-	internal func setFrame() {
+	@objc func setFrame() {
 		textView.frame = UIScreen.main.bounds
 	}
 	
@@ -63,3 +63,4 @@ class LicensesViewController: UIViewController {
 	
 	@IBAction func unwindToLicenses(_ unwindSegue: UIStoryboardSegue) {	}
 }
+
