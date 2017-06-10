@@ -87,7 +87,7 @@ class QuestionsViewController: UIViewController {
 		
 		guard motion == .motionShake else { return }
 		
-		let currentQuestion = Int(String(remainingQuestionsLabel.text?.characters.first ?? "0")) ?? 0
+		let currentQuestion = Int(String(remainingQuestionsLabel.text?.first ?? "0")) ?? 0
 		
 		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
 			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)

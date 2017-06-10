@@ -146,10 +146,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 					let correct = question["correct"] as? UInt8
 					else { return nil }
 				
-				guard questionText.characters.count > 0, answers.count == 4, correct < 4 else { return nil }
+				guard questionText.count > 0, answers.count == 4, correct < 4 else { return nil }
 				
 				var isAnswersLenghtCorrect = true
-				answers.forEach { if ($0.characters.count == 0) { isAnswersLenghtCorrect = false } }
+				answers.forEach { if ($0.count == 0) { isAnswersLenghtCorrect = false } }
 				
 				guard isAnswersLenghtCorrect else { return nil }
 			}
