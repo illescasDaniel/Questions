@@ -58,17 +58,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			case .QRCode:
 				
-				let storyboard = UIStoryboard(name: "Main", bundle: nil)
-				if let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as? MainViewController {
-					
-					let navController = UINavigationController.init(rootViewController: viewController)
-					if #available(iOS 11.0, *) {
-						navController.navigationBar.prefersLargeTitles = true
+				if let presentedViewController = window?.rootViewController?.presentedViewController as? UINavigationController {
+					presentedViewController.topViewController?.performSegue(withIdentifier: "QRScannerVC", sender: self)
+				}
+				else {
+					let storyboard = UIStoryboard(name: "Main", bundle: nil)
+					if let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as? MainViewController {
+						
+						let navController = UINavigationController(rootViewController: viewController)
+						if #available(iOS 11.0, *) {
+							navController.navigationBar.prefersLargeTitles = true
+						}
+						
+						window?.rootViewController?.present(navController, animated: false)
+						
+						viewController.performSegue(withIdentifier: "QRScannerVC", sender: self)
 					}
-					
-					window?.rootViewController?.present(navController, animated: false)
-					
-					viewController.performSegue(withIdentifier: "QRScannerVC", sender: self) // Works only the first time, I don't know why
 				}
 				
 			case .DarkTheme:
