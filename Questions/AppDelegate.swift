@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 		
+		let navController = window?.rootViewController as? UINavigationController
+		if #available(iOS 11.0, *) {
+			navController?.navigationBar.prefersLargeTitles = true
+		}
+		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
 			Settings.sharedInstance = mySettings
@@ -54,13 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			case .QRCode:
 				
 				let storyboard = UIStoryboard(name: "Main", bundle: nil)
-				let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
+				if let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as? MainViewController {
+					
+					let navController = UINavigationController.init(rootViewController: viewController)
+					if #available(iOS 11.0, *) {
+						navController.navigationBar.prefersLargeTitles = true
+					}
+					
+					window?.rootViewController?.present(navController, animated: false)
+					
+					viewController.performSegue(withIdentifier: "QRScannerVC", sender: self) // Works only the first time, I don't know why
+				}
 				
-				let navController = UINavigationController.init(rootViewController: viewController)
-				window?.rootViewController?.present(navController, animated: false)
-			
-				viewController.performSegue(withIdentifier: "QRScannerVC", sender: self) // Works only the first time, I don't know why
-
 			case .DarkTheme:
 				Settings.sharedInstance.darkThemeEnabled = true
 				

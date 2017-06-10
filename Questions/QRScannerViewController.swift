@@ -16,7 +16,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
+		if #available(iOS 11.0, *) { self.navigationItem.largeTitleDisplayMode = .never }
+		
 		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
 		
 		captureDevice = AVCaptureDevice.default(for: .video)
