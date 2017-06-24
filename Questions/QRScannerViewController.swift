@@ -1,6 +1,6 @@
 import UIKit
 import AVFoundation
-
+	
 class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 	
 	// MARK: Properties
@@ -81,10 +81,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			
 			guard let data = metadata.stringValue?.data(using: .utf8) else { invalidQRCodeFormat(); return }
 			
-			var content: [[String: Any]]?
+			var content: Question?
 			
 			do {
-				content = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String: Any]]
+				content = try JSONDecoder().decode(Question.self, from: data)
 			} catch { invalidQRCodeFormat(); }
 			
 			guard let validContent = validQuestions(from: content) else { invalidQRCodeFormat(); return }
@@ -98,10 +98,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
-		if let content = sender as? [[String: Any]], segue.identifier == "unwindToQuestions" {
-			let controller = segue.destination as! QuestionsViewController
-			controller.isSetFromJSON = true
-			controller.set = content as NSArray
+		if let content = sender as? Question, segue.identifier == "unwindToQuestions" {
+			let controller = segue.destination as? QuestionsViewController
+			controller?.isSetFromJSON = true
+			controller?.set = content.quiz[0]
 		}
 	}
 	
@@ -136,27 +136,22 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	// MARK: Convenience
 	
-	private func validQuestions(from content: [[String: Any]]?) -> [[String: Any]]? {
+	private func validQuestions(from content: Question?) -> Question? {
 		
-		if let validContent = content, validContent.count > 0 {
+		if let validQuiz = content?.quiz, !validQuiz.isEmpty {
 			
-			for question in validContent {
-				guard let questionText = question["question"] as? String,
-					let answers = question["answers"] as? [String],
-					let correct = question["correct"] as? UInt8
-					else { return nil }
+			for fullQuestion in validQuiz[0] { // in case the content has multiple quizzes
 				
-				guard questionText.count > 0, answers.count == 4, correct < 4 else { return nil }
+				guard !fullQuestion.question.isEmpty, fullQuestion.answers.count == 4, fullQuestion.correct < 4, fullQuestion.correct >= 0 else { return nil }
 				
 				var isAnswersLenghtCorrect = true
-				answers.forEach { if ($0.count == 0) { isAnswersLenghtCorrect = false } }
-				
+				fullQuestion.answers.forEach { answer in
+					if answer.isEmpty { isAnswersLenghtCorrect = false }
+				}
+			
 				guard isAnswersLenghtCorrect else { return nil }
 			}
-			
-			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
 		}
-		else { return nil }
 		
 		return content
 	}

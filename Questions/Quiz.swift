@@ -1,9 +1,25 @@
 import Foundation
 
+struct QuestionType: Codable, Equatable {
+	
+	static func ==(lhs: QuestionType, rhs: QuestionType) -> Bool {
+		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correct == rhs.correct
+	}
+	
+	let question: String
+	let answers: [String]
+	let correct: UInt8
+	
+}
+
+struct Question: Codable {
+	let quiz: [[QuestionType]]
+}
+
 struct Quiz {
 	
 	private(set) var name = String()
-	private(set) var content = [[[String: Any]]]()
+	private(set) var content = Question(quiz: [[]])
 	
 	init(name: String) {
 		
@@ -14,7 +30,7 @@ struct Quiz {
 		
 		do {
 			let data = try Data(contentsOf: url)
-			content = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [[[String: Any]]]
+			content = try JSONDecoder().decode(Question.self, from: data)
 		} catch {
 			print("Error initializing quiz content")
 		}

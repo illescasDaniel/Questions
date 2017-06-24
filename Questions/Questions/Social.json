@@ -1,7 +1,9 @@
-[
-	[
-		{"question": "What's your name?", "answers": ["Sophie", "Daniel", "Pete", "Mr. Incognito"], "correct": 3},
-		{"question": "🐶 or 🐱?", "answers": ["🐱", "🐶", "Daniel", "Other"], "correct": 1},
-		{"question": "Do you like Pizza?", "answers": ["I love it!", "Yes", "No", "Maybe"], "correct": 1}
+{
+	"quiz": [
+		[
+			{"question": "What's your name?", "answers": ["Sophie", "Daniel", "Pete", "Mr. Incognito"], "correct": 3},
+			{"question": "🐶 or 🐱?", "answers": ["🐱", "🐶", "Daniel", "Other"], "correct": 1},
+			{"question": "Do you like Pizza?", "answers": ["I love it!", "Yes", "No", "Maybe"], "correct": 1}
+		]
 	]
-]
+}

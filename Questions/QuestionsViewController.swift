@@ -25,8 +25,8 @@ class QuestionsViewController: UIViewController {
 	var currentTopicIndex = Int()
 	var currentSetIndex = Int()
 	var isSetFromJSON = false
-	var set: NSArray = []
-	var quiz: NSEnumerator?
+	var set: [QuestionType] = []
+	var quiz: EnumeratedIterator<IndexingIterator<Array<QuestionType>>>!
 	
 	// MARK: View life cycle
 	
@@ -35,12 +35,11 @@ class QuestionsViewController: UIViewController {
 		super.viewDidLoad()
 		
 		if !isSetFromJSON {
-			set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
+			setUpQuiz()
 		} else {
-			set = set.shuffled() as NSArray
+			set = set.shuffled()
+			quiz = set.enumerated().makeIterator()
 		}
-		
-		quiz = set.objectEnumerator()
 		
 		blurView.frame = UIScreen.main.bounds
 		
@@ -219,9 +218,9 @@ class QuestionsViewController: UIViewController {
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
-	private func shuffledQuiz(_ name: [[[String: Any]]]) -> NSArray{
-		if currentSetIndex < name.count {
-			return name[currentSetIndex].shuffled() as NSArray
+	private func shuffledQuiz(_ name: Question) -> NSArray{
+		if currentSetIndex < name.quiz.count {
+			return name.quiz[currentSetIndex].shuffled() as NSArray
 		}
 		return NSArray()
 	}
@@ -327,19 +326,24 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		
-		if let quiz = quiz?.nextObject() as? NSDictionary {
+		if let quiz0 = quiz.next() {
+			
+			let fullQuestion = quiz0.element
 			
 			UIView.animate(withDuration: 0.1) {
 				
-				self.correctAnswer = (quiz["correct"] as! UInt8)
-				self.questionLabel.text = (quiz["question"] as! String).localized
+				self.correctAnswer = fullQuestion.correct
+				self.questionLabel.text = fullQuestion.question.localized
 				
-				let answers = quiz["answers"] as! [String]
+				let answers = fullQuestion.answers
 				
 				for i in 0..<self.answerButtons.count {
 					self.answerButtons[i].setTitle(answers[i].localized, for: .normal)
 				}
-				self.remainingQuestionsLabel.text = "\(self.set.index(of: quiz) + 1)/\(self.set.count)"
+				
+				if let index = self.set.index(of: fullQuestion) {
+					self.remainingQuestionsLabel.text = "\(index + 1)/\(self.set.count)"
+				}
 			}
 		}
 		else {
@@ -376,8 +380,7 @@ class QuestionsViewController: UIViewController {
 		repeatTimes += 1
 		correctAnswers = 0
 		incorrectAnswers = 0
-		set = shuffledQuiz(Quiz.quizzes[currentTopicIndex].content)
-		quiz = set.objectEnumerator()
+		setUpQuiz()
 		Settings.sharedInstance.score = oldScore
 		pickQuestion()
 	}
@@ -455,6 +458,10 @@ class QuestionsViewController: UIViewController {
 		let alertViewController = UIAlertController.OKAlert(title: title, message: message)
 		present(alertViewController, animated: true)
 	}
-
+	
+	private func setUpQuiz() {
+		set = Quiz.quizzes[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
+		quiz = set.enumerated().makeIterator()
+	}
 }
 
