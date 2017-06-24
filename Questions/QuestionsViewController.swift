@@ -56,12 +56,6 @@ class QuestionsViewController: UIViewController {
 		loadCurrentTheme()
 		setButtonsAndLabelsPosition()
 		
-		// If user minimize the app, the pause menu shows up
-		NotificationCenter.default.addObserver(self, selector: #selector(showPauseMenu), name: .UIApplicationDidEnterBackground, object: nil)
-		
-		// If user rotates screen, the buttons and labels position are recalculated, aswell as the blurred background for the pause menu
-		NotificationCenter.default.addObserver(self, selector: #selector(setButtonsAndLabelsPosition), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
@@ -72,6 +66,10 @@ class QuestionsViewController: UIViewController {
 		addSwipeGestures()
 		
 		pickQuestion()
+	}
+	
+	override func viewWillLayoutSubviews() {
+		setButtonsAndLabelsPosition()
 	}
 	
 	@available(iOS, deprecated: 9.0)
@@ -271,8 +269,8 @@ class QuestionsViewController: UIViewController {
 		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
 		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
 		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
-		pauseView.subviews.forEach { ($0 as! UIButton).setTitleColor(dark: .black, light: .darkGray, for: .normal)
-									($0 as! UIButton).backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
+		pauseView.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
+									($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
 		setNeedsStatusBarAppearanceUpdate()
 	}

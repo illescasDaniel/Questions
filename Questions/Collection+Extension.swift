@@ -7,7 +7,8 @@ extension Collection {
 	func shuffled() -> [Iterator.Element] {
 		
 		if #available(iOS 10.0, *) {
-			return (self as! NSArray).shuffled() as! [Self.Iterator.Element]
+			let shuffledArray = (self as? NSArray)?.shuffled()
+			return shuffledArray as! [Self.Iterator.Element]
 		}
 		
 		var list = Array(self)
@@ -26,7 +27,6 @@ extension MutableCollection where Index == Int {
 		for i in 0..<count.hashValue {
 			let j = Int(arc4random_uniform(UInt32(count.hashValue - i))) + i
 			guard i != j else { continue }
-			// swap(&self[i], &self[j])
 			self.swapAt(i, j)
 		}
 	}

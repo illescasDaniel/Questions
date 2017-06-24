@@ -33,7 +33,10 @@ class Settings: NSObject, NSCoding {
 		parallaxEnabled = unarchiver.decodeBool(forKey: "Parallax")
 		musicEnabled = unarchiver.decodeBool(forKey: "Music")
 		score = unarchiver.decodeInteger(forKey: "Score")
-		completedSets = unarchiver.decodeObject(forKey: "Completed sets") as! [Int:[Bool]]
+		
+		if let completedSets = unarchiver.decodeObject(forKey: "Completed sets") as? [Int:[Bool]] {
+			self.completedSets = completedSets
+		}
 	}
 
 	func save() -> Bool {

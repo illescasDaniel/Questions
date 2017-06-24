@@ -12,43 +12,45 @@ class QuestionsTests: XCTestCase {
 	override func tearDown() {
 		super.tearDown()
 	}
-
+	
 	func testQuestionsLabels() {
 
-		let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as! QuestionsViewController
+		guard let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as? QuestionsViewController else { return }
 		
 		var answersFromJson: [String]
-		var numberOfQuestions: Int
-		var set: [NSDictionary]
 		var question: String
 
 		vc.view.reloadInputViews()
 
 		for k in 0..<Quiz.quizzes.count {
 			
-			for i in 0..<Quiz.quizzes[k].content.count {
+			for i in 0..<Quiz.quizzes[k].content.quiz.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
 				vc.viewDidLoad()
 				
-				set = (vc.set as! [NSDictionary])
-				
-				numberOfQuestions = (vc.set as! [NSDictionary]).count
-				
-				for j in 0..<numberOfQuestions {
+				for j in 0..<vc.set.count {
 					
-					answersFromJson = set[j]["answers"] as! [String]
-					question = set[j]["question"] as! String
+					answersFromJson = vc.set[j].answers
+					question = vc.set[j].question
 					
 					// TEST QUESTION
-					print("· Question \(j):\nQuestionLabel: \(vc.questionLabel.text!)\nJsonQuestion: \(question)\n")
-					XCTAssert(vc.questionLabel.text! == question, "Question \(j) string didn't load correctly")
+					
+					if let text = vc.questionLabel.text {
+						print("· Question \(j):\nQuestionLabel: \(text)\nJsonQuestion: \(question)\n")
+						XCTAssert(text == question, "Question \(j) string didn't load correctly")
+					}
+					else { XCTAssert(true, "Question \(j) string didn't load correctly (nil)") }
 					
 					// TEST ANSWERS
 					for k in 0..<vc.answerButtons.count {
 						print("·· Answer \(k):\nLabel: \(vc.answerButtons[k].currentTitle!)\nJson: \(answersFromJson[k])\n")
-						XCTAssert(vc.answerButtons[k].currentTitle! == answersFromJson[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
+						
+						if let title = vc.answerButtons[k].currentTitle {
+							XCTAssert(title == answersFromJson[k], "Error loading answer string \(k) from set \(vc.currentSetIndex)")
+						}
+						else { XCTAssert(true, "Error loading answer string \(k) from set \(vc.currentSetIndex) (nil)") }
 					}
 					
 					vc.pickQuestion()
@@ -59,7 +61,7 @@ class QuestionsTests: XCTestCase {
 
 	func testSettingsEnabled() {
 		
-		let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController
+		guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsViewController else { return }
 		settingsVC.view.reloadInputViews()
 		
 		XCTAssert(Settings.sharedInstance.musicEnabled == settingsVC.bgMusicSwitch.isOn, "Background music switch not working")
@@ -70,9 +72,8 @@ class QuestionsTests: XCTestCase {
 	
 	func testSettingsSwitchAction() {
 		
-		if let bgMusic = Audio.bgMusic {
-			
-			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as! SettingsViewController
+		if let bgMusic = Audio.bgMusic,
+			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsViewController {
 			
 			settingsVC.view.reloadInputViews()
 			

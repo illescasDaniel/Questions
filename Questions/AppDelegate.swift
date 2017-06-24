@@ -58,10 +58,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			case .QRCode:
 				
-				if let presentedViewController = window?.rootViewController?.presentedViewController as? UINavigationController {
+				if let questionsVC = window?.rootViewController?.presentedViewController as? QuestionsViewController {
+					questionsVC.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+				}
+				
+				if let presentedViewController = window?.rootViewController as? UINavigationController {
+					
+					if presentedViewController.topViewController is QRScannerViewController {
+						return
+					} else if !(presentedViewController.topViewController is MainViewController) {
+						presentedViewController.popToRootViewController(animated: false)
+					}
+					
 					presentedViewController.topViewController?.performSegue(withIdentifier: "QRScannerVC", sender: self)
 				}
-				else {
+				else if (window?.rootViewController == nil) {
+					
 					let storyboard = UIStoryboard(name: "Main", bundle: nil)
 					if let viewController = storyboard.instantiateViewController(withIdentifier: "mainViewController") as? MainViewController {
 						

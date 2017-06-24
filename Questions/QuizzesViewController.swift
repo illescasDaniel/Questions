@@ -13,7 +13,7 @@ class QuizzesViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
-		setCount =  Quiz.quizzes[currentTopicIndex].content.quiz.count // Quiz.quizzes[currentTopicIndex].content.count
+		setCount =  Quiz.quizzes[currentTopicIndex].content.quiz.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -60,8 +60,8 @@ class QuizzesViewController: UITableViewController {
 	// MARK: UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		let header = view as! UITableViewHeaderFooterView
-		header.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+		let header = view as? UITableViewHeaderFooterView
+		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,9 +91,9 @@ class QuizzesViewController: UITableViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
 		if let currentSetIndex = sender as? Int, segue.identifier == "selectQuiz" {
-			let controller = segue.destination as! QuestionsViewController
-			controller.currentTopicIndex = currentTopicIndex
-			controller.currentSetIndex = currentSetIndex
+			let controller = segue.destination as? QuestionsViewController
+			controller?.currentTopicIndex = currentTopicIndex
+			controller?.currentSetIndex = currentSetIndex
 		}
 	}
 	

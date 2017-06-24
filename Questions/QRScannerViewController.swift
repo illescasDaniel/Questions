@@ -30,14 +30,16 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		let captureMetadataOutput = AVCaptureMetadataOutput()
 		captureSession.addOutput(captureMetadataOutput)
 		
-		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
 		captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
 		
 		videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
 		videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
 		loadPreview()
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadPreview), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
+	}
+	
+	override func viewWillLayoutSubviews() {
+		loadPreview()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

@@ -30,11 +30,12 @@ class MainViewController: UIViewController {
 	
 		setFramesPositionAndSize()
 		
-		// If user rotates screen, the buttons position and sizes are recalculated
-		NotificationCenter.default.addObserver(self, selector: #selector(setFramesPositionAndSize), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+	}
+	
+	override func viewWillLayoutSubviews() {
+		setFramesPositionAndSize()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
