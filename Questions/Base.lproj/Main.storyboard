@@ -104,6 +104,7 @@
         <scene sceneID="syY-Yf-diQ">
             <objects>
                 <viewController storyboardIdentifier="mainViewController" id="Uw9-Bc-kPM" customClass="MainViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="Sbf-MR-kXR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -422,6 +423,7 @@ Incorrect answers: X
         <scene sceneID="SKB-GU-dMW">
             <objects>
                 <viewController id="PsA-oj-ftn" customClass="LicensesViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="GIS-qK-lWu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -468,6 +470,7 @@ Incorrect answers: X
         <scene sceneID="ZsB-0h-1jt">
             <objects>
                 <viewController storyboardIdentifier="QRScannerVC" id="I6B-9U-azf" customClass="QRScannerViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="qne-cH-WDM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -515,6 +518,7 @@ Incorrect answers: X
         <scene sceneID="5t4-2T-bYY">
             <objects>
                 <viewController storyboardIdentifier="questionsViewController" id="w1d-Yh-0lm" userLabel="Questions" customClass="QuestionsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="4NN-TN-OZq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
