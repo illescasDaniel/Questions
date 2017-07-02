@@ -37,7 +37,7 @@ class QuestionsViewController: UIViewController {
 		if !isSetFromJSON {
 			setUpQuiz()
 		} else {
-			set = set.shuffled()
+			set.shuffle()
 			quiz = set.enumerated().makeIterator()
 		}
 		

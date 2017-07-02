@@ -529,6 +529,7 @@
 		653D05741D43CD2D00865D43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = PRK6268SLD;
 				INFOPLIST_FILE = QuestionsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsUITests";
@@ -542,6 +543,7 @@
 		653D05751D43CD2D00865D43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = PRK6268SLD;
 				INFOPLIST_FILE = QuestionsUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsUITests";

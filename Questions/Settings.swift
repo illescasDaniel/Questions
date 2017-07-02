@@ -2,7 +2,8 @@ import Foundation
 
 class Settings: NSObject, NSCoding {
 	
-	static let path = Settings.documentsDirectory() + "/Settings.archive"
+	static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path
+	static let path = "\(Settings.documentsDirectory)/Settings.archive"
 	var completedSets: [Int:[Bool]] = [:]
 	var correctAnswers: Int = 0
 	var incorrectAnswers: Int = 0
@@ -41,9 +42,5 @@ class Settings: NSObject, NSCoding {
 
 	func save() -> Bool {
 		return NSKeyedArchiver.archiveRootObject(self, toFile: Settings.path)
-	}
-
-	private static func documentsDirectory() -> String {
-		return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 	}
 }
