@@ -642,6 +642,7 @@ Incorrect answers: X
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="sgJ-VO-ByN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <state key="normal" title="Pause/Continue"/>
@@ -658,7 +659,7 @@ Incorrect answers: X
                                 <rect key="frame" x="87" y="304" width="240" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-gf-Ddb">
-                                        <rect key="frame" x="0.0" y="104" width="240" height="36"/>
+                                        <rect key="frame" x="6" y="104" width="228" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="6IY-FG-q1w"/>
@@ -677,7 +678,7 @@ Incorrect answers: X
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
-                                        <rect key="frame" x="0.3333333333333286" y="10" width="240" height="36"/>
+                                        <rect key="frame" x="6.3333333333333286" y="10" width="228" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Rh0-5t-S8e"/>
@@ -696,7 +697,7 @@ Incorrect answers: X
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
-                                        <rect key="frame" x="0.0" y="57" width="240" height="36"/>
+                                        <rect key="frame" x="6" y="57" width="228" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Mbz-8x-cOT"/>
