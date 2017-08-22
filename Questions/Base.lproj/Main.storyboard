@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13147.4"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -104,7 +105,6 @@
         <scene sceneID="syY-Yf-diQ">
             <objects>
                 <viewController storyboardIdentifier="mainViewController" id="Uw9-Bc-kPM" customClass="MainViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="Sbf-MR-kXR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -191,6 +191,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Main Menu" id="4da-ip-kPT"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
                         <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
@@ -265,7 +266,7 @@ Incorrect answers: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Haptic Feedback*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faz-IF-Apt" userLabel="Dark Theme Label">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="138" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="11.000000000000002" width="137" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -369,10 +370,7 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-0v-sqg">
-                                                    <rect key="frame" x="20" y="5" width="394" height="33"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="394" id="kkc-cM-H8E"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="20" y="5" width="414" height="33"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <state key="normal" title="Reset game">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -383,6 +381,7 @@ Incorrect answers: X
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="yKD-0v-sqg" firstAttribute="width" secondItem="q4C-sO-rua" secondAttribute="width" id="Pi2-4Y-W31"/>
                                                 <constraint firstItem="yKD-0v-sqg" firstAttribute="leading" secondItem="q4C-sO-rua" secondAttribute="leadingMargin" constant="12" id="aiA-e2-6hP"/>
                                                 <constraint firstItem="yKD-0v-sqg" firstAttribute="centerY" secondItem="q4C-sO-rua" secondAttribute="centerY" id="mQ6-d4-IKH"/>
                                             </constraints>
@@ -423,7 +422,6 @@ Incorrect answers: X
         <scene sceneID="SKB-GU-dMW">
             <objects>
                 <viewController id="PsA-oj-ftn" customClass="LicensesViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="GIS-qK-lWu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -470,7 +468,6 @@ Incorrect answers: X
         <scene sceneID="ZsB-0h-1jt">
             <objects>
                 <viewController storyboardIdentifier="QRScannerVC" id="I6B-9U-azf" customClass="QRScannerViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="qne-cH-WDM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -501,6 +498,7 @@ Incorrect answers: X
                             <constraint firstItem="IpZ-Da-QvA" firstAttribute="top" secondItem="Jai-L3-OCg" secondAttribute="top" constant="8" id="E2I-0r-DO9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IpZ-Da-QvA" secondAttribute="trailing" constant="-12" id="axg-M1-lHS"/>
                             <constraint firstItem="enF-0f-cBp" firstAttribute="centerX" secondItem="Jai-L3-OCg" secondAttribute="centerX" id="kgr-IM-QLn"/>
+                            <constraint firstItem="IpZ-Da-QvA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qne-cH-WDM" secondAttribute="leadingMargin" id="pch-DD-iYX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jai-L3-OCg"/>
                     </view>
@@ -518,7 +516,6 @@ Incorrect answers: X
         <scene sceneID="5t4-2T-bYY">
             <objects>
                 <viewController storyboardIdentifier="questionsViewController" id="w1d-Yh-0lm" userLabel="Questions" customClass="QuestionsViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="4NN-TN-OZq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -641,14 +638,10 @@ Incorrect answers: X
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="37" width="120" height="37.666666666666671"/>
+                                <rect key="frame" x="20" y="37" width="139" height="37.666666666666671"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
-                                    <constraint firstAttribute="width" constant="121" id="mJL-kw-vjd">
-                                        <variation key="heightClass=compact" constant="129"/>
-                                        <variation key="heightClass=regular-widthClass=compact" constant="120"/>
-                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <state key="normal" title="Pause/Continue"/>
@@ -665,11 +658,10 @@ Incorrect answers: X
                                 <rect key="frame" x="87" y="304" width="240" height="150"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-gf-Ddb">
-                                        <rect key="frame" x="8" y="104" width="224" height="36"/>
+                                        <rect key="frame" x="0.0" y="104" width="240" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="6IY-FG-q1w"/>
-                                            <constraint firstAttribute="width" constant="224" id="pv2-Jh-j67"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Main menu">
@@ -685,11 +677,10 @@ Incorrect answers: X
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
-                                        <rect key="frame" x="8" y="10" width="224" height="36"/>
+                                        <rect key="frame" x="0.3333333333333286" y="10" width="240" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Rh0-5t-S8e"/>
-                                            <constraint firstAttribute="width" constant="224" id="WGu-pe-bp6"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Go back">
@@ -705,11 +696,10 @@ Incorrect answers: X
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5D-mT-l8u">
-                                        <rect key="frame" x="8" y="57" width="224" height="36"/>
+                                        <rect key="frame" x="0.0" y="57" width="240" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Mbz-8x-cOT"/>
-                                            <constraint firstAttribute="width" constant="224" id="RDT-Bc-8f5"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Stop Music">
@@ -727,8 +717,11 @@ Incorrect answers: X
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="k5D-mT-l8u" firstAttribute="width" secondItem="qSd-Pz-OF3" secondAttribute="width" multiplier="0.95" id="2cb-BF-1pQ"/>
                                     <constraint firstItem="k5D-mT-l8u" firstAttribute="centerY" secondItem="qSd-Pz-OF3" secondAttribute="centerY" id="8SZ-AS-3Yi"/>
                                     <constraint firstAttribute="width" constant="240" id="S3k-tX-XEL"/>
+                                    <constraint firstItem="ydF-gf-Ddb" firstAttribute="width" secondItem="qSd-Pz-OF3" secondAttribute="width" multiplier="0.95" id="UII-UP-pGJ"/>
+                                    <constraint firstItem="gby-II-zy5" firstAttribute="width" secondItem="qSd-Pz-OF3" secondAttribute="width" multiplier="0.95" id="aR3-fd-CvN"/>
                                     <constraint firstAttribute="height" constant="150" id="dOc-BP-e7J"/>
                                     <constraint firstAttribute="bottom" secondItem="ydF-gf-Ddb" secondAttribute="bottom" constant="10" id="djb-FK-o3z"/>
                                     <constraint firstItem="gby-II-zy5" firstAttribute="top" secondItem="qSd-Pz-OF3" secondAttribute="top" constant="10" id="kaG-bW-OMB"/>
@@ -748,12 +741,16 @@ Incorrect answers: X
                             <constraint firstItem="K5D-zP-xHR" firstAttribute="top" secondItem="U4b-Ha-bBS" secondAttribute="top" constant="25" id="BLF-LQ-G7u"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerX" secondItem="U4b-Ha-bBS" secondAttribute="centerX" id="E31-BC-rXU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9qc-tm-qF0" secondAttribute="trailing" constant="-1" id="PZ4-Am-zKB"/>
+                            <constraint firstItem="U4b-Ha-bBS" firstAttribute="trailing" secondItem="9qc-tm-qF0" secondAttribute="trailing" constant="19" id="agc-3q-G13"/>
                             <constraint firstItem="gby-II-zy5" firstAttribute="centerX" secondItem="U4b-Ha-bBS" secondAttribute="centerX" id="ebI-Nj-9Gj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="liL-s5-Eng" secondAttribute="trailingMargin" id="fMg-jj-ZpG"/>
                             <constraint firstItem="liL-s5-Eng" firstAttribute="top" secondItem="U4b-Ha-bBS" secondAttribute="top" constant="17" id="idP-oT-tHH"/>
                             <constraint firstItem="U4b-Ha-bBS" firstAttribute="bottom" secondItem="9qc-tm-qF0" secondAttribute="bottom" constant="8" id="m24-py-Uto"/>
                             <constraint firstAttribute="leadingMargin" secondItem="liL-s5-Eng" secondAttribute="leading" id="mh2-d8-Kgo"/>
+                            <constraint firstItem="9qc-tm-qF0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4NN-TN-OZq" secondAttribute="leadingMargin" id="oCA-Sv-fPS"/>
                             <constraint firstItem="qSd-Pz-OF3" firstAttribute="centerY" secondItem="4NN-TN-OZq" secondAttribute="centerY" constant="11" id="pH2-TX-IP4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K5D-zP-xHR" secondAttribute="trailing" id="vap-fw-uLv"/>
+                            <constraint firstItem="K5D-zP-xHR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4NN-TN-OZq" secondAttribute="leadingMargin" id="waV-eD-AL1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="U4b-Ha-bBS"/>
                     </view>

@@ -64,10 +64,10 @@ class QuestionsTests: XCTestCase {
 		guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsViewController else { return }
 		settingsVC.view.reloadInputViews()
 		
-		XCTAssert(Settings.sharedInstance.musicEnabled == settingsVC.bgMusicSwitch.isOn, "Background music switch not working")
-		XCTAssert(Settings.sharedInstance.parallaxEnabled == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")
-		XCTAssert(Settings.sharedInstance.darkThemeEnabled == settingsVC.darkThemeSwitch.isOn, "Dark theme switch not working")
-		XCTAssert(Settings.sharedInstance.hapticFeedbackEnabled == settingsVC.hapticFeedbackSwitch.isOn, "Haptic feedback switch not working")
+		XCTAssert(Settings.shared.musicEnabled == settingsVC.bgMusicSwitch.isOn, "Background music switch not working")
+		XCTAssert(Settings.shared.parallaxEnabled == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")
+		XCTAssert(Settings.shared.darkThemeEnabled == settingsVC.darkThemeSwitch.isOn, "Dark theme switch not working")
+		XCTAssert(Settings.shared.hapticFeedbackEnabled == settingsVC.hapticFeedbackSwitch.isOn, "Haptic feedback switch not working")
 	}
 	
 	func testSettingsSwitchAction() {

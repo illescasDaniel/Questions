@@ -58,13 +58,13 @@ class SettingsViewController: UITableViewController {
 		var completedSets = UInt()
 		
 		for i in 0..<Quiz.quizzes.count {
-			if let completedSet = Settings.sharedInstance.completedSets[i] {
+			if let completedSet = Settings.shared.completedSets[i] {
 				completedSet.forEach { if $0 { completedSets += 1 } }
 			}
 		}
 		
-		let correctAnswers = Settings.sharedInstance.correctAnswers
-		let incorrectAnswers = Settings.sharedInstance.incorrectAnswers
+		let correctAnswers = Settings.shared.correctAnswers
+		let incorrectAnswers = Settings.shared.incorrectAnswers
 		let numberOfAnswers = Float(incorrectAnswers + correctAnswers)
 		let ratio = round(100 * Float(correctAnswers) / ((numberOfAnswers > 0) ? numberOfAnswers : 1.0)) / 100
 		
@@ -140,12 +140,12 @@ class SettingsViewController: UITableViewController {
 		if bgMusicSwitch.isOn { Audio.bgMusic?.play() }
 		else { Audio.bgMusic?.pause() }
 		
-		Settings.sharedInstance.musicEnabled = bgMusicSwitch.isOn
+		Settings.shared.musicEnabled = bgMusicSwitch.isOn
 	}
 	
 	@IBAction func switchHapticFeedback() {
 		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available {
-			Settings.sharedInstance.hapticFeedbackEnabled = hapticFeedbackSwitch.isOn
+			Settings.shared.hapticFeedbackEnabled = hapticFeedbackSwitch.isOn
 		}
 	}
 
@@ -159,11 +159,11 @@ class SettingsViewController: UITableViewController {
 			MainViewController.backgroundView?.removeMotionEffect(effects)
 		}
 		
-		Settings.sharedInstance.parallaxEnabled = parallaxEffectSwitch.isOn
+		Settings.shared.parallaxEnabled = parallaxEffectSwitch.isOn
 	}
 
 	@IBAction func switchTheme() {
-		Settings.sharedInstance.darkThemeEnabled = darkThemeSwitch.isOn
+		Settings.shared.darkThemeEnabled = darkThemeSwitch.isOn
 		loadCurrentTheme(animated: true)
 	}
 	
@@ -171,7 +171,7 @@ class SettingsViewController: UITableViewController {
 	
 	@objc func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
-		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.sharedInstance.parallaxEnabled
+		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.shared.parallaxEnabled
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
 		parallaxEffectSwitch.isEnabled = !reduceMotionEnabled
 	}
@@ -180,14 +180,14 @@ class SettingsViewController: UITableViewController {
 		
 		setParallaxEffectSwitch()
 		bgMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
-		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: true)
+		darkThemeSwitch.setOn(Settings.shared.darkThemeEnabled, animated: true)
 		
 		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available  {
-			hapticFeedbackSwitch.setOn(Settings.sharedInstance.hapticFeedbackEnabled, animated: true)
+			hapticFeedbackSwitch.setOn(Settings.shared.hapticFeedbackEnabled, animated: true)
 		} else {
 			hapticFeedbackSwitch.setOn(false, animated: false)
 			hapticFeedbackSwitch.isEnabled = false
-			Settings.sharedInstance.hapticFeedbackEnabled = false
+			Settings.shared.hapticFeedbackEnabled = false
 		}
 	}
 	
@@ -202,7 +202,7 @@ class SettingsViewController: UITableViewController {
 	}
 	
 	@objc func loadTheme() {
-		darkThemeSwitch.setOn(Settings.sharedInstance.darkThemeEnabled, animated: false)
+		darkThemeSwitch.setOn(Settings.shared.darkThemeEnabled, animated: false)
 		loadCurrentTheme(animated: false)
 	}
 	
@@ -222,20 +222,25 @@ class SettingsViewController: UITableViewController {
 		UIView.animate(withDuration: duration) {
 			
 			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			self.navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
+			
 			self.tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 			self.tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
+			self.tableView.dontInvertIfDarkModeIsEnabled()
 			
 			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
+			self.resetGameButton.dontInvertIfDarkModeIsEnabled()
 			
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
-			self.optionSwitches.forEach { $0.onTintColor = switchTintColor }
+			self.optionSwitches.forEach { $0.onTintColor = switchTintColor; $0.dontInvert() }
 			
 			self.tableView.reloadData()
 			
 			for i in 0..<self.optionLabels.count {
 				self.optionLabels[i].textColor = textLabelColor
 				self.tableView.visibleCells[i].backgroundColor = .themeStyle(dark: .gray, light: .white)
+				self.tableView.visibleCells[i].dontInvertIfDarkModeIsEnabled()
 			}
 		}	
 	}
@@ -244,16 +249,16 @@ class SettingsViewController: UITableViewController {
 		
 		for i in 0..<Quiz.quizzes.count {
 			
-			if let completedSet = Settings.sharedInstance.completedSets[i] {
+			if let completedSet = Settings.shared.completedSets[i] {
 				for j in 0..<completedSet.count {
-					Settings.sharedInstance.completedSets[i]?[j] = false
+					Settings.shared.completedSets[i]?[j] = false
 				}
 			}
 		}
 			
-		Settings.sharedInstance.correctAnswers = 0
-		Settings.sharedInstance.incorrectAnswers = 0
-		Settings.sharedInstance.score = 0
+		Settings.shared.correctAnswers = 0
+		Settings.shared.incorrectAnswers = 0
+		Settings.shared.score = 0
 
 		tableView.reloadData()
 	}
@@ -262,14 +267,14 @@ class SettingsViewController: UITableViewController {
 		
 		resetGameStatistics()
 		
-		if !Settings.sharedInstance.parallaxEnabled {
+		if !Settings.shared.parallaxEnabled {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
-			Settings.sharedInstance.parallaxEnabled = true
+			Settings.shared.parallaxEnabled = true
 		}
 		
-		Settings.sharedInstance.musicEnabled = true
-		Settings.sharedInstance.darkThemeEnabled = false
-		Settings.sharedInstance.hapticFeedbackEnabled = true
+		Settings.shared.musicEnabled = true
+		Settings.shared.darkThemeEnabled = false
+		Settings.shared.hapticFeedbackEnabled = true
 		
 		
 		let reduceMotion = UIAccessibilityIsReduceMotionEnabled()
@@ -284,7 +289,7 @@ class SettingsViewController: UITableViewController {
 		} else {
 			hapticFeedbackSwitch.setOn(false, animated: false)
 			hapticFeedbackSwitch.isEnabled = false
-			Settings.sharedInstance.hapticFeedbackEnabled = false
+			Settings.shared.hapticFeedbackEnabled = false
 		}
 		
 		Audio.bgMusic?.play()

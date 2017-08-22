@@ -79,5 +79,6 @@ class TopicsViewController: UITableViewController {
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
+		tableView.dontInvertIfDarkModeIsEnabled()
 	}
 }

@@ -31,6 +31,7 @@
 		65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */; };
 		65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C491D29C3E300D2E1C1 /* Main.storyboard */; };
 		65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */; };
+		65D348851F4C512400270B26 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D348841F4C512400270B26 /* UIView+Extension.swift */; };
 		65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD23E01E7422C800462512 /* LicensesViewController.swift */; };
 		65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */; };
 		8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */; };
@@ -96,6 +97,7 @@
 		65CE0EED1D2C391500C163DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		65D348841F4C512400270B26 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		65DD23E01E7422C800462512 /* LicensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
 		65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioPlayer+Extension.swift"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */,
 				65456FF71D77A07A004A13B6 /* Colors+Extension.swift */,
 				65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */,
+				65D348841F4C512400270B26 /* UIView+Extension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,
 				65456FF81D77A07A004A13B6 /* Colors+Extension.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
+				65D348851F4C512400270B26 /* UIView+Extension.swift in Sources */,
 				65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */,
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
@@ -607,6 +611,7 @@
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -660,6 +665,7 @@
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";

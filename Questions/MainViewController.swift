@@ -6,9 +6,10 @@ class MainViewController: UIViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var startButton: UIButton!
-	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var readQRCodeButton: UIButton!
+	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var scoreLabel: UILabel!
+	@IBOutlet weak var backgroundImageView: UIImageView!
 	
 	static var parallaxEffect = UIMotionEffectGroup()
 	static var backgroundView: UIView?
@@ -19,9 +20,9 @@ class MainViewController: UIViewController {
 		super.viewDidLoad()
 		
 		// Add parallax effect to background image view
-		MainViewController.backgroundView = view.subviews.first
+		MainViewController.backgroundView = backgroundImageView//view.subviews.first
 		
-		if Settings.sharedInstance.parallaxEnabled {
+		if Settings.shared.parallaxEnabled {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 
@@ -41,7 +42,7 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		
 		// Load score
-		let answersScore = Settings.sharedInstance.score
+		let answersScore = Settings.shared.score
 		scoreLabel.text = "🏆 \(answersScore)pts"
 		
 		if answersScore == 0 {
@@ -77,7 +78,7 @@ class MainViewController: UIViewController {
 		Audio.correct?.volume = 0.10
 		Audio.incorrect?.volume = 0.25
 		
-		if Settings.sharedInstance.musicEnabled {
+		if Settings.shared.musicEnabled {
 			Audio.bgMusic?.play()
 		}
 		
@@ -121,6 +122,12 @@ class MainViewController: UIViewController {
 	@objc func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
+		backgroundImageView.dontInvert()
+		startButton.dontInvert()
+		readQRCodeButton.dontInvert()
+		settingsButton.dontInvert()
+		scoreLabel.dontInvert()
 	}
 	
 	static func addParallax(toView view: UIView?) {

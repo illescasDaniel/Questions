@@ -15,7 +15,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var helpButton: UIButton!
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
-	let oldScore = Settings.sharedInstance.score
+	let oldScore = Settings.shared.score
 	let statusBarHeight = UIApplication.shared.statusBarFrame.height
 	var blurViewPos = Int()
 	var correctAnswer = UInt8()
@@ -59,7 +59,7 @@ class QuestionsViewController: UIViewController {
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
-		if Settings.sharedInstance.score < 5 {
+		if Settings.shared.score < 5 {
 			helpButton.alpha = 0.4
 		}
 		
@@ -86,7 +86,7 @@ class QuestionsViewController: UIViewController {
 		
 		let currentQuestion = Int(String(remainingQuestionsLabel.text?.first ?? "0")) ?? 0
 		
-		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
 			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 			feedbackGenerator.impactOccurred()
 		}
@@ -145,12 +145,12 @@ class QuestionsViewController: UIViewController {
 	@IBAction func helpAction() {
 		
 		// Use haptic feedback
-		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
 			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 			feedbackGenerator.impactOccurred()
 		}
 		
-		if Settings.sharedInstance.score < 5 {
+		if Settings.shared.score < 5 {
 			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
 		}
 		else {
@@ -160,7 +160,7 @@ class QuestionsViewController: UIViewController {
 			
 			if timesUsed < 2 {
 				
-				Settings.sharedInstance.score -= 5
+				Settings.shared.score -= 5
 
 				var randomQuestionIndex = UInt32()
 				
@@ -172,7 +172,7 @@ class QuestionsViewController: UIViewController {
 					
 					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
 					
-					if (Settings.sharedInstance.score < 5) || (timesUsed == 1) {
+					if (Settings.shared.score < 5) || (timesUsed == 1) {
 						self.helpButton.alpha = 0.4
 					}
 				}
@@ -195,7 +195,7 @@ class QuestionsViewController: UIViewController {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, for: .normal)
 			}
-			Settings.sharedInstance.musicEnabled = bgMusic.isPlaying
+			Settings.shared.musicEnabled = bgMusic.isPlaying
 		}
 	}
 	
@@ -240,13 +240,13 @@ class QuestionsViewController: UIViewController {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
-			let darkThemeEnabled = Settings.sharedInstance.darkThemeEnabled
+			let darkThemeEnabled = Settings.shared.darkThemeEnabled
 			
 			if !darkThemeEnabled && (swipeGesture.direction == .down) {
-				Settings.sharedInstance.darkThemeEnabled = true
+				Settings.shared.darkThemeEnabled = true
 			}
 			else if darkThemeEnabled && (swipeGesture.direction == .up) {
-				Settings.sharedInstance.darkThemeEnabled = false
+				Settings.shared.darkThemeEnabled = false
 			}
 			else { return }
 			
@@ -262,17 +262,26 @@ class QuestionsViewController: UIViewController {
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
 		helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
+		helpButton.dontInvertIfDarkModeIsEnabled()
 		remainingQuestionsLabel.textColor = currentThemeColor
+		remainingQuestionsLabel.dontInvertIfDarkModeIsEnabled()
 		questionLabel.textColor = currentThemeColor
+		questionLabel.dontInvertIfDarkModeIsEnabled()
 		view.backgroundColor = .themeStyle(dark: .darkGray, light: .white)
+		view.dontInvertIfDarkModeIsEnabled()
 		pauseButton.backgroundColor = .themeStyle(dark: .lightGray, light: .veryLightGray)
+		pauseButton.dontInvertIfDarkModeIsEnabled()
 		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
-		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
+		pauseButton.dontInvertIfDarkModeIsEnabled()
+		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertIfDarkModeIsEnabled() }
 		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
+		pauseView.dontInvertIfDarkModeIsEnabled()
 		pauseView.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
 									($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		setNeedsStatusBarAppearanceUpdate()
+		answerButtons.forEach { $0.dontInvertIfDarkModeIsEnabled() }
+		
+		self.setNeedsStatusBarAppearanceUpdate()
 	}
 	
 	@objc func showPauseMenu() {
@@ -319,7 +328,7 @@ class QuestionsViewController: UIViewController {
 		UIView.animate(withDuration: 0.75) {
 			self.answerButtons.forEach { $0.alpha = 1 }
 			
-			if Settings.sharedInstance.score >= 5 {
+			if Settings.shared.score >= 5 {
 				self.helpButton.alpha = 1.0
 			}
 		}
@@ -351,7 +360,7 @@ class QuestionsViewController: UIViewController {
 
 	private func isSetCompleted() -> Bool {
 		
-		if let completedSets = Settings.sharedInstance.completedSets[currentTopicIndex] {
+		if let completedSets = Settings.shared.completedSets[currentTopicIndex] {
 			return completedSets[currentSetIndex]
 		}
 		
@@ -361,11 +370,11 @@ class QuestionsViewController: UIViewController {
 	private func okActionDetailed() {
 		
 		if !isSetCompleted() {
-			Settings.sharedInstance.correctAnswers += correctAnswers
-			Settings.sharedInstance.incorrectAnswers += incorrectAnswers
-			Settings.sharedInstance.score += (correctAnswers * 20) - (incorrectAnswers * 10)
+			Settings.shared.correctAnswers += correctAnswers
+			Settings.shared.incorrectAnswers += incorrectAnswers
+			Settings.shared.score += (correctAnswers * 20) - (incorrectAnswers * 10)
 		}
-		Settings.sharedInstance.completedSets[currentTopicIndex]?[currentSetIndex] = true
+		Settings.shared.completedSets[currentTopicIndex]?[currentSetIndex] = true
 
 		if !isSetFromJSON {
 			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
@@ -379,7 +388,7 @@ class QuestionsViewController: UIViewController {
 		correctAnswers = 0
 		incorrectAnswers = 0
 		setUpQuiz()
-		Settings.sharedInstance.score = oldScore
+		Settings.shared.score = oldScore
 		pickQuestion()
 	}
 	
@@ -401,7 +410,7 @@ class QuestionsViewController: UIViewController {
 		}
 		
 		// Use haptic feedback
-		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
 			let feedbackGenerator = UINotificationFeedbackGenerator()
 			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
 		}
@@ -431,7 +440,7 @@ class QuestionsViewController: UIViewController {
 	
 	private func endOfQuestionsAlert() {
 		
-		let helpScore = oldScore - Settings.sharedInstance.score
+		let helpScore = oldScore - Settings.shared.score
 		let score = (correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
 		let title = "Score: ".localized + "\(score) pts"

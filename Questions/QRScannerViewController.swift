@@ -113,7 +113,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	@IBAction func helpButtonAction() {
 		
-		if #available(iOS 10.0, *), Settings.sharedInstance.hapticFeedbackEnabled {
+		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
 			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 			feedbackGenerator.impactOccurred()
 		}
@@ -182,9 +182,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
 		view.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		view.dontInvertIfDarkModeIsEnabled()
 		allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		allowCameraButton.dontInvertIfDarkModeIsEnabled()
 		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		helpButton.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	func invalidQRCodeFormat() {

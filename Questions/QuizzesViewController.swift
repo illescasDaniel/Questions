@@ -44,7 +44,7 @@ class QuizzesViewController: UITableViewController {
 		
 		fillCompletedSets()
 		
-		if Settings.sharedInstance.completedSets[currentTopicIndex]?[indexPath.row] ?? false {
+		if Settings.shared.completedSets[currentTopicIndex]?[indexPath.row] ?? false {
 			cell?.accessoryType = .checkmark
 		}
 
@@ -101,7 +101,7 @@ class QuizzesViewController: UITableViewController {
 		
 		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		
-		for i in 0..<setCount where (Settings.sharedInstance.completedSets[currentTopicIndex]?[i]) ?? false {
+		for i in 0..<setCount where (Settings.shared.completedSets[currentTopicIndex]?[i]) ?? false {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
 	}
@@ -111,16 +111,18 @@ class QuizzesViewController: UITableViewController {
 	@objc func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
+		tableView.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	private func fillCompletedSets() {
-		let completedSetsCount = (Settings.sharedInstance.completedSets[currentTopicIndex]?.count) ?? 0
+		let completedSetsCount = (Settings.shared.completedSets[currentTopicIndex]?.count) ?? 0
 		
 		if completedSetsCount < setCount {
-			Settings.sharedInstance.completedSets[currentTopicIndex] = [Bool](repeating: false, count: setCount)
+			Settings.shared.completedSets[currentTopicIndex] = [Bool](repeating: false, count: setCount)
 		}
 	}
 }

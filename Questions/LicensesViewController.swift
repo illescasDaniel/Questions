@@ -53,6 +53,7 @@ class LicensesViewController: UIViewController {
 		textView.backgroundColor = .themeStyle(dark: .gray, light: .white)
 		textView.textColor = .themeStyle(dark: .white, light: .black)
 		textView.tintColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
+		textView.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	@objc func setFrame() {

@@ -30,19 +30,19 @@ extension UIColor {
 	static let veryVeryLightGray = UIColor(P3ReadyRed: 0.98, green: 0.98, blue: 0.97)
 	
 	static func themeStyle(dark: UIColor, light: UIColor) -> UIColor {
-		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+		return Settings.shared.darkThemeEnabled ? dark : light
 	}
 }
 
 extension UIBarStyle {
 	static func themeStyle(dark: UIBarStyle, light: UIBarStyle) -> UIBarStyle {
-		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+		return Settings.shared.darkThemeEnabled ? dark : light
 	}
 }
 
 extension UIStatusBarStyle {
 	static func themeStyle(dark: UIStatusBarStyle, light: UIStatusBarStyle) -> UIStatusBarStyle {
-		return Settings.sharedInstance.darkThemeEnabled ? dark : light
+		return Settings.shared.darkThemeEnabled ? dark : light
 	}
 }
 

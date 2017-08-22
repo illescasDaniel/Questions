@@ -13,7 +13,7 @@ class Settings: NSObject, NSCoding {
 	var hapticFeedbackEnabled = true
 	var darkThemeEnabled = false
 
-	static var sharedInstance = Settings()
+	static var shared = Settings()
 	fileprivate override init() { }
 
 	func encode(with archiver: NSCoder) {
