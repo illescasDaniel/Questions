@@ -28,15 +28,9 @@ class MainViewController: UIViewController {
 
 		initializeSounds()
 		initializeLables()
-	
-		setFramesPositionAndSize()
 		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
-	}
-	
-	override func viewWillLayoutSubviews() {
-		setFramesPositionAndSize()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -91,35 +85,8 @@ class MainViewController: UIViewController {
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
 		navigationItem.title = "Main menu".localized
 	}
-
-	@objc func setFramesPositionAndSize() {
-		
-		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
-		
-		let buttonsWidth = UIScreen.main.bounds.maxX / (isPortrait ? 1.85 : 2.0)
-		var buttonsHeight = UIScreen.main.bounds.maxY * 0.08
-		
-		if let fontSize = startButton.titleLabel?.font.pointSize {
-			buttonsHeight = fontSize * 2.0
-		}
-		
-		let spaceBetweenButtons = buttonsHeight * (isPortrait ? 1.6 : 1.4)
-		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (buttonsWidth / 2.0)
-		let yPosition = UIScreen.main.bounds.maxY / 2.0
-		
-		startButton.frame = CGRect(x: xPosition, y: yPosition - spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
-		readQRCodeButton.frame = CGRect(x: xPosition, y: yPosition, width: buttonsWidth, height: buttonsHeight)
-		settingsButton.frame = CGRect(x: xPosition, y: yPosition + spaceBetweenButtons, width: buttonsWidth, height: buttonsHeight)
-		
-		// ScoreLabel values
-		let scoreLabelHeight = scoreLabel.frame.height
-		let scoreLabelWidth = scoreLabel.frame.width
-		let xPosition2 = (UIScreen.main.bounds.maxX / 2.0) - (scoreLabelWidth / 2.0)
-		
-		scoreLabel.frame = CGRect(x: xPosition2, y: yPosition + spaceBetweenButtons*2, width: scoreLabelWidth, height: scoreLabelHeight)
-	}
-
-	@objc func loadTheme() {
+	
+	@IBAction func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()

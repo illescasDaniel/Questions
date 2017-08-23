@@ -227,12 +227,12 @@
 			isa = PBXGroup;
 			children = (
 				65C285C51D2A8176002F7DF8 /* MainViewController.swift */,
+				65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */,
 				65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */,
 				65DD23E01E7422C800462512 /* LicensesViewController.swift */,
 				65456AF31D2BC9620048965E /* TopicsViewController.swift */,
 				654F9A391E775001002B6A82 /* QuizzesViewController.swift */,
 				65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */,
-				65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -607,7 +607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -661,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
@@ -681,7 +681,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = PRK6268SLD;
 				INFOPLIST_FILE = Questions/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
 				PRODUCT_NAME = Questions;
@@ -700,7 +700,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = PRK6268SLD;
 				INFOPLIST_FILE = Questions/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
 				PRODUCT_NAME = Questions;
