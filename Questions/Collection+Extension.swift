@@ -1,4 +1,4 @@
-import GameplayKit // .shuffled
+import GameplayKit.GKRandomSource // .shuffled
 
 extension Collection {
 	func shuffled() -> [Iterator.Element] {

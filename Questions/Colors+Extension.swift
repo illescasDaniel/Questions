@@ -25,6 +25,7 @@ extension UIColor {
 	static let coolBlue = UIColor(RGBred: 80, green: 165, blue: 216)
 	static let warmYellow = UIColor(RGBred: 253, green: 237, blue: 100)
 	static let warmColor = UIColor(RGBred: 244, green: 196, blue: 92)
+	static let veryDarkGray = UIColor(P3ReadyRed: 0.25, green: 0.25, blue: 0.25)
 	static let highlighedGray = UIColor(RGBred: 217, green: 217, blue: 217)
 	static let veryLightGray = UIColor(P3ReadyRed: 0.93, green: 0.93, blue: 0.95)
 	static let veryVeryLightGray = UIColor(P3ReadyRed: 0.98, green: 0.98, blue: 0.97)

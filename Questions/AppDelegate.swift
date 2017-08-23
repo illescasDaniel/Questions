@@ -45,8 +45,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			application.shortcutItems = [readQRCode, darkTheme, lightTheme]
 		}
+
+		AppDelegate.updateVolumeBarTheme()
+		VolumeBar.shared.start()
 		
 		return true
+	}
+	
+	static func updateVolumeBarTheme() {
+		VolumeBar.shared.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		VolumeBar.shared.tintColor = .themeStyle(dark: .lightGray, light: .black)
+		VolumeBar.shared.trackTintColor = .themeStyle(dark: UIColor.lightGray.withAlphaComponent(0.3), light: UIColor.black.withAlphaComponent(0.1))
 	}
 	
 	@available(iOS 9.0, *)
@@ -90,9 +99,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				
 			case .DarkTheme:
 				Settings.shared.darkThemeEnabled = true
+				AppDelegate.updateVolumeBarTheme()
 				
 			case .LightTheme:
 				Settings.shared.darkThemeEnabled = false
+				AppDelegate.updateVolumeBarTheme()
 			}
 		}
 	}

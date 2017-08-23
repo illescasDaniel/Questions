@@ -113,10 +113,10 @@
                                 <rect key="frame" x="-12" y="53" width="399" height="628"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="aL8-6s-XJv">
-                                <rect key="frame" x="38" y="232" width="300" height="271"/>
+                                <rect key="frame" x="57" y="232" width="262.5" height="271"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="262.5" height="49"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -139,7 +139,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC">
-                                        <rect key="frame" x="0.0" y="74" width="300" height="49"/>
+                                        <rect key="frame" x="0.0" y="74" width="262.5" height="49"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529411764708" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SETTINGS">
@@ -161,7 +161,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW">
-                                        <rect key="frame" x="0.0" y="148" width="300" height="49"/>
+                                        <rect key="frame" x="0.0" y="148" width="262.5" height="49"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SCAN QR CODE">
@@ -180,7 +180,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                        <rect key="frame" x="0.0" y="222" width="300" height="49"/>
+                                        <rect key="frame" x="0.0" y="222" width="262.5" height="49"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -201,7 +201,7 @@
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.45" id="Usa-4B-MxU"/>
                             <constraint firstItem="1Wy-qM-dRs" firstAttribute="leading" secondItem="f0M-on-Nco" secondAttribute="leading" constant="-12" id="WfI-bK-Kdo"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="centerY" secondItem="f0M-on-Nco" secondAttribute="centerY" constant="2" id="YRE-i2-aFe"/>
-                            <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="Sbf-MR-kXR" secondAttribute="width" multiplier="0.8" id="ZZO-bN-10O"/>
+                            <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="Sbf-MR-kXR" secondAttribute="width" multiplier="0.7" id="ZZO-bN-10O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f0M-on-Nco"/>
                         <variation key="default">

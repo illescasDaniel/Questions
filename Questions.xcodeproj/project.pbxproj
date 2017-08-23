@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		650745EE1EACCDF200BC178E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 650745F01EACCDF200BC178E /* InfoPlist.strings */; };
+		6524E2B11F4DE32100EEFB81 /* VolumeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */; };
 		652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */; };
 		653D055E1D43961900865D43 /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D055D1D43961900865D43 /* QuestionsTests.swift */; };
 		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		650745EF1EACCDF200BC178E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeBar.swift; sourceTree = "<group>"; };
 		652F17EB1D72FC1200F146A3 /* Collection+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		653D055B1D43961900865D43 /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D055D1D43961900865D43 /* QuestionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTests.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				65BF7CE21E68B4F7006A7706 /* Audio.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* Quiz.swift */,
 				65AE3EC71D3A9C7500125EE2 /* Settings.swift */,
+				6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */,
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
+				6524E2B11F4DE32100EEFB81 /* VolumeBar.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */,
 				654F9A3A1E775001002B6A82 /* QuizzesViewController.swift in Sources */,

@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v2.2--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v2.21--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Prototype of a Quiz app for iOS.
@@ -50,7 +50,8 @@ https://www.freesound.org/people/Bertrof/sounds/131657/
 
 # Special thanks to #
 
-Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))  
+Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))
+([**@gizmosachin**](https://github.com/gizmosachin)) and his awesome [VolumeBar](https://github.com/gizmosachin/VolumeBar)
 All the GitHub and StackOverflow community, also YouTube :)
 
 Upcoming Features

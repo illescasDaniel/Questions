@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
 		super.viewDidLoad()
 		
 		// Add parallax effect to background image view
-		MainViewController.backgroundView = backgroundImageView//view.subviews.first
+		MainViewController.backgroundView = backgroundImageView
 		
 		if Settings.shared.parallaxEnabled {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)

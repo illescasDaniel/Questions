@@ -165,6 +165,7 @@ class SettingsViewController: UITableViewController {
 	@IBAction func switchTheme() {
 		Settings.shared.darkThemeEnabled = darkThemeSwitch.isOn
 		loadCurrentTheme(animated: true)
+		AppDelegate.updateVolumeBarTheme()
 	}
 	
 	// MARK: Convenience

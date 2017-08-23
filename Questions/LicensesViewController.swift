@@ -11,15 +11,18 @@ class LicensesViewController: UIViewController {
 		let subheadFontStyle = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline)]
 		
 		let bgMusicBensound = "Royalty Free Music from Bensound:\n".attributedStringWith(headlineFontStyle)
-		let bgMusicBensoundLink = "http://www.bensound.com/royalty-free-music/track/the-lounge \n".attributedStringWith(subheadFontStyle)
+		let bgMusicBensoundLink = "http://www.bensound.com/royalty-free-music/track/the-lounge\n".attributedStringWith(subheadFontStyle)
 
 		let correctSound = "\nCorrect.mp3, creator: LittleRainySeasons:\n".attributedStringWith(headlineFontStyle)
-		let correctSoundLink = "https://www.freesound.org/people/LittleRainySeasons/sounds/335908 \n".attributedStringWith(subheadFontStyle)
+		let correctSoundLink = "https://www.freesound.org/people/LittleRainySeasons/sounds/335908\n".attributedStringWith(subheadFontStyle)
 		
 		let incorrectSound = "\nGame Sound Wrong.wav, creator: Bertrof\n\"This work is licensed under the Attribution License.\": \n".attributedStringWith(headlineFontStyle)
-		let incorrectSoundLink = "https://www.freesound.org/people/Bertrof/sounds/131657/ \n https://creativecommons.org/licenses/by/3.0/legalcode".attributedStringWith(subheadFontStyle)
-
-		let attributedText = bgMusicBensound + bgMusicBensoundLink + correctSound + correctSoundLink + incorrectSound + incorrectSoundLink
+		let incorrectSoundLink = "https://www.freesound.org/people/Bertrof/sounds/131657/\n https://creativecommons.org/licenses/by/3.0/legalcode\n".attributedStringWith(subheadFontStyle)
+		
+		let volumeBar = "\nVolumeBar - gizmosachin. Licensed under the MIT License\n".attributedStringWith(headlineFontStyle)
+		let volumeBarLink = "https://github.com/gizmosachin/VolumeBar".attributedStringWith(subheadFontStyle)
+		
+		let attributedText = bgMusicBensound + bgMusicBensoundLink + correctSound + correctSoundLink + incorrectSound + incorrectSoundLink + volumeBar + volumeBarLink
 		
 		return attributedText
 	}()
