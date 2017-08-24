@@ -14,7 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		case LightTheme
 	}
 	
+	static var windowReference: UIWindow?
+	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+		
+		AppDelegate.windowReference = self.window
 		
 		let navController = window?.rootViewController as? UINavigationController
 		if #available(iOS 11.0, *) {
@@ -48,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		AppDelegate.updateVolumeBarTheme()
 		VolumeBar.shared.start()
+		
+		self.window?.dontInvertIfDarkModeIsEnabled0()
 		
 		return true
 	}
@@ -119,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		guard Settings.shared.save() else {	print("Error saving settings"); return }
+		
+		self.window?.dontInvertIfDarkModeIsEnabled0()
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -126,5 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if wasPlaying {
 			Audio.bgMusic?.play()
 		}
+		
+		self.window?.dontInvertIfDarkModeIsEnabled0()
 	}
 }

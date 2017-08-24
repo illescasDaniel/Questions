@@ -89,7 +89,6 @@ class MainViewController: UIViewController {
 	@IBAction func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
 		backgroundImageView.dontInvert()
 		startButton.dontInvert()
 		readQRCodeButton.dontInvert()

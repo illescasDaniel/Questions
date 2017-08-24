@@ -250,6 +250,8 @@ class QuestionsViewController: UIViewController {
 			}
 			else { return }
 			
+			AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled0()
+			
 			UIView.animate(withDuration: 0.3) {
 				self.loadCurrentTheme()
 				self.setNeedsStatusBarAppearanceUpdate()
@@ -262,24 +264,17 @@ class QuestionsViewController: UIViewController {
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
 		helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
-		helpButton.dontInvertIfDarkModeIsEnabled()
 		remainingQuestionsLabel.textColor = currentThemeColor
-		remainingQuestionsLabel.dontInvertIfDarkModeIsEnabled()
 		questionLabel.textColor = currentThemeColor
-		questionLabel.dontInvertIfDarkModeIsEnabled()
 		view.backgroundColor = .themeStyle(dark: .darkGray, light: .white)
-		view.dontInvertIfDarkModeIsEnabled()
 		pauseButton.backgroundColor = .themeStyle(dark: .lightGray, light: .veryLightGray)
-		pauseButton.dontInvertIfDarkModeIsEnabled()
 		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
-		pauseButton.dontInvertIfDarkModeIsEnabled()
-		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertIfDarkModeIsEnabled() }
+		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
 		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
-		pauseView.dontInvertIfDarkModeIsEnabled()
 		pauseView.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
 									($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		answerButtons.forEach { $0.dontInvertIfDarkModeIsEnabled() }
+		answerButtons.forEach { $0.dontInvert() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
 	}

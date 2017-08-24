@@ -166,6 +166,7 @@ class SettingsViewController: UITableViewController {
 		Settings.shared.darkThemeEnabled = darkThemeSwitch.isOn
 		loadCurrentTheme(animated: true)
 		AppDelegate.updateVolumeBarTheme()
+		AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled0()
 	}
 	
 	// MARK: Convenience
@@ -223,15 +224,12 @@ class SettingsViewController: UITableViewController {
 		UIView.animate(withDuration: duration) {
 			
 			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-			self.navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
 			
 			self.tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 			self.tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
-			self.tableView.dontInvertIfDarkModeIsEnabled()
 			
 			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
-			self.resetGameButton.dontInvertIfDarkModeIsEnabled()
 			
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
 			self.optionSwitches.forEach { $0.onTintColor = switchTintColor; $0.dontInvert() }
@@ -241,7 +239,6 @@ class SettingsViewController: UITableViewController {
 			for i in 0..<self.optionLabels.count {
 				self.optionLabels[i].textColor = textLabelColor
 				self.tableView.visibleCells[i].backgroundColor = .themeStyle(dark: .gray, light: .white)
-				self.tableView.visibleCells[i].dontInvertIfDarkModeIsEnabled()
 			}
 		}	
 	}

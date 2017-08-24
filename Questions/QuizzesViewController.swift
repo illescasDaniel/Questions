@@ -111,11 +111,9 @@ class QuizzesViewController: UITableViewController {
 	@objc func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		navigationController?.navigationBar.dontInvertIfDarkModeIsEnabled()
 		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
-		tableView.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	private func fillCompletedSets() {
