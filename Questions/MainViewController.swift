@@ -83,7 +83,6 @@ class MainViewController: UIViewController {
 		startButton.setTitle("START GAME".localized, for: .normal)
 		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		settingsButton.setTitle("SETTINGS".localized, for: .normal)
-		navigationItem.title = "Main menu".localized
 	}
 	
 	@IBAction func loadTheme() {

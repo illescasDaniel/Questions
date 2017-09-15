@@ -101,7 +101,7 @@
             </objects>
             <point key="canvasLocation" x="1335" y="153"/>
         </scene>
-        <!--Main Menu-->
+        <!--Questions-->
         <scene sceneID="syY-Yf-diQ">
             <objects>
                 <viewController storyboardIdentifier="mainViewController" id="Uw9-Bc-kPM" customClass="MainViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
@@ -227,7 +227,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Main Menu" id="4da-ip-kPT"/>
+                    <navigationItem key="navigationItem" title="Questions" id="4da-ip-kPT"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
