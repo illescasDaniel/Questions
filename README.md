@@ -50,8 +50,8 @@ https://www.freesound.org/people/Bertrof/sounds/131657/
 
 # Special thanks to #
 
-Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85))
-([**@gizmosachin**](https://github.com/gizmosachin)) and his awesome [VolumeBar](https://github.com/gizmosachin/VolumeBar)
+Carlos Rodriguez ([**@carlosrodriguez85**](https://github.com/carlosrodriguez85)) </br>
+([**@gizmosachin**](https://github.com/gizmosachin)) and his awesome [VolumeBar](https://github.com/gizmosachin/VolumeBar) </br>
 All the GitHub and StackOverflow community, also YouTube :)
 
 Upcoming Features
