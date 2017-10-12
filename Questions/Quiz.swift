@@ -9,7 +9,6 @@ struct QuestionType: Codable, Equatable {
 	let question: String
 	let answers: [String]
 	let correct: UInt8
-	
 }
 
 struct Question: Codable {

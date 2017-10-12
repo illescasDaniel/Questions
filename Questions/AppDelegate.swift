@@ -53,11 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AppDelegate.updateVolumeBarTheme()
 		VolumeBar.shared.start()
 		
-		self.window?.dontInvertIfDarkModeIsEnabled0()
+		self.window?.dontInvertIfDarkModeIsEnabled()
 		
 		return true
 	}
-	
+
 	static func updateVolumeBarTheme() {
 		VolumeBar.shared.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 		VolumeBar.shared.tintColor = .themeStyle(dark: .lightGray, light: .black)
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		guard Settings.shared.save() else {	print("Error saving settings"); return }
 		
-		self.window?.dontInvertIfDarkModeIsEnabled0()
+		self.window?.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
@@ -135,6 +135,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			Audio.bgMusic?.play()
 		}
 		
-		self.window?.dontInvertIfDarkModeIsEnabled0()
+		self.window?.dontInvertIfDarkModeIsEnabled()
 	}
 }

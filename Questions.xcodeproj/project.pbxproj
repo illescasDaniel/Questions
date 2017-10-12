@@ -97,7 +97,7 @@
 		65CB4C4A1D29C3E300D2E1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65CB4C511D29C3E300D2E1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65CE0EED1D2C391500C163DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		65CE0EEE1D2C3A5B00C163DB /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
+		65CE0EEE1D2C3A5B00C163DB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65D348841F4C512400270B26 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		65DD23E01E7422C800462512 /* LicensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 		65CB4C391D29C3E300D2E1C1 = {
 			isa = PBXGroup;
 			children = (
-				65CE0EEE1D2C3A5B00C163DB /* LICENCE */,
+				65CE0EEE1D2C3A5B00C163DB /* LICENSE */,
 				65CE0EED1D2C391500C163DB /* README.md */,
 				65CB4C441D29C3E300D2E1C1 /* Questions */,
 				653D055C1D43961900865D43 /* QuestionsTests */,

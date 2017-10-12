@@ -25,21 +25,21 @@ class SettingsViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	
-		initializeLabelNames()
-		licensesCell.accessoryType = .disclosureIndicator
+		self.initializeLabelNames()
+		self.licensesCell.accessoryType = .disclosureIndicator
 		
-		optionLabels = [bgMusicLabel, hapticFeedbackLabel, parallaxEffectLabel, darkThemeLabel, licensesLabel,
-		                 resetGameButton.titleLabel ?? UILabel()]
+		self.optionLabels = [self.bgMusicLabel, self.hapticFeedbackLabel, self.parallaxEffectLabel, self.darkThemeLabel, self.licensesLabel,
+						self.resetGameButton.titleLabel ?? UILabel()]
 		
-		optionSwitches = [bgMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
-
+		self.optionSwitches = [self.bgMusicSwitch, self.hapticFeedbackSwitch, self.parallaxEffectSwitch, self.darkThemeSwitch]
+		
 		// If user enables Reduce Motion setting, the parallax effect switch updates its value
-		NotificationCenter.default.addObserver(self, selector: #selector(setParallaxEffectSwitch), name: .UIAccessibilityReduceMotionStatusDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch), name: .UIAccessibilityReduceMotionStatusDidChange, object: nil)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
-		setSwitchesToDefaultValue()
-		loadCurrentTheme(animated: false)
+		self.setSwitchesToDefaultValue()
+		self.loadCurrentTheme(animated: false)
 	}
 
 	@available(iOS, deprecated: 9.0)
@@ -166,7 +166,7 @@ class SettingsViewController: UITableViewController {
 		Settings.shared.darkThemeEnabled = darkThemeSwitch.isOn
 		loadCurrentTheme(animated: true)
 		AppDelegate.updateVolumeBarTheme()
-		AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled0()
+		AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	// MARK: Convenience
@@ -232,7 +232,7 @@ class SettingsViewController: UITableViewController {
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
 			
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
-			self.optionSwitches.forEach { $0.onTintColor = switchTintColor; $0.dontInvert() }
+			self.optionSwitches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
 			
 			self.tableView.reloadData()
 			

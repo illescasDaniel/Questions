@@ -16,28 +16,48 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		if #available(iOS 11.0, *) { self.navigationItem.largeTitleDisplayMode = .never }
-		
-		allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
-		
-		captureDevice = AVCaptureDevice.default(for: .video)
-		
-		guard let captureDevice = captureDevice, let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
-		
-		captureSession.addInput(input)
-		
-		let captureMetadataOutput = AVCaptureMetadataOutput()
-		captureSession.addOutput(captureMetadataOutput)
-		
-		captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
-		captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
-		
-		videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-		videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-		loadPreview()
-	}
 	
+		self.loadTheme()
+		self.view.dontInvertColors()
+		
+		let loadingCameraIndicator = UIActivityIndicatorView(frame: self.view.frame)
+		self.allowCameraButton.isHidden = true
+		self.view.addSubview(loadingCameraIndicator)
+		loadingCameraIndicator.startAnimating()
+		
+		DispatchQueue.main.async {
+			if #available(iOS 11.0, *) { self.navigationItem.largeTitleDisplayMode = .never }
+			
+			self.allowCameraButton.setTitle("Allow camera access".localized, for: .normal)
+			
+			self.captureDevice = AVCaptureDevice.default(for: .video)
+			
+			guard let captureDevice = self.captureDevice, let input = try? AVCaptureDeviceInput(device: captureDevice) else {
+				self.allowCameraButton.isHidden = false
+				loadingCameraIndicator.stopAnimating()
+				return
+			}
+			
+			self.captureSession.addInput(input)
+			
+			let captureMetadataOutput = AVCaptureMetadataOutput()
+			self.captureSession.addOutput(captureMetadataOutput)
+			
+			captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+			captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+			
+			self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+			self.videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+			self.loadPreview()
+			
+			if !self.captureSession.isRunning {
+				self.captureSession.startRunning()
+			}
+			
+			NotificationCenter.default.addObserver(self, selector: #selector(self.loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		}
+	}
+
 	override func viewWillLayoutSubviews() {
 		loadPreview()
 	}
@@ -50,7 +70,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		guard self.captureDevice != nil else { return }
 		
 		DispatchQueue.main.async {
-			
 			if !self.captureSession.isRunning {
 				self.captureSession.startRunning()
 			}
@@ -58,7 +77,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		
 		DispatchQueue.main.async {
 			if self.captureSession.isRunning {
 				self.captureSession.stopRunning()
@@ -114,11 +132,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	@IBAction func helpButtonAction() {
 		
 		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
-			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+			let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
 			feedbackGenerator.impactOccurred()
 		}
 		
-		let alertViewController = UIAlertController.OKAlert(title: "Text to encode format", message: "READ_QR_FORMAT")
+		let alertViewController = UIAlertController.OKAlert(title: "Text to encode format".localized, message: "READ_QR_FORMAT")
+		alertViewController.textFields?.first?.textAlignment = .left
 		present(alertViewController, animated: true)
 	}
 	
@@ -179,10 +198,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	@objc func loadTheme() {
-		
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		view.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		view.backgroundColor = .themeStyle(dark: .black, light: .black)
 		allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 	}

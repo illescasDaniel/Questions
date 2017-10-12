@@ -10,13 +10,13 @@ import UIKit
 
 extension UIView {
 	
-	func dontInvertIfDarkModeIsEnabled0() {
+	func dontInvertIfDarkModeIsEnabled() {
 		if #available(iOS 11.0, *) {
 			self.accessibilityIgnoresInvertColors = Settings.shared.darkThemeEnabled
 		}
 	}
 	
-	func dontInvert() {
+	func dontInvertColors() {
 		if #available(iOS 11.0, *) {
 			self.accessibilityIgnoresInvertColors = true
 		}

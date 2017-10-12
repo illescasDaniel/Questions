@@ -250,7 +250,7 @@ class QuestionsViewController: UIViewController {
 			}
 			else { return }
 			
-			AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled0()
+			AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled()
 			
 			UIView.animate(withDuration: 0.3) {
 				self.loadCurrentTheme()
@@ -274,7 +274,7 @@ class QuestionsViewController: UIViewController {
 		pauseView.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
 									($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		answerButtons.forEach { $0.dontInvert() }
+		answerButtons.forEach { $0.dontInvertColors() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
 	}

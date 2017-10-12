@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Otc-Gn-hwi">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -32,11 +31,11 @@
                                 <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="82y-rR-A5s" id="9kJ-y7-0rb">
-                                    <rect key="frame" x="0.0" y="0.0" width="381" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Topic Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZWp-mS-XeB">
-                                            <rect key="frame" x="20" y="0.0" width="359" height="43.666666666666664"/>
+                                            <rect key="frame" x="20" y="0.0" width="356" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,7 +77,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Quiz Set #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NP7-eY-F15">
-                                            <rect key="frame" x="20" y="0.0" width="379" height="43.666666666666664"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -110,17 +109,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="1Wy-qM-dRs">
-                                <rect key="frame" x="-20.666666666666657" y="32" width="455.33333333333337" height="736"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="1Wy-qM-dRs" secondAttribute="height" multiplier="110:59" id="Wid-3P-Yh8"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="1Wy-qM-dRs">
+                                <rect key="frame" x="-719.66666666666663" y="30.333333333333314" width="1853.333333333333" height="739.33333333333348"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="aL8-6s-XJv">
-                                <rect key="frame" x="62" y="250.66666666666663" width="290" height="302.66666666666674"/>
+                                <rect key="frame" x="62" y="250.66666666666666" width="290" height="302.66666666666674"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="57.000000000000028"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="57"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -165,7 +161,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW">
-                                        <rect key="frame" x="0.0" y="164.00000000000003" width="290" height="56.666666666666629"/>
+                                        <rect key="frame" x="0.0" y="164.00000000000003" width="290" height="56.666666666666657"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SCAN QR CODE">
@@ -184,7 +180,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                        <rect key="frame" x="0.0" y="245.66666666666666" width="290" height="57.000000000000085"/>
+                                        <rect key="frame" x="0.0" y="245.66666666666663" width="290" height="57"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -196,22 +192,26 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="width" secondItem="Sbf-MR-kXR" secondAttribute="width" multiplier="1.1" id="ASQ-GI-AiI"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="centerX" secondItem="f0M-on-Nco" secondAttribute="centerX" id="C6T-V0-qUo"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="0.6" id="KfU-ee-vQN"/>
+                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="1.1" id="KsB-iu-6bZ"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.68" id="Qcy-T7-oUu"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.45" id="Usa-4B-MxU"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="centerY" secondItem="f0M-on-Nco" secondAttribute="centerY" constant="2" id="YRE-i2-aFe"/>
+                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="1.1" id="ZSn-4W-aQ0"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="0.7" id="ZZO-bN-10O"/>
-                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="centerY" secondItem="f0M-on-Nco" secondAttribute="centerY" id="vog-F8-Wbn"/>
-                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="centerX" secondItem="f0M-on-Nco" secondAttribute="centerX" id="waE-fg-6V4"/>
-                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="height" secondItem="Sbf-MR-kXR" secondAttribute="height" id="xi7-95-BwO"/>
+                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="1.35" id="dDD-ec-NHI"/>
+                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="centerY" secondItem="f0M-on-Nco" secondAttribute="centerY" id="nWz-Q1-DFH"/>
+                            <constraint firstItem="1Wy-qM-dRs" firstAttribute="centerX" secondItem="f0M-on-Nco" secondAttribute="centerX" id="wW6-eH-Dbr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f0M-on-Nco"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="KfU-ee-vQN"/>
                                 <exclude reference="Qcy-T7-oUu"/>
+                                <exclude reference="KsB-iu-6bZ"/>
+                                <exclude reference="ZSn-4W-aQ0"/>
+                                <exclude reference="dDD-ec-NHI"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
@@ -220,6 +220,7 @@
                                 <include reference="Qcy-T7-oUu"/>
                                 <exclude reference="Usa-4B-MxU"/>
                                 <exclude reference="ZZO-bN-10O"/>
+                                <include reference="KsB-iu-6bZ"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -228,6 +229,17 @@
                                 <include reference="Qcy-T7-oUu"/>
                                 <exclude reference="Usa-4B-MxU"/>
                                 <exclude reference="ZZO-bN-10O"/>
+                                <include reference="KsB-iu-6bZ"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="ZSn-4W-aQ0"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="dDD-ec-NHI"/>
                             </mask>
                         </variation>
                     </view>
@@ -272,14 +284,14 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m4T-Df-lj5">
-                                                    <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="345" y="9" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="JlQ-j7-zTu"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Background music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9xa-3g-2nT" userLabel="Bg Music Label">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="142" height="20.666666666666671"/>
+                                                    <rect key="frame" x="32" y="11.000000000000002" width="142" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -302,14 +314,14 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twC-QC-wgR">
-                                                    <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="345" y="9" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.31372549020000001" green="0.64705882349999999" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchHapticFeedback" destination="oi1-Vd-nnJ" eventType="valueChanged" id="ltb-Dp-Bit"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Haptic Feedback*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faz-IF-Apt" userLabel="Dark Theme Label">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="137" height="20.666666666666671"/>
+                                                    <rect key="frame" x="32" y="11.000000000000002" width="137" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -332,7 +344,7 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2x-0A-rbl">
-                                                    <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="345" y="9" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="NDO-f4-yf1"/>
@@ -340,7 +352,7 @@ Incorrect answers: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Parallax effect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ja-CO-1Hk" userLabel="Parallax Effect Label">
-                                                    <rect key="frame" x="20" y="11.666666666666668" width="109" height="20.333333333333332"/>
+                                                    <rect key="frame" x="32" y="11.666666666666666" width="109" height="20.333333333333336"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -363,7 +375,7 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7jI-Mw-v3H">
-                                                    <rect key="frame" x="357" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="345" y="9" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.31372549019607843" green="0.6470588235294118" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="switchBGMusic" destination="oi1-Vd-nnJ" eventType="valueChanged" id="igk-LH-FqC"/>
@@ -372,7 +384,7 @@ Incorrect answers: X
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Dark theme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wv8-ev-gH2" userLabel="Dark Theme Label">
-                                                    <rect key="frame" x="20" y="11.000000000000002" width="89" height="20.666666666666671"/>
+                                                    <rect key="frame" x="32" y="11.000000000000002" width="89" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -391,11 +403,11 @@ Incorrect answers: X
                                         <rect key="frame" x="0.0" y="211" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MLr-FG-rd8" id="rBG-xV-rLD">
-                                            <rect key="frame" x="0.0" y="0.0" width="381" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Licenses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anA-G4-TTq">
-                                                    <rect key="frame" x="20" y="12" width="67.666666666666671" height="20.666666666666664"/>
+                                                    <rect key="frame" x="32.000000000000007" y="12.000000000000002" width="67.666666666666686" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -417,7 +429,7 @@ Incorrect answers: X
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yKD-0v-sqg">
-                                                    <rect key="frame" x="20" y="5" width="394" height="33"/>
+                                                    <rect key="frame" x="32" y="5" width="382" height="33"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <state key="normal" title="Reset game">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -647,7 +659,7 @@ Incorrect answers: X
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5D-zP-xHR">
-                                <rect key="frame" x="366.66666666666674" y="45" width="27.333333333333314" height="24"/>
+                                <rect key="frame" x="366.66666666666669" y="45" width="27.333333333333314" height="24"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -685,7 +697,7 @@ Incorrect answers: X
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liL-s5-Eng">
-                                <rect key="frame" x="20" y="37" width="139" height="37.666666666666671"/>
+                                <rect key="frame" x="20" y="37" width="139" height="37.666666666666657"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37.5" id="NTi-r3-4MS"/>
@@ -703,10 +715,10 @@ Incorrect answers: X
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSd-Pz-OF3">
-                                <rect key="frame" x="62" y="285.66666666666669" width="290" height="164.66666666666663"/>
+                                <rect key="frame" x="62" y="285.66666666666669" width="290" height="164.66666666666669"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0rY-rU-n8x" userLabel="PauseMenu Stack">
-                                        <rect key="frame" x="5" y="5.3333333333333144" width="280" height="154.33333333333331"/>
+                                        <rect key="frame" x="5" y="5.3333333333333144" width="280" height="154.33333333333334"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ydF-gf-Ddb">
                                                 <rect key="frame" x="0.0" y="0.0" width="280" height="48"/>
@@ -725,7 +737,7 @@ Incorrect answers: X
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gby-II-zy5">
-                                                <rect key="frame" x="0.0" y="53" width="280" height="48.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="53" width="280" height="48.333333333333343"/>
                                                 <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <state key="normal" title="Go back">

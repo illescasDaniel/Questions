@@ -88,23 +88,23 @@ class MainViewController: UIViewController {
 	@IBAction func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		backgroundImageView.dontInvert()
-		startButton.dontInvert()
-		readQRCodeButton.dontInvert()
-		settingsButton.dontInvert()
-		scoreLabel.dontInvert()
+		backgroundImageView.dontInvertColors()
+		startButton.dontInvertColors()
+		readQRCodeButton.dontInvertColors()
+		settingsButton.dontInvertColors()
+		scoreLabel.dontInvertColors()
 	}
 	
 	static func addParallax(toView view: UIView?) {
 		
 		let xAmount = 25
-		let yAmount = 15
+		let yAmount = 25
 		
-		let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+		let horizontal = UIInterpolatingMotionEffect(keyPath: "layer.transform.translation.x", type: .tiltAlongHorizontalAxis)
 		horizontal.minimumRelativeValue = -xAmount
 		horizontal.maximumRelativeValue = xAmount
 
-		let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+		let vertical = UIInterpolatingMotionEffect(keyPath: "layer.transform.translation.y", type: .tiltAlongVerticalAxis)
 		vertical.minimumRelativeValue = -yAmount
 		vertical.maximumRelativeValue = yAmount
 		
@@ -112,4 +112,3 @@ class MainViewController: UIViewController {
 		view?.addMotionEffect(MainViewController.parallaxEffect)
 	}
 }
-
