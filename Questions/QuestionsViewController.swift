@@ -56,8 +56,8 @@ class QuestionsViewController: UIViewController {
 		goBack.setTitle("Questions menu".localized, for: .normal)
 		mainMenu.setTitle("Main menu".localized, for: .normal)
 		pauseButton.setTitle("Pause".localized, for: .normal)
-		pauseView.alpha = 0.0
-		blurView.alpha = 0.0
+		pauseView.isHidden = true
+		blurView.isHidden = true
 		
 		// Theme settings
 		loadCurrentTheme()
@@ -125,7 +125,9 @@ class QuestionsViewController: UIViewController {
 	// MARK: Actions
 	
 	@IBAction func tapAnyWhereToClosePauseMenu(_ sender: UITapGestureRecognizer) {
-		self.pauseMenuAction()
+		if !pauseView.isHidden {
+			self.pauseMenuAction()
+		}
 	}
 	
 	@IBAction func answer1Action() { verify(answer: 0) }
@@ -203,15 +205,15 @@ class QuestionsViewController: UIViewController {
 	private func pauseMenuAction(animated: Bool = true) {
 		
 		let duration: TimeInterval = animated ? 0.2 : 0.0
-		let title = (pauseView.alpha == 0.0) ? "Continue" : "Pause"
+		let title = (pauseView.isHidden) ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
 		
-		UIView.animate(withDuration: duration) {
-			self.pauseView.alpha = (self.pauseView.alpha == 0.0) ? 0.9 : 0.0
-			self.blurView.alpha = (self.blurView.alpha == 0.0) ? 1.0 : 0.0
-		}
+		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
+			self.pauseView.isHidden = !self.pauseView.isHidden
+			self.blurView.isHidden = !self.blurView.isHidden
+		})
 		
-		let newVolume = (pauseView.alpha == 0.0) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
+		let newVolume = (pauseView.isHidden) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
@@ -280,7 +282,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	@IBAction func showPauseMenu() {
-		if pauseView.alpha == 0.0 {
+		if !pauseView.isHidden {
 			pauseMenuAction(animated: false)
 		}
 	}
