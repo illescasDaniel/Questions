@@ -51,7 +51,7 @@ class QuizzesViewController: UITableViewController {
 		// Load theme
 		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
 		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
-		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		
 		return cell ?? UITableViewCell()
@@ -71,19 +71,22 @@ class QuizzesViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
 		
+		let cellColor: UIColor = .themeStyle(dark: .darkGray, light: .highlighedGray)
 		let cell = tableView.cellForRow(at: indexPath)
-		
-		let cellColor = UIColor.themeStyle(dark: .lightGray, light: .highlighedGray)
-		cell?.backgroundColor = cellColor
-		
 		let view = UIView()
-		view.backgroundColor = cellColor
-		cell?.selectedBackgroundView = view
+		
+		UIView.animate(withDuration: 0.15) {
+			cell?.backgroundColor = cellColor
+			view.backgroundColor = cellColor
+			cell?.selectedBackgroundView = view
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
-		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		UIView.animate(withDuration: 0.15) {
+			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		}
 	}
 	
 	// MARK: UIStoryboardSegue Handling
@@ -111,8 +114,8 @@ class QuizzesViewController: UITableViewController {
 	@objc func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
-		tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
+		tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
+		tableView.separatorColor = .themeStyle(dark: .veryVeryDarkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
 	}
 	

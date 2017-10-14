@@ -87,24 +87,27 @@ class SettingsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
-		footer?.contentView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
+		footer?.contentView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
 	}
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
 		
+		let cellColor: UIColor = .themeStyle(dark: .darkGray, light: .highlighedGray)
 		let cell = tableView.cellForRow(at: indexPath)
-			
-		let cellColor: UIColor = .themeStyle(dark: .lightGray, light: .highlighedGray)
-		cell?.backgroundColor = cellColor
-		
 		let view = UIView()
-		view.backgroundColor = cellColor
-		cell?.selectedBackgroundView = view
+		
+		UIView.animate(withDuration: 0.15) {
+			cell?.backgroundColor = cellColor
+			view.backgroundColor = cellColor
+			cell?.selectedBackgroundView = view
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)
-		cell?.backgroundColor = .themeStyle(dark: .gray, light: .white)
+		UIView.animate(withDuration: 0.15) {
+			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -225,8 +228,8 @@ class SettingsViewController: UITableViewController {
 			
 			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 			
-			self.tableView.backgroundColor = .themeStyle(dark: .darkGray, light: .groupTableViewBackground)
-			self.tableView.separatorColor = .themeStyle(dark: .darkGray, light: .defaultSeparatorColor)
+			self.tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
+			self.tableView.separatorColor = .themeStyle(dark: .veryVeryDarkGray, light: .defaultSeparatorColor)
 			
 			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			self.resetGameButton.setTitleColor(textLabelColor, for: .normal)
@@ -238,7 +241,7 @@ class SettingsViewController: UITableViewController {
 			
 			for i in 0..<self.optionLabels.count {
 				self.optionLabels[i].textColor = textLabelColor
-				self.tableView.visibleCells[i].backgroundColor = .themeStyle(dark: .gray, light: .white)
+				self.tableView.visibleCells[i].backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 			}
 		}	
 	}

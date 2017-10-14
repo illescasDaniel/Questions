@@ -11,13 +11,15 @@ extension UIColor {
 		}
 	}
 	
-	convenience init(RGBred: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 255) {
-		self.init(P3ReadyRed: RGBred/255.0, green: green/255.0, blue: blue/255.0, alpha: alpha/255.0)
+	convenience init(RGBred red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 255) {
+		self.init(P3ReadyRed: red/255.0, green: green/255.0, blue: blue/255.0, alpha: alpha/255.0)
 	}
 	
 	static let lightGreen = UIColor(P3ReadyRed: 0.36, green: 0.98, blue: 0.52)
 	static let darkGreen = UIColor(P3ReadyRed: 0.2, green: 0.85, blue: 0.2, alpha: 1)
 	static let defaultSeparatorColor = UIColor(P3ReadyRed: 0.783922, green: 0.780392, blue: 0.8)
+	static let veryVeryDarkGray = UIColor(RGBred: 40, green: 40, blue: 40)
+	static let veryDarkGray = UIColor(RGBred: 60, green: 60, blue: 60)
 	static let defaultTintColor = UIColor(P3ReadyRed: 0.0, green: 0.478431, blue: 1.0)
 	static let darkRed = UIColor(P3ReadyRed: 0.6, green: 0.1, blue: 0.1)
 	static let alternativeRed = UIColor(P3ReadyRed: 0.85, green: 0.3, blue: 0.3)
@@ -25,7 +27,7 @@ extension UIColor {
 	static let coolBlue = UIColor(RGBred: 80, green: 165, blue: 216)
 	static let warmYellow = UIColor(RGBred: 253, green: 237, blue: 100)
 	static let warmColor = UIColor(RGBred: 244, green: 196, blue: 92)
-	static let veryDarkGray = UIColor(P3ReadyRed: 0.25, green: 0.25, blue: 0.25)
+	//static let veryDarkGray = UIColor(P3ReadyRed: 0.25, green: 0.25, blue: 0.25)
 	static let highlighedGray = UIColor(RGBred: 217, green: 217, blue: 217)
 	static let veryLightGray = UIColor(P3ReadyRed: 0.93, green: 0.93, blue: 0.95)
 	static let veryVeryLightGray = UIColor(P3ReadyRed: 0.98, green: 0.98, blue: 0.97)

@@ -4,7 +4,14 @@ class QuestionsViewController: UIViewController {
 
 	// MARK: Properties
 	
-	@IBOutlet var answerButtons: [UIButton]!
+	@IBOutlet weak var answer1Button: UIButton!
+	@IBOutlet weak var answer2Button: UIButton!
+	@IBOutlet weak var answer3Button: UIButton!
+	@IBOutlet weak var answer4Button: UIButton!
+	
+	var answerButtons: [UIButton] {
+		return [answer1Button, answer2Button, answer3Button, answer4Button]
+	}
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet weak var pauseButton: UIButton!
@@ -46,7 +53,7 @@ class QuestionsViewController: UIViewController {
 		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 	
-		goBack.setTitle("Go back".localized, for: .normal)
+		goBack.setTitle("Questions menu".localized, for: .normal)
 		mainMenu.setTitle("Main menu".localized, for: .normal)
 		pauseButton.setTitle("Pause".localized, for: .normal)
 		pauseView.alpha = 0.0
@@ -54,7 +61,6 @@ class QuestionsViewController: UIViewController {
 		
 		// Theme settings
 		loadCurrentTheme()
-		setButtonsAndLabelsPosition()
 		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
@@ -66,10 +72,6 @@ class QuestionsViewController: UIViewController {
 		addSwipeGestures()
 		
 		pickQuestion()
-	}
-	
-	override func viewWillLayoutSubviews() {
-		setButtonsAndLabelsPosition()
 	}
 	
 	@available(iOS, deprecated: 9.0)
@@ -125,13 +127,17 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Actions
 	
+	@IBAction func tapAnyWhereToClosePauseMenu(_ sender: UITapGestureRecognizer) {
+		self.pauseMenuAction()
+	}
+	
 	@IBAction func answer1Action() { verify(answer: 0) }
 	@IBAction func answer2Action() { verify(answer: 1) }
 	@IBAction func answer3Action() { verify(answer: 2) }
 	@IBAction func answer4Action() { verify(answer: 3) }
 
 	@IBAction func pauseMenu() {
-		pauseMenuAction()
+		self.pauseMenuAction()
 	}
 	
 	@IBAction func goBackAction() {
@@ -266,13 +272,16 @@ class QuestionsViewController: UIViewController {
 		helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
 		remainingQuestionsLabel.textColor = currentThemeColor
 		questionLabel.textColor = currentThemeColor
-		view.backgroundColor = .themeStyle(dark: .darkGray, light: .white)
-		pauseButton.backgroundColor = .themeStyle(dark: .lightGray, light: .veryLightGray)
+		view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
+		pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
 		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
 		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
 		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
-		pauseView.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
-									($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
+
+		pauseView.subviews.first?.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
+			($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
+		
+		blurView.effect = Settings.shared.darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 		
 		answerButtons.forEach { $0.dontInvertColors() }
 		
@@ -283,38 +292,6 @@ class QuestionsViewController: UIViewController {
 		if pauseView.alpha == 0.0 {
 			pauseMenuAction(animated: false)
 		}
-	}
-	
-	@objc func setButtonsAndLabelsPosition() {
-		
-		// Answers buttons position
-		
-		let isPortrait = UIApplication.shared.statusBarOrientation.isPortrait
-		
-		let labelHeight: CGFloat = UIScreen.main.bounds.maxY * (isPortrait ? 0.0625 : 0.09)
-		let labelWidth: CGFloat = UIScreen.main.bounds.maxX / 1.2
-		
-		let yOffset = isPortrait ? labelHeight : 0
-		let yOffset4 = isPortrait ? labelHeight : (labelHeight * 1.3)
-		
-		let xPosition = (UIScreen.main.bounds.maxX / 2.0) - (labelWidth / 2.0)
-		let yPosition = (UIScreen.main.bounds.maxY / 4.0) + labelHeight + yOffset
-		let yPosition4 = (UIScreen.main.bounds.maxY * 0.75) - labelHeight + yOffset4
-		let spaceBetweenAnswers: CGFloat = (((yPosition4 - yPosition)) - (3 * labelHeight)) / 3.0
-		let fullLabelHeight = labelHeight + spaceBetweenAnswers
-		
-		answerButtons[0].frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
-		answerButtons[1].frame = CGRect(x: xPosition, y: yPosition + fullLabelHeight, width: labelWidth, height: labelHeight)
-		answerButtons[2].frame = CGRect(x: xPosition, y: yPosition4 - fullLabelHeight, width: labelWidth, height: labelHeight)
-		answerButtons[3].frame = CGRect(x: xPosition, y: yPosition4, width: labelWidth, height: labelHeight)
-		answerButtons.forEach { $0.titleLabel?.adjustsFontSizeToFitWidth = true }
-		
-		let currentStatusBarHeight = isPortrait ? statusBarHeight : 0.0
-		let yPosition6 = ((yPosition / 2.0) - labelHeight) + currentStatusBarHeight + (pauseButton.bounds.height / 2.0)
-		questionLabel.frame = CGRect(x: xPosition, y: yPosition6, width: labelWidth, height: labelHeight * 2)
-		questionLabel.adjustsFontSizeToFitWidth = true
-		
-		blurView.frame = UIScreen.main.bounds
 	}
 	
 	public func pickQuestion() {
