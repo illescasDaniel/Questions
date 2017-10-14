@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	static func updateVolumeBarTheme() {
-		VolumeBar.shared.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		VolumeBar.shared.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
 		VolumeBar.shared.tintColor = .themeStyle(dark: .lightGray, light: .black)
 		VolumeBar.shared.trackTintColor = .themeStyle(dark: UIColor.lightGray.withAlphaComponent(0.3), light: UIColor.black.withAlphaComponent(0.1))
 	}

@@ -74,7 +74,9 @@ class SettingsTableViewController: UITableViewController {
 			}
 		case 1:
 			switch indexPath.row {
-			case 0: self.resetProgressAlert(indexPath: indexPath)
+			case 0:
+				self.resetProgressAlert(indexPath: indexPath)
+				FeedbackGenerator.notificationOcurredOf(type: .warning)
 			default: break
 			}
 		default: break
