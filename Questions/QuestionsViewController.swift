@@ -22,7 +22,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var helpButton: UIButton!
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
-	let oldScore = Settings.shared.score
+	let oldScore = UserDefaultsManager.score
 	let statusBarHeight = UIApplication.shared.statusBarFrame.height
 	var blurViewPos = Int()
 	var correctAnswer = UInt8()
@@ -65,7 +65,7 @@ class QuestionsViewController: UIViewController {
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
-		if Settings.shared.score < 5 {
+		if UserDefaultsManager.score < 5 {
 			helpButton.alpha = 0.4
 		}
 		
@@ -88,10 +88,7 @@ class QuestionsViewController: UIViewController {
 		
 		let currentQuestion = Int(String(remainingQuestionsLabel.text?.first ?? "0")) ?? 0
 		
-		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
-			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-			feedbackGenerator.impactOccurred()
-		}
+		FeedbackGenerator.impactOcurredWith(style: .medium)
 		
 		if repeatTimes < 2 && currentQuestion > 1 {
 			
@@ -150,13 +147,9 @@ class QuestionsViewController: UIViewController {
 	
 	@IBAction func helpAction() {
 		
-		// Use haptic feedback
-		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
-			let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-			feedbackGenerator.impactOccurred()
-		}
+		FeedbackGenerator.impactOcurredWith(style: .light)
 		
-		if Settings.shared.score < 5 {
+		if UserDefaultsManager.score < 5 {
 			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
 		}
 		else {
@@ -166,7 +159,7 @@ class QuestionsViewController: UIViewController {
 			
 			if timesUsed < 2 {
 				
-				Settings.shared.score -= 5
+				UserDefaultsManager.score -= 5
 
 				var randomQuestionIndex = UInt32()
 				
@@ -178,7 +171,7 @@ class QuestionsViewController: UIViewController {
 					
 					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
 					
-					if (Settings.shared.score < 5) || (timesUsed == 1) {
+					if (UserDefaultsManager.score < 5) || (timesUsed == 1) {
 						self.helpButton.alpha = 0.4
 					}
 				}
@@ -201,7 +194,7 @@ class QuestionsViewController: UIViewController {
 				bgMusic.play()
 				muteMusic.setTitle("Pause music".localized, for: .normal)
 			}
-			Settings.shared.musicEnabled = bgMusic.isPlaying
+			UserDefaultsManager.backgroundMusicSwitchIsOn = bgMusic.isPlaying
 		}
 	}
 	
@@ -222,7 +215,7 @@ class QuestionsViewController: UIViewController {
 		Audio.setVolumeLevel(to: newVolume)
 	}
 	
-	private func shuffledQuiz(_ name: Question) -> NSArray{
+	private func shuffledQuiz(_ name: Quiz) -> NSArray{
 		if currentSetIndex < name.quiz.count {
 			return name.quiz[currentSetIndex].shuffled() as NSArray
 		}
@@ -246,13 +239,13 @@ class QuestionsViewController: UIViewController {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
-			let darkThemeEnabled = Settings.shared.darkThemeEnabled
+			let darkThemeEnabled = UserDefaultsManager.darkThemeSwitchIsOn
 			
 			if !darkThemeEnabled && (swipeGesture.direction == .down) {
-				Settings.shared.darkThemeEnabled = true
+				UserDefaultsManager.darkThemeSwitchIsOn = true
 			}
 			else if darkThemeEnabled && (swipeGesture.direction == .up) {
-				Settings.shared.darkThemeEnabled = false
+				UserDefaultsManager.darkThemeSwitchIsOn = false
 			}
 			else { return }
 			
@@ -279,7 +272,7 @@ class QuestionsViewController: UIViewController {
 		pauseView.subviews.first?.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
 			($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		blurView.effect = Settings.shared.darkThemeEnabled ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+		blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 		
 		answerButtons.forEach { $0.dontInvertColors() }
 		
@@ -298,7 +291,7 @@ class QuestionsViewController: UIViewController {
 		UIView.animate(withDuration: 0.75) {
 			self.answerButtons.forEach { $0.alpha = 1 }
 			
-			if Settings.shared.score >= 5 {
+			if UserDefaultsManager.score >= 5 {
 				self.helpButton.alpha = 1.0
 			}
 		}
@@ -330,8 +323,9 @@ class QuestionsViewController: UIViewController {
 
 	private func isSetCompleted() -> Bool {
 		
-		if let completedSets = Settings.shared.completedSets[currentTopicIndex] {
-			return completedSets[currentSetIndex]
+		let topicName = Topic.topics[currentTopicIndex].name
+		if let topicQuiz = DataStore.shared.completedSets[topicName] {
+			return topicQuiz[currentSetIndex] ?? false
 		}
 		
 		return false
@@ -340,11 +334,14 @@ class QuestionsViewController: UIViewController {
 	private func okActionDetailed() {
 		
 		if !isSetCompleted() {
-			Settings.shared.correctAnswers += correctAnswers
-			Settings.shared.incorrectAnswers += incorrectAnswers
-			Settings.shared.score += (correctAnswers * 20) - (incorrectAnswers * 10)
+			UserDefaultsManager.correctAnswers += correctAnswers
+			UserDefaultsManager.incorrectAnswers += incorrectAnswers
+			UserDefaultsManager.score += (correctAnswers * 20) - (incorrectAnswers * 10)
 		}
-		Settings.shared.completedSets[currentTopicIndex]?[currentSetIndex] = true
+		
+		let topicName = Topic.topics[currentTopicIndex].name
+		DataStore.shared.completedSets[topicName]?[currentSetIndex] = true
+		guard DataStore.shared.save() else { print("Error saving settings"); return }
 
 		if !isSetFromJSON {
 			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
@@ -358,7 +355,7 @@ class QuestionsViewController: UIViewController {
 		correctAnswers = 0
 		incorrectAnswers = 0
 		setUpQuiz()
-		Settings.shared.score = oldScore
+		UserDefaultsManager.score = oldScore
 		pickQuestion()
 	}
 	
@@ -379,11 +376,7 @@ class QuestionsViewController: UIViewController {
 			self.answerButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
 		}
 		
-		// Use haptic feedback
-		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
-			let feedbackGenerator = UINotificationFeedbackGenerator()
-			feedbackGenerator.notificationOccurred((answer == correctAnswer) ? .success : .error)
-		}
+		FeedbackGenerator.notificationOcurredOf(type: (answer == correctAnswer) ? .success : .error)
 		
 		// Restore the answers buttons to their original color
 		UIView.animate(withDuration: 0.75) {
@@ -410,7 +403,7 @@ class QuestionsViewController: UIViewController {
 	
 	private func endOfQuestionsAlert() {
 		
-		let helpScore = oldScore - Settings.shared.score
+		let helpScore = oldScore - UserDefaultsManager.score
 		let score = (correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
 		let title = "Score: ".localized + "\(score) pts"
@@ -437,7 +430,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		set = Quiz.quizzes[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
+		set = Topic.topics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
 		quiz = set.enumerated().makeIterator()
 	}
 }

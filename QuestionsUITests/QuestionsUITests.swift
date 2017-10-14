@@ -15,9 +15,9 @@ class QuestionsUITests: XCTestCase {
 		
 		let app = XCUIApplication()
 		app.buttons["SETTINGS"].tap()
-		app.navigationBars["Settings"].buttons["Main menu"].tap()
+		app.navigationBars["Settings"].buttons["Questions"].tap()
 		app.buttons["READ QR CODE"].tap()
-		app.navigationBars["Questions.QRScannerView"].buttons["Main menu"].tap()
+		app.navigationBars["Questions.QRScannerView"].buttons["Questions"].tap()
 		app.buttons["START GAME"].tap()
 		
 		let tablesQuery = app.tables

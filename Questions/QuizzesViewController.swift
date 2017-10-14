@@ -12,8 +12,8 @@ class QuizzesViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		navigationItem.title = Quiz.quizzes[currentTopicIndex].name.localized
-		setCount =  Quiz.quizzes[currentTopicIndex].content.quiz.count
+		navigationItem.title = Topic.topics[currentTopicIndex].name.localized
+		setCount =  Topic.topics[currentTopicIndex].content.quiz.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -42,9 +42,8 @@ class QuizzesViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
 		cell?.textLabel?.text = "Set \(indexPath.row)"
 		
-		fillCompletedSets()
-		
-		if Settings.shared.completedSets[currentTopicIndex]?[indexPath.row] ?? false {
+		let topicName = Topic.topics[currentTopicIndex].name
+		if DataStore.shared.completedSets[topicName]?[indexPath.row] ?? false {
 			cell?.accessoryType = .checkmark
 		}
 
@@ -65,7 +64,6 @@ class QuizzesViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		fillCompletedSets()
 		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
 	}
 	
@@ -104,7 +102,8 @@ class QuizzesViewController: UITableViewController {
 		
 		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
 		
-		for i in 0..<setCount where (Settings.shared.completedSets[currentTopicIndex]?[i]) ?? false {
+		let topicName = Topic.topics[currentTopicIndex].name
+		for i in 0..<setCount where ( DataStore.shared.completedSets[topicName]?[i]) ?? false {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
 	}
@@ -117,13 +116,5 @@ class QuizzesViewController: UITableViewController {
 		tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .veryVeryDarkGray, light: .defaultSeparatorColor)
 		tableView.reloadData()
-	}
-	
-	private func fillCompletedSets() {
-		let completedSetsCount = (Settings.shared.completedSets[currentTopicIndex]?.count) ?? 0
-		
-		if completedSetsCount < setCount {
-			Settings.shared.completedSets[currentTopicIndex] = [Bool](repeating: false, count: setCount)
-		}
 	}
 }

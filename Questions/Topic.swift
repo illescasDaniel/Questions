@@ -11,14 +11,14 @@ struct QuestionType: Codable, Equatable {
 	let correct: UInt8
 }
 
-struct Question: Codable {
+struct Quiz: Codable {
 	let quiz: [[QuestionType]]
 }
 
-struct Quiz {
+struct Topic {
 	
 	private(set) var name = String()
-	private(set) var content = Question(quiz: [[]])
+	private(set) var content = Quiz(quiz: [[]])
 	
 	init(name: String) {
 		
@@ -29,11 +29,27 @@ struct Quiz {
 		
 		do {
 			let data = try Data(contentsOf: url)
-			content = try JSONDecoder().decode(Question.self, from: data)
+			content = try JSONDecoder().decode(Quiz.self, from: data)
 		} catch {
 			print("Error initializing quiz content")
 		}
 	}
 
-	static let quizzes = [Quiz(name: "Technology"), Quiz(name: "Social"), Quiz(name: "People")]
+	static let topics = [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
+	
+	static func loadSets() {
+		
+		for topic in topics {
+			for quiz in topic.content.quiz.enumerated() {
+				
+				if DataStore.shared.completedSets[topic.name] == nil {
+					DataStore.shared.completedSets[topic.name] = [:]
+				}
+				
+				if DataStore.shared.completedSets[topic.name]?[quiz.offset] == nil {
+					DataStore.shared.completedSets[topic.name]?[quiz.offset] = false
+				}
+			}
+		}
+	}
 }

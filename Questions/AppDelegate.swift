@@ -18,16 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 		
+		UserDefaultsManager.loadDefaultValues()
+		
+		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
+		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStore.path) as? DataStore {
+			DataStore.shared = mySettings
+		}
+		
+		Topic.loadSets()
+		
+		//
+		
 		AppDelegate.windowReference = self.window
 
 		let navController = window?.rootViewController as? UINavigationController
 		if #available(iOS 11.0, *) {
 			navController?.navigationBar.prefersLargeTitles = true
-		}
-		
-		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
-		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: Settings.path) as? Settings {
-			Settings.shared = mySettings
 		}
 		
 		if #available(iOS 9.0, *) {
@@ -104,11 +110,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 				
 			case .DarkTheme:
-				Settings.shared.darkThemeEnabled = true
+				UserDefaultsManager.darkThemeSwitchIsOn = true
 				AppDelegate.updateVolumeBarTheme()
 				
 			case .LightTheme:
-				Settings.shared.darkThemeEnabled = false
+				UserDefaultsManager.darkThemeSwitchIsOn = false
 				AppDelegate.updateVolumeBarTheme()
 			}
 		}
@@ -124,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			wasPlaying = false
 		}
 		
-		guard Settings.shared.save() else {	print("Error saving settings"); return }
+		guard DataStore.shared.save() else {	print("Error saving settings"); return }
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 	}

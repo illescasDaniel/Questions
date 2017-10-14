@@ -101,10 +101,10 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			
 			guard let data = metadata.stringValue?.data(using: .utf8) else { invalidQRCodeFormat(); return }
 			
-			var content: Question?
+			var content: Quiz?
 			
 			do {
-				content = try JSONDecoder().decode(Question.self, from: data)
+				content = try JSONDecoder().decode(Quiz.self, from: data)
 			} catch { invalidQRCodeFormat(); }
 			
 			guard let validContent = validQuestions(from: content) else { invalidQRCodeFormat(); return }
@@ -118,7 +118,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		
-		if let content = sender as? Question, segue.identifier == "unwindToQuestions" {
+		if let content = sender as? Quiz, segue.identifier == "unwindToQuestions" {
 			let controller = segue.destination as? QuestionsViewController
 			controller?.isSetFromJSON = true
 			controller?.set = content.quiz[0]
@@ -131,10 +131,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	@IBAction func helpButtonAction() {
 		
-		if #available(iOS 10.0, *), Settings.shared.hapticFeedbackEnabled {
-			let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-			feedbackGenerator.impactOccurred()
-		}
+		FeedbackGenerator.impactOcurredWith(style: .light)
 		
 		let alertViewController = UIAlertController.OKAlert(title: "Text to encode format".localized, message: "READ_QR_FORMAT")
 		alertViewController.textFields?.first?.textAlignment = .left
@@ -157,7 +154,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	// MARK: Convenience
 	
-	private func validQuestions(from content: Question?) -> Question? {
+	private func validQuestions(from content: Quiz?) -> Quiz? {
 		
 		if let validQuiz = content?.quiz, !validQuiz.isEmpty {
 			

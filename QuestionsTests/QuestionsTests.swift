@@ -22,9 +22,9 @@ class QuestionsTests: XCTestCase {
 
 		vc.view.reloadInputViews()
 
-		for k in 0..<Quiz.quizzes.count {
+		for k in 0..<Topic.topics.count {
 			
-			for i in 0..<Quiz.quizzes[k].content.quiz.count {
+			for i in 0..<Topic.topics[k].content.quiz.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
@@ -61,28 +61,30 @@ class QuestionsTests: XCTestCase {
 
 	func testSettingsEnabled() {
 		
-		guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsViewController else { return }
+		guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsTableViewController else { return }
 		settingsVC.view.reloadInputViews()
 		
-		XCTAssert(Settings.shared.musicEnabled == settingsVC.bgMusicSwitch.isOn, "Background music switch not working")
-		XCTAssert(Settings.shared.parallaxEnabled == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")
-		XCTAssert(Settings.shared.darkThemeEnabled == settingsVC.darkThemeSwitch.isOn, "Dark theme switch not working")
-		XCTAssert(Settings.shared.hapticFeedbackEnabled == settingsVC.hapticFeedbackSwitch.isOn, "Haptic feedback switch not working")
+		UserDefaultsManager.loadDefaultValues()
+		
+		XCTAssert(UserDefaultsManager.backgroundMusicSwitchIsOn == settingsVC.backgroundMusicSwitch.isOn, "Background music switch not working")
+		XCTAssert(UserDefaultsManager.parallaxEffectSwitchIsOn == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")
+		XCTAssert(UserDefaultsManager.darkThemeSwitchIsOn == settingsVC.darkThemeSwitch.isOn, "Dark theme switch not working")
+		XCTAssert(UserDefaultsManager.hapticFeedbackSwitchIsOn == settingsVC.hapticFeedbackSwitch.isOn, "Haptic feedback switch not working")
 	}
 	
 	func testSettingsSwitchAction() {
 		
 		if let bgMusic = Audio.bgMusic,
-			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsViewController {
+			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsTableViewController {
 			
 			settingsVC.view.reloadInputViews()
 			
-			settingsVC.bgMusicSwitch.setOn(true, animated: true)
-			settingsVC.switchBGMusic()
+			settingsVC.backgroundMusicSwitch.setOn(true, animated: true)
+			settingsVC.backgroundMusicSwitchAction(sender: settingsVC.backgroundMusicSwitch)
 			XCTAssert(bgMusic.isPlaying, "Music not playing when switch is ON")
 
-			settingsVC.bgMusicSwitch.setOn(false, animated: true)
-			settingsVC.switchBGMusic()
+			settingsVC.backgroundMusicSwitch.setOn(false, animated: true)
+			settingsVC.backgroundMusicSwitchAction(sender: settingsVC.backgroundMusicSwitch)
 			XCTAssert(!bgMusic.isPlaying, "Music playing when switch is OFF")
 		}
 		else {

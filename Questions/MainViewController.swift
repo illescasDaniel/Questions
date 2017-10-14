@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
 		
-		if Settings.shared.parallaxEnabled {
+		if UserDefaultsManager.parallaxEffectSwitchIsOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 
@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		
 		// Load score
-		let answersScore = Settings.shared.score
+		let answersScore = UserDefaultsManager.score
 		scoreLabel.text = "🏆 \(answersScore)pts"
 		
 		if answersScore == 0 {
@@ -72,7 +72,7 @@ class MainViewController: UIViewController {
 		Audio.correct?.volume = 0.10
 		Audio.incorrect?.volume = 0.25
 		
-		if Settings.shared.musicEnabled {
+		if UserDefaultsManager.backgroundMusicSwitchIsOn {
 			Audio.bgMusic?.play()
 		}
 		

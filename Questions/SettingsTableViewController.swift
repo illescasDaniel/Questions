@@ -14,7 +14,7 @@ class SettingsTableViewController: UITableViewController {
 		
 		case backgroundMusic = "Background Music"
 		case hapticFeedback = "Haptic Feedback"
-		case parallaxEffect = "Parallax Effect"
+		case parallaxEffect = "Parallax effect"
 		case darkTheme = "Dark Theme"
 		case licenses = "Licenses"
 		
@@ -33,9 +33,9 @@ class SettingsTableViewController: UITableViewController {
 	
 	private enum cellLabelsForSection1: String {
 		
-		case resetGame = "Reset Game"
+		case resetProgress = "Reset progress"
 		
-		static let labels: [cellLabelsForSection1] = [.resetGame]
+		static let labels: [cellLabelsForSection1] = [.resetProgress]
 		static let count = labels.count
 	}
 
@@ -74,24 +74,7 @@ class SettingsTableViewController: UITableViewController {
 			}
 		case 1:
 			switch indexPath.row {
-			case 0:
-				let alertViewController = UIAlertController(title: "", message: "What do you want to reset?".localized,
-															preferredStyle: .actionSheet)
-				
-				alertViewController.modalPresentationStyle = .popover
-				
-				alertViewController.addAction(title: "Cancel".localized, style: .cancel)
-				alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
-					self.resetGameOptions()
-				}
-				alertViewController.addAction(title: "Only Statistics", style: .default) { action in
-					self.resetGameStatistics()
-				}
-				
-				alertViewController.popoverPresentationController?.sourceRect = tableView.cellForRow(at: indexPath)!.frame
-				alertViewController.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-				
-				present(alertViewController, animated: true)
+			case 0: self.resetProgressAlert(indexPath: indexPath)
 			default: break
 			}
 		default: break
@@ -102,7 +85,8 @@ class SettingsTableViewController: UITableViewController {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
 		
-		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		cell.textLabel?.font = .preferredFont(forTextStyle: .body)
+		cell.accessoryView = nil
 
 		switch indexPath.section {
 		case 0:
@@ -126,7 +110,7 @@ class SettingsTableViewController: UITableViewController {
 			}
 		case 1:
 			switch indexPath.row {
-			case 0: cell.textLabel?.text = cellLabelsForSection1.resetGame.rawValue.localized
+			case 0: cell.textLabel?.text = cellLabelsForSection1.resetProgress.rawValue.localized
 			default: break
 			}
 		default: break
@@ -134,6 +118,31 @@ class SettingsTableViewController: UITableViewController {
 
         return cell
     }
+	
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		
+		guard section == 0 else { return nil }
+		
+		var completedSets = UInt()
+
+		for topicQuiz in DataStore.shared.completedSets {
+			for setQuiz in topicQuiz.value where setQuiz.value == true {
+				completedSets += 1
+			}
+		}
+		
+		let correctAnswers = UserDefaultsManager.correctAnswers
+		let incorrectAnswers = UserDefaultsManager.incorrectAnswers
+		let numberOfAnswers = Float(incorrectAnswers + correctAnswers)
+		let correctAnswersPercent = (numberOfAnswers > 0) ? Int(round((Float(correctAnswers) / numberOfAnswers) * 100.0)) : 0
+		
+		return "\n\("Statistics".localized): \n\n" +
+			"\("Completed sets".localized): \(completedSets)\n" +
+			"\("Correct answers".localized): \(correctAnswers)\n" +
+			"\("Incorrect answers".localized): \(incorrectAnswers)\n" +
+			"\("Ratio".localized): \(correctAnswersPercent)%\n\n" +
+			"*Only available on certain devices.".localized + "\n"
+	}
 	
 	// UITableView delegate
 	
@@ -156,6 +165,16 @@ class SettingsTableViewController: UITableViewController {
 			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 		}
 	}
+	
+	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+		let footer = view as? UITableViewHeaderFooterView
+		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+		footer?.contentView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
+	}
+	
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		return tableView.cellForRow(at: indexPath)?.accessoryView == nil
+	}
 
 	// MARK: - Actions
 	
@@ -163,12 +182,12 @@ class SettingsTableViewController: UITableViewController {
 		if sender.isOn { Audio.bgMusic?.play() }
 		else { Audio.bgMusic?.pause() }
 		
-		Settings.shared.musicEnabled = sender.isOn
+		UserDefaultsManager.backgroundMusicSwitchIsOn = sender.isOn
 	}
 	
 	@IBAction func hapticFeedbackSwitchAction(sender: UISwitch) {
 		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available {
-			Settings.shared.hapticFeedbackEnabled = sender.isOn
+			UserDefaultsManager.hapticFeedbackSwitchIsOn = sender.isOn
 		}
 	}
 	
@@ -181,11 +200,11 @@ class SettingsTableViewController: UITableViewController {
 			MainViewController.backgroundView?.removeMotionEffect(effects)
 		}
 		
-		Settings.shared.parallaxEnabled = sender.isOn
+		UserDefaultsManager.parallaxEffectSwitchIsOn = sender.isOn
 	}
 	
 	@IBAction func darkThemeSwitchAction(sender: UISwitch) {
-		Settings.shared.darkThemeEnabled = sender.isOn
+		UserDefaultsManager.darkThemeSwitchIsOn = sender.isOn
 		self.loadCurrentTheme(animated: true)
 		AppDelegate.updateVolumeBarTheme()
 	}
@@ -193,13 +212,13 @@ class SettingsTableViewController: UITableViewController {
 	// MARK: - Convenience
 	
 	@IBAction internal func loadTheme() {
-		darkThemeSwitch.setOn(Settings.shared.darkThemeEnabled, animated: false)
+		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: false)
 		loadCurrentTheme(animated: false)
 	}
 	
 	@IBAction internal func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
-		let parallaxEffectEnabled = reduceMotionEnabled ? false : Settings.shared.parallaxEnabled
+		let parallaxEffectEnabled = reduceMotionEnabled ? false : UserDefaultsManager.parallaxEffectSwitchIsOn
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
 		parallaxEffectSwitch.isEnabled = !reduceMotionEnabled
 	}
@@ -207,14 +226,14 @@ class SettingsTableViewController: UITableViewController {
 	private func loadSwitchesStates() {
 		setParallaxEffectSwitch()
 		backgroundMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
-		darkThemeSwitch.setOn(Settings.shared.darkThemeEnabled, animated: true)
+		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: true)
 		
 		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available  {
-			hapticFeedbackSwitch.setOn(Settings.shared.hapticFeedbackEnabled, animated: true)
+			hapticFeedbackSwitch.setOn(UserDefaultsManager.hapticFeedbackSwitchIsOn, animated: true)
 		} else {
 			hapticFeedbackSwitch.setOn(false, animated: false)
 			hapticFeedbackSwitch.isEnabled = false
-			Settings.shared.hapticFeedbackEnabled = false
+			UserDefaultsManager.hapticFeedbackSwitchIsOn = false
 		}
 	}
 	
@@ -225,36 +244,31 @@ class SettingsTableViewController: UITableViewController {
 		self.darkThemeSwitch.addTarget(self, action: #selector(darkThemeSwitchAction(sender:)), for: .touchUpInside)
 	}
 	
-	private func resetGameStatistics() {
+	private func resetProgressStatistics() {
 		
-		for i in 0..<Quiz.quizzes.count {
-			
-			if let completedSet = Settings.shared.completedSets[i] {
-				for j in 0..<completedSet.count {
-					Settings.shared.completedSets[i]?[j] = false
-				}
-			}
-		}
+		DataStore.shared.completedSets = [:]
+		Topic.loadSets()
+		guard DataStore.shared.save() else { print("Error saving settings"); return }
 		
-		Settings.shared.correctAnswers = 0
-		Settings.shared.incorrectAnswers = 0
-		Settings.shared.score = 0
+		UserDefaultsManager.correctAnswers = 0
+		UserDefaultsManager.incorrectAnswers = 0
+		UserDefaultsManager.score = 0
 		
 		self.tableView.reloadData()
 	}
 	
-	private func resetGameOptions() {
+	private func resetProgressOptions() {
 		
-		self.resetGameStatistics()
+		self.resetProgressStatistics()
 		
-		if !Settings.shared.parallaxEnabled {
+		if !UserDefaultsManager.parallaxEffectSwitchIsOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
-			Settings.shared.parallaxEnabled = true
+			UserDefaultsManager.parallaxEffectSwitchIsOn = true
 		}
 		
-		Settings.shared.musicEnabled = true
-		Settings.shared.darkThemeEnabled = false
-		Settings.shared.hapticFeedbackEnabled = true
+		UserDefaultsManager.backgroundMusicSwitchIsOn = true
+		UserDefaultsManager.darkThemeSwitchIsOn = false
+		UserDefaultsManager.hapticFeedbackSwitchIsOn = true
 		
 		
 		let reduceMotion = UIAccessibilityIsReduceMotionEnabled()
@@ -269,7 +283,7 @@ class SettingsTableViewController: UITableViewController {
 		} else {
 			hapticFeedbackSwitch.setOn(false, animated: false)
 			hapticFeedbackSwitch.isEnabled = false
-			Settings.shared.hapticFeedbackEnabled = false
+			UserDefaultsManager.hapticFeedbackSwitchIsOn = false
 		}
 		
 		Audio.bgMusic?.play()
@@ -278,6 +292,8 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func loadCurrentTheme(animated: Bool) {
+		
+		self.navigationItem.title = "Settings".localized
 		
 		let duration: TimeInterval = animated ? 0.2 : 0
 		
@@ -315,5 +331,22 @@ class SettingsTableViewController: UITableViewController {
 				cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 			}
 		})
+	}
+	
+	private func resetProgressAlert(indexPath: IndexPath) {
+		let alertViewController = UIAlertController(title: nil, message: nil,
+													preferredStyle: .alert)
+		
+		alertViewController.modalPresentationStyle = .popover
+		
+		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
+		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
+			self.resetProgressOptions()
+		}
+		alertViewController.addAction(title: "Only Statistics".localized, style: .default) { action in
+			self.resetProgressStatistics()
+		}
+		
+		self.present(alertViewController, animated: true)
 	}
 }

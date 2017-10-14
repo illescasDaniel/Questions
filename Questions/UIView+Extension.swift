@@ -12,7 +12,7 @@ extension UIView {
 	
 	func dontInvertIfDarkModeIsEnabled() {
 		if #available(iOS 11.0, *) {
-			self.accessibilityIgnoresInvertColors = Settings.shared.darkThemeEnabled
+			self.accessibilityIgnoresInvertColors = UserDefaultsManager.darkThemeSwitchIsOn
 		}
 	}
 	

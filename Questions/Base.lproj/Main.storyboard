@@ -257,7 +257,7 @@
         <!--Settings-->
         <scene sceneID="6j7-uw-lCt">
             <objects>
-                <tableViewController id="zMW-1v-9V6" customClass="SettingsTableViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="settingsViewController" id="zMW-1v-9V6" customClass="SettingsTableViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rYF-Ch-R0y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -318,7 +318,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Licenses" id="x4N-ng-h1F"/>
                     <connections>
-                        <outlet property="licensesNavItem" destination="x4N-ng-h1F" id="hIK-au-Joa"/>
                         <outlet property="textView" destination="Au6-PN-jKH" id="4dH-XU-VJZ"/>
                     </connections>
                 </viewController>

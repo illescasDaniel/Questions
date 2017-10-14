@@ -2,7 +2,6 @@ import UIKit
 
 class LicensesViewController: UIViewController {
 
-	@IBOutlet weak var licensesNavItem: UINavigationItem!
 	@IBOutlet weak var textView: UITextView!
 	
 	private lazy var licensesAttributedText: NSAttributedString = {
@@ -32,7 +31,7 @@ class LicensesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		licensesNavItem.title = "Licenses".localized
+		self.navigationItem.title = "Licenses".localized
 		
 		textView.attributedText = licensesAttributedText
 		textView.textAlignment = .center
