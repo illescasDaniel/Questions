@@ -48,8 +48,6 @@ class QuestionsViewController: UIViewController {
 			quiz = set.enumerated().makeIterator()
 		}
 		
-		blurView.frame = UIScreen.main.bounds
-		
 		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 	

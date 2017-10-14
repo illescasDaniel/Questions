@@ -616,18 +616,17 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kqw-Be-fSJ">
-                                <rect key="frame" x="72" y="259" width="272" height="218"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Tze-AP-TXn">
-                                    <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kqw-Be-fSJ">
+                                <rect key="frame" x="0.0" y="10" width="414" height="736"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Tze-AP-TXn">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrL-Vq-v0O">
-                                            <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="ctJ-6U-5BN">
-                                                <rect key="frame" x="0.0" y="0.0" width="272" height="218"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <vibrancyEffect>
@@ -715,11 +714,15 @@
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="width" secondItem="2jS-CG-deB" secondAttribute="width" multiplier="0.5" id="9Nl-J5-JVP"/>
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="width" secondItem="2jS-CG-deB" secondAttribute="width" multiplier="0.7" id="CRT-Xi-gUp"/>
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="centerX" secondItem="ohv-Oq-OAF" secondAttribute="centerX" id="DUc-lg-XHA"/>
+                            <constraint firstItem="Kqw-Be-fSJ" firstAttribute="height" secondItem="2jS-CG-deB" secondAttribute="height" id="Jbs-qu-A8K"/>
+                            <constraint firstItem="Kqw-Be-fSJ" firstAttribute="width" secondItem="2jS-CG-deB" secondAttribute="width" id="SGa-Qh-tgq"/>
                             <constraint firstItem="Iej-e9-J9q" firstAttribute="centerY" secondItem="ohv-Oq-OAF" secondAttribute="centerY" id="TPi-fm-kfU"/>
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="height" secondItem="ohv-Oq-OAF" secondAttribute="height" multiplier="0.23" id="UtF-A8-zw2"/>
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="height" secondItem="ohv-Oq-OAF" secondAttribute="height" multiplier="0.42" id="eLs-WN-nbm"/>
                             <constraint firstItem="Iej-e9-J9q" firstAttribute="centerX" secondItem="ohv-Oq-OAF" secondAttribute="centerX" id="gTt-Vf-0DC"/>
                             <constraint firstItem="Iej-e9-J9q" firstAttribute="width" secondItem="ohv-Oq-OAF" secondAttribute="width" multiplier="0.9" id="h7W-e9-pV7"/>
+                            <constraint firstItem="Kqw-Be-fSJ" firstAttribute="centerX" secondItem="ohv-Oq-OAF" secondAttribute="centerX" id="ka9-nP-cz4"/>
+                            <constraint firstItem="Kqw-Be-fSJ" firstAttribute="centerY" secondItem="ohv-Oq-OAF" secondAttribute="centerY" id="pgm-NQ-NiP"/>
                             <constraint firstItem="xmI-4h-QXk" firstAttribute="centerY" secondItem="2jS-CG-deB" secondAttribute="centerY" id="sKy-Ka-psF"/>
                             <constraint firstItem="Iej-e9-J9q" firstAttribute="height" secondItem="ohv-Oq-OAF" secondAttribute="height" multiplier="0.9" id="xPI-hj-Cns"/>
                         </constraints>
