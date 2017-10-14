@@ -52,13 +52,13 @@ class LicensesViewController: UIViewController {
 	
 	// MARK: Convenience
 	
-	@objc func loadCurrentTheme() {
+	@IBAction internal func loadCurrentTheme() {
 		textView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
 		textView.textColor = .themeStyle(dark: .white, light: .black)
 		textView.tintColor = .themeStyle(dark: .warmColor, light: .coolBlue)
 	}
 	
-	@objc func setFrame() {
+	@IBAction internal func setFrame() {
 		textView.frame = UIScreen.main.bounds
 	}
 	

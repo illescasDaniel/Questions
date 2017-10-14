@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 		
 		AppDelegate.windowReference = self.window
-		
+
 		let navController = window?.rootViewController as? UINavigationController
 		if #available(iOS 11.0, *) {
 			navController?.navigationBar.prefersLargeTitles = true

@@ -242,7 +242,7 @@ class QuestionsViewController: UIViewController {
 		view.addGestureRecognizer(swipeDown)
 	}
 	
-	@objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+	@IBAction func respondToSwipeGesture(gesture: UIGestureRecognizer) {
 		
 		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
 			
@@ -256,16 +256,14 @@ class QuestionsViewController: UIViewController {
 			}
 			else { return }
 			
-			AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled()
-			
-			UIView.animate(withDuration: 0.3) {
+			UIView.transition(with: self.view, duration: 0.3, options: [.curveLinear], animations: {
 				self.loadCurrentTheme()
 				self.setNeedsStatusBarAppearanceUpdate()
-			}
+			})
 		}
 	}
 	
-	@objc func loadCurrentTheme() {
+	@IBAction func loadCurrentTheme() {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
@@ -288,7 +286,7 @@ class QuestionsViewController: UIViewController {
 		self.setNeedsStatusBarAppearanceUpdate()
 	}
 	
-	@objc func showPauseMenu() {
+	@IBAction func showPauseMenu() {
 		if pauseView.alpha == 0.0 {
 			pauseMenuAction(animated: false)
 		}

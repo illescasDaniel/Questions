@@ -177,7 +177,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		return content
 	}
 	
-	@objc func loadPreview() {
+	@IBAction internal func loadPreview() {
 		
 		switch UIApplication.shared.statusBarOrientation {
 		case .landscapeLeft:
@@ -197,7 +197,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		view.bringSubview(toFront: helpButton)
 	}
 	
-	@objc func loadTheme() {
+	@IBAction internal func loadTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		view.backgroundColor = .themeStyle(dark: .black, light: .black)

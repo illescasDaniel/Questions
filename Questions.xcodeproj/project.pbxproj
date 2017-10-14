@@ -22,8 +22,8 @@
 		6560434E1E787E2700A96192 /* Technology.json in Resources */ = {isa = PBXBuildFile; fileRef = 6560434D1E787E2700A96192 /* Technology.json */; };
 		656043531E787FEE00A96192 /* bensound-thelounge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043501E787FEE00A96192 /* bensound-thelounge.mp3 */; };
 		656043541E787FEE00A96192 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043511E787FEE00A96192 /* correct.mp3 */; };
+		657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */; };
 		65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */; };
-		65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */; };
 		65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* Settings.swift */; };
 		65B25B481E7C138100771F20 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 65B25B471E7C138100771F20 /* incorrect.wav */; };
 		65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* Audio.swift */; };
@@ -81,8 +81,8 @@
 		656A36451F6EA50B0073D662 /* Main menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main menu.png"; sourceTree = "<group>"; };
 		656A36461F6EA50B0073D662 /* Main menu dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main menu dark.png"; sourceTree = "<group>"; };
 		656A36471F6EA50B0073D662 /* Settings dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings dark.png"; sourceTree = "<group>"; };
+		657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
-		65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		65AE3EC71D3A9C7500125EE2 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		65B25B471E7C138100771F20 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65B25B621E7C268C00771F20 /* Correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Correct.png; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 			children = (
 				65C285C51D2A8176002F7DF8 /* MainViewController.swift */,
 				65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */,
-				65A816FE1D2D549B00BEFA2C /* SettingsViewController.swift */,
+				657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */,
 				65DD23E01E7422C800462512 /* LicensesViewController.swift */,
 				65456AF31D2BC9620048965E /* TopicsViewController.swift */,
 				654F9A391E775001002B6A82 /* QuizzesViewController.swift */,
@@ -457,7 +457,7 @@
 				8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */,
 				654F9A3A1E775001002B6A82 /* QuizzesViewController.swift in Sources */,
 				652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */,
-				65A816FF1D2D549B00BEFA2C /* SettingsViewController.swift in Sources */,
+				657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */,
 				65AE3EC81D3A9C7500125EE2 /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

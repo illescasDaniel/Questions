@@ -111,7 +111,7 @@ class QuizzesViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	@objc func loadCurrentTheme() {
+	@IBAction internal func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
