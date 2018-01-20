@@ -3,7 +3,6 @@ import UIKit
 extension UIColor {
 	
 	convenience init(P3ReadyRed: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat = 1.0) {
-		
 		if #available(iOS 10.0, *) {
 			self.init(displayP3Red: P3ReadyRed, green: green, blue: blue, alpha: alpha)
 		} else {

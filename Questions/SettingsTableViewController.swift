@@ -181,8 +181,8 @@ class SettingsTableViewController: UITableViewController {
 	// MARK: - Actions
 	
 	@IBAction func backgroundMusicSwitchAction(sender: UISwitch) {
-		if sender.isOn { Audio.bgMusic?.play() }
-		else { Audio.bgMusic?.pause() }
+		if sender.isOn { AudioSounds.bgMusic?.play() }
+		else { AudioSounds.bgMusic?.pause() }
 		
 		UserDefaultsManager.backgroundMusicSwitchIsOn = sender.isOn
 	}
@@ -227,7 +227,7 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func loadSwitchesStates() {
 		setParallaxEffectSwitch()
-		backgroundMusicSwitch.setOn(Audio.bgMusic?.isPlaying ?? false, animated: true)
+		backgroundMusicSwitch.setOn(AudioSounds.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: true)
 		
 		if #available(iOS 10.0, *), traitCollection.forceTouchCapability == .available  {
@@ -288,7 +288,7 @@ class SettingsTableViewController: UITableViewController {
 			UserDefaultsManager.hapticFeedbackSwitchIsOn = false
 		}
 		
-		Audio.bgMusic?.play()
+		AudioSounds.bgMusic?.play()
 		
 		self.loadCurrentTheme(animated: true)
 	}

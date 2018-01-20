@@ -26,9 +26,10 @@
 		657B1CB51F92A94700D127F0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */; };
 		657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */; };
 		65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */; };
+		65AD8ADF2013FEBD008AD6EE /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */; };
 		65AE3EC81D3A9C7500125EE2 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* DataStore.swift */; };
 		65B25B481E7C138100771F20 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 65B25B471E7C138100771F20 /* incorrect.wav */; };
-		65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* Audio.swift */; };
+		65BF7CE31E68B4F7006A7706 /* AudioSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */; };
 		65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285C51D2A8176002F7DF8 /* MainViewController.swift */; };
 		65C285D41D2AB6A4002F7DF8 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */; };
 		65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */; };
@@ -87,13 +88,14 @@
 		657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		65AE3EC71D3A9C7500125EE2 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		65B25B471E7C138100771F20 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65B25B621E7C268C00771F20 /* Correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Correct.png; sourceTree = "<group>"; };
 		65B25B651E7C268C00771F20 /* Pause menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause menu.png"; sourceTree = "<group>"; };
 		65B25B661E7C268C00771F20 /* Questions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions.png; sourceTree = "<group>"; };
 		65B25B671E7C268C00771F20 /* Score alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Score alert.png"; sourceTree = "<group>"; };
-		65BF7CE21E68B4F7006A7706 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSounds.swift; sourceTree = "<group>"; };
 		65C285C51D2A8176002F7DF8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		65CB4C421D29C3E300D2E1C1 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -246,12 +248,13 @@
 		8E7F0EFE1D351D4F0048F1A0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				65BF7CE21E68B4F7006A7706 /* Audio.swift */,
+				65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* Topic.swift */,
 				65AE3EC71D3A9C7500125EE2 /* DataStore.swift */,
 				657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */,
 				657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */,
 				6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */,
+				65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -447,8 +450,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65BF7CE31E68B4F7006A7706 /* Audio.swift in Sources */,
+				65BF7CE31E68B4F7006A7706 /* AudioSounds.swift in Sources */,
 				65C285D41D2AB6A4002F7DF8 /* QuestionsViewController.swift in Sources */,
+				65AD8ADF2013FEBD008AD6EE /* RoundedView.swift in Sources */,
 				657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* Topic.swift in Sources */,
 				65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */,
@@ -518,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = QuestionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsTests";
@@ -532,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = QuestionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illecas.QuestionsTests";
@@ -695,7 +701,7 @@
 				INFOPLIST_FILE = Questions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.illescasDaniel.QuestionsApp;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
@@ -714,7 +720,7 @@
 				INFOPLIST_FILE = Questions/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Daniel-illescas.QuestionsApp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.illescasDaniel.QuestionsApp;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;

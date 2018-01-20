@@ -48,7 +48,7 @@ class QuestionsViewController: UIViewController {
 			quiz = set.enumerated().makeIterator()
 		}
 		
-		let title = Audio.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
+		let title = AudioSounds.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 	
 		goBack.setTitle("Questions menu".localized, for: .normal)
@@ -77,6 +77,16 @@ class QuestionsViewController: UIViewController {
 		NotificationCenter.default.removeObserver(self)
 	}
 
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		// Redraw the buttons to update the rounded corners when rotating the device
+		self.answerButtons.forEach { $0.setNeedsDisplay() }
+		self.pauseButton.setNeedsDisplay()
+		self.pauseView.setNeedsDisplay()
+		self.mainMenu.setNeedsDisplay()
+		self.goBack.setNeedsDisplay()
+		self.muteMusic.setNeedsDisplay()
+	}
 	// MARK: UIResponder
 
 	// If user shake the device, an alert to repeat the quiz pop ups
@@ -116,7 +126,7 @@ class QuestionsViewController: UIViewController {
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "unwindToQRScanner" {
-			Audio.setVolumeLevel(to: Audio.bgMusicVolume)
+			AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 		}
 	}
 	
@@ -184,7 +194,7 @@ class QuestionsViewController: UIViewController {
 	
 	@IBAction func muteMusicAction() {
 		
-		if let bgMusic = Audio.bgMusic {
+		if let bgMusic = AudioSounds.bgMusic {
 			
 			if bgMusic.isPlaying {
 				bgMusic.pause()
@@ -211,8 +221,8 @@ class QuestionsViewController: UIViewController {
 			self.blurView.isHidden = !self.blurView.isHidden
 		})
 		
-		let newVolume = (pauseView.isHidden) ? Audio.bgMusicVolume : (Audio.bgMusicVolume / 5.0)
-		Audio.setVolumeLevel(to: newVolume)
+		let newVolume = (pauseView.isHidden) ? AudioSounds.bgMusicVolume : (AudioSounds.bgMusicVolume / 5.0)
+		AudioSounds.bgMusic?.setVolumeLevel(to: newVolume)
 	}
 	
 	private func shuffledQuiz(_ name: Quiz) -> NSArray{
@@ -365,11 +375,11 @@ class QuestionsViewController: UIViewController {
 		
 		if answer == correctAnswer {
 			correctAnswers += 1
-			Audio.correct?.play()
+			AudioSounds.correct?.play()
 		}
 		else {
 			incorrectAnswers += 1
-			Audio.incorrect?.play()
+			AudioSounds.incorrect?.play()
 		}
 		
 		UIView.animate(withDuration: 0.75) {
@@ -388,12 +398,12 @@ class QuestionsViewController: UIViewController {
 	
 	private func pausePreviousSounds() {
 		
-		if let incorrectSound = Audio.incorrect, incorrectSound.isPlaying {
+		if let incorrectSound = AudioSounds.incorrect, incorrectSound.isPlaying {
 			incorrectSound.pause()
 			incorrectSound.currentTime = 0
 		}
 		
-		if let correctSound = Audio.correct, correctSound.isPlaying {
+		if let correctSound = AudioSounds.correct, correctSound.isPlaying {
 			correctSound.pause()
 			correctSound.currentTime = 0
 		}

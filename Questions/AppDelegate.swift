@@ -122,8 +122,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		
-		if Audio.bgMusic?.isPlaying ?? false {
-			Audio.bgMusic?.pause()
+		if AudioSounds.bgMusic?.isPlaying ?? false {
+			AudioSounds.bgMusic?.pause()
 			wasPlaying = true
 		}
 		else {
@@ -138,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		
 		if wasPlaying {
-			Audio.bgMusic?.play()
+			AudioSounds.bgMusic?.play()
 		}
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()

@@ -74,7 +74,7 @@ class QuestionsTests: XCTestCase {
 	
 	func testSettingsSwitchAction() {
 		
-		if let bgMusic = Audio.bgMusic,
+		if let bgMusic = AudioSounds.bgMusic,
 			let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsTableViewController {
 			
 			settingsVC.view.reloadInputViews()

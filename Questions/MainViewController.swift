@@ -26,10 +26,10 @@ class MainViewController: UIViewController {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
 		}
 
-		initializeSounds()
-		initializeLables()
+		self.initializeSounds()
+		self.initializeLables()
 		
-		// Loads the theme if user uses a home quick action
+		// Load the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
 	
@@ -49,6 +49,12 @@ class MainViewController: UIViewController {
 		loadTheme()
 	}
 	
+	override func viewWillLayoutSubviews() {
+		super.viewWillLayoutSubviews()
+		// Redraw the buttons to update the rounded corners when rotating the device
+		[self.startButton, self.readQRCodeButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
+	}
+	
 	@available(iOS, deprecated: 9.0)
 	deinit {
 		NotificationCenter.default.removeObserver(self)
@@ -57,42 +63,38 @@ class MainViewController: UIViewController {
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
-		Audio.setVolumeLevel(to: Audio.bgMusicVolume)
+		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 	}
 
 	// MARK: Convenience
 	
 	private func initializeSounds() {
 		
-		Audio.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: "mp3")
-		Audio.correct = AVAudioPlayer(file: "correct", type: "mp3")
-		Audio.incorrect = AVAudioPlayer(file: "incorrect", type: "wav")
-		
-		Audio.bgMusic?.volume = Audio.bgMusicVolume
-		Audio.correct?.volume = 0.10
-		Audio.incorrect?.volume = 0.25
+		AudioSounds.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: .mp3, volume: AudioSounds.bgMusicVolume)
+		AudioSounds.correct = AVAudioPlayer(file: "correct", type: .mp3, volume: 0.10)
+		AudioSounds.incorrect = AVAudioPlayer(file: "incorrect", type: .wav, volume: 0.25)
 		
 		if UserDefaultsManager.backgroundMusicSwitchIsOn {
-			Audio.bgMusic?.play()
+			AudioSounds.bgMusic?.play()
 		}
 		
-		Audio.bgMusic?.numberOfLoops = -1
+		AudioSounds.bgMusic?.numberOfLoops = -1
 	}
 	
 	private func initializeLables() {
-		startButton.setTitle("START GAME".localized, for: .normal)
-		readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
-		settingsButton.setTitle("SETTINGS".localized, for: .normal)
+		self.startButton.setTitle("START GAME".localized, for: .normal)
+		self.readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
+		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
 	}
 	
 	@IBAction func loadTheme() {
-		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		backgroundImageView.dontInvertColors()
-		startButton.dontInvertColors()
-		readQRCodeButton.dontInvertColors()
-		settingsButton.dontInvertColors()
-		scoreLabel.dontInvertColors()
+		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		self.backgroundImageView.dontInvertColors()
+		self.startButton.dontInvertColors()
+		self.readQRCodeButton.dontInvertColors()
+		self.settingsButton.dontInvertColors()
+		self.scoreLabel.dontInvertColors()
 	}
 	
 	static func addParallax(toView view: UIView?) {
