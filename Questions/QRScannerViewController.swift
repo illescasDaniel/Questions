@@ -107,8 +107,9 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 				content = try JSONDecoder().decode(Quiz.self, from: data)
 			} catch { invalidQRCodeFormat(); }
 			
-			guard let validContent = validQuestions(from: content) else { invalidQRCodeFormat(); return }
+			guard let validContent = content, Quiz.isValid(validContent) else { invalidQRCodeFormat(); return }
 			
+			FeedbackGenerator.notificationOcurredOf(type: .success)
 			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
 			captureSession.stopRunning()
 		}
@@ -154,26 +155,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	// MARK: Convenience
 	
-	private func validQuestions(from content: Quiz?) -> Quiz? {
-		
-		if let validQuiz = content?.quiz, !validQuiz.isEmpty {
-			
-			for fullQuestion in validQuiz[0] { // in case the content has multiple quizzes
-				
-				guard !fullQuestion.question.isEmpty, fullQuestion.answers.count == 4, fullQuestion.correct < 4, fullQuestion.correct >= 0 else { return nil }
-				
-				var isAnswersLenghtCorrect = true
-				fullQuestion.answers.forEach { answer in
-					if answer.isEmpty { isAnswersLenghtCorrect = false }
-				}
-			
-				guard isAnswersLenghtCorrect else { return nil }
-			}
-		}
-		
-		return content
-	}
-	
 	@IBAction internal func loadPreview() {
 		
 		switch UIApplication.shared.statusBarOrientation {
@@ -203,8 +184,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	func invalidQRCodeFormat() {
-		let alertViewController = UIAlertController.OKAlert(title: "Attention", message: "Invalid QR Code format")
-		present(alertViewController, animated: true)
+		self.captureSession.stopRunning()
+		FeedbackGenerator.notificationOcurredOf(type: .error)
+		let alertViewController = UIAlertController(title: "Attention", message: "Invalid QR Code format", preferredStyle: .alert)
+		alertViewController.addAction(title: "OK", style: .default) { _ in
+			self.captureSession.startRunning()
+		}
+		self.present(alertViewController, animated: true)
 	}
 }
 

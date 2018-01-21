@@ -12,7 +12,29 @@ struct QuestionType: Codable, Equatable {
 }
 
 struct Quiz: Codable {
+	
 	let quiz: [[QuestionType]]
+	
+	static func isValid(_ content: Quiz) -> Bool {
+		
+		guard !content.quiz.isEmpty else { return false }
+		
+		for topic in content.quiz {
+			for fullQuestion in topic {
+				
+				guard !fullQuestion.question.isEmpty, fullQuestion.answers.count == 4, fullQuestion.correct < 4, fullQuestion.correct >= 0 else { return false }
+				
+				var isAnswersLenghtCorrect = true
+				fullQuestion.answers.forEach { answer in
+					if answer.isEmpty { isAnswersLenghtCorrect = false }
+				}
+				
+				guard isAnswersLenghtCorrect else { return false }
+			}
+		}
+
+		return true
+	}
 }
 
 struct Topic {
@@ -20,7 +42,7 @@ struct Topic {
 	private(set) var name = String()
 	private(set) var content = Quiz(quiz: [[]])
 	
-	init(name: String) {
+	init?(name: String) {
 		
 		self.name = name
 		
@@ -29,17 +51,28 @@ struct Topic {
 		
 		do {
 			let data = try Data(contentsOf: url)
-			content = try JSONDecoder().decode(Quiz.self, from: data)
+			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			if Quiz.isValid(contentToValidate) {
+				self.content = contentToValidate
+			} else {
+				return nil
+			}
 		} catch {
 			print("Error initializing quiz content")
 		}
 	}
 	
-	init(path: URL) {
+	init?(path: URL) {
 		self.name = path.deletingPathExtension().lastPathComponent
 		do {
 			let data = try Data(contentsOf: path)
-			content = try JSONDecoder().decode(Quiz.self, from: data)
+
+			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			if Quiz.isValid(contentToValidate) {
+				self.content = contentToValidate
+			} else {
+				return nil
+			}
 		} catch {
 			print("Error initializing quiz content")
 		}
@@ -56,7 +89,9 @@ struct SetOfTopics {
 		if let bundleURL = URL(string: Bundle.main.bundlePath),
 			let contentOfBundlePath = (try? FileManager.default.contentsOfDirectory(at: bundleURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
 			for url in contentOfBundlePath where url.pathExtension == "json" {
-				self.topics.append(Topic(path: url))
+				if let validTopic = Topic(path: url) {
+					self.topics.append(validTopic)
+				}
 			}
 		}
 		self.loadSets()
