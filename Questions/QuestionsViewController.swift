@@ -382,18 +382,17 @@ class QuestionsViewController: UIViewController {
 			AudioSounds.incorrect?.play()
 		}
 		
-		UIView.animate(withDuration: 0.75) {
+		UIView.transition(with: self.answerButtons[Int(answer)], duration: 0.25, options: [.transitionCrossDissolve], animations: {
 			self.answerButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
+		}) { completed in
+			if completed {
+				self.pickQuestion()
+				UIView.transition(with: self.answerButtons[Int(answer)], duration: 0.2, options: [.transitionCrossDissolve], animations: {
+					self.answerButtons[Int(answer)].backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+				})
+			}
 		}
-		
 		FeedbackGenerator.notificationOcurredOf(type: (answer == correctAnswer) ? .success : .error)
-		
-		// Restore the answers buttons to their original color
-		UIView.animate(withDuration: 0.75) {
-			self.answerButtons[Int(answer)].backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		}
-		
-		pickQuestion()
 	}
 	
 	private func pausePreviousSounds() {
