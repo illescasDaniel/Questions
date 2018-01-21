@@ -277,7 +277,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Questions" id="4da-ip-kPT"/>
+                    <navigationItem key="navigationItem" title="Questions" largeTitleDisplayMode="always" id="4da-ip-kPT">
+                        <barButtonItem key="backBarButtonItem" title="Main Menu" id="D1M-3H-hoJ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
