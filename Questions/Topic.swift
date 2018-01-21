@@ -37,7 +37,7 @@ struct Quiz: Codable {
 	}
 }
 
-struct Topic {
+struct Topic: Equatable, Hashable {
 	
 	private(set) var name = String()
 	private(set) var content = Quiz(quiz: [[]])
@@ -77,6 +77,16 @@ struct Topic {
 			print("Error initializing quiz content")
 		}
 	}
+	
+	// Could change in the future, but for now DataStore saves the state of Topics sets using a dictionary and they can't have the same name
+	// Also two same names would confuse if two topics had the same name and maybe you can't even save two json files with the same name either
+	static func ==(lhs: Topic, rhs: Topic) -> Bool {
+		return lhs.name == rhs.name
+	}
+	
+	var hashValue: Int {
+		return name.hashValue
+	}
 }
 
 struct SetOfTopics {
@@ -86,13 +96,18 @@ struct SetOfTopics {
 	
 	// Automatically loads all .json files :)
 	fileprivate init() {
+		
 		if let bundleURL = URL(string: Bundle.main.bundlePath),
 			let contentOfBundlePath = (try? FileManager.default.contentsOfDirectory(at: bundleURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
+			
+			var setOfTopics = Set<Topic>()
+			
 			for url in contentOfBundlePath where url.pathExtension == "json" {
 				if let validTopic = Topic(path: url) {
-					self.topics.append(validTopic)
+					setOfTopics.insert(validTopic)
 				}
 			}
+			self.topics = Array(setOfTopics)
 		}
 		self.loadSets()
 	}
