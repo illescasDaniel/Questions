@@ -336,10 +336,8 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func resetProgressAlert(indexPath: IndexPath) {
-		let alertViewController = UIAlertController(title: nil, message: nil,
-													preferredStyle: .alert)
 		
-		alertViewController.modalPresentationStyle = .popover
+		let alertViewController = UIAlertController(title: "Reset progress".localized, message: nil, preferredStyle: .alert)
 		
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
@@ -348,7 +346,7 @@ class SettingsTableViewController: UITableViewController {
 		alertViewController.addAction(title: "Only Statistics".localized, style: .default) { action in
 			self.resetProgressStatistics()
 		}
-		
+
 		self.present(alertViewController, animated: true)
 	}
 }
