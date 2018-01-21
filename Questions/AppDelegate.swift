@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DataStore.shared = mySettings
 		}
 		
-		Topic.loadSets()
-		
 		//
 		
 		AppDelegate.windowReference = self.window

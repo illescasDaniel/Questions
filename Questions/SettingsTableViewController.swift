@@ -249,7 +249,7 @@ class SettingsTableViewController: UITableViewController {
 	private func resetProgressStatistics() {
 		
 		DataStore.shared.completedSets = [:]
-		Topic.loadSets()
+		SetOfTopics.shared.loadSets()
 		guard DataStore.shared.save() else { print("Error saving settings"); return }
 		
 		UserDefaultsManager.correctAnswers = 0

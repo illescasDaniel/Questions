@@ -34,10 +34,35 @@ struct Topic {
 			print("Error initializing quiz content")
 		}
 	}
-
-	static let topics = [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
 	
-	static func loadSets() {
+	init(path: URL) {
+		self.name = path.deletingPathExtension().lastPathComponent
+		do {
+			let data = try Data(contentsOf: path)
+			content = try JSONDecoder().decode(Quiz.self, from: data)
+		} catch {
+			print("Error initializing quiz content")
+		}
+	}
+}
+
+struct SetOfTopics {
+	
+	static let shared = SetOfTopics()
+	var topics: [Topic] = [] // Manually: [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
+	
+	// Automatically loads all .json files :)
+	fileprivate init() {
+		if let bundleURL = URL(string: Bundle.main.bundlePath),
+			let contentOfBundlePath = (try? FileManager.default.contentsOfDirectory(at: bundleURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
+			for url in contentOfBundlePath where url.pathExtension == "json" {
+				self.topics.append(Topic(path: url))
+			}
+		}
+		self.loadSets()
+	}
+	
+	func loadSets() {
 		
 		for topic in topics {
 			for quiz in topic.content.quiz.enumerated() {

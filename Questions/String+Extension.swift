@@ -9,6 +9,10 @@ extension String {
 	func attributedStringWith(_ attributes: [NSAttributedStringKey : Any]? = nil) -> NSAttributedString {
 		return NSAttributedString(string: self, attributes: attributes)
 	}
+	
+	var deletingPathExtension: String {
+		return (self as NSString).deletingPathExtension
+	}
 }
 
 extension NSAttributedString {

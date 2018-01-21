@@ -333,7 +333,7 @@ class QuestionsViewController: UIViewController {
 
 	private func isSetCompleted() -> Bool {
 		
-		let topicName = Topic.topics[currentTopicIndex].name
+		let topicName = SetOfTopics.shared.topics[currentTopicIndex].name
 		if let topicQuiz = DataStore.shared.completedSets[topicName] {
 			return topicQuiz[currentSetIndex] ?? false
 		}
@@ -349,7 +349,7 @@ class QuestionsViewController: UIViewController {
 			UserDefaultsManager.score += (correctAnswers * 20) - (incorrectAnswers * 10)
 		}
 		
-		let topicName = Topic.topics[currentTopicIndex].name
+		let topicName = SetOfTopics.shared.topics[currentTopicIndex].name
 		DataStore.shared.completedSets[topicName]?[currentSetIndex] = true
 		guard DataStore.shared.save() else { print("Error saving settings"); return }
 
@@ -439,7 +439,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		set = Topic.topics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
+		set = SetOfTopics.shared.topics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
 		quiz = set.enumerated().makeIterator()
 	}
 }

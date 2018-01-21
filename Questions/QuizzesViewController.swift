@@ -12,8 +12,8 @@ class QuizzesViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		navigationItem.title = Topic.topics[currentTopicIndex].name.localized
-		setCount =  Topic.topics[currentTopicIndex].content.quiz.count
+		navigationItem.title = SetOfTopics.shared.topics[currentTopicIndex].name.localized
+		setCount =  SetOfTopics.shared.topics[currentTopicIndex].content.quiz.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -42,7 +42,7 @@ class QuizzesViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
 		cell?.textLabel?.text = "Set \(indexPath.row)"
 		
-		let topicName = Topic.topics[currentTopicIndex].name
+		let topicName = SetOfTopics.shared.topics[currentTopicIndex].name
 		if DataStore.shared.completedSets[topicName]?[indexPath.row] ?? false {
 			cell?.accessoryType = .checkmark
 		}
@@ -102,7 +102,7 @@ class QuizzesViewController: UITableViewController {
 		
 		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 		
-		let topicName = Topic.topics[currentTopicIndex].name
+		let topicName = SetOfTopics.shared.topics[currentTopicIndex].name
 		for i in 0..<setCount where ( DataStore.shared.completedSets[topicName]?[i]) ?? false {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
