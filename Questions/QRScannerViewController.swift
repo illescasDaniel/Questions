@@ -118,7 +118,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			openQuestionsAlert.addAction(title: "Open it".localized, style: .default) { _ in
 				self.performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
 			}
-			openQuestionsAlert.addAction(title: "Keep scanning".localized, style: .default) { _ in
+			openQuestionsAlert.addAction(title: "Keep scanning".localized, style: .cancel) { _ in
 				self.captureSession.startRunning()
 			}
 			self.present(openQuestionsAlert, animated: true)
