@@ -6,6 +6,7 @@ class MainViewController: UIViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var startButton: UIButton!
+	@IBOutlet weak var savedTopicsButton: UIButton!
 	@IBOutlet weak var readQRCodeButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
 	@IBOutlet weak var scoreLabel: UILabel!
@@ -93,7 +94,7 @@ class MainViewController: UIViewController {
 	
 	private func initializeLables() {
 		self.startButton.setTitle("START GAME".localized, for: .normal)
-		self.startButton.setTitle("SAVED TOPICS".localized, for: .normal)
+		self.savedTopicsButton.setTitle("SAVED TOPICS".localized, for: .normal)
 		self.readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
 	}

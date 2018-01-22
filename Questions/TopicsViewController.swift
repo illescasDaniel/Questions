@@ -33,7 +33,7 @@ class TopicsViewController: UITableViewController {
 			let emptyListText = "Empty, read questions from a QR code".localized
 			let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
 			emptyTableLabel.text = emptyListText.localized
-			emptyTableLabel.font = .preferredFont(forTextStyle: .title2)
+			emptyTableLabel.font = .preferredFont(forTextStyle: .title3)
 			emptyTableLabel.textColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
 			emptyTableLabel.textAlignment = .center
 			emptyTableLabel.numberOfLines = 0

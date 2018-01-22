@@ -46,7 +46,7 @@ struct Topic: Equatable, Hashable {
 		
 		self.name = name
 		
-		guard let path = Bundle.main.path(forResource: name, ofType: "json") else { print("Quiz incorrect path"); return }
+		guard let path = Bundle.main.path(forResource: name, ofType: "json") else { print("Quiz incorrect path. Topic name: \(name)"); return }
 		let url = URL(fileURLWithPath: path)
 		
 		do {
@@ -58,7 +58,7 @@ struct Topic: Equatable, Hashable {
 				return nil
 			}
 		} catch {
-			print("Error initializing quiz content")
+			print("Error initializing quiz content. Quiz name: \(name)")
 		}
 	}
 	
@@ -74,7 +74,7 @@ struct Topic: Equatable, Hashable {
 				return nil
 			}
 		} catch {
-			print("Error initializing quiz content")
+			print("Error initializing quiz content. Quiz path: \(path.lastPathComponent)")
 		}
 	}
 	

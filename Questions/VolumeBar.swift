@@ -231,6 +231,20 @@ public final class VolumeBar: NSObject {
 
 // MARK: - Automatic Presentation
 extension VolumeBar {
+	// The safe area top inset. This is a temporary fix until VolumeBar has better support for iPhone X.
+	var safeAreaTopInset: CGFloat {
+		if #available(iOS 11.0, *) {
+			let safeAreaInsets = volumeViewController.view.safeAreaInsets
+			if safeAreaInsets.top > 20 {
+				// iPhone X
+				return safeAreaInsets.top
+			} else {
+				return 0
+			}
+		} else {
+			return 0
+		}
+	}
 	
 	/// Start observing changes in volume.
 	///
@@ -293,7 +307,7 @@ extension VolumeBar {
 		}
 		
 		// Set the window frame, update status bar appearance
-		volumeWindow.frame = CGRect(x: 0, y: 0, width: mainWindow.bounds.width, height: height)
+		volumeWindow.frame = CGRect(x: 0, y: safeAreaTopInset, width: mainWindow.bounds.width, height: height)
 		volumeViewController.view.setNeedsLayout()
 		volumeViewController.setNeedsStatusBarAppearanceUpdate()
 	}
@@ -325,7 +339,7 @@ extension VolumeBar {
 			volumeViewController.view.alpha = 0.0
 			switch animationStyle {
 			case .slide:
-				volumeViewController.view.transform = CGAffineTransform(translationX: 0, y: -volumeWindow.bounds.height)
+				volumeViewController.view.transform = CGAffineTransform(translationX: 0, y: -(volumeWindow.frame.height + volumeWindow.frame.minY))
 			default: break
 			}
 			
@@ -360,7 +374,7 @@ extension VolumeBar {
 			self.volumeViewController.view.alpha = 0.0
 			switch self.animationStyle {
 			case .slide:
-				self.volumeViewController.view.transform = CGAffineTransform(translationX: 0, y: -self.volumeWindow.bounds.height)
+				self.volumeViewController.view.transform = CGAffineTransform(translationX: 0, y: -(self.volumeWindow.frame.height + self.volumeWindow.frame.minY))
 			default: break
 			}
 		}) { (completed) in

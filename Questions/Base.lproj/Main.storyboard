@@ -310,6 +310,7 @@
                     <connections>
                         <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
+                        <outlet property="savedTopicsButton" destination="fbX-yK-Bvm" id="smb-eF-czu"/>
                         <outlet property="scoreLabel" destination="bwC-Rs-rzS" id="Wda-9L-ElF"/>
                         <outlet property="settingsButton" destination="49H-XB-RgC" id="wp2-0o-qhG"/>
                         <outlet property="startButton" destination="arZ-7k-Uja" id="zAH-RX-Cfw"/>
