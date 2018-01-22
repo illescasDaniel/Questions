@@ -10,13 +10,20 @@
 "Main menu" = "Menú principal";
 
 "START GAME" = "COMENZAR";
+"SAVED TOPICS" = "TEMAS GUARDADOS";
 "READ QR CODE" = "LEER CÓDIGO QR";
+
 "Invalid QR Code format" = "Formato de Código QR inválido";
 "Text to encode format" = "Formato de texto a codificar";
 "READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correcta\", \"Bla\"], \"correct\": 2}, ... ]";
 "Camera access required for QR Scanning" = "Acceso a cámara requerido para escanear el código QR";
 "Allow camera access" = "Permita acceso a la cámara";
 "Allow Camera" = "Permitir cámara";
+"Open the first question set?" = "¿Abrir el primer set de preguntas?";
+"Open it" = "Ábrelo";
+"Keep scanning" = "Sigue escaneando";
+
+"Empty, read questions from a QR code" = "Vacío, intenta leer preguntas desde un QR";
 
 "OK" = "Aceptar";
 

@@ -23,7 +23,28 @@ class TopicsViewController: UITableViewController {
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return SetOfTopics.shared.topics.count
+		
+		let count = SetOfTopics.shared.currentTopics.count
+
+		if count > 0 {
+			self.tableView?.backgroundView = nil
+		}
+		else if self.tableView?.backgroundView == nil {
+			let emptyListText = "Empty, read questions from a QR code".localized
+			let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+			emptyTableLabel.text = emptyListText.localized
+			emptyTableLabel.font = .preferredFont(forTextStyle: .title2)
+			emptyTableLabel.textColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
+			emptyTableLabel.textAlignment = .center
+			emptyTableLabel.numberOfLines = 0
+			
+			UIView.animate(withDuration: 0.2, animations: {
+				self.tableView?.backgroundView = emptyTableLabel
+			})
+			self.tableView?.separatorStyle = .none
+		}
+		
+		return count
 	}
 	
 	// MARK: UITableViewDelegate
@@ -31,7 +52,7 @@ class TopicsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
-		cell?.textLabel?.text = SetOfTopics.shared.topics[indexPath.row].name.localized
+		cell?.textLabel?.text = SetOfTopics.shared.currentTopics[indexPath.row].name.localized
 		
 		// Load theme
 		cell?.textLabel?.font = .preferredFont(forTextStyle: .body)

@@ -109,9 +109,29 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			
 			guard let validContent = content, Quiz.isValid(validContent) else { invalidQRCodeFormat(); return }
 			
+			self.captureSession.stopRunning()
+			
+			self.saveIntoDocuments(quiz: validContent)
 			FeedbackGenerator.notificationOcurredOf(type: .success)
-			performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
-			captureSession.stopRunning()
+			
+			let openQuestionsAlert = UIAlertController(title: nil, message: "Open the first question set?".localized, preferredStyle: .alert)
+			openQuestionsAlert.addAction(title: "Open it".localized, style: .default) { _ in
+				self.performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
+			}
+			openQuestionsAlert.addAction(title: "Keep scanning".localized, style: .default) { _ in
+				self.captureSession.startRunning()
+			}
+			self.present(openQuestionsAlert, animated: true)
+		}
+	}
+	
+	private func saveIntoDocuments(quiz: Quiz) {
+		let fileName = "UserSaved_\(SetOfTopics.shared.savedTopics.count).json" // Could be translated...
+		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
+			if let data = try? JSONEncoder().encode(quiz) {
+				try? data.write(to: documentsURL)
+				SetOfTopics.shared.loadSavedTopics()
+			}
 		}
 	}
 	
@@ -179,8 +199,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		view.backgroundColor = .themeStyle(dark: .black, light: .black)
-		allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
-		helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		self.allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		self.helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 	}
 	
 	func invalidQRCodeFormat() {

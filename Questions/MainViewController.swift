@@ -65,6 +65,16 @@ class MainViewController: UIViewController {
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
 		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 	}
+	
+	// MARK: Actions
+	
+	@IBAction func loadAppTopics(_ sender: UIButton) {
+		SetOfTopics.shared.isUsingUserSavedTopics = false
+	}
+	
+	@IBAction func loadSavedTopics(_ sender: UIButton) {
+		SetOfTopics.shared.isUsingUserSavedTopics = true
+	}
 
 	// MARK: Convenience
 	
@@ -83,6 +93,7 @@ class MainViewController: UIViewController {
 	
 	private func initializeLables() {
 		self.startButton.setTitle("START GAME".localized, for: .normal)
+		self.startButton.setTitle("SAVED TOPICS".localized, for: .normal)
 		self.readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
 	}

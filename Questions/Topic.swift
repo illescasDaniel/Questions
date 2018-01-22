@@ -91,30 +91,34 @@ struct Topic: Equatable, Hashable {
 
 struct SetOfTopics {
 	
-	static let shared = SetOfTopics()
-	var topics: [Topic] = [] // Manually: [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
+	static var shared = SetOfTopics()
 	
+	var topics: [Topic] = [] // Manually: [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
+	var savedTopics: [Topic] = []
+	
+	var isUsingUserSavedTopics = false
+	
+	var currentTopics: [Topic] {
+		return isUsingUserSavedTopics ? self.savedTopics : self.topics
+	}
+
 	// Automatically loads all .json files :)
 	fileprivate init() {
+	
+		self.topics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: Bundle.main.bundleURL))
+		self.loadSavedTopics()
 		
-		if let bundleURL = URL(string: Bundle.main.bundlePath),
-			let contentOfBundlePath = (try? FileManager.default.contentsOfDirectory(at: bundleURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
-			
-			var setOfTopics = Set<Topic>()
-			
-			for url in contentOfBundlePath where url.pathExtension == "json" {
-				if let validTopic = Topic(path: url) {
-					setOfTopics.insert(validTopic)
-				}
-			}
-			self.topics = Array(setOfTopics)
-		}
-		self.loadSets()
+		self.loadAllTopicsStates()
 	}
 	
-	func loadSets() {
+	func loadAllTopicsStates() {
+		self.loadSetState(for: self.topics)
+		self.loadSetState(for: self.savedTopics)
+	}
+	
+	func loadSetState(for topicSet: [Topic]) {
 		
-		for topic in topics {
+		for topic in topicSet {
 			for quiz in topic.content.quiz.enumerated() {
 				
 				if DataStore.shared.completedSets[topic.name] == nil {
@@ -126,5 +130,31 @@ struct SetOfTopics {
 				}
 			}
 		}
+	}
+	
+	mutating func loadSavedTopics() {
+
+		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+		self.savedTopics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: documentsURL))
+		
+		self.loadSetState(for: self.savedTopics)
+	}
+	
+	private func setOfTopicsFromJSONFilesOfDirectory(url contentURL: URL?) -> Set<Topic> {
+		
+		let fileManager = FileManager.default
+		
+		if let validURL = contentURL, let contentOfFilesPath = (try? fileManager.contentsOfDirectory(at: validURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
+			
+			var setOfSavedTopics = Set<Topic>()
+			
+			for url in contentOfFilesPath where url.pathExtension == "json" {
+				if let validTopic = Topic(path: url) {
+					setOfSavedTopics.insert(validTopic)
+				}
+			}
+			return setOfSavedTopics
+		}
+		return Set<Topic>()
 	}
 }
