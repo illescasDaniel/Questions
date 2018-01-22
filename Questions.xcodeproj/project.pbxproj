@@ -704,7 +704,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.illescasDaniel.QuestionsApp;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "";
 			};
@@ -723,7 +724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.illescasDaniel.QuestionsApp;
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				WARNING_CFLAGS = "";
 			};

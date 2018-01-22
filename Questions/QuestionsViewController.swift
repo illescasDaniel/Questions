@@ -58,7 +58,7 @@ class QuestionsViewController: UIViewController {
 		blurView.isHidden = true
 		
 		// Theme settings
-		loadCurrentTheme()
+		self.loadCurrentTheme()
 		
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
@@ -67,9 +67,9 @@ class QuestionsViewController: UIViewController {
 			helpButton.alpha = 0.4
 		}
 		
-		addSwipeGestures()
+		self.addSwipeGestures()
 		
-		pickQuestion()
+		self.pickQuestion()
 	}
 	
 	@available(iOS, deprecated: 9.0)
@@ -253,9 +253,11 @@ class QuestionsViewController: UIViewController {
 			
 			if !darkThemeEnabled && (swipeGesture.direction == .down) {
 				UserDefaultsManager.darkThemeSwitchIsOn = true
+				AppDelegate.updateVolumeBarTheme()
 			}
 			else if darkThemeEnabled && (swipeGesture.direction == .up) {
 				UserDefaultsManager.darkThemeSwitchIsOn = false
+				AppDelegate.updateVolumeBarTheme()
 			}
 			else { return }
 			

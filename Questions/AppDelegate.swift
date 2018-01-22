@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		AppDelegate.windowReference = self.window
 
 		let navController = window?.rootViewController as? UINavigationController
+		
 		if #available(iOS 11.0, *) {
 			navController?.navigationBar.prefersLargeTitles = true
 		}

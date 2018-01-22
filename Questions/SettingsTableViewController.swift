@@ -213,12 +213,12 @@ class SettingsTableViewController: UITableViewController {
 
 	// MARK: - Convenience
 	
-	@IBAction internal func loadTheme() {
+	@objc internal func loadTheme() {
 		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: false)
 		loadCurrentTheme(animated: false)
 	}
 	
-	@IBAction internal func setParallaxEffectSwitch() {
+	@objc internal func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
 		let parallaxEffectEnabled = reduceMotionEnabled ? false : UserDefaultsManager.parallaxEffectSwitchIsOn
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
