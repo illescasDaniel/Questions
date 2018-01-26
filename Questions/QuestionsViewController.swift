@@ -23,8 +23,6 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
 	let oldScore = UserDefaultsManager.score
-	let statusBarHeight = UIApplication.shared.statusBarFrame.height
-	var blurViewPos = Int()
 	var correctAnswer = UInt8()
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
@@ -44,6 +42,7 @@ class QuestionsViewController: UIViewController {
 		if !isSetFromJSON {
 			setUpQuiz()
 		} else {
+			self.goBack.isHidden = true
 			set.shuffle()
 			quiz = set.enumerated().makeIterator()
 		}

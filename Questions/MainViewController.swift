@@ -53,7 +53,7 @@ class MainViewController: UIViewController {
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		// Redraw the buttons to update the rounded corners when rotating the device
-		[self.startButton, self.readQRCodeButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
+		[self.startButton, self.savedTopicsButton, self.readQRCodeButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
 	}
 	
 	@available(iOS, deprecated: 9.0)

@@ -1,23 +1,62 @@
 import UIKit
 
 class TopicsViewController: UITableViewController {
-
+	
 	// MARK: View life cycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.title = "Topics".localized
 		
+		/*self.editButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
+		self.navigationItem.rightBarButtonItem = self.editButtonItem
+		self.editButtonItem.action = #selector(self.editModeAction)*/
+		self.isEditing = false
+		//self.tableView.allowsMultipleSelectionDuringEditing = true
+		//self.clearsSelectionOnViewWillAppear = true
+		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		loadCurrentTheme()
+		self.loadCurrentTheme()
 	}
 	
 	@available(iOS, deprecated: 9.0)
 	deinit {
 		NotificationCenter.default.removeObserver(self)
+	}
+	
+	
+	// MARK: Edit cell, delete
+	
+	@objc internal func editModeAction() {
+		self.setEditing(!self.isEditing, animated: true)
+	}
+	
+	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+		return SetOfTopics.shared.isUsingUserSavedTopics ? .delete : .none
+	}
+	
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		
+		if editingStyle == .delete {
+			
+			let fileManager = FileManager.default
+			
+			if let cell = tableView.cellForRow(at: indexPath), let labelText = cell.textLabel?.text {
+			
+				let fileName =  "\(labelText).json"
+				
+				if let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
+					let fileURL = documentsDirectory.appendingPathComponent(fileName)
+					if (try? fileManager.removeItem(at: fileURL)) != nil {
+						SetOfTopics.shared.loadSavedTopics()
+						tableView.deleteRows(at: [indexPath], with: .fade)
+					}
+				}
+			}
+		}
 	}
 	
 	// MARK: UITableViewDataSource
@@ -64,6 +103,7 @@ class TopicsViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		// if is not editing... maybe will add the editing thing in the future
 		performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
 	}
 	

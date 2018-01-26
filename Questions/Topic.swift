@@ -11,7 +11,7 @@ struct QuestionType: Codable, Equatable {
 	let correct: UInt8
 }
 
-struct Quiz: Codable {
+struct Quiz: Codable, Equatable {
 	
 	let quiz: [[QuestionType]]
 	
@@ -35,12 +35,25 @@ struct Quiz: Codable {
 
 		return true
 	}
+	
+	static func ==(lhs: Quiz, rhs: Quiz) -> Bool {
+		
+		let flatLhs = lhs.quiz.flatMap { return $0 }
+		let flatRhs = rhs.quiz.flatMap { return $0 }
+		
+		return flatLhs == flatRhs
+	}
 }
 
 struct Topic: Equatable, Hashable {
 	
 	private(set) var name = String()
 	private(set) var content = Quiz(quiz: [[]])
+	
+	init(name: String, content: Quiz) {
+		self.name = name
+		self.content = content
+	}
 	
 	init?(name: String) {
 		
@@ -52,6 +65,7 @@ struct Topic: Equatable, Hashable {
 		do {
 			let data = try Data(contentsOf: url)
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			
 			if Quiz.isValid(contentToValidate) {
 				self.content = contentToValidate
 			} else {
@@ -68,6 +82,7 @@ struct Topic: Equatable, Hashable {
 			let data = try Data(contentsOf: path)
 
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			
 			if Quiz.isValid(contentToValidate) {
 				self.content = contentToValidate
 			} else {
@@ -78,14 +93,12 @@ struct Topic: Equatable, Hashable {
 		}
 	}
 	
-	// Could change in the future, but for now DataStore saves the state of Topics sets using a dictionary and they can't have the same name
-	// Also two same names would confuse if two topics had the same name and maybe you can't even save two json files with the same name either
 	static func ==(lhs: Topic, rhs: Topic) -> Bool {
-		return lhs.name == rhs.name
+		return lhs.name == rhs.name || lhs.content == rhs.content
 	}
 	
 	var hashValue: Int {
-		return name.hashValue
+		return name.hashValue + (content.quiz.count * (content.quiz.first?.count ?? 1))
 	}
 }
 
@@ -104,10 +117,8 @@ struct SetOfTopics {
 
 	// Automatically loads all .json files :)
 	fileprivate init() {
-	
 		self.topics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: Bundle.main.bundleURL))
 		self.loadSavedTopics()
-		
 		self.loadAllTopicsStates()
 	}
 	

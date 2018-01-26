@@ -23,6 +23,8 @@ class UserDefaultsManager {
 		case correctAnswers
 		case incorrectAnswers
 		
+		case savedQuestionsCounter
+		
 		fileprivate static var trueByDefaultSwitches: [ItemsToSave] {
 			return [.backgroundMusicSwitch, .hapticFeedbackSwitch, .parallaxEffectSwitch, .hapticFeedbackSwitch]
 		}
@@ -55,6 +57,11 @@ class UserDefaultsManager {
 		let incorrectAnswers = ItemsToSave.incorrectAnswers.rawValue
 		if defaults.object(forKey: incorrectAnswers) == nil {
 			UserDefaultsManager.incorrectAnswers = 0
+		}
+		
+		let savedQuestionsCounter = ItemsToSave.savedQuestionsCounter.rawValue
+		if defaults.object(forKey: savedQuestionsCounter) == nil {
+			UserDefaultsManager.savedQuestionsCounter = 0
 		}
 	}
 	
@@ -91,5 +98,10 @@ class UserDefaultsManager {
 	static var incorrectAnswers: Int {
 		get { return defaults.integer(forKey: ItemsToSave.incorrectAnswers.rawValue) }
 		set { defaults.set(newValue, forKey: ItemsToSave.incorrectAnswers.rawValue) }
+	}
+	
+	static var savedQuestionsCounter: Int {
+		get { return defaults.integer(forKey: ItemsToSave.savedQuestionsCounter.rawValue) }
+		set { defaults.set(newValue, forKey: ItemsToSave.savedQuestionsCounter.rawValue) }
 	}
 }

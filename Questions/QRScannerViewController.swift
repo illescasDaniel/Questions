@@ -126,10 +126,16 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	private func saveIntoDocuments(quiz: Quiz) {
-		let fileName = "UserSaved_\(SetOfTopics.shared.savedTopics.count).json" // Could be translated...
+		
+		// Won't save topics/set of questions with the same content
+		let testTopic = Topic(name: "", content: quiz)
+		guard !SetOfTopics.shared.savedTopics.contains(testTopic) else { return }
+		
+		let fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
 		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
 			if let data = try? JSONEncoder().encode(quiz) {
 				try? data.write(to: documentsURL)
+				UserDefaultsManager.savedQuestionsCounter += 1
 				SetOfTopics.shared.loadSavedTopics()
 			}
 		}
