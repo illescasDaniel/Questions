@@ -20,9 +20,16 @@ struct Quiz: Codable, Equatable {
 		guard !content.quiz.isEmpty else { return false }
 		
 		for topic in content.quiz {
+			
+			// ~ Number of answers must be consistent (otherwise don't make this restriction)
+			let fullQuestionAnswersCount = topic.first?.answers.count ?? 4
+			
 			for fullQuestion in topic {
 				
-				guard !fullQuestion.question.isEmpty, fullQuestion.answers.count == 4, fullQuestion.correct < 4, fullQuestion.correct >= 0 else { return false }
+				guard !fullQuestion.question.isEmpty,
+					fullQuestion.answers.count == fullQuestionAnswersCount,
+					fullQuestion.correct < fullQuestionAnswersCount, fullQuestion.correct >= 0
+				else { return false }
 				
 				var isAnswersLenghtCorrect = true
 				fullQuestion.answers.forEach { answer in

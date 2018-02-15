@@ -487,10 +487,10 @@
                                 <rect key="frame" x="18.666666666666657" y="80.666666666666686" width="337.66666666666674" height="660.66666666666652"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="hV7-eS-c0W" userLabel="top view area">
-                                        <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="43.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="43"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPx-aL-UVy" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="118.33333333333333" height="43.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="118" height="43"/>
                                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <state key="normal" title="Pause/Continue"/>
@@ -513,7 +513,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48c-nD-uWN">
-                                                <rect key="frame" x="118.33333333333333" y="0.0" width="219.33333333333337" height="43.333333333333336"/>
+                                                <rect key="frame" x="117.99999999999999" y="0.0" width="219.66666666666663" height="43"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -553,7 +553,7 @@
                                         </variation>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-f2-st4">
-                                        <rect key="frame" x="0.0" y="63.333333333333314" width="337.66666666666669" height="167"/>
+                                        <rect key="frame" x="0.0" y="63" width="337.66666666666669" height="167"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -569,11 +569,11 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="1qR-YK-CVS" userLabel="answers">
-                                        <rect key="frame" x="0.0" y="250.33333333333334" width="337.66666666666669" height="297.33333333333326"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="1qR-YK-CVS" userLabel="answers">
+                                        <rect key="frame" x="0.0" y="249.99999999999997" width="337.66666666666669" height="297.33333333333326"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezr-PV-GXz" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="55.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="337.66666666666669" height="297.33333333333331"/>
                                                 <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -594,122 +594,13 @@
                                                         <real key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="answer1Action" destination="SzO-71-z8K" eventType="touchDown" id="TCl-ZN-BeE"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwo-RP-m9x" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="80.666666666666686" width="337.66666666666669" height="55.666666666666657"/>
-                                                <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Answer 2">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="15"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                        <size key="value" width="0.5" height="3.5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                        <real key="value" value="0.14999999999999999"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="answer2Action" destination="SzO-71-z8K" eventType="touchDown" id="96x-bo-r6v"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGn-M5-bT3" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="161.33333333333331" width="337.66666666666669" height="55.333333333333343"/>
-                                                <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Answer 3">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="15"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                        <size key="value" width="0.5" height="3.5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                        <real key="value" value="0.14999999999999999"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="answer3Action" destination="SzO-71-z8K" eventType="touchDown" id="9gl-nm-e2l"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1E-gG-2dd" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="241.6666666666666" width="337.66666666666669" height="55.666666666666657"/>
-                                                <color key="backgroundColor" red="0.12941176469999999" green="0.58823529409999997" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Answer 4">
-                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="15"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                        <size key="value" width="0.5" height="3.5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                        <real key="value" value="0.14999999999999999"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="answer4Action" destination="SzO-71-z8K" eventType="touchDown" id="00N-oP-euu"/>
-                                                </connections>
                                             </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Hwo-RP-m9x" firstAttribute="width" secondItem="1qR-YK-CVS" secondAttribute="width" multiplier="0.825" id="4Zi-hL-isY"/>
-                                            <constraint firstItem="Ezr-PV-GXz" firstAttribute="width" secondItem="1qR-YK-CVS" secondAttribute="width" multiplier="0.825" id="RXL-Ua-M3d"/>
-                                            <constraint firstItem="m1E-gG-2dd" firstAttribute="width" secondItem="1qR-YK-CVS" secondAttribute="width" multiplier="0.825" id="RbM-Hh-u6j"/>
-                                            <constraint firstItem="bGn-M5-bT3" firstAttribute="width" secondItem="1qR-YK-CVS" secondAttribute="width" multiplier="0.825" id="fSi-ps-Lh9"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="RXL-Ua-M3d"/>
-                                                <exclude reference="4Zi-hL-isY"/>
-                                                <exclude reference="fSi-ps-Lh9"/>
-                                                <exclude reference="RbM-Hh-u6j"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=compact" alignment="center" spacing="13">
-                                            <mask key="constraints">
-                                                <include reference="RXL-Ua-M3d"/>
-                                                <include reference="4Zi-hL-isY"/>
-                                                <include reference="fSi-ps-Lh9"/>
-                                                <include reference="RbM-Hh-u6j"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=regular" alignment="center" spacing="13">
-                                            <mask key="constraints">
-                                                <include reference="RXL-Ua-M3d"/>
-                                                <include reference="4Zi-hL-isY"/>
-                                                <include reference="fSi-ps-Lh9"/>
-                                                <include reference="RbM-Hh-u6j"/>
-                                            </mask>
-                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=compact" spacing="13"/>
+                                        <variation key="heightClass=compact-widthClass=regular" spacing="13"/>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewU-cv-zwr">
-                                        <rect key="frame" x="0.0" y="567.66666666666674" width="337.66666666666669" height="39.333333333333371"/>
+                                        <rect key="frame" x="0.0" y="567.33333333333337" width="337.66666666666669" height="39.666666666666629"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -812,10 +703,10 @@
                                 <rect key="frame" x="56.333333333333343" y="321.66666666666669" width="262.33333333333326" height="168.66666666666669"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="N0s-P9-m82" userLabel="PauseMenu Stack">
-                                        <rect key="frame" x="5.0000000000000142" y="5.3333333333333144" width="252.33333333333337" height="158.33333333333334"/>
+                                        <rect key="frame" x="5.0000000000000142" y="5" width="252.33333333333337" height="158.66666666666666"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBY-om-vvI" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="252.33333333333334" height="49.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="252.33333333333334" height="49.666666666666664"/>
                                                 <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <state key="normal" title="Main menu">
@@ -840,7 +731,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8F-Ro-Rec" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="54.333333333333314" width="252.33333333333334" height="49.666666666666657"/>
+                                                <rect key="frame" x="0.0" y="54.666666666666629" width="252.33333333333334" height="49.333333333333343"/>
                                                 <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <state key="normal" title="Questions menu">
@@ -865,7 +756,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaF-4E-I1b" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="108.99999999999999" width="252.33333333333334" height="49.333333333333329"/>
+                                                <rect key="frame" x="0.0" y="109.00000000000001" width="252.33333333333334" height="49.666666666666671"/>
                                                 <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <state key="normal" title="Stop Music">
@@ -961,10 +852,8 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="answer1Button" destination="Ezr-PV-GXz" id="PHB-gE-sbH"/>
-                        <outlet property="answer2Button" destination="Hwo-RP-m9x" id="v4Z-rp-zYF"/>
-                        <outlet property="answer3Button" destination="bGn-M5-bT3" id="mzQ-Zd-0MK"/>
-                        <outlet property="answer4Button" destination="m1E-gG-2dd" id="Uda-gG-ez8"/>
+                        <outlet property="answerStub" destination="Ezr-PV-GXz" id="7nW-6p-A9b"/>
+                        <outlet property="answersStackView" destination="1qR-YK-CVS" id="Fhv-ZO-Yw2"/>
                         <outlet property="blurView" destination="Kqw-Be-fSJ" id="o7C-H8-TKu"/>
                         <outlet property="goBack" destination="C8F-Ro-Rec" id="08b-Re-FtX"/>
                         <outlet property="helpButton" destination="99G-tM-sr7" id="SZu-dB-uJS"/>

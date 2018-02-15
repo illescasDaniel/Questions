@@ -22,12 +22,6 @@ class TopicsViewController: UITableViewController {
 		self.loadCurrentTheme()
 	}
 	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
-	
-	
 	// MARK: Edit cell, delete
 	
 	@objc internal func editModeAction() {

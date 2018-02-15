@@ -84,11 +84,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		}
 	}
 	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
-	
 	// MARK: AVCaptureMetadataOutputObjectsDelegate
 	
 	func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {

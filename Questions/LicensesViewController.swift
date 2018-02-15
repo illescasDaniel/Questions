@@ -44,11 +44,6 @@ class LicensesViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
     }
 	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
-	
 	// MARK: Convenience
 	
 	@IBAction internal func loadCurrentTheme() {

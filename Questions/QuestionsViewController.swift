@@ -4,14 +4,12 @@ class QuestionsViewController: UIViewController {
 
 	// MARK: Properties
 	
-	@IBOutlet weak var answer1Button: UIButton!
-	@IBOutlet weak var answer2Button: UIButton!
-	@IBOutlet weak var answer3Button: UIButton!
-	@IBOutlet weak var answer4Button: UIButton!
+	@IBOutlet weak var answerStub: RoundedButton!
 	
-	var answerButtons: [UIButton] {
-		return [answer1Button, answer2Button, answer3Button, answer4Button]
-	}
+	var answerButtons: [RoundedButton] = []
+	
+	@IBOutlet weak var answersStackView: UIStackView!
+	
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet weak var pauseButton: UIButton!
@@ -47,6 +45,8 @@ class QuestionsViewController: UIViewController {
 			quiz = set.enumerated().makeIterator()
 		}
 		
+		self.createAnswerButtons()
+		
 		let title = AudioSounds.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
 		muteMusic.setTitle(title.localized, for: .normal)
 	
@@ -71,11 +71,35 @@ class QuestionsViewController: UIViewController {
 		self.pickQuestion()
 	}
 	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
+	private func createAnswerButtons() {
+		
+		// Should fix this stuff in the storyboard...
+		self.answerStub.isHidden = true
+		
+		let numberOfAnswers = set.first?.answers.count ?? 4
+		
+		for i in 0..<numberOfAnswers {
+			
+			let button = RoundedButton()
+			button.cornerRadius = 15
+			button.setup(shadows:
+				ShadowEffect(
+					shadowColor: .black,
+					shadowOffset: CGSize(width: 0.5, height: 3.5),
+					shadowOpacity: 0.15,
+					shadowRadius: 4)
+			)
+			button.tag = i
+			button.addTarget(self, action: #selector(self.verifyButton), for: .touchDown)
+			
+			self.answerButtons.append(button)
+			self.answersStackView.addArrangedSubview(button)
 
+			//button.centerXAnchor.constraint(equalTo: self.view.layoutMarginsGuide.centerXAnchor).isActive = true
+			//button.widthAnchor.constraint(equalTo: self.answersStackView.widthAnchor, multiplier: 0.9).isActive = true
+		}
+	}
+	
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		// Redraw the buttons to update the rounded corners when rotating the device
@@ -86,6 +110,7 @@ class QuestionsViewController: UIViewController {
 		self.goBack.setNeedsDisplay()
 		self.muteMusic.setNeedsDisplay()
 	}
+	
 	// MARK: UIResponder
 
 	// If user shake the device, an alert to repeat the quiz pop ups
@@ -137,17 +162,16 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	@IBAction func answer1Action() { verify(answer: 0) }
-	@IBAction func answer2Action() { verify(answer: 1) }
-	@IBAction func answer3Action() { verify(answer: 2) }
-	@IBAction func answer4Action() { verify(answer: 3) }
+	@objc func verifyButton(_ sender: RoundedButton) {
+		self.verify(answer: UInt8(sender.tag))
+	}
 
 	@IBAction func pauseMenu() {
 		self.pauseMenuAction()
 	}
 	
 	@IBAction func goBackAction() {
-		if !isSetFromJSON {
+		if !self.isSetFromJSON {
 			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
 		} else {
 			performSegue(withIdentifier: "unwindToQRScanner", sender: self)
@@ -277,7 +301,6 @@ class QuestionsViewController: UIViewController {
 		view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
 		pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
 		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
-		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor) }
 		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
 
 		pauseView.subviews.first?.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
@@ -285,7 +308,7 @@ class QuestionsViewController: UIViewController {
 		
 		blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 		
-		answerButtons.forEach { $0.dontInvertColors() }
+		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertColors() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
 	}
@@ -370,7 +393,7 @@ class QuestionsViewController: UIViewController {
 		pickQuestion()
 	}
 	
-	private func verify(answer: UInt8) {
+	@objc private func verify(answer: UInt8) {
 		
 		pausePreviousSounds()
 		
@@ -440,8 +463,8 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		set = SetOfTopics.shared.currentTopics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
-		quiz = set.enumerated().makeIterator()
+		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
+		self.quiz = set.enumerated().makeIterator()
 	}
 }
 

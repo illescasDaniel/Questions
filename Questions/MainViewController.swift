@@ -55,11 +55,6 @@ class MainViewController: UIViewController {
 		// Redraw the buttons to update the rounded corners when rotating the device
 		[self.startButton, self.savedTopicsButton, self.readQRCodeButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
 	}
-	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
 
 	// MARK: UnwindSegue
 

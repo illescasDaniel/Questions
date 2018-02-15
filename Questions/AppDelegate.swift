@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			wasPlaying = false
 		}
 		
-		guard DataStore.shared.save() else {	print("Error saving settings"); return }
+		guard DataStore.shared.save() else { print("Error saving settings"); return }
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 	}

@@ -22,11 +22,6 @@ class QuizzesViewController: UITableViewController {
 		loadCurrentTheme()
 	}
 	
-	@available(iOS, deprecated: 9.0)
-	deinit {
-		NotificationCenter.default.removeObserver(self)
-	}
-	
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
