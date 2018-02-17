@@ -13,13 +13,13 @@ struct QuestionType: Codable, Equatable {
 
 struct Quiz: Codable, Equatable {
 	
-	let quiz: [[QuestionType]]
+	let topic: [[QuestionType]]
 	
 	static func isValid(_ content: Quiz) -> Bool {
 		
-		guard !content.quiz.isEmpty else { return false }
+		guard !content.topic.isEmpty else { return false }
 		
-		for topic in content.quiz {
+		for topic in content.topic {
 			
 			// ~ Number of answers must be consistent (otherwise don't make this restriction)
 			let fullQuestionAnswersCount = topic.first?.answers.count ?? 4
@@ -45,8 +45,8 @@ struct Quiz: Codable, Equatable {
 	
 	static func ==(lhs: Quiz, rhs: Quiz) -> Bool {
 		
-		let flatLhs = lhs.quiz.flatMap { return $0 }
-		let flatRhs = rhs.quiz.flatMap { return $0 }
+		let flatLhs = lhs.topic.flatMap { return $0 }
+		let flatRhs = rhs.topic.flatMap { return $0 }
 		
 		return flatLhs == flatRhs
 	}
@@ -55,7 +55,7 @@ struct Quiz: Codable, Equatable {
 struct Topic: Equatable, Hashable {
 	
 	private(set) var name = String()
-	private(set) var content = Quiz(quiz: [[]])
+	private(set) var content = Quiz(topic: [[]])
 	
 	init(name: String, content: Quiz) {
 		self.name = name
@@ -105,7 +105,7 @@ struct Topic: Equatable, Hashable {
 	}
 	
 	var hashValue: Int {
-		return name.hashValue + (content.quiz.count * (content.quiz.first?.count ?? 1))
+		return name.hashValue + (content.topic.count * (content.topic.first?.count ?? 1))
 	}
 }
 
@@ -137,7 +137,7 @@ struct SetOfTopics {
 	func loadSetState(for topicSet: [Topic]) {
 		
 		for topic in topicSet {
-			for quiz in topic.content.quiz.enumerated() {
+			for quiz in topic.content.topic.enumerated() {
 				
 				if DataStore.shared.completedSets[topic.name] == nil {
 					DataStore.shared.completedSets[topic.name] = [:]

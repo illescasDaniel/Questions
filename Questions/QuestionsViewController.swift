@@ -249,8 +249,8 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func shuffledQuiz(_ name: Quiz) -> NSArray{
-		if currentSetIndex < name.quiz.count {
-			return name.quiz[currentSetIndex].shuffled() as NSArray
+		if currentSetIndex < name.topic.count {
+			return name.topic[currentSetIndex].shuffled() as NSArray
 		}
 		return NSArray()
 	}
@@ -463,7 +463,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].content.quiz[currentSetIndex].shuffled()
+		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].content.topic[currentSetIndex].shuffled()
 		self.quiz = set.enumerated().makeIterator()
 	}
 }

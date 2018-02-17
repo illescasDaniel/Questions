@@ -1,5 +1,5 @@
 {
-	"quiz": [
+	"topic": [
 		[
 			{"question": "What's your name?", "answers": ["Sophie", "Daniel", "Pete", "Mr. Incognito", "lol"], "correct": 3},
 			{"question": "🐶 or 🐱?", "answers": ["🐱", "🐶", "Daniel", "Other", "fifth"], "correct": 1},

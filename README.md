@@ -13,7 +13,8 @@ Main Features
 - Haptic feedback
 - Multilanguage support
 - Repeat quizzes by shaking the device
-- Read Questions from a QR Code
+- Read Questions from a QR Code and save them to use them later
+- Add sets of questions / new topics just by dragging a formatted json file to Xcode
 - Dark theme
 - Switch between themes by:
 	- Swiping up/down with 2 fingers
@@ -28,6 +29,31 @@ Screenshots
 
 - [More screenshots](http://imgur.com/a/OOrLJ)
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
+
+
+Topics JSON format (v3.2-beta)
+---
+```
+{
+	"topic": [
+		[
+			{"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35", ">60"], "correct": 0},
+			{"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
+		],
+		[
+			{"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960", "Test"], "correct": 3},
+			{"question": "When did Steve Jobs die?", "answers": ["2008", "2010", "2011", "2012", "3012"], "correct": 2}
+		]
+	]
+}
+```
+### Simple explanation:
+* A topic is defined as an array of sets of questions. Ideally this sets are about the same topic...
+* Each set of questions can have a different number of answers BUT all the answers in each set need to have the same number
+* For now each question has only 1 correct answer (this will probably change and could allow an array of possible correct answers)
+
+The rest can be deduced :)
+
 
 # ASSETS #
 

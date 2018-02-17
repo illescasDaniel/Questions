@@ -1,5 +1,5 @@
 {
-	"quiz": [
+	"topic": [
 		 [
 			  {"question": "Best desktop OS", "answers": ["macOS", "Windows", "MS-DOS 😎", "Linux c:"], "correct": 0},
 			  {"question": "Best IDE", "answers": ["Visual Studio", "Xcode", "Netbeans", "Eclipse"], "correct": 1},
