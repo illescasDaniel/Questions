@@ -21,7 +21,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
 	let oldScore = UserDefaultsManager.score
-	var correctAnswer = UInt8()
+	var correctAnswer: Set<UInt8> = []//[UInt8] = []
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
@@ -198,7 +198,7 @@ class QuestionsViewController: UIViewController {
 				
 				repeat {
 					randomQuestionIndex = arc4random_uniform(4)
-				} while((UInt8(randomQuestionIndex) == correctAnswer) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
+				} while(self.correctAnswer.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
 					
@@ -336,7 +336,7 @@ class QuestionsViewController: UIViewController {
 			
 			UIView.animate(withDuration: 0.1) {
 				
-				self.correctAnswer = fullQuestion.correct
+				self.correctAnswer = fullQuestion.correctAnswers
 				self.questionLabel.text = fullQuestion.question.localized
 				
 				let answers = fullQuestion.answers
@@ -397,7 +397,9 @@ class QuestionsViewController: UIViewController {
 		
 		pausePreviousSounds()
 		
-		if answer == correctAnswer {
+		let isCorrectAnswer = correctAnswer.contains(answer)
+		
+		if isCorrectAnswer {
 			correctAnswers += 1
 			AudioSounds.correct?.play()
 		}
@@ -407,7 +409,7 @@ class QuestionsViewController: UIViewController {
 		}
 		
 		UIView.transition(with: self.answerButtons[Int(answer)], duration: 0.25, options: [.transitionCrossDissolve], animations: {
-			self.answerButtons[Int(answer)].backgroundColor = (answer == self.correctAnswer) ? .darkGreen : .alternativeRed
+			self.answerButtons[Int(answer)].backgroundColor = isCorrectAnswer ? .darkGreen : .alternativeRed
 		}) { completed in
 			if completed {
 				self.pickQuestion()
@@ -416,7 +418,7 @@ class QuestionsViewController: UIViewController {
 				})
 			}
 		}
-		FeedbackGenerator.notificationOcurredOf(type: (answer == correctAnswer) ? .success : .error)
+		FeedbackGenerator.notificationOcurredOf(type: isCorrectAnswer ? .success : .error)
 	}
 	
 	private func pausePreviousSounds() {

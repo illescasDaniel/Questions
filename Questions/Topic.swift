@@ -1,14 +1,23 @@
 import Foundation
 
-struct QuestionType: Codable, Equatable {
+// change from struct to class
+class QuestionType: Codable, Equatable {
 	
 	static func ==(lhs: QuestionType, rhs: QuestionType) -> Bool {
-		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correct == rhs.correct
+		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correctAnswers == rhs.correctAnswers
+	}
+	
+	init(question: String, answers: [String], correct: Set<UInt8>, singleCorrect: UInt8? = nil) {
+		self.question = question
+		self.answers = answers
+		self.correctAnswers = correct
+		self.correct = singleCorrect
 	}
 	
 	let question: String
 	let answers: [String]
-	let correct: UInt8
+	var correctAnswers: Set<UInt8>! = []
+	let correct: UInt8?
 }
 
 struct Quiz: Codable, Equatable {
@@ -19,17 +28,31 @@ struct Quiz: Codable, Equatable {
 		
 		guard !content.topic.isEmpty else { return false }
 		
-		for topic in content.topic {
+		for setOfQuestions in content.topic {
 			
-			// ~ Number of answers must be consistent (otherwise don't make this restriction)
-			let fullQuestionAnswersCount = topic.first?.answers.count ?? 4
+			// ~ Number of answers must be consistent in the same set of questions (otherwise don't make this restriction, you might need to make other changes too)
+			let fullQuestionAnswersCount = setOfQuestions.first?.answers.count ?? 4
 			
-			for fullQuestion in topic {
+			for fullQuestion in setOfQuestions {
+				
+				if fullQuestion.correctAnswers == nil { fullQuestion.correctAnswers = [] }
 				
 				guard !fullQuestion.question.isEmpty,
 					fullQuestion.answers.count == fullQuestionAnswersCount,
-					fullQuestion.correct < fullQuestionAnswersCount, fullQuestion.correct >= 0
-				else { return false }
+					Set(fullQuestion.answers).count == fullQuestionAnswersCount,
+					fullQuestion.correctAnswers?.filter({ $0 >= fullQuestionAnswersCount }).count == 0,
+					(fullQuestion.correctAnswers?.count ?? 0) < fullQuestionAnswersCount
+					else { return false }
+				
+				if let singleCorrectAnswers = fullQuestion.correct {
+					if singleCorrectAnswers >= fullQuestionAnswersCount {
+						return false
+					} else {
+						fullQuestion.correctAnswers?.insert(singleCorrectAnswers)
+					}
+				}
+				
+				guard let correctAnswers = fullQuestion.correctAnswers, correctAnswers.count < fullQuestionAnswersCount, correctAnswers.count > 0 else { return false }
 				
 				var isAnswersLenghtCorrect = true
 				fullQuestion.answers.forEach { answer in
@@ -39,6 +62,8 @@ struct Quiz: Codable, Equatable {
 				guard isAnswersLenghtCorrect else { return false }
 			}
 		}
+		
+		guard content.topic.filter({ $0.filter({ $0.correctAnswers == nil || $0.correctAnswers.count == 0 }).count > 0 }).count == 0 else { return false }
 
 		return true
 	}
@@ -80,6 +105,7 @@ struct Topic: Equatable, Hashable {
 			}
 		} catch {
 			print("Error initializing quiz content. Quiz name: \(name)")
+			return nil
 		}
 	}
 	
@@ -97,6 +123,7 @@ struct Topic: Equatable, Hashable {
 			}
 		} catch {
 			print("Error initializing quiz content. Quiz path: \(path.lastPathComponent)")
+			return nil
 		}
 	}
 	

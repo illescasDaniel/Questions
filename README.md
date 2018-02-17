@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.2--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.3--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
 
 Prototype of a Quiz app for iOS.
@@ -31,17 +31,17 @@ Screenshots
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
 
 
-Topics JSON format (v3.2-beta)
+Topics JSON format (v3.3-beta)
 ---
 ```
 {
     "topic": [
         [
-            {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35", ">60"], "correct": 0},
+            {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "correct": 0},
             {"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
         ],
         [
-            {"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960", "Test"], "correct": 3},
+            {"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960", "Test"], "correctAnswers": [3,4]},
             {"question": "When did Steve Jobs die?", "answers": ["2008", "2010", "2011", "2012", "3012"], "correct": 2}
         ]
     ]
@@ -50,7 +50,8 @@ Topics JSON format (v3.2-beta)
 ### Simple explanation:
 * A topic is defined as an array of sets of questions. Ideally this sets are about the same topic...
 * Each set of questions can have a different number of answers BUT all the answers in each set need to have the same number
-* For now each question has only 1 correct answer (this will probably change and could allow an array of possible correct answers)
+* Whithing a question, the answers can't repeat; as well as the correct answers
+* Each question can have 1 or multiple correct answers. Use "correct" for a unique correct answer and "correctAnswers" for multiple ones. If you use both ("correct", "correctAnswers") it will add the "correct" index to the other array (is a set so it won't repeat)
 
 The rest can be deduced :)
 
