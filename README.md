@@ -13,7 +13,7 @@ Main Features
 - Haptic feedback
 - Multilanguage support
 - Repeat quizzes by shaking the device
-- Read Questions from a QR Code and save them to use them later
+- Read Questions from a QR Code saving them for later use
 - Add sets of questions / new topics just by dragging a formatted json file to Xcode
 - Dark theme
 - Switch between themes by:
@@ -35,16 +35,16 @@ Topics JSON format (v3.2-beta)
 ---
 ```
 {
-	"topic": [
-		[
-			{"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35", ">60"], "correct": 0},
-			{"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
-		],
-		[
-			{"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960", "Test"], "correct": 3},
-			{"question": "When did Steve Jobs die?", "answers": ["2008", "2010", "2011", "2012", "3012"], "correct": 2}
-		]
-	]
+    "topic": [
+        [
+            {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35", ">60"], "correct": 0},
+            {"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
+        ],
+        [
+            {"question": "When was Tim Cook born?", "answers": ["1967", "1970", "1940", "1960", "Test"], "correct": 3},
+            {"question": "When did Steve Jobs die?", "answers": ["2008", "2010", "2011", "2012", "3012"], "correct": 2}
+        ]
+    ]
 }
 ```
 ### Simple explanation:
