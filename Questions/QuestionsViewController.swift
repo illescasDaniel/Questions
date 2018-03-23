@@ -37,24 +37,24 @@ class QuestionsViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
-		if !isSetFromJSON {
-			setUpQuiz()
+		if !self.isSetFromJSON {
+			self.setUpQuiz()
 		} else {
 			self.goBack.isHidden = true
-			set.shuffle()
-			quiz = set.enumerated().makeIterator()
+			self.set.shuffle()
+			self.quiz = set.enumerated().makeIterator()
 		}
 		
 		self.createAnswerButtons()
 		
 		let title = AudioSounds.bgMusic?.isPlaying == true ? "Pause music" : "Play music"
-		muteMusic.setTitle(title.localized, for: .normal)
+		self.muteMusic.setTitle(title.localized, for: .normal)
 	
-		goBack.setTitle("Questions menu".localized, for: .normal)
-		mainMenu.setTitle("Main menu".localized, for: .normal)
-		pauseButton.setTitle("Pause".localized, for: .normal)
-		pauseView.isHidden = true
-		blurView.isHidden = true
+		self.goBack.setTitle("Questions menu".localized, for: .normal)
+		self.mainMenu.setTitle("Main menu".localized, for: .normal)
+		self.pauseButton.setTitle("Pause".localized, for: .normal)
+		self.pauseView.isHidden = true
+		self.blurView.isHidden = true
 		
 		// Theme settings
 		self.loadCurrentTheme()
@@ -63,7 +63,7 @@ class QuestionsViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		
 		if UserDefaultsManager.score < 5 {
-			helpButton.alpha = 0.4
+			self.helpButton.alpha = 0.4
 		}
 		
 		self.addSwipeGestures()
@@ -465,7 +465,7 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].content.topic[currentSetIndex].shuffled()
+		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.topic[currentSetIndex].shuffled()
 		self.quiz = set.enumerated().makeIterator()
 	}
 }

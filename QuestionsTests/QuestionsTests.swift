@@ -1,30 +1,40 @@
+//
+//  QuestionsTests.swift
+//  QuestionsTests
+//
+//  Created by Daniel Illescas Romero on 12/03/2018.
+//  Copyright © 2018 Daniel Illescas Romero. All rights reserved.
+//
+
 import XCTest
 @testable import Questions
 
 class QuestionsTests: XCTestCase {
-
-	let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
-	override func setUp() {
-		super.setUp()
-	}
-
-	override func tearDown() {
-		super.tearDown()
-	}
 	
+	let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+	
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+    }
+    
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+    
 	func testQuestionsLabels() {
-
+		
 		guard let vc = storyboard.instantiateViewController(withIdentifier: "questionsViewController") as? QuestionsViewController else { return }
 		
 		var answersFromJson: [String]
 		var question: String
-
+		
 		vc.view.reloadInputViews()
-
-		for k in 0..<Topic.topics.count {
+		
+		for k in 0..<SetOfTopics.shared.topics.count {
 			
-			for i in 0..<Topic.topics[k].content.quiz.count {
+			for i in 0..<SetOfTopics.shared.topics[k].content.topic.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
@@ -82,7 +92,7 @@ class QuestionsTests: XCTestCase {
 			settingsVC.backgroundMusicSwitch.setOn(true, animated: true)
 			settingsVC.backgroundMusicSwitchAction(sender: settingsVC.backgroundMusicSwitch)
 			XCTAssert(bgMusic.isPlaying, "Music not playing when switch is ON")
-
+			
 			settingsVC.backgroundMusicSwitch.setOn(false, animated: true)
 			settingsVC.backgroundMusicSwitchAction(sender: settingsVC.backgroundMusicSwitch)
 			XCTAssert(!bgMusic.isPlaying, "Music playing when switch is OFF")
@@ -91,4 +101,12 @@ class QuestionsTests: XCTestCase {
 			XCTFail("Music could not load correctly")
 		}
 	}
+
+    
+    /*func testPerformanceExample() {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }*/
 }

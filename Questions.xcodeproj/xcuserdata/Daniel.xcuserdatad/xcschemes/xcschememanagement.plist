@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>QuestionsTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>Release.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>65CB4C411D29C3E300D2E1C1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65F3C7682057321E009F310E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

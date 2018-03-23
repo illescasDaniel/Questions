@@ -3,6 +3,7 @@ import UIKit
 class TopicsViewController: UITableViewController {
 	
 	// MARK: View life cycle
+	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -14,6 +15,8 @@ class TopicsViewController: UITableViewController {
 		self.isEditing = false
 		//self.tableView.allowsMultipleSelectionDuringEditing = true
 		//self.clearsSelectionOnViewWillAppear = true
+		
+		addBarButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -121,7 +124,69 @@ class TopicsViewController: UITableViewController {
 		}
 	}
 	
-	// MARK: UIStoryboardSegue Handling
+	// MARK: - Actions
+	
+	@IBAction func addNewTopic(_ sender: UIBarButtonItem) {
+		
+		let newTopicAlert = UIAlertController(title: "New Topic".localized, message: "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file.".localized, preferredStyle: .alert)
+		
+		newTopicAlert.addTextField { textField in
+			textField.placeholder = "Topic Name".localized
+			textField.keyboardType = .alphabet
+			textField.autocapitalizationType = .sentences
+			textField.autocorrectionType = .yes
+			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+		}
+		
+		newTopicAlert.addTextField { textField in
+			textField.placeholder = "Topic URL or fomatted content".localized
+			textField.keyboardType = .URL
+			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+		}
+		
+		newTopicAlert.addAction(title: "Help".localized, style: .default) { _ in
+			if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
+				
+				if #available(iOS 10.0, *) {
+					UIApplication.shared.open(url, options: [:])
+				} else {
+					UIApplication.shared.openURL(url)
+				}
+			}
+		}
+		
+		newTopicAlert.addAction(title: "Add".localized, style: .default) { _ in
+			
+			if let topicName = newTopicAlert.textFields?.first?.text,
+				let topicURLText = newTopicAlert.textFields?.last?.text, !topicURLText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+				
+				DispatchQueue.global().async {
+					
+					let quizContent: String
+					if let topicURL = URL(string: topicURLText), let validTextFromURL = try? String(contentsOf: topicURL) {
+						quizContent = validTextFromURL
+					} else {
+						quizContent = topicURLText
+					}
+					
+					if let validQuiz = SetOfTopics.shared.quizFrom(content: quizContent) {
+						SetOfTopics.shared.save(topic: TopicEntry(name: topicName, content: validQuiz))
+						DispatchQueue.main.async {
+							self.tableView.reloadData()
+						}
+					}
+				}
+			}
+		}
+		
+		newTopicAlert.addAction(title: "Cancel", style: .cancel)
+		
+		self.present(newTopicAlert, animated: true)
+	}
+	
+	// MARK: - UIStoryboardSegue Handling
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -131,7 +196,7 @@ class TopicsViewController: UITableViewController {
 		}
 	}
 	
-	// MARK: Convenience
+	// MARK: - Convenience
 	
 	@IBAction internal func loadCurrentTheme() {
 		tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)

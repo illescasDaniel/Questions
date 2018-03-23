@@ -67,6 +67,15 @@
 
 "Text to encode format" = "Formato del texto a codificar";
 
+//
+
+"New Topic" = "Nuevo Tema";
+"You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted content." = "Puedes leer un QR para añadir un tema o descargarlo usando una URL que contenga el contenido propiamente formateado.";
+"Topic Name" = "Nombre del tema";
+"Topic URL or fomatted content" = "URL del tema o contenido";
+"Add" = "Añadir";
+"Help" = "Ayuda";
+
 /* -- QUESTION SETS -- */
 
 // --- SOCIAL ---

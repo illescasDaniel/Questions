@@ -94,19 +94,21 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		
 		if metadata.type == AVMetadataObject.ObjectType.qr {
 			
-			guard let data = metadata.stringValue?.data(using: .utf8) else { invalidQRCodeFormat(); return }
+			guard let textFromCode = metadata.stringValue else { return }
 			
-			var content: Quiz?
+			let quizContent: String
+			if textFromCode.hasPrefix("http") || textFromCode.hasPrefix("https") || textFromCode.hasPrefix("www"),
+			  let topicURL = URL(string: textFromCode), let validTextFromURL = try? String(contentsOf: topicURL) {
+				quizContent = validTextFromURL
+			} else {
+				quizContent = textFromCode
+			}
 			
-			do {
-				content = try JSONDecoder().decode(Quiz.self, from: data)
-			} catch { invalidQRCodeFormat(); }
-			
-			guard let validContent = content, Quiz.isValid(validContent) else { invalidQRCodeFormat(); return }
+			guard let validContent = SetOfTopics.shared.quizFrom(content: quizContent) else { invalidQRCodeFormat(); return }
 			
 			self.captureSession.stopRunning()
 			
-			self.saveIntoDocuments(quiz: validContent)
+			SetOfTopics.shared.save(topic: TopicEntry(name: "", content: validContent))
 			FeedbackGenerator.notificationOcurredOf(type: .success)
 			
 			let openQuestionsAlert = UIAlertController(title: nil, message: "Open the first question set?".localized, preferredStyle: .alert)
@@ -117,22 +119,6 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 				self.captureSession.startRunning()
 			}
 			self.present(openQuestionsAlert, animated: true)
-		}
-	}
-	
-	private func saveIntoDocuments(quiz: Quiz) {
-		
-		// Won't save topics/set of questions with the same content
-		let testTopic = Topic(name: "", content: quiz)
-		guard !SetOfTopics.shared.savedTopics.contains(testTopic) else { return }
-		
-		let fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
-		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
-			if let data = try? JSONEncoder().encode(quiz) {
-				try? data.write(to: documentsURL)
-				UserDefaultsManager.savedQuestionsCounter += 1
-				SetOfTopics.shared.loadSavedTopics()
-			}
 		}
 	}
 	
@@ -155,9 +141,13 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		
 		FeedbackGenerator.impactOcurredWith(style: .light)
 		
-		let alertViewController = UIAlertController.OKAlert(title: "Text to encode format".localized, message: "READ_QR_FORMAT")
-		alertViewController.textFields?.first?.textAlignment = .left
-		present(alertViewController, animated: true)
+		if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
+			if #available(iOS 10.0, *) {
+				UIApplication.shared.open(url, options: [:])
+			} else {
+				UIApplication.shared.openURL(url)
+			}
+		}
 	}
 	
 	@IBAction func allowCameraAction() {

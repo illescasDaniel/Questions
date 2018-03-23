@@ -77,14 +77,14 @@ struct Quiz: Codable, Equatable {
 	}
 }
 
-struct Topic: Equatable, Hashable {
+struct TopicEntry: Equatable, Hashable {
 	
 	private(set) var name = String()
-	private(set) var content = Quiz(topic: [[]])
+	private(set) var quiz = Quiz(topic: [[]])
 	
 	init(name: String, content: Quiz) {
 		self.name = name
-		self.content = content
+		self.quiz = content
 	}
 	
 	init?(name: String) {
@@ -99,7 +99,7 @@ struct Topic: Equatable, Hashable {
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
 			if Quiz.isValid(contentToValidate) {
-				self.content = contentToValidate
+				self.quiz = contentToValidate
 			} else {
 				return nil
 			}
@@ -117,7 +117,7 @@ struct Topic: Equatable, Hashable {
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
 			if Quiz.isValid(contentToValidate) {
-				self.content = contentToValidate
+				self.quiz = contentToValidate
 			} else {
 				return nil
 			}
@@ -127,12 +127,12 @@ struct Topic: Equatable, Hashable {
 		}
 	}
 	
-	static func ==(lhs: Topic, rhs: Topic) -> Bool {
-		return lhs.name == rhs.name || lhs.content == rhs.content
+	static func ==(lhs: TopicEntry, rhs: TopicEntry) -> Bool {
+		return lhs.name == rhs.name || lhs.quiz == rhs.quiz
 	}
 	
 	var hashValue: Int {
-		return name.hashValue + (content.topic.count * (content.topic.first?.count ?? 1))
+		return name.hashValue + (quiz.topic.count * (quiz.topic.first?.count ?? 1))
 	}
 }
 
@@ -140,12 +140,12 @@ struct SetOfTopics {
 	
 	static var shared = SetOfTopics()
 	
-	var topics: [Topic] = [] // Manually: [Topic(name: "Technology"), Topic(name: "Social"), Topic(name: "People")]
-	var savedTopics: [Topic] = []
+	var topics: [TopicEntry] = [] // Manually: [TopicEntry(name: "Technology"), TopicEntry(name: "Social"), TopicEntry(name: "People")]
+	var savedTopics: [TopicEntry] = []
 	
 	var isUsingUserSavedTopics = false
 	
-	var currentTopics: [Topic] {
+	var currentTopics: [TopicEntry] {
 		return isUsingUserSavedTopics ? self.savedTopics : self.topics
 	}
 
@@ -161,10 +161,10 @@ struct SetOfTopics {
 		self.loadSetState(for: self.savedTopics)
 	}
 	
-	func loadSetState(for topicSet: [Topic]) {
+	func loadSetState(for topicSet: [TopicEntry]) {
 		
 		for topic in topicSet {
-			for quiz in topic.content.topic.enumerated() {
+			for quiz in topic.quiz.topic.enumerated() {
 				
 				if DataStore.shared.completedSets[topic.name] == nil {
 					DataStore.shared.completedSets[topic.name] = [:]
@@ -185,21 +185,58 @@ struct SetOfTopics {
 		self.loadSetState(for: self.savedTopics)
 	}
 	
-	private func setOfTopicsFromJSONFilesOfDirectory(url contentURL: URL?) -> Set<Topic> {
+	func save(topic: TopicEntry) {
+		// Won't save topics/set of questions with the same content
+		guard !SetOfTopics.shared.savedTopics.contains(topic) else { return }
+		
+		let fileName: String
+		let topicName = topic.name
+		if topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+			fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
+		}
+		else if !topicName.hasSuffix(".json") {
+			fileName = topicName + ".json"
+		} else {
+			fileName = topicName
+		}
+		
+		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
+			if let data = try? JSONEncoder().encode(topic.quiz) {
+				try? data.write(to: documentsURL)
+				UserDefaultsManager.savedQuestionsCounter += 1
+				SetOfTopics.shared.loadSavedTopics()
+			}
+		}
+	}
+	
+	func quizFrom(content: String?) -> Quiz? {
+		
+		if let data = content?.data(using: .utf8),
+			let quizContent = try? JSONDecoder().decode(Quiz.self, from: data),
+			Quiz.isValid(quizContent) {
+
+			return quizContent
+		}
+		return nil
+	}
+	
+	// MARK: - Convenience
+	
+	private func setOfTopicsFromJSONFilesOfDirectory(url contentURL: URL?) -> Set<TopicEntry> {
 		
 		let fileManager = FileManager.default
 		
 		if let validURL = contentURL, let contentOfFilesPath = (try? fileManager.contentsOfDirectory(at: validURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
 			
-			var setOfSavedTopics = Set<Topic>()
+			var setOfSavedTopics = Set<TopicEntry>()
 			
 			for url in contentOfFilesPath where url.pathExtension == "json" {
-				if let validTopic = Topic(path: url) {
+				if let validTopic = TopicEntry(path: url) {
 					setOfSavedTopics.insert(validTopic)
 				}
 			}
 			return setOfSavedTopics
 		}
-		return Set<Topic>()
+		return Set<TopicEntry>()
 	}
 }

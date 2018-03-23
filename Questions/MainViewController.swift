@@ -18,7 +18,10 @@ class MainViewController: UIViewController {
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
+		
 		super.viewDidLoad()
+		
+		self.navigationItem.title = "Main Menu".localized
 		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView

@@ -1,2 +1,2 @@
-"READ_QR_FORMAT" = "{\n\"quiz\": [[\n{\"question\": \"What is...?\", \"answers\": [\"Daniel\", \"1\", \"2\", \"yellow\"], \"correct\": 3}, otherQuestionsHere\n]]\n}";
+"READ_QR_FORMAT" = "{\n\"topic\": [[\n{\"question\": \"What is...?\", \"answers\": [\"Daniel\", \"1\", \"2\", \"yellow\"], \"correct\": 3}, otherQuestionsHere\n]]\n}";
 "RESET_GAME_ADVICE" = "Are you sure you want to reset the game configuration and progress?";

@@ -1,7 +1,7 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.3--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENCE)  
+[![Version](https://img.shields.io/badge/version-v3.4--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
 
@@ -31,7 +31,7 @@ Screenshots
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
 
 
-Topics JSON format (v3.3-beta)
+Topics JSON format
 ---
 ```
 {

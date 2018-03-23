@@ -50,8 +50,15 @@
                             <outlet property="delegate" destination="9QX-8c-sEy" id="PMa-rf-bBB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Topics" id="e8J-nn-9xp"/>
+                    <navigationItem key="navigationItem" title="Topics" id="e8J-nn-9xp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fyf-0d-DWx">
+                            <connections>
+                                <action selector="addNewTopic:" destination="9QX-8c-sEy" id="YsU-3f-nxS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addBarButtonItem" destination="Fyf-0d-DWx" id="yPg-OQ-x9h"/>
                         <segue destination="kse-0a-Wtd" kind="show" identifier="selectTopic" id="UNn-E6-gY8"/>
                     </connections>
                 </tableViewController>
