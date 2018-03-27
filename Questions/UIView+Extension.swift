@@ -21,4 +21,17 @@ extension UIView {
 			self.accessibilityIgnoresInvertColors = true
 		}
 	}
+	
+	func round(corners: UIRectCorner = .allCorners, withRadius radius: CGFloat) {
+		
+		guard radius > 0.0 else { return }
+		
+		let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+		
+		let maskLayer = CAShapeLayer()
+		maskLayer.frame = self.bounds
+		maskLayer.path = maskPath.cgPath
+		
+		self.layer.mask = maskLayer
+	}
 }

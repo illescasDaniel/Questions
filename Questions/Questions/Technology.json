@@ -4,7 +4,7 @@
 			  {"question": "Best desktop OS", "answers": ["macOS", "Windows", "MS-DOS 😎", "Linux c:"], "correct": 0},
 			  {"question": "Best IDE", "answers": ["Visual Studio", "Xcode", "Netbeans", "Eclipse"], "correct": 1},
 		      {"question": "Best smartphone OS", "answers": ["iOS", "Android", "BlackBerry OS", "Windows Phone c:"], "correctAnswers": [0,1]},
-			  {"question": "Latest macOS version", "answers": ["10.11.5", "10.2", "11", "10.12"], "correct": 3},
+		  {"question": "Latest macOS version", "answers": ["10.11.5", "10.2", "11", "10.12"], "correct": 3, "imageURL": "https://techsviewer.com/wp-content/uploads/2017/06/macOS-High-Sierra-10.13-on-VMware-on-Windows-PC.jpg"},
 			  {"question": "Which Windows version is the best?",
 			  "answers": ["Windows XP", "Windows 7", "Windows Vista 😂", "Windows 10"], "correct": 3},
 			  {"question": "iPhone, iPad or Mac?", "answers": ["iPhone", "iPad", "Everyone c:", "Mac"], "correct": 2}

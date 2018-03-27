@@ -8,20 +8,26 @@ class QuestionsViewController: UIViewController {
 	
 	var answerButtons: [RoundedButton] = []
 	
+	@IBOutlet weak var pauseButton: UIButton!
+	@IBOutlet weak var remainingQuestionsLabel: UILabel!
+	
+	
+	@IBOutlet weak var questionLabel: UILabel!
+	@IBOutlet weak var questionImageButton: UIButton!
+	@IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
 	@IBOutlet weak var answersStackView: UIStackView!
 	
-	@IBOutlet weak var remainingQuestionsLabel: UILabel!
-	@IBOutlet weak var questionLabel: UILabel!
-	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var pauseView: UIView!
 	@IBOutlet weak var goBack: UIButton!
 	@IBOutlet weak var muteMusic: UIButton!
 	@IBOutlet weak var mainMenu: UIButton!
+	
 	@IBOutlet weak var helpButton: UIButton!
+	
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
 	let oldScore = UserDefaultsManager.score
-	var correctAnswer: Set<UInt8> = []//[UInt8] = []
+	var correctAnswer: Set<UInt8> = []
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
@@ -32,10 +38,16 @@ class QuestionsViewController: UIViewController {
 	var quiz: EnumeratedIterator<IndexingIterator<Array<QuestionType>>>!
 	
 	// MARK: View life cycle
-	
+
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
+		
+		self.questionImageButton.setImage(nil, for: .normal)
+		self.questionImageButton.imageView?.contentMode = .scaleAspectFill
+		self.questionImageButton.imageView?.clipsToBounds = true
+		self.questionImageButton.clipsToBounds = true
+		self.questionImageButton.layer.cornerRadius = 10
 		
 		if !self.isSetFromJSON {
 			self.setUpQuiz()
@@ -43,6 +55,10 @@ class QuestionsViewController: UIViewController {
 			self.goBack.isHidden = true
 			self.set.shuffle()
 			self.quiz = set.enumerated().makeIterator()
+		}
+		
+		DispatchQueue.global(qos: .userInitiated).async {
+			self.preloadImages()
 		}
 		
 		self.createAnswerButtons()
@@ -69,35 +85,6 @@ class QuestionsViewController: UIViewController {
 		self.addSwipeGestures()
 		
 		self.pickQuestion()
-	}
-	
-	private func createAnswerButtons() {
-		
-		// Should fix this stuff in the storyboard...
-		self.answerStub.isHidden = true
-		
-		let numberOfAnswers = set.first?.answers.count ?? 4
-		
-		for i in 0..<numberOfAnswers {
-			
-			let button = RoundedButton()
-			button.cornerRadius = 15
-			button.setup(shadows:
-				ShadowEffect(
-					shadowColor: .black,
-					shadowOffset: CGSize(width: 0.5, height: 3.5),
-					shadowOpacity: 0.15,
-					shadowRadius: 4)
-			)
-			button.tag = i
-			button.addTarget(self, action: #selector(self.verifyButton), for: .touchDown)
-			
-			self.answerButtons.append(button)
-			self.answersStackView.addArrangedSubview(button)
-
-			//button.centerXAnchor.constraint(equalTo: self.view.layoutMarginsGuide.centerXAnchor).isActive = true
-			//button.widthAnchor.constraint(equalTo: self.answersStackView.widthAnchor, multiplier: 0.9).isActive = true
-		}
 	}
 	
 	override func viewWillLayoutSubviews() {
@@ -151,6 +138,22 @@ class QuestionsViewController: UIViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "unwindToQRScanner" {
 			AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
+		}
+		else if segue.identifier == "imageDetailsSegue", let imageDetailsVC = segue.destination as? ImageDetailsViewController {
+			imageDetailsVC.modalPresentationStyle = .overCurrentContext
+			imageDetailsVC.viewDidLoad()
+			imageDetailsVC.imageView?.image = self.questionImageButton.imageView?.image
+			imageDetailsVC.closeViewButton?.backgroundColor = .themeStyle(dark: .orange, light: .coolBlue)
+			//imageDetailsVC.closeViewButton?.isHidden = true
+			imageDetailsVC.preferredContentSize = imageDetailsVC.imageView?.sizeThatFits(self.view.frame.size) ?? imageDetailsVC.view.frame.size
+			
+			/*if let validCloseButton = imageDetailsVC.closeViewButton {
+				UIView.transition(with: validCloseButton, duration: 0, options: [.transitionCrossDissolve], animations: {}, completion: { completed in
+					if completed {
+						validCloseButton.isHidden = false
+					}
+				})
+			}*/
 		}
 	}
 	
@@ -231,11 +234,71 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
+	@IBAction func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+		
+		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+			
+			let darkThemeEnabled = UserDefaultsManager.darkThemeSwitchIsOn
+			
+			if !darkThemeEnabled && (swipeGesture.direction == .down) {
+				UserDefaultsManager.darkThemeSwitchIsOn = true
+				AppDelegate.updateVolumeBarTheme()
+			}
+			else if darkThemeEnabled && (swipeGesture.direction == .up) {
+				UserDefaultsManager.darkThemeSwitchIsOn = false
+				AppDelegate.updateVolumeBarTheme()
+			}
+			else { return }
+			
+			UIView.transition(with: self.view, duration: 0.3, options: [.curveLinear], animations: {
+				self.loadCurrentTheme()
+				self.setNeedsStatusBarAppearanceUpdate()
+			})
+		}
+	}
+	
 	// MARK: Convenience
+	
+	private func createAnswerButtons() {
+		
+		// Should fix this stuff in the storyboard...
+		self.answerStub.isHidden = true
+		
+		let numberOfAnswers = set.first?.answers.count ?? 4
+		
+		for i in 0..<numberOfAnswers {
+			
+			let button = RoundedButton()
+			button.cornerRadius = 15
+			button.setup(shadows:
+				ShadowEffect(
+					shadowColor: .black,
+					shadowOffset: CGSize(width: 0.5, height: 3.5),
+					shadowOpacity: 0.15,
+					shadowRadius: 4)
+			)
+			button.tag = i
+			button.addTarget(self, action: #selector(self.verifyButton), for: .touchDown)
+			button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+			
+			self.answerButtons.append(button)
+			self.answersStackView.addArrangedSubview(button)
+		}
+	}
+	
+	private func preloadImages() {
+		for fullQuestion in self.set.dropFirst() { //.dropFirst() Drops the first because it will be cached by the 'pickQuestion()' function
+			if let validImageURL = fullQuestion.imageURL, !validImageURL.isEmpty && !DataStore.shared.cachedImages.keys.contains(validImageURL.hash) {
+				if let validImage = UIImage(contentsOf: URL(string: validImageURL)) {
+					DataStore.shared.saveAsCache(image: validImage, withKey: validImageURL.hash)
+				}
+			}
+		}
+	}
 	
 	private func pauseMenuAction(animated: Bool = true) {
 		
-		let duration: TimeInterval = animated ? 0.2 : 0.0
+		let duration: TimeInterval = animated ? 0.1 : 0.0
 		let title = (pauseView.isHidden) ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
 		
@@ -268,57 +331,30 @@ class QuestionsViewController: UIViewController {
 		view.addGestureRecognizer(swipeDown)
 	}
 	
-	@IBAction func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-		
-		if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-			
-			let darkThemeEnabled = UserDefaultsManager.darkThemeSwitchIsOn
-			
-			if !darkThemeEnabled && (swipeGesture.direction == .down) {
-				UserDefaultsManager.darkThemeSwitchIsOn = true
-				AppDelegate.updateVolumeBarTheme()
-			}
-			else if darkThemeEnabled && (swipeGesture.direction == .up) {
-				UserDefaultsManager.darkThemeSwitchIsOn = false
-				AppDelegate.updateVolumeBarTheme()
-			}
-			else { return }
-			
-			UIView.transition(with: self.view, duration: 0.3, options: [.curveLinear], animations: {
-				self.loadCurrentTheme()
-				self.setNeedsStatusBarAppearanceUpdate()
-			})
-		}
-	}
-	
-	@IBAction func loadCurrentTheme() {
+	@objc func loadCurrentTheme() {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
-		helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
-		remainingQuestionsLabel.textColor = currentThemeColor
-		questionLabel.textColor = currentThemeColor
-		view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
-		pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
-		pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
-		pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
+		self.activityIndicatorView.activityIndicatorViewStyle = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		self.helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
+		self.remainingQuestionsLabel.textColor = currentThemeColor
+		self.questionLabel.textColor = currentThemeColor
+		self.view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
+		self.pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
+		self.pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
+		self.pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
 
-		pauseView.subviews.first?.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
+		self.pauseView.subviews.first?.subviews.forEach { ($0 as? UIButton)?.setTitleColor(dark: .black, light: .darkGray, for: .normal)
 			($0 as? UIButton)?.backgroundColor = .themeStyle(dark: .warmColor, light: .warmYellow) }
 		
-		blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+		self.blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
 		
-		answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertColors() }
+		self.answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertColors() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
 	}
 	
-	@IBAction func showPauseMenu() {
-		if !pauseView.isHidden {
-			pauseMenuAction(animated: false)
-		}
-	}
-	
+	private var currentURL: URL? = nil
 	public func pickQuestion() {
 		
 		// Restore
@@ -334,20 +370,49 @@ class QuestionsViewController: UIViewController {
 			
 			let fullQuestion = quiz0.element
 			
-			UIView.animate(withDuration: 0.1) {
+			self.correctAnswer = fullQuestion.correctAnswers
+			self.questionLabel.text = fullQuestion.question.localized
+			
+			let answers = fullQuestion.answers
+			
+			for i in 0..<self.answerButtons.count {
+				self.answerButtons[i].setTitle(answers[i].localized, for: .normal)
+			}
+			
+			self.remainingQuestionsLabel.text = "\(quiz0.offset + 1)/\(self.set.count)"
+			
+			self.activityIndicatorView.stopAnimating()
+			
+			if let imageString = fullQuestion.imageURL, !imageString.isEmpty {
 				
-				self.correctAnswer = fullQuestion.correctAnswers
-				self.questionLabel.text = fullQuestion.question.localized
-				
-				let answers = fullQuestion.answers
-				
-				for i in 0..<self.answerButtons.count {
-					self.answerButtons[i].setTitle(answers[i].localized, for: .normal)
+				if let cachedImage = DataStore.shared.cachedImage(withKey: imageString.hash) {
+					DispatchQueue.main.async {
+						self.questionImageButton.setImage(cachedImage, for: .normal)
+						self.questionImageButton.isHidden = false
+					}
 				}
-				
-				if let index = self.set.index(of: fullQuestion) {
-					self.remainingQuestionsLabel.text = "\(index + 1)/\(self.set.count)"
+				else {
+					
+					self.questionImageButton.isHidden = true
+					
+					self.activityIndicatorView.startAnimating()
+					
+					self.currentURL = URL(string: imageString)
+					
+					UIImage.manageContentsOf(self.currentURL, completionHandler: { (image, url) in
+						if url == self.currentURL {
+							self.activityIndicatorView.stopAnimating()
+							self.questionImageButton.setImage(image, for: .normal)
+							self.questionImageButton.isHidden = false
+						}
+						DataStore.shared.saveAsCache(image: image, withKey: imageString.hash)
+					}, errorHandler: {
+						self.activityIndicatorView.stopAnimating()
+					})
 				}
+			}
+			else {
+				self.questionImageButton.isHidden = true
 			}
 		}
 		else {
@@ -385,12 +450,12 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func repeatActionDetailed() {
-		repeatTimes += 1
-		correctAnswers = 0
-		incorrectAnswers = 0
-		setUpQuiz()
+		self.repeatTimes += 1
+		self.correctAnswers = 0
+		self.incorrectAnswers = 0
+		self.setUpQuiz()
 		UserDefaultsManager.score = oldScore
-		pickQuestion()
+		self.pickQuestion()
 	}
 	
 	@objc private func verify(answer: UInt8) {
@@ -469,4 +534,3 @@ class QuestionsViewController: UIViewController {
 		self.quiz = set.enumerated().makeIterator()
 	}
 }
-

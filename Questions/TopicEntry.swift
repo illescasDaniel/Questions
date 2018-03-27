@@ -7,17 +7,19 @@ class QuestionType: Codable, Equatable {
 		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correctAnswers == rhs.correctAnswers
 	}
 	
-	init(question: String, answers: [String], correct: Set<UInt8>, singleCorrect: UInt8? = nil) {
-		self.question = question
-		self.answers = answers
+	init(question: String, answers: [String], correct: Set<UInt8>, singleCorrect: UInt8? = nil, imageURL: String? = nil) {
+		self.question = question.trimmingCharacters(in: .whitespacesAndNewlines)
+		self.answers = answers.map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
 		self.correctAnswers = correct
 		self.correct = singleCorrect
+		self.imageURL = imageURL?.trimmingCharacters(in: .whitespacesAndNewlines)
 	}
 	
 	let question: String
 	let answers: [String]
 	var correctAnswers: Set<UInt8>! = []
 	let correct: UInt8?
+	let imageURL: String?
 }
 
 struct Quiz: Codable, Equatable {

@@ -34,8 +34,9 @@ class SettingsTableViewController: UITableViewController {
 	private enum cellLabelsForSection1: String {
 		
 		case resetProgress = "Reset progress"
+		case resetCachedImages = "Reset cached images"
 		
-		static let labels: [cellLabelsForSection1] = [.resetProgress]
+		static let labels: [cellLabelsForSection1] = [.resetProgress, .resetCachedImages]
 		static let count = labels.count
 	}
 
@@ -75,7 +76,10 @@ class SettingsTableViewController: UITableViewController {
 		case 1:
 			switch indexPath.row {
 			case 0:
-				self.resetProgressAlert(indexPath: indexPath)
+				self.resetProgressAlert()
+				FeedbackGenerator.notificationOcurredOf(type: .warning)
+			case 1:
+				self.resetCachedImages()
 				FeedbackGenerator.notificationOcurredOf(type: .warning)
 			default: break
 			}
@@ -113,6 +117,7 @@ class SettingsTableViewController: UITableViewController {
 		case 1:
 			switch indexPath.row {
 			case 0: cell.textLabel?.text = cellLabelsForSection1.resetProgress.rawValue.localized
+			case 1: cell.textLabel?.text = cellLabelsForSection1.resetCachedImages.rawValue.localized
 			default: break
 			}
 		default: break
@@ -248,7 +253,8 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetProgressStatistics() {
 		
-		DataStore.shared.completedSets = [:]
+		DataStore.shared.completedSets.removeAll()
+		DataStore.shared.cachedImages.removeAll()
 		SetOfTopics.shared.loadAllTopicsStates()
 		guard DataStore.shared.save() else { print("Error saving settings"); return }
 		
@@ -274,17 +280,17 @@ class SettingsTableViewController: UITableViewController {
 		
 		
 		let reduceMotion = UIAccessibilityIsReduceMotionEnabled()
-		parallaxEffectSwitch.setOn(!reduceMotion, animated: true)
-		parallaxEffectSwitch.isEnabled = !reduceMotion
+		self.parallaxEffectSwitch.setOn(!reduceMotion, animated: true)
+		self.parallaxEffectSwitch.isEnabled = !reduceMotion
 		
-		darkThemeSwitch.setOn(false, animated: true)
-		backgroundMusicSwitch.setOn(true, animated: true)
+		self.darkThemeSwitch.setOn(false, animated: true)
+		self.backgroundMusicSwitch.setOn(true, animated: true)
 		
 		if #available(iOS 10.0, *) {
-			hapticFeedbackSwitch.setOn(true, animated: true)
+			self.hapticFeedbackSwitch.setOn(true, animated: true)
 		} else {
-			hapticFeedbackSwitch.setOn(false, animated: false)
-			hapticFeedbackSwitch.isEnabled = false
+			self.hapticFeedbackSwitch.setOn(false, animated: false)
+			self.hapticFeedbackSwitch.isEnabled = false
 			UserDefaultsManager.hapticFeedbackSwitchIsOn = false
 		}
 		
@@ -335,7 +341,7 @@ class SettingsTableViewController: UITableViewController {
 		})
 	}
 	
-	private func resetProgressAlert(indexPath: IndexPath) {
+	private func resetProgressAlert() {
 		
 		let alertViewController = UIAlertController(title: "Reset progress".localized, message: nil, preferredStyle: .alert)
 		
@@ -347,6 +353,16 @@ class SettingsTableViewController: UITableViewController {
 			self.resetProgressStatistics()
 		}
 
+		self.present(alertViewController, animated: true)
+	}
+	
+	private func resetCachedImages() {
+		
+		let alertViewController = UIAlertController(title: "Reset cached images".localized, message: nil, preferredStyle: .alert)
+		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
+		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
+			DataStore.shared.cachedImages.removeAll()
+		}
 		self.present(alertViewController, animated: true)
 	}
 }

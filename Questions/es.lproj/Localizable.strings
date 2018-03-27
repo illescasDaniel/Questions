@@ -7,7 +7,7 @@
 
 /* -- UI ELEMENTS -- */
 
-"Main menu" = "Menú principal";
+"Main Menu" = "Menú principal";
 
 "START GAME" = "COMENZAR";
 "SAVED TOPICS" = "TEMAS GUARDADOS";
@@ -81,7 +81,7 @@
 // --- SOCIAL ---
 // "Social" = "Social";
 
-"What's your name?" = "¿Cómo te llamas?";
+"What's your name?" = "¿Cómo te llamas?¿Cómo te llamas?¿Cómo te llamas? ¿Cómo te llamas?";
 	"Sophie" = "Sofía";
 	// "Daniel" = "Daniel";
 	"Pete" = "Tete";

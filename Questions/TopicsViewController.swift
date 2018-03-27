@@ -7,7 +7,8 @@ class TopicsViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = "Topics".localized
+		self.navigationItem.title = "Topics".localized
+		self.navigationItem.backBarButtonItem?.title = "Main Menu".localized
 		
 		/*self.editButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
 		self.navigationItem.rightBarButtonItem = self.editButtonItem

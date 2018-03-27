@@ -15,13 +15,12 @@ class MainViewController: UIViewController {
 	static var parallaxEffect = UIMotionEffectGroup()
 	static var backgroundView: UIView?
 
+	@IBOutlet weak var mainMenuStack: UIStackView!
 	// MARK: View life cycle
 
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		
-		self.navigationItem.title = "Main Menu".localized
 		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
