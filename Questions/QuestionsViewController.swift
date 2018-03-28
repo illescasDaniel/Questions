@@ -90,6 +90,8 @@ class QuestionsViewController: UIViewController {
 		
 		self.pickQuestion()
 		self.updateTimer()
+		
+		self.helpButton.isHidden = !QuestionsAppOptions.isHelpEnabled
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

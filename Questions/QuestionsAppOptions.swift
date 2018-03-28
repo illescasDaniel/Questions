@@ -15,6 +15,7 @@ struct QuestionsAppOptions {
 	static let helpActionPoints: Int = -5
 	
 	static let maximumHelpTries: UInt8 = 2 // 0 = (number of answers - 1)
+	static let isHelpEnabled: Bool = true
 	
 	static let privacyFeaturesEnabled: Bool = true
 }
