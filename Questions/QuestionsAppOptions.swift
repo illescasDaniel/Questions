@@ -16,5 +16,5 @@ struct QuestionsAppOptions {
 	
 	static let maximumHelpTries: UInt8 = 2 // 0 = (number of answers - 1)
 	
-	static let protectContentFromBeingCaptured: Bool = true
+	static let privacyFeaturesEnabled: Bool = true
 }

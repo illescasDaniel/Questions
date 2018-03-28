@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 		
-		if QuestionsAppOptions.protectContentFromBeingCaptured {
+		if QuestionsAppOptions.privacyFeaturesEnabled {
 			self.setupBlurView()
 		}
 		
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillResignActive(_ application: UIApplication) {
-		guard QuestionsAppOptions.protectContentFromBeingCaptured else { return }
+		guard QuestionsAppOptions.privacyFeaturesEnabled else { return }
 		blurView.isHidden = false
 		self.window?.bringSubview(toFront: blurView)
 	}
@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 		
-		if QuestionsAppOptions.protectContentFromBeingCaptured {
+		if QuestionsAppOptions.privacyFeaturesEnabled {
 			self.blurView.isHidden = true
 		}
 	}

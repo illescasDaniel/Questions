@@ -19,6 +19,8 @@ Main Features
 - Each set of questions can have different number of answers
 - Each question can have an image that will appear below the question text (this will load asynchronously and will be cached)
 - Add sets of questions / new topics just by dragging a formatted json file to Xcode
+- You can specify the maximum time per set of questions (currently per topic) that the user can spend
+- The app offers OPTIONAL privacy features such as blurring the multitask screenshot, detecting if the user is capturing the screen or if it took a screenshot
 - Dark theme
 - Switch between themes by:
 	- Swiping up/down with 2 fingers

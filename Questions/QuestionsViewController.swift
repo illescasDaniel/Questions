@@ -80,6 +80,7 @@ class QuestionsViewController: UIViewController {
 		// Loads the theme if user uses a home quick action
 		NotificationCenter.default.addObserver(self, selector: #selector(self.loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: .UIApplicationUserDidTakeScreenshot, object: nil)
 		
 		if UserDefaultsManager.score < 5 {
 			self.helpButton.alpha = 0.4
@@ -94,10 +95,6 @@ class QuestionsViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.detectIfScreenIsCaptured()
-	}
-	
-	@objc private func appWillEnterForeground() {
-		self.pauseMenuAction()
 	}
 	
 	private func updateTimer() {
@@ -307,6 +304,26 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: Convenience
 	
+	@objc private func appWillEnterForeground() {
+		self.pauseMenuAction()
+	}
+	
+	@objc private func userDidTakeScreenshot() {
+		
+		guard QuestionsAppOptions.privacyFeaturesEnabled else { return }
+		
+		if self.pauseView.isHidden {
+			self.pauseMenuAction()
+		}
+		
+		let contentIsProtectedAlert = UIAlertController(title: "This content is protected", message: "Please don't use the screen recorder or take screenshots", preferredStyle: .alert)
+		contentIsProtectedAlert.addAction(title: "Exit quiz", style: .cancel) { _ in
+			self.goBackAction()
+		}
+		contentIsProtectedAlert.addAction(title: "OK", style: .default)
+		self.present(contentIsProtectedAlert, animated: true)
+	}
+	
 	private func createAnswerButtons() {
 		
 		// Should fix this stuff in the storyboard...
@@ -414,13 +431,13 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func detectIfScreenIsCaptured() {
-		if QuestionsAppOptions.protectContentFromBeingCaptured, #available(iOS 11.0, *), UIScreen.main.isCaptured {
+		if QuestionsAppOptions.privacyFeaturesEnabled, #available(iOS 11.0, *), UIScreen.main.isCaptured {
 			
 			if self.pauseView.isHidden {
 				self.pauseMenuAction()
 			}
 			
-			let contentIsProtectedAlert = UIAlertController(title: "This content is protected", message: "Please don't use the screen recorder", preferredStyle: .alert)
+			let contentIsProtectedAlert = UIAlertController(title: "This content is protected", message: "Please don't use the screen recorder or take screenshots", preferredStyle: .alert)
 			
 			contentIsProtectedAlert.addAction(title: "Exit quiz", style: .cancel) { _ in
 				self.goBackAction()
