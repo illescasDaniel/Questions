@@ -5,6 +5,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 	var wasPlaying = Bool()
+	private let blurView = UIVisualEffectView(frame: UIScreen.main.bounds)
 	
 	// Home Screen Quick Actions [3D Touch]
 
@@ -60,7 +61,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 		
+		if QuestionsAppOptions.protectContentFromBeingCaptured {
+			self.setupBlurView()
+		}
+		
 		return true
+	}
+	
+	private func setupBlurView() {
+		blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+		blurView.isHidden = true
+		self.window?.addSubview(blurView)
+	}
+	
+	func applicationWillResignActive(_ application: UIApplication) {
+		guard QuestionsAppOptions.protectContentFromBeingCaptured else { return }
+		blurView.isHidden = false
+		self.window?.bringSubview(toFront: blurView)
+	}
+	
+	func applicationDidBecomeActive(_ application: UIApplication) {
+		
+		if wasPlaying {
+			AudioSounds.bgMusic?.play()
+		}
+		
+		self.window?.dontInvertIfDarkModeIsEnabled()
+		
+		if QuestionsAppOptions.protectContentFromBeingCaptured {
+			self.blurView.isHidden = true
+		}
 	}
 
 	static func updateVolumeBarTheme() {
@@ -130,15 +161,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		guard DataStore.shared.save() else { print("Error saving settings"); return }
-		
-		self.window?.dontInvertIfDarkModeIsEnabled()
-	}
-	
-	func applicationDidBecomeActive(_ application: UIApplication) {
-		
-		if wasPlaying {
-			AudioSounds.bgMusic?.play()
-		}
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 	}

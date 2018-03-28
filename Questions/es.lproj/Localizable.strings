@@ -57,6 +57,7 @@
 "Do you want to start again?" = "¿Quieres empezar de nuevo?";
 "Correct answers: " = "Respuestas correctas: ";
 "Score: " = "Puntuación: ";
+"(Time ran out)\n" = "(Tiempo agotado)\n";
 "Repeat" = "Repetir";
 
 "Pause" = "Pausa";

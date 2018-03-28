@@ -12,6 +12,8 @@ class ImageDetailsViewController: UIViewController {
 	
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var closeViewButton: UIButton!
+	@IBOutlet weak var scrollView: UIScrollView!
+	@IBOutlet var customPanGesture: UIPanGestureRecognizer!
 	
 	private let originalBGColor = UIColor.themeStyle(dark: .black, light: .white)
 	
@@ -20,11 +22,13 @@ class ImageDetailsViewController: UIViewController {
 		self.view.backgroundColor = originalBGColor
 	}
 	
+	// MARK: - Actions
+	
 	@IBAction func closeViewAction(_ sender: UIButton) {
 		self.dismiss(animated: true)
 	}
 	
-	@IBAction func panGestureOverImageViewAction(_ sender: UIPanGestureRecognizer) {
+	@IBAction func panGestureOverImageView(_ sender: UIPanGestureRecognizer) {
 		
 		let translation = sender.translation(in: self.imageView)
 		
@@ -51,5 +55,22 @@ class ImageDetailsViewController: UIViewController {
 	
 	override var prefersStatusBarHidden: Bool {
 		return true
+	}
+}
+
+extension ImageDetailsViewController: UIScrollViewDelegate {
+	
+	func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+		return self.imageView
+	}
+	
+	func scrollViewDidZoom(_ scrollView: UIScrollView) {
+		scrollView.isScrollEnabled = true
+		
+		if scrollView.zoomScale == 1.0 {
+			self.customPanGesture.isEnabled = true
+		} else {
+			self.customPanGesture.isEnabled = false
+		}
 	}
 }

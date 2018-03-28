@@ -10,7 +10,7 @@ class QuestionsViewController: UIViewController {
 	
 	@IBOutlet weak var pauseButton: UIButton!
 	@IBOutlet weak var remainingQuestionsLabel: UILabel!
-	
+	@IBOutlet weak var quizTimerLabel: UILabel!
 	
 	@IBOutlet weak var questionLabel: UILabel!
 	@IBOutlet weak var questionImageButton: UIButton!
@@ -36,6 +36,8 @@ class QuestionsViewController: UIViewController {
 	var isSetFromJSON = false
 	var set: [QuestionType] = []
 	var quiz: EnumeratedIterator<IndexingIterator<Array<QuestionType>>>!
+	var quizTime = TimeInterval()
+	var previousQuizTime: TimeInterval = -1
 	
 	// MARK: View life cycle
 
@@ -76,7 +78,8 @@ class QuestionsViewController: UIViewController {
 		self.loadCurrentTheme()
 		
 		// Loads the theme if user uses a home quick action
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
 		
 		if UserDefaultsManager.score < 5 {
 			self.helpButton.alpha = 0.4
@@ -85,6 +88,53 @@ class QuestionsViewController: UIViewController {
 		self.addSwipeGestures()
 		
 		self.pickQuestion()
+		self.updateTimer()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		self.detectIfScreenIsCaptured()
+	}
+	
+	@objc private func appWillEnterForeground() {
+		self.pauseMenuAction()
+	}
+	
+	private func updateTimer() {
+		
+		self.quizTime = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.time
+		if quizTime > 0 {
+			
+			DispatchQueue.main.async {
+				self.quizTimerLabel.isHidden = false
+				self.quizTimerLabel.text = "\(self.quizTime)s"
+			}
+			
+			let timeMoreThan1Minute = quizTime > 60
+			
+			if #available(iOS 10.0, *) {
+				
+				Timer.scheduledTimer(withTimeInterval: timeMoreThan1Minute ? 1 : 0.1, repeats: true, block: { timer in
+					
+					guard self.previousQuizTime == -1 else { return }
+					
+					self.quizTime -= timeMoreThan1Minute ? 1 : 0.1
+					
+					if self.quizTime <= 0 {
+						self.quizTime = 0
+						DispatchQueue.main.async { self.quizTimerLabel.text = "0s" }
+						self.presentedViewController?.dismiss(animated: true)
+						self.endOfQuestionsAlert()
+						timer.invalidate()
+					}
+					else {
+						DispatchQueue.main.async {
+							self.quizTimerLabel.text = (timeMoreThan1Minute ? String(self.quizTime.rounded(.down)) : String(format: "%.1f", self.quizTime)) + "s"
+						}
+					}
+				})
+			}
+		}
 	}
 	
 	override func viewWillLayoutSubviews() {
@@ -144,23 +194,14 @@ class QuestionsViewController: UIViewController {
 			imageDetailsVC.viewDidLoad()
 			imageDetailsVC.imageView?.image = self.questionImageButton.imageView?.image
 			imageDetailsVC.closeViewButton?.backgroundColor = .themeStyle(dark: .orange, light: .coolBlue)
-			//imageDetailsVC.closeViewButton?.isHidden = true
 			imageDetailsVC.preferredContentSize = imageDetailsVC.imageView?.sizeThatFits(self.view.frame.size) ?? imageDetailsVC.view.frame.size
-			
-			/*if let validCloseButton = imageDetailsVC.closeViewButton {
-				UIView.transition(with: validCloseButton, duration: 0, options: [.transitionCrossDissolve], animations: {}, completion: { completed in
-					if completed {
-						validCloseButton.isHidden = false
-					}
-				})
-			}*/
 		}
 	}
 	
 	// MARK: Actions
 	
 	@IBAction func tapAnyWhereToClosePauseMenu(_ sender: UITapGestureRecognizer) {
-		if !pauseView.isHidden {
+		if !self.pauseView.isHidden {
 			self.pauseMenuAction()
 		}
 	}
@@ -185,29 +226,36 @@ class QuestionsViewController: UIViewController {
 		
 		FeedbackGenerator.impactOcurredWith(style: .light)
 		
-		if UserDefaultsManager.score < 5 {
+		if UserDefaultsManager.score < QuestionsAppOptions.helpActionPoints {
 			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
 		}
 		else {
 			
 			var timesUsed: UInt8 = 0
-			answerButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
+			self.answerButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
 			
-			if timesUsed < 2 {
+			var helpTries: UInt8 = 0
+			if QuestionsAppOptions.maximumHelpTries == 0 || (QuestionsAppOptions.maximumHelpTries >= self.answerButtons.count && self.answerButtons.count > 1) {
+				helpTries = UInt8(self.answerButtons.count) - 1
+			} else  {
+				helpTries = QuestionsAppOptions.maximumHelpTries
+			}
+			
+			if timesUsed < helpTries {
 				
-				UserDefaultsManager.score -= 5
+				UserDefaultsManager.score += QuestionsAppOptions.helpActionPoints
 
 				var randomQuestionIndex = UInt32()
 				
 				repeat {
-					randomQuestionIndex = arc4random_uniform(4)
+					randomQuestionIndex = arc4random_uniform(UInt32(self.answerButtons.count))
 				} while(self.correctAnswer.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
 					
 					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
 					
-					if (UserDefaultsManager.score < 5) || (timesUsed == 1) {
+					if (UserDefaultsManager.score < QuestionsAppOptions.helpActionPoints) || (timesUsed == 1) {
 						self.helpButton.alpha = 0.4
 					}
 				}
@@ -298,10 +346,18 @@ class QuestionsViewController: UIViewController {
 	
 	private func pauseMenuAction(animated: Bool = true) {
 		
-		let duration: TimeInterval = animated ? 0.1 : 0.0
+		if self.pauseView.isHidden {
+			self.previousQuizTime = self.quizTime
+		} else {
+			self.quizTime = self.previousQuizTime
+			self.previousQuizTime = -1
+			self.detectIfScreenIsCaptured()
+		}
+		
+		let duration: TimeInterval = 0.1
 		let title = (pauseView.isHidden) ? "Continue" : "Pause"
 		pauseButton.setTitle(title.localized, for: .normal)
-		
+
 		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
 			self.pauseView.isHidden = !self.pauseView.isHidden
 			self.blurView.isHidden = !self.blurView.isHidden
@@ -338,6 +394,7 @@ class QuestionsViewController: UIViewController {
 		self.activityIndicatorView.activityIndicatorViewStyle = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
 		self.helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
 		self.remainingQuestionsLabel.textColor = currentThemeColor
+		self.quizTimerLabel.textColor = currentThemeColor
 		self.questionLabel.textColor = currentThemeColor
 		self.view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
 		self.pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
@@ -352,10 +409,37 @@ class QuestionsViewController: UIViewController {
 		self.answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertColors() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
+		
+		self.detectIfScreenIsCaptured()
+	}
+	
+	private func detectIfScreenIsCaptured() {
+		if QuestionsAppOptions.protectContentFromBeingCaptured, #available(iOS 11.0, *), UIScreen.main.isCaptured {
+			
+			if self.pauseView.isHidden {
+				self.pauseMenuAction()
+			}
+			
+			let contentIsProtectedAlert = UIAlertController(title: "This content is protected", message: "Please don't use the screen recorder", preferredStyle: .alert)
+			
+			contentIsProtectedAlert.addAction(title: "Exit quiz", style: .cancel) { _ in
+				self.goBackAction()
+			}
+			
+			contentIsProtectedAlert.addAction(title: "I've disabled it", style: .default) { _ in
+				if UIScreen.main.isCaptured {
+					self.present(contentIsProtectedAlert, animated: true)
+				}
+			}
+			
+			self.present(contentIsProtectedAlert, animated: true)
+		}
 	}
 	
 	private var currentURL: URL? = nil
 	public func pickQuestion() {
+		
+		self.detectIfScreenIsCaptured()
 		
 		// Restore
 		UIView.animate(withDuration: 0.75) {
@@ -416,7 +500,7 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		else {
-			endOfQuestionsAlert()
+			self.endOfQuestionsAlert()
 		}
 	}
 
@@ -432,10 +516,10 @@ class QuestionsViewController: UIViewController {
 	
 	private func okActionDetailed() {
 		
-		if !isSetCompleted() {
+		if !self.isSetCompleted() {
 			UserDefaultsManager.correctAnswers += correctAnswers
 			UserDefaultsManager.incorrectAnswers += incorrectAnswers
-			UserDefaultsManager.score += (correctAnswers * 20) - (incorrectAnswers * 10)
+			UserDefaultsManager.score += (correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints)
 		}
 		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
@@ -504,9 +588,12 @@ class QuestionsViewController: UIViewController {
 	private func endOfQuestionsAlert() {
 		
 		let helpScore = oldScore - UserDefaultsManager.score
-		let score = (correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
+		let score = (correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints) - helpScore
+					//(correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
-		let title = "Score: ".localized + "\(score) pts"
+		let extraTitle = (self.quizTimerLabel.text == "0s" || self.quizTimerLabel.text == "0.0s") ? "(Time ran out)\n" : ""
+		
+		let title = extraTitle.localized + "Score: ".localized + "\(score) pts"
 		let message = "Correct answers: ".localized + "\(correctAnswers)" + "/" + "\(set.count)"
 		
 		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -514,14 +601,17 @@ class QuestionsViewController: UIViewController {
 		alertViewController.addAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
 		
 		if (correctAnswers < set.count) && (repeatTimes < 2) && !isSetCompleted() {
-			
 			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
-			alertViewController.addAction(title: repeatText, style: .cancel) { action in self.repeatActionDetailed() }
+			alertViewController.addAction(title: repeatText, style: .cancel) { action in
+				self.repeatActionDetailed()
+				self.blurView.isHidden = true
+			}
 		}
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(75)) {
-			self.present(alertViewController, animated: true)
-		}
+		UIView.transition(with: self.view, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+			self.blurView.isHidden = false
+		})
+		self.present(alertViewController, animated: true)
 	}
 	
 	private func showOKAlertWith(title: String, message: String) {

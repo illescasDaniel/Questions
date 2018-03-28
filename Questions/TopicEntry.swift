@@ -25,6 +25,7 @@ class QuestionType: Codable, Equatable {
 struct Quiz: Codable, Equatable {
 	
 	let topic: [[QuestionType]]
+	var time: TimeInterval!
 	
 	static func isValid(_ content: Quiz) -> Bool {
 		
@@ -82,7 +83,7 @@ struct Quiz: Codable, Equatable {
 struct TopicEntry: Equatable, Hashable {
 	
 	private(set) var name = String()
-	private(set) var quiz = Quiz(topic: [[]])
+	private(set) var quiz = Quiz(topic: [[]], time: -1)
 	
 	init(name: String, content: Quiz) {
 		self.name = name
@@ -102,6 +103,7 @@ struct TopicEntry: Equatable, Hashable {
 			
 			if Quiz.isValid(contentToValidate) {
 				self.quiz = contentToValidate
+				if self.quiz.time == nil { self.quiz.time = -1 }
 			} else {
 				return nil
 			}
@@ -112,14 +114,15 @@ struct TopicEntry: Equatable, Hashable {
 	}
 	
 	init?(path: URL) {
+		
 		self.name = path.deletingPathExtension().lastPathComponent
 		do {
 			let data = try Data(contentsOf: path)
-
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
 			if Quiz.isValid(contentToValidate) {
 				self.quiz = contentToValidate
+				if self.quiz.time == nil { self.quiz.time = -1 }
 			} else {
 				return nil
 			}

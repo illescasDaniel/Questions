@@ -117,13 +117,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fJD-e3-H61">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="6" translatesAutoresizingMaskIntoConstraints="NO" id="VGN-Xi-rzg">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u9I-nf-ag4">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="734"/>
+                                        <gestureRecognizers/>
+                                    </imageView>
+                                </subviews>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="u9I-nf-ag4" secondAttribute="trailing" id="5hB-Hi-haI"/>
+                                    <constraint firstAttribute="bottom" secondItem="u9I-nf-ag4" secondAttribute="bottom" constant="303" id="Cu8-9n-raj"/>
+                                    <constraint firstItem="u9I-nf-ag4" firstAttribute="top" secondItem="VGN-Xi-rzg" secondAttribute="top" id="TfL-0J-hIc"/>
+                                    <constraint firstItem="u9I-nf-ag4" firstAttribute="centerX" secondItem="VGN-Xi-rzg" secondAttribute="centerX" id="eJV-c3-RDx"/>
+                                    <constraint firstItem="u9I-nf-ag4" firstAttribute="leading" secondItem="VGN-Xi-rzg" secondAttribute="leading" id="gTQ-6l-7Y5"/>
+                                    <constraint firstItem="u9I-nf-ag4" firstAttribute="centerY" secondItem="VGN-Xi-rzg" secondAttribute="centerY" id="pck-lk-79E"/>
+                                </constraints>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="mqc-ko-TXL" appends="YES" id="ewu-NA-vLz"/>
+                                    <outlet property="delegate" destination="IUP-8Q-ad0" id="Hxc-s4-y2S"/>
+                                    <outletCollection property="gestureRecognizers" destination="yD0-5a-zGt" appends="YES" id="FFZ-Vh-knd"/>
                                 </connections>
-                            </imageView>
+                            </scrollView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-vd-c9c">
                                 <rect key="frame" x="10" y="54" width="30" height="30"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40776504089999999" blue="0.70704585279999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -146,12 +161,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="VGN-Xi-rzg" firstAttribute="centerY" secondItem="1xs-RB-24d" secondAttribute="centerY" id="0u2-le-PRZ"/>
+                            <constraint firstItem="1xs-RB-24d" firstAttribute="bottom" secondItem="VGN-Xi-rzg" secondAttribute="bottom" id="1yq-M6-G0z"/>
                             <constraint firstItem="pQC-vd-c9c" firstAttribute="leading" secondItem="1xs-RB-24d" secondAttribute="leading" constant="10" id="ENP-qV-jjw"/>
-                            <constraint firstItem="1xs-RB-24d" firstAttribute="trailing" secondItem="fJD-e3-H61" secondAttribute="trailing" id="NLE-uO-ZpM"/>
-                            <constraint firstItem="fJD-e3-H61" firstAttribute="leading" secondItem="1xs-RB-24d" secondAttribute="leading" id="TtT-H4-wUO"/>
+                            <constraint firstItem="VGN-Xi-rzg" firstAttribute="leading" secondItem="1xs-RB-24d" secondAttribute="leading" id="Htx-b3-y52"/>
+                            <constraint firstItem="VGN-Xi-rzg" firstAttribute="top" secondItem="1xs-RB-24d" secondAttribute="top" id="L7S-3o-VCv"/>
+                            <constraint firstItem="1xs-RB-24d" firstAttribute="trailing" secondItem="VGN-Xi-rzg" secondAttribute="trailing" id="bOp-TG-d3B"/>
                             <constraint firstItem="pQC-vd-c9c" firstAttribute="top" secondItem="1xs-RB-24d" secondAttribute="top" constant="10" id="bzh-Tg-KV0"/>
-                            <constraint firstItem="1xs-RB-24d" firstAttribute="bottom" secondItem="fJD-e3-H61" secondAttribute="bottom" id="drv-CX-0es"/>
-                            <constraint firstItem="fJD-e3-H61" firstAttribute="top" secondItem="1xs-RB-24d" secondAttribute="top" id="eZA-Dg-0EH"/>
+                            <constraint firstItem="VGN-Xi-rzg" firstAttribute="centerX" secondItem="1xs-RB-24d" secondAttribute="centerX" id="kt6-Xj-fka"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1xs-RB-24d"/>
                     </view>
@@ -164,13 +181,15 @@
                     </navigationItem>
                     <connections>
                         <outlet property="closeViewButton" destination="pQC-vd-c9c" id="gy0-U6-5fT"/>
-                        <outlet property="imageView" destination="fJD-e3-H61" id="0H7-ct-wUe"/>
+                        <outlet property="customPanGesture" destination="yD0-5a-zGt" id="NR3-b1-a0L"/>
+                        <outlet property="imageView" destination="u9I-nf-ag4" id="jfN-Bq-gjk"/>
+                        <outlet property="scrollView" destination="VGN-Xi-rzg" id="NKs-1z-zRp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kYc-ub-dzj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="mqc-ko-TXL">
+                <panGestureRecognizer minimumNumberOfTouches="1" id="yD0-5a-zGt">
                     <connections>
-                        <action selector="panGestureOverImageViewAction:" destination="IUP-8Q-ad0" id="rlq-9j-g3d"/>
+                        <action selector="panGestureOverImageView:" destination="IUP-8Q-ad0" id="Nob-ta-5eN"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
@@ -589,6 +608,12 @@
                                                     <action selector="pauseMenu" destination="SzO-71-z8K" eventType="touchUpInside" id="mqL-MD-bQh"/>
                                                 </connections>
                                             </button>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30s" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mha-Xu-sSg">
+                                                <rect key="frame" x="173" y="0.0" width="0.0" height="47.666666666666664"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?/?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48c-nD-uWN">
                                                 <rect key="frame" x="120.66666666666664" y="0.0" width="224.33333333333337" height="47.666666666666664"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
@@ -608,6 +633,7 @@
                                             </label>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="mha-Xu-sSg" firstAttribute="centerX" secondItem="hV7-eS-c0W" secondAttribute="centerX" id="7If-cQ-Bcb"/>
                                             <constraint firstItem="gPx-aL-UVy" firstAttribute="width" secondItem="hV7-eS-c0W" secondAttribute="width" multiplier="0.35" id="Ptv-uw-pTu"/>
                                             <constraint firstItem="gPx-aL-UVy" firstAttribute="width" secondItem="hV7-eS-c0W" secondAttribute="width" multiplier="0.2" id="sMN-xi-N5K"/>
                                         </constraints>
@@ -947,6 +973,7 @@
                         <outlet property="pauseView" destination="xmI-4h-QXk" id="PC8-DT-Oqm"/>
                         <outlet property="questionImageButton" destination="y4K-Ue-DBd" id="g17-t3-FAL"/>
                         <outlet property="questionLabel" destination="e3n-f2-st4" id="2iA-L6-9o5"/>
+                        <outlet property="quizTimerLabel" destination="mha-Xu-sSg" id="2im-ab-aQO"/>
                         <outlet property="remainingQuestionsLabel" destination="48c-nD-uWN" id="wny-ri-dMm"/>
                         <segue destination="jmE-ih-qcf" kind="unwind" identifier="unwindToQuizSelector" unwindAction="unwindToQuizSelector:" id="hcu-gl-ZxN"/>
                         <segue destination="jmE-ih-qcf" kind="unwind" identifier="unwindToMainMenu" unwindAction="unwindToMainMenu:" id="XaT-l5-V9k"/>

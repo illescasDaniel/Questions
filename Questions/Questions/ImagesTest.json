@@ -9,5 +9,6 @@
 		 {"question": "Test question no image", "answers": ["1", "2", "3", "4", "lol"], "correct": 3},
 		 {"question": "Test question no image 2", "answers": ["1", "2", "3", "4", "lol"], "correct": 3}
 		]
-	]
+	],
+	"time": 10
 }
