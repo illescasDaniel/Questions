@@ -51,7 +51,8 @@
 
 "Attention" = "Atención";
 "Not enough points (5 needed)" = "Puntos insuficientes (5 al menos)";
-"Maximum help tries per question reached" = "Nº máximo de intentos de ayuda por pregunta alcanzado";
+"Not enough points (5 needed).\nYou get points only get you complete a quiz." = "Nº máximo de intentos de ayuda por pregunta alcanzado.\nSolo consigues puntos cuando completas un cuestionario.";
+"Maximum repeat tries per quiz reached" = "Máximo número de repeticiones por questionario alcanzado";
 
 "Repeat?" = "¿Repetir?";
 "Do you want to start again?" = "¿Quieres empezar de nuevo?";

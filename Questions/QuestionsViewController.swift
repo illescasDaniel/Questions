@@ -102,14 +102,14 @@ class QuestionsViewController: UIViewController {
 	private func updateTimer() {
 		
 		self.quizTime = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.time
-		if quizTime > 0 {
+		if self.quizTime > 0 {
 			
 			DispatchQueue.main.async {
 				self.quizTimerLabel.isHidden = false
 				self.quizTimerLabel.text = "\(self.quizTime)s"
 			}
 			
-			let timeMoreThan1Minute = quizTime > 60
+			let timeMoreThan1Minute = self.quizTime > 60
 			
 			if #available(iOS 10.0, *) {
 				
@@ -128,7 +128,7 @@ class QuestionsViewController: UIViewController {
 					}
 					else {
 						DispatchQueue.main.async {
-							self.quizTimerLabel.text = (timeMoreThan1Minute ? String(self.quizTime.rounded(.down)) : String(format: "%.1f", self.quizTime)) + "s"
+							self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String(format: "%.1f", self.quizTime)) + "s"
 						}
 					}
 				})
@@ -158,7 +158,7 @@ class QuestionsViewController: UIViewController {
 		
 		FeedbackGenerator.impactOcurredWith(style: .medium)
 		
-		if repeatTimes < 2 && currentQuestion > 1 {
+		if self.repeatTimes < QuestionsAppOptions.maximumRepeatTriesPerQuiz && currentQuestion > 1 {
 			
 			let alertViewController = UIAlertController(title: "Repeat?".localized,
 														message: "Do you want to start again?".localized,
@@ -169,8 +169,8 @@ class QuestionsViewController: UIViewController {
 			
 			present(alertViewController, animated: true)
 		}
-		else if repeatTimes >= 2 {
-			showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
+		else if self.repeatTimes >= QuestionsAppOptions.maximumRepeatTriesPerQuiz {
+			showOKAlertWith(title: "Attention", message: "Maximum repeat tries per quiz reached")
 		}
 	}
 	
@@ -185,6 +185,7 @@ class QuestionsViewController: UIViewController {
 	@IBAction func unwindToQuestions(_ segue: UIStoryboardSegue) { }
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+	
 		if segue.identifier == "unwindToQRScanner" {
 			AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 		}
@@ -194,6 +195,10 @@ class QuestionsViewController: UIViewController {
 			imageDetailsVC.imageView?.image = self.questionImageButton.imageView?.image
 			imageDetailsVC.closeViewButton?.backgroundColor = .themeStyle(dark: .orange, light: .coolBlue)
 			imageDetailsVC.preferredContentSize = imageDetailsVC.imageView?.sizeThatFits(self.view.frame.size) ?? imageDetailsVC.view.frame.size
+		}
+		
+		if segue.identifier != "imageDetailsSegue" {
+			self.saveScore()
 		}
 	}
 	
@@ -225,10 +230,7 @@ class QuestionsViewController: UIViewController {
 		
 		FeedbackGenerator.impactOcurredWith(style: .light)
 		
-		if UserDefaultsManager.score < QuestionsAppOptions.helpActionPoints {
-			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed)")
-		}
-		else {
+		if UserDefaultsManager.score >= abs(QuestionsAppOptions.helpActionPoints) {
 			
 			var timesUsed: UInt8 = 0
 			self.answerButtons.forEach { if $0.alpha != 1.0 { timesUsed += 1 } }
@@ -243,7 +245,7 @@ class QuestionsViewController: UIViewController {
 			if timesUsed < helpTries {
 				
 				UserDefaultsManager.score += QuestionsAppOptions.helpActionPoints
-
+				
 				var randomQuestionIndex = UInt32()
 				
 				repeat {
@@ -251,17 +253,17 @@ class QuestionsViewController: UIViewController {
 				} while(self.correctAnswer.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
-					
 					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
-					
-					if (UserDefaultsManager.score < QuestionsAppOptions.helpActionPoints) || (timesUsed == 1) {
-						self.helpButton.alpha = 0.4
-					}
 				}
 			}
 			else {
 				showOKAlertWith(title: "Attention", message: "Maximum help tries per question reached")
+				self.helpButton.alpha = 0.4
 			}
+		}
+		else {
+			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed).\nYou get points only get you complete a quiz.")
+			self.helpButton.alpha = 0.4
 		}
 	}
 	
@@ -355,9 +357,9 @@ class QuestionsViewController: UIViewController {
 	
 	private func preloadImages() {
 		for fullQuestion in self.set.dropFirst() { //.dropFirst() Drops the first because it will be cached by the 'pickQuestion()' function
-			if let validImageURL = fullQuestion.imageURL, !validImageURL.isEmpty && !DataStore.shared.cachedImages.keys.contains(validImageURL.hash) {
+			if let validImageURL = fullQuestion.imageURL, !validImageURL.isEmpty && !CachedImages.shared.exists(key: validImageURL.hash) {
 				if let validImage = UIImage(contentsOf: URL(string: validImageURL)) {
-					DataStore.shared.saveAsCache(image: validImage, withKey: validImageURL.hash)
+					CachedImages.shared.save(image: validImage, withKey: validImageURL.hash)
 				}
 			}
 		}
@@ -415,7 +417,7 @@ class QuestionsViewController: UIViewController {
 		self.remainingQuestionsLabel.textColor = currentThemeColor
 		self.quizTimerLabel.textColor = currentThemeColor
 		self.questionLabel.textColor = currentThemeColor
-		self.view.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
+		self.view.backgroundColor = .themeStyle(dark: .black, light: .white)
 		self.pauseButton.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .veryLightGray)
 		self.pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
 		self.pauseView.backgroundColor = .themeStyle(dark: .lightGray, light: .veryVeryLightGray)
@@ -488,8 +490,8 @@ class QuestionsViewController: UIViewController {
 			
 			if let imageString = fullQuestion.imageURL, !imageString.isEmpty {
 				
-				if let cachedImage = DataStore.shared.cachedImage(withKey: imageString.hash) {
-					DispatchQueue.main.async {
+				if CachedImages.shared.exists(key: imageString.hash) {
+					CachedImages.shared.asyncManageImage(withKey: imageString.hash) { cachedImage in
 						self.questionImageButton.setImage(cachedImage, for: .normal)
 						self.questionImageButton.isHidden = false
 					}
@@ -508,7 +510,7 @@ class QuestionsViewController: UIViewController {
 							self.questionImageButton.setImage(image, for: .normal)
 							self.questionImageButton.isHidden = false
 						}
-						DataStore.shared.saveAsCache(image: image, withKey: imageString.hash)
+						CachedImages.shared.save(image: image, withKey: imageString.hash)
 					}, errorHandler: {
 						self.activityIndicatorView.stopAnimating()
 					})
@@ -524,31 +526,31 @@ class QuestionsViewController: UIViewController {
 	}
 
 	private func isSetCompleted() -> Bool {
-		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
-		if let topicQuiz = DataStore.shared.completedSets[topicName] {
+		if let topicQuiz = DataStoreArchiver.shared.completedSets[topicName] {
 			return topicQuiz[currentSetIndex] ?? false
 		}
-		
 		return false
 	}
 	
-	private func okActionDetailed() {
+	private func saveScore() {
 		
 		if !self.isSetCompleted() {
 			UserDefaultsManager.correctAnswers += correctAnswers
 			UserDefaultsManager.incorrectAnswers += incorrectAnswers
-			UserDefaultsManager.score += (correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints)
+			UserDefaultsManager.score += (self.correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (self.incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints)
 		}
 		
-		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
-		DataStore.shared.completedSets[topicName]?[currentSetIndex] = true
-		guard DataStore.shared.save() else { print("Error saving settings"); return }
-
-		if !isSetFromJSON {
-			performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
+		let topicName = SetOfTopics.shared.currentTopics[self.currentTopicIndex].name
+		DataStoreArchiver.shared.completedSets[topicName]?[self.currentSetIndex] = true
+		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
+	}
+	
+	private func okActionDetailed() {
+		if !self.isSetFromJSON {
+			self.performSegue(withIdentifier: "unwindToQuizSelector", sender: self)
 		} else {
-			performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+			self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
 		}
 	}
 	
@@ -602,12 +604,17 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
+	private func setUpQuiz() {
+		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.topic[currentSetIndex].shuffled()
+		self.quiz = set.enumerated().makeIterator()
+	}
+	
 	// Alerts
 	
 	private func endOfQuestionsAlert() {
 		
-		let helpScore = oldScore - UserDefaultsManager.score
-		let score = (correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints) - helpScore
+		let helpScore = self.oldScore - UserDefaultsManager.score
+		let score = (self.correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (self.incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints) - helpScore
 					//(correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
 		let extraTitle = (self.quizTimerLabel.text == "0s" || self.quizTimerLabel.text == "0.0s") ? "(Time ran out)\n" : ""
@@ -619,7 +626,7 @@ class QuestionsViewController: UIViewController {
 		
 		alertViewController.addAction(title: "OK".localized, style: .default) { action in self.okActionDetailed() }
 		
-		if (correctAnswers < set.count) && (repeatTimes < 2) && !isSetCompleted() {
+		if (self.correctAnswers < set.count) && (self.repeatTimes < 2) && !isSetCompleted() {
 			let repeatText = "Repeat".localized + " (\(2 - self.repeatTimes))"
 			alertViewController.addAction(title: repeatText, style: .cancel) { action in
 				self.repeatActionDetailed()
@@ -627,19 +634,17 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		
-		UIView.transition(with: self.view, duration: 0.2, options: [.transitionCrossDissolve], animations: {
-			self.blurView.isHidden = false
-		})
+		if QuestionsAppOptions.privacyFeaturesEnabled {
+			UIView.transition(with: self.view, duration: 0.2, options: [.transitionCrossDissolve], animations: {
+				self.blurView.isHidden = false
+			})
+		}
+		
 		self.present(alertViewController, animated: true)
 	}
 	
 	private func showOKAlertWith(title: String, message: String) {
 		let alertViewController = UIAlertController.OKAlert(title: title, message: message)
 		present(alertViewController, animated: true)
-	}
-	
-	private func setUpQuiz() {
-		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.topic[currentSetIndex].shuffled()
-		self.quiz = set.enumerated().makeIterator()
 	}
 }

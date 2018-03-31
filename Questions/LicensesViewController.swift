@@ -47,7 +47,7 @@ class LicensesViewController: UIViewController {
 	// MARK: Convenience
 	
 	@IBAction internal func loadCurrentTheme() {
-		textView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
+		textView.backgroundColor = .themeStyle(dark: .black, light: .white)
 		textView.textColor = .themeStyle(dark: .white, light: .black)
 		textView.tintColor = .themeStyle(dark: .warmColor, light: .coolBlue)
 	}

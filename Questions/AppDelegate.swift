@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		UserDefaultsManager.loadDefaultValues()
 		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
-		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStore.path) as? DataStore {
-			DataStore.shared = mySettings
+		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStoreArchiver.path) as? DataStoreArchiver {
+			DataStoreArchiver.shared = mySettings
 		}
 		
 		//
@@ -95,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	static func updateVolumeBarTheme() {
-		VolumeBar.shared.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .white)
+		VolumeBar.shared.backgroundColor = .themeStyle(dark: .black, light: .white)
 		VolumeBar.shared.tintColor = .themeStyle(dark: .lightGray, light: .black)
 		VolumeBar.shared.trackTintColor = .themeStyle(dark: UIColor.lightGray.withAlphaComponent(0.3), light: UIColor.black.withAlphaComponent(0.1))
 	}
@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			wasPlaying = false
 		}
 		
-		guard DataStore.shared.save() else { print("Error saving settings"); return }
+		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
 		
 		self.window?.dontInvertIfDarkModeIsEnabled()
 	}

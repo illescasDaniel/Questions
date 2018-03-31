@@ -38,7 +38,7 @@ class QuizzesViewController: UITableViewController {
 		cell?.textLabel?.text = "Set \(indexPath.row)"
 		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
-		if DataStore.shared.completedSets[topicName]?[indexPath.row] ?? false {
+		if DataStoreArchiver.shared.completedSets[topicName]?[indexPath.row] ?? false {
 			cell?.accessoryType = .checkmark
 		}
 
@@ -98,7 +98,7 @@ class QuizzesViewController: UITableViewController {
 		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
 		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
-		for i in 0..<setCount where ( DataStore.shared.completedSets[topicName]?[i]) ?? false {
+		for i in 0..<setCount where ( DataStoreArchiver.shared.completedSets[topicName]?[i]) ?? false {
 			tableView.reloadRows(at: [IndexPath(row: i, section: 0)], with: .automatic)
 		}
 	}
@@ -108,8 +108,8 @@ class QuizzesViewController: UITableViewController {
 	@IBAction internal func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
-		tableView.separatorColor = .themeStyle(dark: .veryVeryDarkGray, light: .defaultSeparatorColor)
+		tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 		tableView.reloadData()
 	}
 }

@@ -171,12 +171,12 @@ struct SetOfTopics {
 		for topic in topicSet {
 			for quiz in topic.quiz.topic.enumerated() {
 				
-				if DataStore.shared.completedSets[topic.name] == nil {
-					DataStore.shared.completedSets[topic.name] = [:]
+				if DataStoreArchiver.shared.completedSets[topic.name] == nil {
+					DataStoreArchiver.shared.completedSets[topic.name] = [:]
 				}
 				
-				if DataStore.shared.completedSets[topic.name]?[quiz.offset] == nil {
-					DataStore.shared.completedSets[topic.name]?[quiz.offset] = false
+				if DataStoreArchiver.shared.completedSets[topic.name]?[quiz.offset] == nil {
+					DataStoreArchiver.shared.completedSets[topic.name]?[quiz.offset] = false
 				}
 			}
 		}

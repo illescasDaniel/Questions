@@ -41,7 +41,7 @@ class ImageDetailsViewController: UIViewController {
 			
 			let velocity = sender.velocity(in: self.imageView)
 			
-			if translationFromCenter >= 0.8 || velocity.x > 1000 || velocity.y > 1000 {
+			if translationFromCenter >= 0.8 || abs(velocity.x) > 1000 || abs(velocity.y) > 1000 {
 				self.dismiss(animated: true)
 				return
 			}

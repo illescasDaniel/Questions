@@ -132,7 +132,7 @@ class SettingsTableViewController: UITableViewController {
 		
 		var completedSets = UInt()
 
-		for topicQuiz in DataStore.shared.completedSets {
+		for topicQuiz in DataStoreArchiver.shared.completedSets {
 			for setQuiz in topicQuiz.value where setQuiz.value == true {
 				completedSets += 1
 			}
@@ -176,7 +176,7 @@ class SettingsTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
-		footer?.contentView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
+		footer?.contentView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -253,10 +253,10 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetProgressStatistics() {
 		
-		DataStore.shared.completedSets.removeAll()
-		DataStore.shared.cachedImages.removeAll()
+		DataStoreArchiver.shared.completedSets.removeAll()
+		CachedImages.shared.removeAll()
 		SetOfTopics.shared.loadAllTopicsStates()
-		guard DataStore.shared.save() else { print("Error saving settings"); return }
+		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
 		
 		UserDefaultsManager.correctAnswers = 0
 		UserDefaultsManager.incorrectAnswers = 0
@@ -317,8 +317,8 @@ class SettingsTableViewController: UITableViewController {
 		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
 			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 			
-			self.tableView.backgroundColor = .themeStyle(dark: .veryVeryDarkGray, light: .groupTableViewBackground)
-			self.tableView.separatorColor = .themeStyle(dark: .veryVeryDarkGray, light: .defaultSeparatorColor)
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+			self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 			
 			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
@@ -361,7 +361,7 @@ class SettingsTableViewController: UITableViewController {
 		let alertViewController = UIAlertController(title: "Reset cached images".localized, message: nil, preferredStyle: .alert)
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
-			DataStore.shared.cachedImages.removeAll()
+			CachedImages.shared.removeAll()
 		}
 		self.present(alertViewController, animated: true)
 	}

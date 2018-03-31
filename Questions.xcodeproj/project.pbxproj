@@ -30,7 +30,7 @@
 		657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */; };
 		65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */; };
 		65AD8ADF2013FEBD008AD6EE /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */; };
-		65AE3EC81D3A9C7500125EE2 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* DataStore.swift */; };
+		65AE3EC81D3A9C7500125EE2 /* DataOnDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AE3EC71D3A9C7500125EE2 /* DataOnDisk.swift */; };
 		65B25B481E7C138100771F20 /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 65B25B471E7C138100771F20 /* incorrect.wav */; };
 		65BF7CE31E68B4F7006A7706 /* AudioSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */; };
 		65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285C51D2A8176002F7DF8 /* MainViewController.swift */; };
@@ -94,7 +94,7 @@
 		657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
 		65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
-		65AE3EC71D3A9C7500125EE2 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		65AE3EC71D3A9C7500125EE2 /* DataOnDisk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataOnDisk.swift; sourceTree = "<group>"; };
 		65B25B471E7C138100771F20 /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
 		65B25B621E7C268C00771F20 /* Correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Correct.png; sourceTree = "<group>"; };
 		65B25B651E7C268C00771F20 /* Pause menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause menu.png"; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 			children = (
 				65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* TopicEntry.swift */,
-				65AE3EC71D3A9C7500125EE2 /* DataStore.swift */,
+				65AE3EC71D3A9C7500125EE2 /* DataOnDisk.swift */,
 				657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */,
 				657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */,
 				6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */,
@@ -348,7 +348,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Daniel Illescas Romero";
 				TargetAttributes = {
 					653D056B1D43CD2D00865D43 = {
@@ -478,7 +478,7 @@
 				6574416B206B116400133DDA /* QuestionsAppOptions.swift in Sources */,
 				652F17EC1D72FC1200F146A3 /* Collection+Extension.swift in Sources */,
 				657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */,
-				65AE3EC81D3A9C7500125EE2 /* DataStore.swift in Sources */,
+				65AE3EC81D3A9C7500125EE2 /* DataOnDisk.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,12 +578,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -638,12 +640,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
