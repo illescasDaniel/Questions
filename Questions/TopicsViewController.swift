@@ -67,7 +67,7 @@ class TopicsViewController: UITableViewController {
 			self.tableView?.backgroundView = nil
 		}
 		else if self.tableView?.backgroundView == nil {
-			let emptyListText = "Empty, read questions from a QR code".localized
+			let emptyListText = "Empty, read questions from a QR code or from a URL".localized
 			let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
 			emptyTableLabel.text = emptyListText.localized
 			emptyTableLabel.font = .preferredFont(forTextStyle: .title3)
@@ -89,7 +89,7 @@ class TopicsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
-		cell?.textLabel?.text = SetOfTopics.shared.currentTopics[indexPath.row].name.localized
+		cell?.textLabel?.text = SetOfTopics.shared.currentTopics[indexPath.row].displayedName.localized
 		
 		// Load theme
 		cell?.textLabel?.font = .preferredFont(forTextStyle: .body)
@@ -102,7 +102,7 @@ class TopicsViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		// if is not editing... maybe will add the editing thing in the future
-		performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+		self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
 	}
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {

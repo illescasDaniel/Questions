@@ -90,7 +90,7 @@ class QuestionsViewController: UIViewController {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: .UIApplicationUserDidTakeScreenshot, object: nil)
 		
-		if UserDefaultsManager.score < 5 {
+		if UserDefaultsManager.score < abs(QuestionsAppOptions.helpActionPoints) {
 			self.helpButton.alpha = 0.4
 		}
 		
@@ -100,7 +100,7 @@ class QuestionsViewController: UIViewController {
 		self.updateTimer()
 		
 		let helpButtonEnabled = self.currentQuizOfTopic.options?.helpButtonEnabled ?? true
-		self.helpButton.isHidden = helpButtonEnabled && QuestionsAppOptions.isHelpEnabled
+		self.helpButton.isHidden = !(helpButtonEnabled && QuestionsAppOptions.isHelpEnabled)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -272,7 +272,7 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		else {
-			showOKAlertWith(title: "Attention", message: "Not enough points (5 needed).\nYou get points only get you complete a quiz.")
+			showOKAlertWith(title: "Attention", message: "Not enough points.\nYou get points only get you complete a quiz.")
 			self.helpButton.alpha = 0.4
 		}
 	}
@@ -469,7 +469,7 @@ class QuestionsViewController: UIViewController {
 		UIView.animate(withDuration: 0.75) {
 			self.answerButtons.forEach { $0.alpha = 1 }
 			
-			if UserDefaultsManager.score >= 5 {
+			if UserDefaultsManager.score >= abs(QuestionsAppOptions.helpActionPoints) {
 				self.helpButton.alpha = 1.0
 			}
 		}
@@ -529,7 +529,7 @@ class QuestionsViewController: UIViewController {
 	}
 
 	private func isSetCompleted() -> Bool {
-		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].name
+		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName
 		if let topicQuiz = DataStoreArchiver.shared.completedSets[topicName] {
 			return topicQuiz[currentSetIndex] ?? false
 		}
@@ -544,7 +544,7 @@ class QuestionsViewController: UIViewController {
 			UserDefaultsManager.score += (self.correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (self.incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints)
 		}
 		
-		let topicName = SetOfTopics.shared.currentTopics[self.currentTopicIndex].name
+		let topicName = SetOfTopics.shared.currentTopics[self.currentTopicIndex].displayedName
 		DataStoreArchiver.shared.completedSets[topicName]?[self.currentSetIndex] = true
 		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
 	}

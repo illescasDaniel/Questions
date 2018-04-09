@@ -23,7 +23,7 @@
 "Open it" = "Ábrelo";
 "Keep scanning" = "Sigue escaneando";
 
-"Empty, read questions from a QR code" = "Vacío, intenta leer preguntas desde un QR";
+"Empty, read questions from a QR code or from a URL" = "Vacío, intenta leer preguntas desde un QR o una URL";
 
 "OK" = "Aceptar";
 
@@ -50,8 +50,7 @@
 "Quizzes" = "Cuestionarios";
 
 "Attention" = "Atención";
-"Not enough points (5 needed)" = "Puntos insuficientes (5 al menos)";
-"Not enough points (5 needed).\nYou get points only get you complete a quiz." = "Nº máximo de intentos de ayuda por pregunta alcanzado.\nSolo consigues puntos cuando completas un cuestionario.";
+"Not enough points.\nYou get points only get you complete a quiz." = "Nº máximo de intentos de ayuda por pregunta alcanzado.\nSolo consigues puntos cuando completas un cuestionario.";
 "Maximum repeat tries per quiz reached" = "Máximo número de repeticiones por questionario alcanzado";
 
 "Repeat?" = "¿Repetir?";

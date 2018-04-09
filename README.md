@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.8--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.8.1--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
@@ -70,7 +70,7 @@ Topics JSON format
 
 The rest can be deduced :)
 
-### Options dictionary. Possible keys and values.
+### Options. Possible keys and values.
 
 | Key        | Values           | Note  |
 | ------------- |:-------------:| -----:|

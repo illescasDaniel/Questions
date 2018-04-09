@@ -91,17 +91,17 @@ struct Quiz: Codable, Equatable {
 
 struct TopicEntry: Equatable, Hashable {
 	
-	private(set) var name = String()
+	private(set) var displayedName = String()
 	private(set) var quiz = Quiz(options: nil, sets: [[]])
 	
 	init(name: String, content: Quiz) {
-		self.name = name
+		self.displayedName = name
 		self.quiz = content
 	}
 	
 	init?(name: String) {
 		
-		self.name = name
+		self.displayedName = name
 		
 		guard let path = Bundle.main.path(forResource: name, ofType: "json") else { print("Quiz incorrect path. Topic name: \(name)"); return }
 		let url = URL(fileURLWithPath: path)
@@ -132,9 +132,9 @@ struct TopicEntry: Equatable, Hashable {
 				self.quiz = contentToValidate
 				
 				if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-					self.name = topicName
+					self.displayedName = topicName
 				} else {
-					self.name = path.deletingPathExtension().lastPathComponent
+					self.displayedName = path.deletingPathExtension().lastPathComponent
 				}
 				
 			} else {
@@ -147,11 +147,11 @@ struct TopicEntry: Equatable, Hashable {
 	}
 	
 	static func ==(lhs: TopicEntry, rhs: TopicEntry) -> Bool {
-		return lhs.name == rhs.name || lhs.quiz == rhs.quiz
+		return lhs.displayedName == rhs.displayedName || lhs.quiz == rhs.quiz
 	}
 	
 	var hashValue: Int {
-		return name.hashValue + (quiz.sets.count * (quiz.sets.first?.count ?? 1))
+		return displayedName.hashValue + (quiz.sets.count * (quiz.sets.first?.count ?? 1))
 	}
 }
 
@@ -185,12 +185,12 @@ struct SetOfTopics {
 		for topic in topicSet {
 			for quiz in topic.quiz.sets.enumerated() {
 				
-				if DataStoreArchiver.shared.completedSets[topic.name] == nil {
-					DataStoreArchiver.shared.completedSets[topic.name] = [:]
+				if DataStoreArchiver.shared.completedSets[topic.displayedName] == nil {
+					DataStoreArchiver.shared.completedSets[topic.displayedName] = [:]
 				}
 				
-				if DataStoreArchiver.shared.completedSets[topic.name]?[quiz.offset] == nil {
-					DataStoreArchiver.shared.completedSets[topic.name]?[quiz.offset] = false
+				if DataStoreArchiver.shared.completedSets[topic.displayedName]?[quiz.offset] == nil {
+					DataStoreArchiver.shared.completedSets[topic.displayedName]?[quiz.offset] = false
 				}
 			}
 		}
@@ -209,7 +209,7 @@ struct SetOfTopics {
 		guard !SetOfTopics.shared.savedTopics.contains(topic) else { return }
 		
 		let fileName: String
-		let topicName = topic.name
+		let topicName = topic.displayedName
 		if topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 			if let topicNameFromJSON = topic.quiz.options?.name, !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				fileName = topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines) + ".json"
