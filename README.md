@@ -39,7 +39,7 @@ Screenshots
 
 Topics JSON format
 ---
-```javascript
+```java
 {
     options": {
         "name": "Cool Social topic",
