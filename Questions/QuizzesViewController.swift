@@ -13,7 +13,7 @@ class QuizzesViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		navigationItem.title = SetOfTopics.shared.currentTopics[currentTopicIndex].name.localized
-		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.topic.count
+		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets.count
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}

@@ -654,7 +654,7 @@
                                         <rect key="frame" x="0.0" y="63.666666666666657" width="349" height="266.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-f2-st4">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="130.33333333333334"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="233"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -671,7 +671,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ndz-tg-crV">
-                                                <rect key="frame" x="0.0" y="135.33333333333331" width="349" height="131"/>
+                                                <rect key="frame" x="0.0" y="238" width="349" height="28.333333333333314"/>
                                             </activityIndicatorView>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4K-Ue-DBd">
                                                 <rect key="frame" x="0.0" y="266.33333333333331" width="349" height="0.0"/>

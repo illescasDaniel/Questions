@@ -118,7 +118,7 @@ class MainViewController: UIViewController {
 		let vertical = UIInterpolatingMotionEffect(keyPath: "layer.transform.translation.y", type: .tiltAlongVerticalAxis)
 		vertical.minimumRelativeValue = -yAmount
 		vertical.maximumRelativeValue = yAmount
-		
+
 		MainViewController.parallaxEffect.motionEffects = [horizontal, vertical]
 		view?.addMotionEffect(MainViewController.parallaxEffect)
 	}

@@ -1,5 +1,6 @@
 {
-	"topic": [
+	"options": {"timePerSetInSeconds": "800"},
+	"sets": [
 		[
 		 {"question": "Test questions 1", "answers": ["1", "2", "3", "4", "lol"], "correct": 3, "imageURL": "https://1.bp.blogspot.com/-1uQRYMklACU/ToQ6aL-5uUI/AAAAAAAAAgQ/9_u0922cL14/s1600/cute-puppy-dog-wallpapers.jpg"},
 		 {"question": "Test 2", "answers": ["3", "a", "b", "c", "d"], "correctAnswers": [0,1], "imageURL": "https://4.bp.blogspot.com/-MzZCzWI_6Xc/UIUQp1qPfzI/AAAAAAAAHpA/OTwHCJSWFAY/s1600/cats_animals_kittens_cat_kitten_cute_desktop_1680x1050_hd-wallpaper-753974.jpeg"},
@@ -9,6 +10,5 @@
 		 {"question": "Test question no image", "answers": ["1", "2", "3", "4", "lol"], "correct": 3},
 		 {"question": "Test question no image 2", "answers": ["1", "2", "3", "4", "lol"], "correct": 3}
 		]
-	],
-	"time": 200
+	]
 }

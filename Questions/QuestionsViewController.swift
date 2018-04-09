@@ -40,6 +40,10 @@ class QuestionsViewController: UIViewController {
 	var previousQuizTime: TimeInterval = -1
 	
 	// MARK: View life cycle
+	
+	private func currentSet(option: Quiz.OptionsKey) -> String? {
+		return SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[option]
+	}
 
 	override func viewDidLoad() {
 		
@@ -55,7 +59,15 @@ class QuestionsViewController: UIViewController {
 			self.setUpQuiz()
 		} else {
 			self.goBack.isHidden = true
-			self.set.shuffle()
+			
+			if let questionsInRandomOrderStr = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[.questionsInRandomOrder],
+				let questionsInRandomOrder = Bool(questionsInRandomOrderStr), questionsInRandomOrder {
+			}
+			
+			if let questionsInRandomOrder = Bool(self.currentSet(option: .questionsInRandomOrder) ?? "true"), questionsInRandomOrder {
+				self.set.shuffle()
+			}
+				
 			self.quiz = set.enumerated().makeIterator()
 		}
 		
@@ -91,7 +103,11 @@ class QuestionsViewController: UIViewController {
 		self.pickQuestion()
 		self.updateTimer()
 		
-		self.helpButton.isHidden = !QuestionsAppOptions.isHelpEnabled
+		if let helpButtonEnabled = Bool(self.currentSet(option: .helpButtonEnabled) ?? "true"), helpButtonEnabled && QuestionsAppOptions.isHelpEnabled {
+			self.helpButton.isHidden = false
+		} else {
+			self.helpButton.isHidden = true
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -101,15 +117,17 @@ class QuestionsViewController: UIViewController {
 	
 	private func updateTimer() {
 		
-		self.quizTime = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.time
-		if self.quizTime > 0 {
+		if let quizTimeString = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[.timePerSetInSeconds],
+			let quizTimeInterval = TimeInterval(quizTimeString), quizTimeInterval > 0 {
+			
+			self.quizTime = quizTimeInterval
+			
+			let timeMoreThan1Minute = self.quizTime > 60
 			
 			DispatchQueue.main.async {
 				self.quizTimerLabel.isHidden = false
-				self.quizTimerLabel.text = "\(self.quizTime)s"
+				self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String(format: "%.1f", self.quizTime)) + "s"
 			}
-			
-			let timeMoreThan1Minute = self.quizTime > 60
 			
 			if #available(iOS 10.0, *) {
 				
@@ -388,13 +406,6 @@ class QuestionsViewController: UIViewController {
 		AudioSounds.bgMusic?.setVolumeLevel(to: newVolume)
 	}
 	
-	private func shuffledQuiz(_ name: Quiz) -> NSArray{
-		if currentSetIndex < name.topic.count {
-			return name.topic[currentSetIndex].shuffled() as NSArray
-		}
-		return NSArray()
-	}
-	
 	private func addSwipeGestures() {
 		
 		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
@@ -568,18 +579,25 @@ class QuestionsViewController: UIViewController {
 		pausePreviousSounds()
 		
 		let isCorrectAnswer = correctAnswer.contains(answer)
+		let willNoticeIfAnswerIsCorrectOrIncorrect = Bool(self.currentSet(option: .showCorrectIncorrectAnswer) ?? "true") ?? true
 		
 		if isCorrectAnswer {
 			correctAnswers += 1
-			AudioSounds.correct?.play()
+			if willNoticeIfAnswerIsCorrectOrIncorrect { AudioSounds.correct?.play() }
 		}
 		else {
 			incorrectAnswers += 1
-			AudioSounds.incorrect?.play()
+			if willNoticeIfAnswerIsCorrectOrIncorrect { AudioSounds.incorrect?.play() }
 		}
 		
 		UIView.transition(with: self.answerButtons[Int(answer)], duration: 0.25, options: [.transitionCrossDissolve], animations: {
-			self.answerButtons[Int(answer)].backgroundColor = isCorrectAnswer ? .darkGreen : .alternativeRed
+			
+			if willNoticeIfAnswerIsCorrectOrIncorrect {
+				self.answerButtons[Int(answer)].backgroundColor = isCorrectAnswer ? .darkGreen : .alternativeRed
+			} else {
+				self.answerButtons[Int(answer)].backgroundColor = .coolBlue
+			}
+			
 		}) { completed in
 			if completed {
 				self.pickQuestion()
@@ -588,7 +606,12 @@ class QuestionsViewController: UIViewController {
 				})
 			}
 		}
-		FeedbackGenerator.notificationOcurredOf(type: isCorrectAnswer ? .success : .error)
+		
+		if willNoticeIfAnswerIsCorrectOrIncorrect {
+			FeedbackGenerator.notificationOcurredOf(type: isCorrectAnswer ? .success : .error)
+		} else {
+			FeedbackGenerator.impactOcurredWith(style: .light)
+		}
 	}
 	
 	private func pausePreviousSounds() {
@@ -605,7 +628,12 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func setUpQuiz() {
-		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.topic[currentSetIndex].shuffled()
+		
+		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex]
+		
+		if let questionsInRandomOrder = Bool(self.currentSet(option: .questionsInRandomOrder) ?? "true"), questionsInRandomOrder {
+			self.set.shuffle()
+		}
 		self.quiz = set.enumerated().makeIterator()
 	}
 	

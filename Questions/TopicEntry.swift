@@ -24,14 +24,37 @@ class QuestionType: Codable, Equatable {
 
 struct Quiz: Codable, Equatable {
 	
-	let topic: [[QuestionType]]
-	var time: TimeInterval!
+	enum OptionsKey: String {
+		case name
+		case timePerSetInSeconds
+		case helpButtonEnabled
+		case questionsInRandomOrder
+		case showCorrectIncorrectAnswer
+		// case displayFullResults // YET to implement
+	}
+	
+	fileprivate let options: [OptionsKey.RawValue: String]?
+	let sets: [[QuestionType]]
+	
+	var customOptions: [OptionsKey: String] {
+		
+		guard let validOptions = self.options else { return [:] }
+		
+		let keysWithValues = validOptions.compactMap { (key,value) -> (OptionsKey, String)? in
+			if let validOptionKey = OptionsKey(rawValue: key) {
+				return (validOptionKey, value)
+			}
+			return nil
+		}.compactMap({$0})
+		
+		return [OptionsKey: String](uniqueKeysWithValues: keysWithValues)
+	}
 	
 	static func isValid(_ content: Quiz) -> Bool {
 		
-		guard !content.topic.isEmpty else { return false }
+		guard !content.sets.isEmpty else { return false }
 		
-		for setOfQuestions in content.topic {
+		for setOfQuestions in content.sets {
 			
 			// ~ Number of answers must be consistent in the same set of questions (otherwise don't make this restriction, you might need to make other changes too)
 			let fullQuestionAnswersCount = setOfQuestions.first?.answers.count ?? 4
@@ -66,15 +89,15 @@ struct Quiz: Codable, Equatable {
 			}
 		}
 		
-		guard content.topic.filter({ $0.filter({ $0.correctAnswers == nil || $0.correctAnswers.count == 0 }).count > 0 }).count == 0 else { return false }
+		guard content.sets.filter({ $0.filter({ $0.correctAnswers == nil || $0.correctAnswers.count == 0 }).count > 0 }).count == 0 else { return false }
 
 		return true
 	}
 	
 	static func ==(lhs: Quiz, rhs: Quiz) -> Bool {
 		
-		let flatLhs = lhs.topic.flatMap { return $0 }
-		let flatRhs = rhs.topic.flatMap { return $0 }
+		let flatLhs = lhs.sets.flatMap { return $0 }
+		let flatRhs = rhs.sets.flatMap { return $0 }
 		
 		return flatLhs == flatRhs
 	}
@@ -83,7 +106,7 @@ struct Quiz: Codable, Equatable {
 struct TopicEntry: Equatable, Hashable {
 	
 	private(set) var name = String()
-	private(set) var quiz = Quiz(topic: [[]], time: -1)
+	private(set) var quiz = Quiz(options: [:], sets: [[]])//, time: -1)
 	
 	init(name: String, content: Quiz) {
 		self.name = name
@@ -103,7 +126,6 @@ struct TopicEntry: Equatable, Hashable {
 			
 			if Quiz.isValid(contentToValidate) {
 				self.quiz = contentToValidate
-				if self.quiz.time == nil { self.quiz.time = -1 }
 			} else {
 				return nil
 			}
@@ -115,14 +137,20 @@ struct TopicEntry: Equatable, Hashable {
 	
 	init?(path: URL) {
 		
-		self.name = path.deletingPathExtension().lastPathComponent
 		do {
 			let data = try Data(contentsOf: path)
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
 			if Quiz.isValid(contentToValidate) {
+				
 				self.quiz = contentToValidate
-				if self.quiz.time == nil { self.quiz.time = -1 }
+				
+				if let topicName = self.quiz.customOptions[.name], !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+					self.name = topicName
+				} else {
+					self.name = path.deletingPathExtension().lastPathComponent
+				}
+				
 			} else {
 				return nil
 			}
@@ -137,7 +165,7 @@ struct TopicEntry: Equatable, Hashable {
 	}
 	
 	var hashValue: Int {
-		return name.hashValue + (quiz.topic.count * (quiz.topic.first?.count ?? 1))
+		return name.hashValue + (quiz.sets.count * (quiz.sets.first?.count ?? 1))
 	}
 }
 
@@ -169,7 +197,7 @@ struct SetOfTopics {
 	func loadSetState(for topicSet: [TopicEntry]) {
 		
 		for topic in topicSet {
-			for quiz in topic.quiz.topic.enumerated() {
+			for quiz in topic.quiz.sets.enumerated() {
 				
 				if DataStoreArchiver.shared.completedSets[topic.name] == nil {
 					DataStoreArchiver.shared.completedSets[topic.name] = [:]
@@ -197,7 +225,11 @@ struct SetOfTopics {
 		let fileName: String
 		let topicName = topic.name
 		if topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-			fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
+			if let topicNameFromJSON = topic.quiz.customOptions[.name], !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+				fileName = topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines) + ".json"
+			} else {
+				fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
+			}
 		}
 		else if !topicName.hasSuffix(".json") {
 			fileName = topicName + ".json"

@@ -129,7 +129,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		if let content = sender as? Quiz, segue.identifier == "unwindToQuestions" {
 			let controller = segue.destination as? QuestionsViewController
 			controller?.isSetFromJSON = true
-			controller?.set = content.topic[0]
+			controller?.set = content.sets[0]
 		}
 	}
 	

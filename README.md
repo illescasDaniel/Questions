@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.7--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.8--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
@@ -19,7 +19,7 @@ Main Features
 - Each set of questions can have different number of answers
 - Each question can have an image that will appear below the question text (this will load asynchronously and will be cached)
 - Add sets of questions / new topics just by dragging a formatted json file to Xcode
-- You can specify the maximum time per set of questions (currently per topic) that the user can spend
+- You can specify some options for the questions sets, like specify a timer, show the questions in random order or not, enable the help button, etc.
 - The app offers OPTIONAL privacy features such as blurring the multitask screenshot, detecting if the user is capturing the screen or if it took a screenshot
 - Dark theme
 - Switch between themes by:
@@ -41,7 +41,14 @@ Topics JSON format
 ---
 ```
 {
-    "topic": [
+	 options": {
+	     "name": "Cool Social topic",
+        "timePerSetInSeconds": "300",
+	     "questionsInRandomOrder": "false",
+        "helpButtonEnabled": "false",
+        "showCorrectIncorrectAnswer": "false"
+    },
+    "sets": [
         [
         {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "correct": 0, "imageURL": "https://somecoolWeb/image.jpg"},
             {"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
@@ -55,13 +62,25 @@ Topics JSON format
 ```
 ### Simple explanation:
 * A topic is defined as an array of sets of questions. Ideally this sets are about the same topic...
-* Each set of questions can have a different number of answers BUT all the answers in each set need to have the same number
-* Whithing a question, the answers can't repeat; as well as the correct answers
+* Each set of questions can have a different number of answers BUT all the answers in each set need to have the same number.
+* Whithing a question, the answers can't repeat; as well as the correct answers.
 * You can also use some images which will show below the specific questions. You must specify a URL of that image (I think the link must start with "https"). The image will load asychronously and it will be cached for later faster use too.
-* Each question can have 1 or multiple correct answers. Use "correct" for a unique correct answer and "correctAnswers" for multiple ones. If you use both ("correct", "correctAnswers") it will add the "correct" index to the other array (is a set so it won't repeat)
+* Each question can have 1 or multiple correct answers. Use "correct" for a unique correct answer and "correctAnswers" for multiple ones. If you use both ("correct", "correctAnswers") it will add the "correct" index to the other array (is a set so it won't repeat).
+* Each topic (JSON file) can have specific options that are optional to specify, see below for more details.  
 
 The rest can be deduced :)
 
+### Options dictionary. Possible keys and values.
+
+| Key        | Values           | Note  |
+| ------------- |:-------------:| -----:|
+| name      | String | If no name is specified, its name will be the same as its file name |
+| timePerSetInSeconds      | An unsigned integer or a Double      |   If ommited, there will be no timer |
+| questionsInRandomOrder | Boolean (true/false)      |   Random (true) by default  |
+| helpButtonEnabled | Boolean (true/false)      |  Could be overwritten by app settings. True by default   |
+| showCorrectIncorrectAnswer | Boolean (true/false)      |  True by default   |
+
+**Note:** all values MUST be specified between quotes ("). Example: {"timePerSetInSeconds": "600"}
 
 # ASSETS #
 

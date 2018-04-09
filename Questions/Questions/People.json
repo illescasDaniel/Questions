@@ -1,5 +1,5 @@
 {
-	"topic": [
+	"sets": [
 		[
 			{"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "correct": 0},
 			{"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
