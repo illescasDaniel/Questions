@@ -41,8 +41,8 @@ class QuestionsViewController: UIViewController {
 	
 	// MARK: View life cycle
 	
-	private func currentSet(option: Quiz.OptionsKey) -> String? {
-		return SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[option]
+	private var currentQuizOfTopic: Quiz {
+		return SetOfTopics.shared.currentTopics[currentTopicIndex].quiz
 	}
 
 	override func viewDidLoad() {
@@ -60,11 +60,7 @@ class QuestionsViewController: UIViewController {
 		} else {
 			self.goBack.isHidden = true
 			
-			if let questionsInRandomOrderStr = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[.questionsInRandomOrder],
-				let questionsInRandomOrder = Bool(questionsInRandomOrderStr), questionsInRandomOrder {
-			}
-			
-			if let questionsInRandomOrder = Bool(self.currentSet(option: .questionsInRandomOrder) ?? "true"), questionsInRandomOrder {
+			if self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true {
 				self.set.shuffle()
 			}
 				
@@ -103,11 +99,8 @@ class QuestionsViewController: UIViewController {
 		self.pickQuestion()
 		self.updateTimer()
 		
-		if let helpButtonEnabled = Bool(self.currentSet(option: .helpButtonEnabled) ?? "true"), helpButtonEnabled && QuestionsAppOptions.isHelpEnabled {
-			self.helpButton.isHidden = false
-		} else {
-			self.helpButton.isHidden = true
-		}
+		let helpButtonEnabled = self.currentQuizOfTopic.options?.helpButtonEnabled ?? true
+		self.helpButton.isHidden = helpButtonEnabled && QuestionsAppOptions.isHelpEnabled
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -117,8 +110,7 @@ class QuestionsViewController: UIViewController {
 	
 	private func updateTimer() {
 		
-		if let quizTimeString = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.customOptions[.timePerSetInSeconds],
-			let quizTimeInterval = TimeInterval(quizTimeString), quizTimeInterval > 0 {
+		if let quizTimeInterval = self.currentQuizOfTopic.options?.timePerSetInSeconds, quizTimeInterval > 0 {
 			
 			self.quizTime = quizTimeInterval
 			
@@ -579,7 +571,7 @@ class QuestionsViewController: UIViewController {
 		pausePreviousSounds()
 		
 		let isCorrectAnswer = correctAnswer.contains(answer)
-		let willNoticeIfAnswerIsCorrectOrIncorrect = Bool(self.currentSet(option: .showCorrectIncorrectAnswer) ?? "true") ?? true
+		let willNoticeIfAnswerIsCorrectOrIncorrect = self.currentQuizOfTopic.options?.showCorrectIncorrectAnswer ?? true
 		
 		if isCorrectAnswer {
 			correctAnswers += 1
@@ -631,7 +623,8 @@ class QuestionsViewController: UIViewController {
 		
 		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex]
 		
-		if let questionsInRandomOrder = Bool(self.currentSet(option: .questionsInRandomOrder) ?? "true"), questionsInRandomOrder {
+		let questionsInRandomOrder = self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true
+		if questionsInRandomOrder {
 			self.set.shuffle()
 		}
 		self.quiz = set.enumerated().makeIterator()

@@ -22,36 +22,22 @@ class QuestionType: Codable, Equatable {
 	let imageURL: String?
 }
 
+struct QuizOptions: Codable {
+	let name: String?
+	let timePerSetInSeconds: TimeInterval?
+	let helpButtonEnabled: Bool?
+	let questionsInRandomOrder: Bool?
+	let showCorrectIncorrectAnswer: Bool?
+	// case displayFullResults // YET to implement
+}
+
 struct Quiz: Codable, Equatable {
 	
-	enum OptionsKey: String {
-		case name
-		case timePerSetInSeconds
-		case helpButtonEnabled
-		case questionsInRandomOrder
-		case showCorrectIncorrectAnswer
-		// case displayFullResults // YET to implement
-	}
-	
-	fileprivate let options: [OptionsKey.RawValue: String]?
+	let options: QuizOptions?
 	let sets: [[QuestionType]]
-	
-	var customOptions: [OptionsKey: String] {
-		
-		guard let validOptions = self.options else { return [:] }
-		
-		let keysWithValues = validOptions.compactMap { (key,value) -> (OptionsKey, String)? in
-			if let validOptionKey = OptionsKey(rawValue: key) {
-				return (validOptionKey, value)
-			}
-			return nil
-		}.compactMap({$0})
-		
-		return [OptionsKey: String](uniqueKeysWithValues: keysWithValues)
-	}
-	
+
 	static func isValid(_ content: Quiz) -> Bool {
-		
+
 		guard !content.sets.isEmpty else { return false }
 		
 		for setOfQuestions in content.sets {
@@ -106,7 +92,7 @@ struct Quiz: Codable, Equatable {
 struct TopicEntry: Equatable, Hashable {
 	
 	private(set) var name = String()
-	private(set) var quiz = Quiz(options: [:], sets: [[]])//, time: -1)
+	private(set) var quiz = Quiz(options: nil, sets: [[]])
 	
 	init(name: String, content: Quiz) {
 		self.name = name
@@ -145,7 +131,7 @@ struct TopicEntry: Equatable, Hashable {
 				
 				self.quiz = contentToValidate
 				
-				if let topicName = self.quiz.customOptions[.name], !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+				if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 					self.name = topicName
 				} else {
 					self.name = path.deletingPathExtension().lastPathComponent
@@ -225,7 +211,7 @@ struct SetOfTopics {
 		let fileName: String
 		let topicName = topic.name
 		if topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-			if let topicNameFromJSON = topic.quiz.customOptions[.name], !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+			if let topicNameFromJSON = topic.quiz.options?.name, !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				fileName = topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines) + ".json"
 			} else {
 				fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...

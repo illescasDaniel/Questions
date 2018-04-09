@@ -1,10 +1,10 @@
 {
 	"options": {
 		"name": "Cool Social topic",
-		"timePerSetInSeconds": "300",
-		"questionsInRandomOrder": "false",
-		"helpButtonEnabled": "false",
-		"showCorrectIncorrectAnswer": "false"
+		"timePerSetInSeconds": 300,
+		"questionsInRandomOrder": false,
+		"helpButtonEnabled": false,
+		"showCorrectIncorrectAnswer": false
 	},
 	"sets": [
 		  [

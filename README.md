@@ -43,14 +43,14 @@ Topics JSON format
 {
     options": {
         "name": "Cool Social topic",
-        "timePerSetInSeconds": "300",
-	     "questionsInRandomOrder": "false",
-        "helpButtonEnabled": "false",
-        "showCorrectIncorrectAnswer": "false"
+        "timePerSetInSeconds": 300,
+        "questionsInRandomOrder": false,
+        "helpButtonEnabled": false,
+        "showCorrectIncorrectAnswer": false
     },
     "sets": [
         [
-        {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "correct": 0, "imageURL": "https://somecoolWeb/image.jpg"},
+            {"question": "How old is Barack Obama?", "answers": ["> 50", "< 50", "35 ☺️", ">60 👴🏿"], "correct": 0, "imageURL": "https://somecoolWeb/image.jpg"},
             {"question": "Google CEO", "answers": ["Larry Page", "Sergey Brin", "Sundar Pichai", "Andy Rubin"], "correct": 2}
         ],
         [
@@ -75,12 +75,10 @@ The rest can be deduced :)
 | Key        | Values           | Note  |
 | ------------- |:-------------:| -----:|
 | name      | String | If no name is specified, its name will be the same as its file name |
-| timePerSetInSeconds      | An unsigned integer or a Double      |   If ommited, there will be no timer |
-| questionsInRandomOrder | Boolean (true/false)      |   Random (true) by default  |
-| helpButtonEnabled | Boolean (true/false)      |  Could be overwritten by app settings. True by default   |
-| showCorrectIncorrectAnswer | Boolean (true/false)      |  True by default   |
-
-**Note:** all values MUST be specified between quotes ("). Example: {"timePerSetInSeconds": "600"}
+| timePerSetInSeconds      | An `unsigned integer` or a `Double`      |   If ommited, there will be no timer |
+| questionsInRandomOrder | `Boolean` (true/false)      |   Random (true) by default  |
+| helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings. True by default   |
+| showCorrectIncorrectAnswer | `Boolean` (true/false)      |  True by default   |
 
 # ASSETS #
 
