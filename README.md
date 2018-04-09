@@ -39,10 +39,10 @@ Screenshots
 
 Topics JSON format
 ---
-```
+```json
 {
-	 options": {
-	     "name": "Cool Social topic",
+    options": {
+        "name": "Cool Social topic",
         "timePerSetInSeconds": "300",
 	     "questionsInRandomOrder": "false",
         "helpButtonEnabled": "false",
