@@ -73,12 +73,12 @@ The rest can be deduced :)
 ### Options. Possible keys and values.
 
 | Key        | Values           | Note  |
-| ------------- |:-------------:| -----:|
-| name      | String | If no name is specified, its name will be the same as its file name |
-| timePerSetInSeconds      | An `unsigned integer` or a `Double`      |   If ommited, there will be no timer |
-| questionsInRandomOrder | `Boolean` (true/false)      |   Random (true) by default  |
-| helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings. True by default   |
-| showCorrectIncorrectAnswer | `Boolean` (true/false)      |  True by default   |
+| ------------- |:-------------:| ----- |
+| name      | `String` | If no name is specified, its name will be the same as its file name. |
+| timePerSetInSeconds      | An `unsigned integer` or a `Double`      |   If ommited, there will be no timer. |
+| questionsInRandomOrder | `Boolean` (true/false)      |   Random (true) by default.  |
+| helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings. True by default.   |
+| showCorrectIncorrectAnswer | `Boolean` (true/false)      |  True by default.   |
 
 # ASSETS #
 
