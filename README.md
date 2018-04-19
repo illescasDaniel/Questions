@@ -41,13 +41,13 @@ Screenshots
 
 Community Topics
 --
-Since v3.9 any user is able to submit its own topics to the community!
+Since v3.9 any user is able to submit his own topics to the community!
 
 The example community file containning the topics URL is hosted [here](https://pastebin.com/hgmNQ0xh) 
 
 The file is parsed asynchronously in the app and loaded.
 
-You can create more topics and upload them to pastebin, then in the app you can submit them.
+You can create more topics and upload them to pastebin, then in the app you can its URL.
 
 Topics JSON format
 ---
