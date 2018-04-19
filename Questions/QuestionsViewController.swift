@@ -27,7 +27,7 @@ class QuestionsViewController: UIViewController {
 	@IBOutlet weak var blurView: UIVisualEffectView!
 	
 	let oldScore = UserDefaultsManager.score
-	var correctAnswer: Set<UInt8> = []
+	var correctAnswersSet: Set<UInt8> = []
 	var correctAnswers = Int()
 	var incorrectAnswers = Int()
 	var repeatTimes = UInt8()
@@ -38,6 +38,7 @@ class QuestionsViewController: UIViewController {
 	var quiz: EnumeratedIterator<IndexingIterator<Array<QuestionType>>>!
 	var quizTime = TimeInterval()
 	var previousQuizTime: TimeInterval = -1
+	var answersUntilNextQuestion: Int = 0
 	
 	// MARK: View life cycle
 	
@@ -260,7 +261,7 @@ class QuestionsViewController: UIViewController {
 				
 				repeat {
 					randomQuestionIndex = arc4random_uniform(UInt32(self.answerButtons.count))
-				} while(self.correctAnswer.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
+				} while(self.correctAnswersSet.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
 					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
@@ -463,6 +464,11 @@ class QuestionsViewController: UIViewController {
 	private var currentURL: URL? = nil
 	public func pickQuestion() {
 		
+		if self.currentQuizOfTopic.options?.multipleCorrectAnswersAsMandatory ?? false {
+			self.answersUntilNextQuestion -= 1
+			guard self.answersUntilNextQuestion <= 0 else { return }
+		}
+		
 		self.detectIfScreenIsCaptured()
 		
 		// Restore
@@ -478,7 +484,9 @@ class QuestionsViewController: UIViewController {
 			
 			let fullQuestion = quiz0.element
 			
-			self.correctAnswer = fullQuestion.correctAnswers
+			self.answersUntilNextQuestion = fullQuestion.correctAnswers.count
+			
+			self.correctAnswersSet = fullQuestion.correctAnswers
 			self.questionLabel.text = fullQuestion.question.localized
 			
 			let answers = fullQuestion.answers
@@ -570,7 +578,7 @@ class QuestionsViewController: UIViewController {
 		
 		pausePreviousSounds()
 		
-		let isCorrectAnswer = correctAnswer.contains(answer)
+		let isCorrectAnswer = correctAnswersSet.contains(answer)
 		let willNoticeIfAnswerIsCorrectOrIncorrect = self.currentQuizOfTopic.options?.showCorrectIncorrectAnswer ?? true
 		
 		if isCorrectAnswer {

@@ -91,6 +91,7 @@ The rest can be deduced :)
 | questionsInRandomOrder | `Boolean` (true/false)      |   Random (true) by default.  |
 | helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings. True by default.   |
 | showCorrectIncorrectAnswer | `Boolean` (true/false)      |  True by default.   |
+| multipleCorrectAnswersAsMandatory | `Boolean` (true/false)      |  False by default. If false, when a question has multiple answers only one is required to continue; true otherwise.  |
 
 # ASSETS #
 
