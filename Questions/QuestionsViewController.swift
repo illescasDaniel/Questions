@@ -587,7 +587,7 @@ class QuestionsViewController: UIViewController {
 			if willNoticeIfAnswerIsCorrectOrIncorrect {
 				self.answerButtons[Int(answer)].backgroundColor = isCorrectAnswer ? .darkGreen : .alternativeRed
 			} else {
-				self.answerButtons[Int(answer)].backgroundColor = .coolBlue
+				self.answerButtons[Int(answer)].backgroundColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
 			}
 			
 		}) { completed in

@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.8.1--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.9--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
@@ -21,6 +21,7 @@ Main Features
 - Add sets of questions / new topics just by dragging a formatted json file to Xcode
 - You can specify some options for the questions sets, like specify a timer, show the questions in random order or not, enable the help button, etc.
 - The app offers OPTIONAL privacy features such as blurring the multitask screenshot, detecting if the user is capturing the screen or if it took a screenshot
+- Community topics! A section where submited topics are available for all the users.
 - Dark theme
 - Switch between themes by:
 	- Swiping up/down with 2 fingers
@@ -35,7 +36,18 @@ Screenshots
 
 - [More screenshots](http://imgur.com/a/OOrLJ)
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
+- [Community Topics demo video](https://twitter.com/daniel_ir96/status/986942413301219328)
 
+
+Community Topics
+--
+Since v3.9 any user is able to submit its own topics to the community!
+
+The example community file containning the topics URL is hosted [here](https://pastebin.com/hgmNQ0xh) 
+
+The file is parsed asynchronously in the app and loaded.
+
+You can create more topics and upload them to pastebin, then in the app you can submit them.
 
 Topics JSON format
 ---

@@ -7,8 +7,10 @@ class MainViewController: UIViewController {
 	
 	@IBOutlet weak var startButton: UIButton!
 	@IBOutlet weak var savedTopicsButton: UIButton!
+	@IBOutlet weak var communityButton: UIButton!
 	@IBOutlet weak var readQRCodeButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
+	
 	@IBOutlet weak var scoreLabel: UILabel!
 	@IBOutlet weak var backgroundImageView: UIImageView!
 	
@@ -67,13 +69,24 @@ class MainViewController: UIViewController {
 	// MARK: Actions
 	
 	@IBAction func loadAppTopics(_ sender: UIButton) {
-		SetOfTopics.shared.isUsingUserSavedTopics = false
+		SetOfTopics.shared.currentSetOfTopics = .app
 	}
 	
 	@IBAction func loadSavedTopics(_ sender: UIButton) {
-		SetOfTopics.shared.isUsingUserSavedTopics = true
+		SetOfTopics.shared.currentSetOfTopics = .saved
 	}
 
+	@IBAction func loadCommunityTopics(_ sender: UIButton) {
+		
+		SetOfTopics.shared.currentSetOfTopics = .community
+		
+		if CommunityTopics.shared == nil {
+			DispatchQueue.global().async {
+				SetOfTopics.shared.loadCommunityTopics()
+			}
+		}
+	}
+	
 	// MARK: Convenience
 	
 	private func initializeSounds() {
@@ -92,6 +105,7 @@ class MainViewController: UIViewController {
 	private func initializeLables() {
 		self.startButton.setTitle("START GAME".localized, for: .normal)
 		self.savedTopicsButton.setTitle("SAVED TOPICS".localized, for: .normal)
+		self.communityButton.setTitle("COMMUNITY".localized, for: .normal)
 		self.readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
 	}

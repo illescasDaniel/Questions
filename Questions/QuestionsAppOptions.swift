@@ -19,5 +19,7 @@ struct QuestionsAppOptions {
 	
 	static let maximumRepeatTriesPerQuiz: UInt8 = 2
 	
-	static let privacyFeaturesEnabled: Bool = true
+	static let privacyFeaturesEnabled: Bool = false
+	
+	static let communityTopicsURL: String = "https://pastebin.com/raw/hgmNQ0xh"
 }

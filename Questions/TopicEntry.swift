@@ -155,17 +155,29 @@ struct TopicEntry: Equatable, Hashable {
 	}
 }
 
+
+enum CurrentSetOfTopics {
+	case app
+	case saved
+	case community
+}
+
 struct SetOfTopics {
 	
 	static var shared = SetOfTopics()
 	
 	var topics: [TopicEntry] = [] // Manually: [TopicEntry(name: "Technology"), TopicEntry(name: "Social"), TopicEntry(name: "People")]
 	var savedTopics: [TopicEntry] = []
+	var communityTopics: [TopicEntry] = []
 	
-	var isUsingUserSavedTopics = false
+	var currentSetOfTopics: CurrentSetOfTopics = .app
 	
 	var currentTopics: [TopicEntry] {
-		return isUsingUserSavedTopics ? self.savedTopics : self.topics
+		switch currentSetOfTopics {
+		case .app: return self.topics
+		case .saved: return self.savedTopics
+		case .community: return self.communityTopics
+		}
 	}
 
 	// Automatically loads all .json files :)
@@ -202,6 +214,28 @@ struct SetOfTopics {
 		self.savedTopics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: documentsURL))
 		
 		self.loadSetState(for: self.savedTopics)
+	}
+	
+	mutating func loadCommunityTopics() {
+		
+		self.communityTopics.removeAll(keepingCapacity: true)
+		
+		CommunityTopics.areLoaded = false
+		CommunityTopics.initializeSynchronously()
+		
+		guard let communityTopics = CommunityTopics.shared else { return }
+			
+		for topic in communityTopics.topics where topic.isVisible {
+			
+			if let validTextFromURL = try? String(contentsOf: topic.remoteContentURL), let quiz = self.quizFrom(content: validTextFromURL) {
+				let topicName = quiz.options?.name ?? "Community Topic - \(self.communityTopics.count)"
+				let topicEntry = TopicEntry(name: topicName, content: quiz)
+				self.communityTopics.append(topicEntry)
+			}
+		}
+		
+		self.loadSetState(for: self.communityTopics)
+		CommunityTopics.areLoaded = true
 	}
 	
 	func save(topic: TopicEntry) {

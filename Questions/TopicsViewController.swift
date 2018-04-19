@@ -4,6 +4,7 @@ class TopicsViewController: UITableViewController {
 	
 	// MARK: View life cycle
 	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
+	@IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -17,7 +18,8 @@ class TopicsViewController: UITableViewController {
 		//self.tableView.allowsMultipleSelectionDuringEditing = true
 		//self.clearsSelectionOnViewWillAppear = true
 		
-		addBarButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
+		self.addBarButtonItem.isEnabled = SetOfTopics.shared.currentSetOfTopics != .app
+		self.refreshBarButtonItem.isEnabled = SetOfTopics.shared.currentSetOfTopics == .community
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -33,7 +35,7 @@ class TopicsViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return SetOfTopics.shared.isUsingUserSavedTopics ? .delete : .none
+		return (SetOfTopics.shared.currentSetOfTopics == .saved) ? .delete : .none
 	}
 	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -59,6 +61,16 @@ class TopicsViewController: UITableViewController {
 	
 	// MARK: UITableViewDataSource
 	
+	@objc private func reloadTopicIfCommunityTopicsLoaded(_ timer: Timer) {
+		if CommunityTopics.shared != nil && CommunityTopics.areLoaded {
+			DispatchQueue.main.async {
+				(self.tableView?.backgroundView as? UIActivityIndicatorView)?.stopAnimating()
+				self.tableView.reloadData()
+			}
+			timer.invalidate()
+		}
+	}
+	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		let count = SetOfTopics.shared.currentTopics.count
@@ -67,17 +79,46 @@ class TopicsViewController: UITableViewController {
 			self.tableView?.backgroundView = nil
 		}
 		else if self.tableView?.backgroundView == nil {
-			let emptyListText = "Empty, read questions from a QR code or from a URL".localized
-			let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-			emptyTableLabel.text = emptyListText.localized
-			emptyTableLabel.font = .preferredFont(forTextStyle: .title3)
-			emptyTableLabel.textColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
-			emptyTableLabel.textAlignment = .center
-			emptyTableLabel.numberOfLines = 0
 			
-			UIView.animate(withDuration: 0.2, animations: {
-				self.tableView?.backgroundView = emptyTableLabel
-			})
+			if SetOfTopics.shared.currentSetOfTopics == .community {
+				
+				let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+				activityIndicatorView.startAnimating()
+				
+				self.tableView?.backgroundView = activityIndicatorView
+				
+				if CommunityTopics.shared == nil || !CommunityTopics.areLoaded {
+					
+					if #available(iOS 10.0, *) {
+						Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+							if CommunityTopics.shared != nil && CommunityTopics.areLoaded {
+								DispatchQueue.main.async {
+									activityIndicatorView.stopAnimating()
+									self.tableView.reloadData()
+								}
+								timer.invalidate()
+							}
+						}
+					} else {
+						Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reloadTopicIfCommunityTopicsLoaded), userInfo: nil, repeats: true)
+					}
+				}
+			}
+			else {
+				let emptyListText = "Empty, read questions from a QR code or from a URL".localized
+				let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+				emptyTableLabel.text = emptyListText.localized
+				emptyTableLabel.font = .preferredFont(forTextStyle: .title3)
+				emptyTableLabel.textColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
+				emptyTableLabel.textAlignment = .center
+				emptyTableLabel.numberOfLines = 0
+				
+				UIView.animate(withDuration: 0.2, animations: {
+					self.tableView?.backgroundView = emptyTableLabel
+				})
+			}
+			
 			self.tableView?.separatorStyle = .none
 		}
 		
@@ -129,7 +170,12 @@ class TopicsViewController: UITableViewController {
 	
 	@IBAction func addNewTopic(_ sender: UIBarButtonItem) {
 		
-		let newTopicAlert = UIAlertController(title: "New Topic".localized, message: "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file.".localized, preferredStyle: .alert)
+		let titleText = (SetOfTopics.shared.currentSetOfTopics == .saved) ? "New Topic" : "Topic submission"
+		let messageText = (SetOfTopics.shared.currentSetOfTopics == .saved)
+			? "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file."
+			: "You can specify a URL which contains an appropiate formatted file or the full topic content."
+		
+		let newTopicAlert = UIAlertController(title: titleText.localized, message: messageText.localized, preferredStyle: .alert)
 		
 		newTopicAlert.addTextField { textField in
 			textField.placeholder = "Topic Name".localized
@@ -149,7 +195,6 @@ class TopicsViewController: UITableViewController {
 		
 		newTopicAlert.addAction(title: "Help".localized, style: .default) { _ in
 			if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
-				
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(url, options: [:])
 				} else {
@@ -158,33 +203,30 @@ class TopicsViewController: UITableViewController {
 			}
 		}
 		
-		newTopicAlert.addAction(title: "Add".localized, style: .default) { _ in
+		let okAction = (SetOfTopics.shared.currentSetOfTopics == .saved) ? "Add" : "Submit"
+		newTopicAlert.addAction(title: okAction.localized, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
 				let topicURLText = newTopicAlert.textFields?.last?.text, !topicURLText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				
-				DispatchQueue.global().async {
-					
-					let quizContent: String
-					if let topicURL = URL(string: topicURLText), let validTextFromURL = try? String(contentsOf: topicURL) {
-						quizContent = validTextFromURL
-					} else {
-						quizContent = topicURLText
-					}
-					
-					if let validQuiz = SetOfTopics.shared.quizFrom(content: quizContent) {
-						SetOfTopics.shared.save(topic: TopicEntry(name: topicName, content: validQuiz))
-						DispatchQueue.main.async {
-							self.tableView.reloadData()
-						}
-					}
-				}
+				self.okActionAddItem(topicName: topicName, topicURLText: topicURLText)
 			}
 		}
 		
-		newTopicAlert.addAction(title: "Cancel", style: .cancel)
+		newTopicAlert.addAction(title: "Cancel".localized, style: .cancel)
 		
 		self.present(newTopicAlert, animated: true)
+	}
+	
+	@IBAction func refreshTopics(_ sender: UIBarButtonItem) {
+		
+		SetOfTopics.shared.communityTopics.removeAll(keepingCapacity: true)
+		CommunityTopics.shared = nil
+		self.tableView.reloadData()
+		
+		DispatchQueue.global().async {
+			SetOfTopics.shared.loadCommunityTopics()
+		}
 	}
 	
 	// MARK: - UIStoryboardSegue Handling
@@ -203,5 +245,42 @@ class TopicsViewController: UITableViewController {
 		tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 		tableView.reloadData()
+	}
+	
+	private func okActionAddItem(topicName: String, topicURLText: String) {
+		
+		DispatchQueue.global().async {
+			
+			if SetOfTopics.shared.currentSetOfTopics == .community {
+				
+				let messageBody = """
+					Topic name: \(topicName)
+					Topic URL or content: \(topicURLText)
+					""".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "error"
+				
+				let devEmail = "daniel.illescas@icloud.com"
+				let subject = "Questions - Topic submission".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "Questions_Topic submission"
+				let fullURL = "mailto:\(devEmail)?subject=\(subject)&body=\(messageBody)"
+				
+				if let validURL = URL(string: fullURL) {
+					UIApplication.shared.openURL(validURL)
+				}
+			}
+			else {
+				let quizContent: String
+				if let topicURL = URL(string: topicURLText), let validTextFromURL = try? String(contentsOf: topicURL) {
+					quizContent = validTextFromURL
+				} else {
+					quizContent = topicURLText
+				}
+				
+				if let validQuiz = SetOfTopics.shared.quizFrom(content: quizContent) {
+					SetOfTopics.shared.save(topic: TopicEntry(name: topicName, content: validQuiz))
+					DispatchQueue.main.async {
+						self.tableView.reloadData()
+					}
+				}
+			}
+		}
 	}
 }

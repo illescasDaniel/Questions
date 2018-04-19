@@ -11,11 +11,12 @@
 
 "START GAME" = "COMENZAR";
 "SAVED TOPICS" = "TEMAS GUARDADOS";
+"COMMUNITY" = "COMUNIDAD";
 "READ QR CODE" = "LEER CÓDIGO QR";
+"SETTINGS" = "OPCIONES";
 
 "Invalid QR Code format" = "Formato de Código QR inválido";
 "Text to encode format" = "Formato de texto a codificar";
-"READ_QR_FORMAT" = "[ {\"question\": \"Blabla?\", \"answers\": [\"Bla\", \"Bla\", \"Correcta\", \"Bla\"], \"correct\": 2}, ... ]";
 "Camera access required for QR Scanning" = "Acceso a cámara requerido para escanear el código QR";
 "Allow camera access" = "Permita acceso a la cámara";
 "Allow Camera" = "Permitir cámara";
@@ -27,7 +28,6 @@
 
 "OK" = "Aceptar";
 
-"SETTINGS" = "OPCIONES";
 "Settings" = "Opciones";
 "Background music" = "Música de fondo";
 "Haptic Feedback" = "Respuesta Háptica";
@@ -72,11 +72,14 @@
 
 "New Topic" = "Nuevo Tema";
 "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted content." = "Puedes leer un QR para añadir un tema o descargarlo usando una URL que contenga el contenido propiamente formateado.";
+"You can specify a URL which contains an appropiate formatted file or the full topic content." = "Puedes especificar una URL que contenga el fichero apropiadamente formateado o el contenido entero";
 "Topic Name" = "Nombre del tema";
 "Topic URL or fomatted content" = "URL del tema o contenido";
+"Topic submission" = "Envío de Tema";
 "Add" = "Añadir";
+"Submit" = "Enviar";
 "Help" = "Ayuda";
-
+"Cancel" = "Cancelar";
 /* -- QUESTION SETS -- */
 
 // --- SOCIAL ---

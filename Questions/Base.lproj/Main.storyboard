@@ -9,6 +9,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -48,14 +49,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" id="e8J-nn-9xp">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fyf-0d-DWx">
-                            <connections>
-                                <action selector="addNewTopic:" destination="9QX-8c-sEy" id="YsU-3f-nxS"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="Fyf-0d-DWx">
+                                <connections>
+                                    <action selector="addNewTopic:" destination="9QX-8c-sEy" id="YsU-3f-nxS"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="oEh-xV-1u6">
+                                <connections>
+                                    <action selector="refreshTopics:" destination="9QX-8c-sEy" id="1Fk-cp-nyQ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addBarButtonItem" destination="Fyf-0d-DWx" id="yPg-OQ-x9h"/>
+                        <outlet property="refreshBarButtonItem" destination="oEh-xV-1u6" id="Yuk-b2-mJE"/>
                         <segue destination="kse-0a-Wtd" kind="show" identifier="selectTopic" id="UNn-E6-gY8"/>
                     </connections>
                 </tableViewController>
@@ -201,11 +210,11 @@
                             <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="1Wy-qM-dRs">
                                 <rect key="frame" x="-739" y="-13.666666666666686" width="1853" height="893.33333333333348"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="aL8-6s-XJv">
-                                <rect key="frame" x="56.333333333333343" y="253.66666666666666" width="262.33333333333326" height="358.66666666666674"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aL8-6s-XJv">
+                                <rect key="frame" x="56.333333333333343" y="260.66666666666669" width="262.33333333333326" height="345.00000000000006"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="262.33333333333331" height="55.333333333333336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="262.33333333333331" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -235,7 +244,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbX-yK-Bvm" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="75.333333333333343" width="262.33333333333331" height="55.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="61" width="262.33333333333331" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -264,8 +273,38 @@
                                             <segue destination="9QX-8c-sEy" kind="show" id="tCT-du-wcY"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp8-dd-Agr" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="122" width="262.33333333333331" height="51"/>
+                                        <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
+                                        <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                        <state key="normal" title="COMMUNITY">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                <size key="value" width="0.5" height="3.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="0.14999999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="35"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="loadCommunityTopics:" destination="Uw9-Bc-kPM" eventType="touchUpInside" id="XhD-Hq-Uo0"/>
+                                            <segue destination="9QX-8c-sEy" kind="show" id="LuE-Wq-X34"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="150.66666666666666" width="262.33333333333331" height="55.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="183" width="262.33333333333331" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SCAN QR CODE">
@@ -293,7 +332,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="226.00000000000003" width="262.33333333333331" height="55.666666666666657"/>
+                                        <rect key="frame" x="0.0" y="244" width="262.33333333333331" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529411764708" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SETTINGS">
@@ -321,7 +360,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                        <rect key="frame" x="0.0" y="301.66666666666674" width="262.33333333333331" height="57"/>
+                                        <rect key="frame" x="0.0" y="304.99999999999994" width="262.33333333333331" height="40"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -347,7 +386,7 @@
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="0.6" id="KfU-ee-vQN"/>
                             <constraint firstItem="1Wy-qM-dRs" firstAttribute="width" secondItem="Sbf-MR-kXR" secondAttribute="width" multiplier="1.1" id="KsB-iu-6bZ"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.75" id="Qcy-T7-oUu"/>
-                            <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.52" id="Usa-4B-MxU"/>
+                            <constraint firstItem="aL8-6s-XJv" firstAttribute="height" secondItem="f0M-on-Nco" secondAttribute="height" multiplier="0.5" id="Usa-4B-MxU"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="centerY" secondItem="f0M-on-Nco" secondAttribute="centerY" id="YRE-i2-aFe"/>
                             <constraint firstItem="1Wy-qM-dRs" firstAttribute="height" secondItem="Sbf-MR-kXR" secondAttribute="height" multiplier="1.1" id="ZSn-4W-aQ0"/>
                             <constraint firstItem="aL8-6s-XJv" firstAttribute="width" secondItem="f0M-on-Nco" secondAttribute="width" multiplier="0.7" id="ZZO-bN-10O"/>
@@ -399,6 +438,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
+                        <outlet property="communityButton" destination="cp8-dd-Agr" id="FEI-pc-Bqf"/>
                         <outlet property="mainMenuStack" destination="aL8-6s-XJv" id="ZTC-kS-Z0X"/>
                         <outlet property="readQRCodeButton" destination="4v5-8h-lZW" id="F2j-e6-43e"/>
                         <outlet property="savedTopicsButton" destination="fbX-yK-Bvm" id="smb-eF-czu"/>
@@ -654,7 +694,7 @@
                                         <rect key="frame" x="0.0" y="63.666666666666657" width="349" height="266.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-f2-st4">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="233"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="130.33333333333334"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -671,7 +711,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ndz-tg-crV">
-                                                <rect key="frame" x="0.0" y="238" width="349" height="28.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="135.33333333333331" width="349" height="131"/>
                                             </activityIndicatorView>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4K-Ue-DBd">
                                                 <rect key="frame" x="0.0" y="266.33333333333331" width="349" height="0.0"/>
