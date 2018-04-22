@@ -53,6 +53,13 @@ class ImageDetailsViewController: UIViewController {
 		}
 	}
 	
+	@IBAction func doubleTapToZoomAction(_ sender: UITapGestureRecognizer) {
+		if sender.state == .ended {
+			let zoomLevel = (self.scrollView.zoomScale > 1.0) ? self.scrollView.minimumZoomScale : 2.0 
+			self.scrollView.setZoomScale(zoomLevel, animated: true)
+		}
+	}
+	
 	override var prefersStatusBarHidden: Bool {
 		return true
 	}

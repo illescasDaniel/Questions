@@ -141,6 +141,7 @@
                                 <connections>
                                     <outlet property="delegate" destination="IUP-8Q-ad0" id="Hxc-s4-y2S"/>
                                     <outletCollection property="gestureRecognizers" destination="yD0-5a-zGt" appends="YES" id="FFZ-Vh-knd"/>
+                                    <outletCollection property="gestureRecognizers" destination="s4r-8B-Qnh" appends="YES" id="wfK-A9-pWx"/>
                                 </connections>
                             </scrollView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQC-vd-c9c">
@@ -196,6 +197,11 @@
                         <action selector="panGestureOverImageView:" destination="IUP-8Q-ad0" id="Nob-ta-5eN"/>
                     </connections>
                 </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="s4r-8B-Qnh">
+                    <connections>
+                        <action selector="doubleTapToZoomAction:" destination="IUP-8Q-ad0" id="y82-bR-Cww"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2334" y="-192"/>
         </scene>

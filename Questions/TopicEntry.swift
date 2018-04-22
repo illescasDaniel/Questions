@@ -28,6 +28,7 @@ struct QuizOptions: Codable {
 	let helpButtonEnabled: Bool?
 	let questionsInRandomOrder: Bool?
 	let showCorrectIncorrectAnswer: Bool?
+	let multipleCorrectAnswersAsMandatory: Bool?
 	// case displayFullResults // YET to implement
 }
 
