@@ -48,7 +48,7 @@
                             <outlet property="delegate" destination="9QX-8c-sEy" id="PMa-rf-bBB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Topics" id="e8J-nn-9xp">
+                    <navigationItem key="navigationItem" title="Topics" largeTitleDisplayMode="always" id="e8J-nn-9xp">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="Fyf-0d-DWx">
                                 <connections>
@@ -214,13 +214,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="1Wy-qM-dRs">
-                                <rect key="frame" x="-739" y="-13.666666666666686" width="1853" height="893.33333333333348"/>
+                                <rect key="frame" x="-739" y="12.333333333333314" width="1853" height="893.33333333333348"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aL8-6s-XJv">
-                                <rect key="frame" x="56.333333333333343" y="260.66666666666669" width="262.33333333333326" height="345.00000000000006"/>
+                                <rect key="frame" x="56.333333333333343" y="299.66666666666669" width="262.33333333333326" height="319.00000000000006"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="arZ-7k-Uja" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="262.33333333333331" height="51"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="262.33333333333331" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -250,7 +250,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbX-yK-Bvm" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="61" width="262.33333333333331" height="51"/>
+                                        <rect key="frame" x="0.0" y="57" width="262.33333333333331" height="47.333333333333343"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -280,7 +280,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp8-dd-Agr" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="122" width="262.33333333333331" height="51"/>
+                                        <rect key="frame" x="0.0" y="114.33333333333331" width="262.33333333333331" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
@@ -310,7 +310,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v5-8h-lZW" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="183" width="262.33333333333331" height="51"/>
+                                        <rect key="frame" x="0.0" y="171.33333333333331" width="262.33333333333331" height="47.333333333333343"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SCAN QR CODE">
@@ -338,7 +338,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49H-XB-RgC" customClass="RoundedButton" customModule="Questions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="244" width="262.33333333333331" height="51"/>
+                                        <rect key="frame" x="0.0" y="228.66666666666669" width="262.33333333333331" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="0.58823529411764708" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="25"/>
                                         <state key="normal" title="SETTINGS">
@@ -366,7 +366,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏆 ?pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwC-Rs-rzS">
-                                        <rect key="frame" x="0.0" y="304.99999999999994" width="262.33333333333331" height="40"/>
+                                        <rect key="frame" x="0.0" y="285.66666666666669" width="262.33333333333331" height="33.333333333333314"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -533,8 +533,8 @@
         <scene sceneID="qMf-q0-piD">
             <objects>
                 <navigationController id="Otc-Gn-hwi" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4bk-Qv-NEH">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="4bk-Qv-NEH">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -573,7 +573,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpZ-Da-QvA">
-                                <rect key="frame" x="341" y="96" width="30" height="40"/>
+                                <rect key="frame" x="341" y="148" width="30" height="40"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                 <state key="normal" title="?"/>
                                 <userDefinedRuntimeAttributes>
@@ -700,7 +700,7 @@
                                         <rect key="frame" x="0.0" y="63.666666666666657" width="349" height="266.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-f2-st4">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="130.33333333333334"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="233"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -717,7 +717,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ndz-tg-crV">
-                                                <rect key="frame" x="0.0" y="135.33333333333331" width="349" height="131"/>
+                                                <rect key="frame" x="0.0" y="238" width="349" height="28.333333333333314"/>
                                             </activityIndicatorView>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4K-Ue-DBd">
                                                 <rect key="frame" x="0.0" y="266.33333333333331" width="349" height="0.0"/>

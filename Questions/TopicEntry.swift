@@ -1,6 +1,5 @@
 import Foundation
 
-// change from struct to class
 class QuestionType: Codable, Equatable {
 	
 	static func ==(lhs: QuestionType, rhs: QuestionType) -> Bool {
@@ -93,7 +92,7 @@ struct Quiz: Codable, Equatable {
 struct TopicEntry: Equatable, Hashable {
 	
 	private(set) var displayedName = String()
-	private(set) var quiz = Quiz(options: nil, sets: [[]])
+	var quiz = Quiz(options: nil, sets: [[]])
 	
 	init(name: String, content: Quiz) {
 		self.displayedName = name
@@ -228,11 +227,15 @@ struct SetOfTopics {
 			
 		for topic in communityTopics.topics where topic.isVisible {
 			
-			if let validTextFromURL = try? String(contentsOf: topic.remoteContentURL), let quiz = self.quizFrom(content: validTextFromURL) {
+			let topicName = topic.name ?? "Community Topic - \(self.communityTopics.count)"
+			let topicEntry = TopicEntry(name: topicName, content: Quiz(options: nil, sets: [[]]))
+			
+			self.communityTopics.append(topicEntry)
+			/*if let validTextFromURL = try? String(contentsOf: topic.remoteContentURL), let quiz = self.quizFrom(content: validTextFromURL) {
 				let topicName = quiz.options?.name ?? "Community Topic - \(self.communityTopics.count)"
 				let topicEntry = TopicEntry(name: topicName, content: quiz)
 				self.communityTopics.append(topicEntry)
-			}
+			}*/
 		}
 		
 		self.loadSetState(for: self.communityTopics)

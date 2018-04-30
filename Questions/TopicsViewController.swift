@@ -142,8 +142,40 @@ class TopicsViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		guard let currentCell = tableView.cellForRow(at: indexPath) else { return }
+		let activityIndicator = UIActivityIndicatorView(frame: currentCell.bounds)
+		activityIndicator.activityIndicatorViewStyle = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+		activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		
+		DispatchQueue.global().async {
+			
+			if SetOfTopics.shared.currentSetOfTopics == .community,
+				SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
+				let communityTopics = CommunityTopics.shared {
+				
+				DispatchQueue.main.async {
+					activityIndicator.startAnimating()
+					currentCell.accessoryView = activityIndicator
+				}
+				
+				let currentTopic = communityTopics.topics[indexPath.row]
+				
+				if let validTextFromURL = try? String(contentsOf: currentTopic.remoteContentURL), let quiz = SetOfTopics.shared.quizFrom(content: validTextFromURL) {
+					SetOfTopics.shared.communityTopics[indexPath.row].quiz = quiz
+				}
+				DispatchQueue.main.async {
+					activityIndicator.stopAnimating()
+					currentCell.accessoryView = nil
+				}
+			}
+			
+			DispatchQueue.main.async {
+				self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+			}
+		}
 		// if is not editing... maybe will add the editing thing in the future
-		self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+		//self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
 	}
 	
 	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -232,7 +264,6 @@ class TopicsViewController: UITableViewController {
 	// MARK: - UIStoryboardSegue Handling
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
 		if let topicIndex = sender as? Int, segue.identifier == "selectTopic" {
 			let controller = segue.destination as? QuizzesViewController
 			controller?.currentTopicIndex = topicIndex
