@@ -47,7 +47,7 @@ The example community file containning the topics URL is hosted [here](https://p
 
 The file is parsed asynchronously in the app and loaded.
 
-You can create more topics and upload them to pastebin, then in the app you can its URL.
+You can create more topics and upload them to pastebin, then in the app you send me its URL.
 
 Topics JSON format
 ---

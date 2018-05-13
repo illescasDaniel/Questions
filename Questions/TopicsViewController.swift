@@ -141,6 +141,7 @@ class TopicsViewController: UITableViewController {
 		return cell ?? UITableViewCell()
 	}
 
+	// TODO:  needs more testing
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
 		guard let currentCell = tableView.cellForRow(at: indexPath) else { return }
