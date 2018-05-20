@@ -58,17 +58,18 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		questionsCreatorSetupAlert.addAction(title: "Cancel", style: .cancel) { _ in
 			self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
 		}
-		questionsCreatorSetupAlert.addAction(title: "Generate form", style: .default) { _ in
+		questionsCreatorSetupAlert.addAction(title: "Generate form", style: .default) { action in
 		
-			guard let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3 else { return }
-			
-			if let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
+			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
+				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
 				let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
-				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr) {
-		
-				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
+				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr)  {
 				
+				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
 				self.webView.loadHTMLString(self.questionsCreatorWrapper?.web ?? "", baseURL: nil)
+			}
+			else {
+				self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
 			}
 		}
 		self.present(questionsCreatorSetupAlert, animated: true)
@@ -87,6 +88,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
+		guard let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
+		
 		let name = self.webView.getInputValueFrom(id: "topic-name")
 		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
 		let timePerSetInSeconds = TimeInterval(topicTime)
@@ -97,8 +100,6 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		
 		let options = QuizOptions(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
 		
-		guard let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
-		
 		var sets: [[QuestionType]] = []
 		
 		for i in 1...questionsCreatorWrapper.numberOfSets {
@@ -107,9 +108,10 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			
 			for j in 1...questionsCreatorWrapper.questionsPerSet {
 				
-				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines),
-					!questionText.isEmpty
-				else { break }
+				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines), !questionText.isEmpty else {
+					self.invalidQuizAlert()
+					return
+				}
 				
 				let imageURL = self.webView.getInputValueFrom(id: "question-image-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines)
 				var answers: [String] = []
@@ -120,12 +122,16 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 						let trimmedAnswer = answerText.trimmingCharacters(in: .whitespacesAndNewlines)
 						if !trimmedAnswer.isEmpty {
 							answers.append(trimmedAnswer)
+						} else {
+							self.invalidQuizAlert(); return
 						}
 					}
 					if self.webView.isCheckboxChecked(id: "answer-correct-\(i)-\(j)-\(k)") {
 						correct.insert(k-1)
 					}
 				}
+				
+				if correct.isEmpty || answers.isEmpty || (answers.count != Int(questionsCreatorWrapper.answersPerQuestion)) { self.invalidQuizAlert(); return }
 				questions.append(QuestionType(question: questionText, answers: answers, correct: correct, imageURL: imageURL))
 			}
 			
@@ -134,7 +140,10 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		
 		let quiz = Quiz(options: options, sets: sets)
 		
-		if quiz.isValid {
+		if quiz.isValid
+			&& quiz.sets.count == Int(questionsCreatorWrapper.numberOfSets)
+			&& (quiz.sets.first?.count ?? 0) == Int(questionsCreatorWrapper.questionsPerSet)
+			&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(questionsCreatorWrapper.answersPerQuestion) {
 			
 			let whatToDoAlertController = UIAlertController.init(title: "What to do with the topic?", message: nil, preferredStyle: .alert)
 			whatToDoAlertController.addAction(title: "Wait! I'm not done", style: .cancel)
@@ -161,14 +170,17 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				}
 			}
 			self.present(whatToDoAlertController, animated: true)
+			return
 		}
-		else {
-			let alertVC = UIAlertController(title: "Invalid quiz", message: nil, preferredStyle: .alert)
-			
-			self.present(alertVC, animated: true) {
-				DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
-					alertVC.dismiss(animated: true)
-				}
+		
+		self.invalidQuizAlert()
+	}
+	
+	func invalidQuizAlert() {
+		let alertVC = UIAlertController(title: "Invalid quiz", message: nil, preferredStyle: .alert)
+		self.present(alertVC, animated: true) {
+			DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
+				alertVC.dismiss(animated: true)
 			}
 		}
 	}
