@@ -24,3 +24,9 @@ extension NSAttributedString {
 		return result
 	}
 }
+
+extension CustomStringConvertible {
+	var description: String {
+		return String(describing: Self.self) + "(" + Mirror(reflecting: self).children.map({ ($0 ?? "Unknown") + ": \($1)" }).joined(separator: ", ") + ")"
+	}
+}

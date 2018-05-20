@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.11--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.12--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
@@ -22,6 +22,7 @@ Main Features
 - You can specify some options for the questions sets, like specify a timer, show the questions in random order or not, enable the help button, etc.
 - The app offers OPTIONAL privacy features such as blurring the multitask screenshot, detecting if the user is capturing the screen or if it took a screenshot
 - Community topics! A section where submited topics are available for all the users.
+- Creators section! You can create your own questions, save it, send it to friends, etc.
 - Dark theme
 - Switch between themes by:
 	- Swiping up/down with 2 fingers
@@ -88,7 +89,7 @@ The rest can be deduced :)
 | name      | `String` | If no name is specified, its name will be the same as its file name. |
 | timePerSetInSeconds      | An `unsigned integer` or a `Double`      |   If ommited, there will be no timer. |
 | questionsInRandomOrder | `Boolean` (true/false)      |   Random (true) by default.  |
-| helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings. True by default.   |
+| helpButtonEnabled | `Boolean` (true/false)      |  Could be overwritten by app settings and will be hidden if the number of answers is 2 or less. True by default.   |
 | showCorrectIncorrectAnswer | `Boolean` (true/false)      |  True by default.   |
 | multipleCorrectAnswersAsMandatory | `Boolean` (true/false)      |  False by default. If false, when a question has multiple answers only one is required to continue; true otherwise.  |
 

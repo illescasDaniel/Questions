@@ -101,7 +101,7 @@ class QuestionsViewController: UIViewController {
 		self.updateTimer()
 		
 		let helpButtonEnabled = self.currentQuizOfTopic.options?.helpButtonEnabled ?? true
-		self.helpButton.isHidden = !(helpButtonEnabled && QuestionsAppOptions.isHelpEnabled)
+		self.helpButton.isHidden = !(helpButtonEnabled && QuestionsAppOptions.isHelpEnabled && self.answerButtons.count >= 3)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -569,6 +569,7 @@ class QuestionsViewController: UIViewController {
 		self.repeatTimes += 1
 		self.correctAnswers = 0
 		self.incorrectAnswers = 0
+		self.updateTimer()
 		self.setUpQuiz()
 		UserDefaultsManager.score = oldScore
 		self.pickQuestion()

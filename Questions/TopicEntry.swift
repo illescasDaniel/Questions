@@ -1,6 +1,6 @@
 import Foundation
 
-class QuestionType: Codable, Equatable {
+class QuestionType: Codable, Equatable, CustomStringConvertible {
 	
 	static func ==(lhs: QuestionType, rhs: QuestionType) -> Bool {
 		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correctAnswers == rhs.correctAnswers
@@ -35,6 +35,10 @@ struct Quiz: Codable, Equatable {
 	
 	let options: QuizOptions?
 	let sets: [[QuestionType]]
+	
+	var isValid: Bool {
+		return Quiz.isValid(self)
+	}
 
 	static func isValid(_ content: Quiz) -> Bool {
 
@@ -242,9 +246,9 @@ struct SetOfTopics {
 		CommunityTopics.areLoaded = true
 	}
 	
-	func save(topic: TopicEntry) {
+	@discardableResult func save(topic: TopicEntry) -> Bool {
 		// Won't save topics/set of questions with the same content
-		guard !SetOfTopics.shared.savedTopics.contains(topic) else { return }
+		guard !SetOfTopics.shared.savedTopics.contains(topic) else { return false }
 		
 		let fileName: String
 		let topicName = topic.displayedName
@@ -266,8 +270,10 @@ struct SetOfTopics {
 				try? data.write(to: documentsURL)
 				UserDefaultsManager.savedQuestionsCounter += 1
 				SetOfTopics.shared.loadSavedTopics()
+				return true
 			}
 		}
+		return false
 	}
 	
 	func quizFrom(content: String?) -> Quiz? {
