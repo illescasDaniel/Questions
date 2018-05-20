@@ -31,8 +31,7 @@ Main Features
 
 Screenshots
 -------
-<img src="Images/Main Menu.png" width="200"> <img src="Images/Settings.png" width="200"> <img src="Images/Correct.png" width="200"> <img src="Images/Pause menu.png" width="200">  
-<img src="Images/Main menu dark.png" width="200"> <img src="Images/Settings dark.png" width="200"> <img src="Images/Questions.png" width="200"> <img src="Images/Score alert.png" width="200">  
+<img src="screenshots.jpg" width="800">
 
 - [More screenshots](http://imgur.com/a/OOrLJ)
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
