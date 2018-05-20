@@ -184,13 +184,6 @@
 			path = QuestionsCreatorWeb;
 			sourceTree = "<group>";
 		};
-		65B25B611E7C268C00771F20 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Images;
-			sourceTree = SOURCE_ROOT;
-		};
 		65CB4C391D29C3E300D2E1C1 = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +221,6 @@
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
 				6560434F1E787FEE00A96192 /* Sounds */,
 				656043481E787D9D00A96192 /* Questions */,
-				65B25B611E7C268C00771F20 /* Images */,
 			);
 			path = Questions;
 			sourceTree = "<group>";

@@ -32,7 +32,7 @@ Main Features
 
 Screenshots
 -------
-<img src="screenshots.jpg" width="800">
+<img src="images/screenshots.jpg" width="800">
 
 - [More screenshots](http://imgur.com/a/OOrLJ)
 - [Demo Video](https://twitter.com/Daniel_ir96/status/955496091943931905)
@@ -48,6 +48,13 @@ The example community file containning the topics URL is hosted [here](https://p
 The file is parsed asynchronously in the app and loaded.
 
 You can create more topics and upload them to pastebin, then in the app you send me its URL.
+
+Topic Creator 
+--
+Since v3.11 anyone is able to create their own topics within the app!
+You can save it or share it with a friend if you want.
+
+<img src="images/topicCreator.jpg" width="225">
 
 Topics JSON format
 ---

@@ -56,8 +56,10 @@ struct QuestionsCreatorWrapper {
 			    height: 20pt;
 				border-radius: 10pt;
 				text-align: center;
-				vertical-align: center;
+				vertical-align: middle;
 				line-height: 0;
+                font-size: 1.1rem;
+			    padding: 0pt;
 			}
 		</style>
 """
