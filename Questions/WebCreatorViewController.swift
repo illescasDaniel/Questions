@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIWebView {
-	
 	func getInputValueFrom(id: String) -> String? {
 		return self.stringByEvaluatingJavaScript(from: "document.getElementById(\"\(id)\").value")
 	}
@@ -24,55 +23,13 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	@IBOutlet weak var webView: UIWebView!
 	
 	var questionsCreatorWrapper: QuestionsCreatorWrapper?
-	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .themeStyle(dark: .white, light: .gray))
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-		self.webView.delegate = self
-		
-		self.activityIndicator.frame = self.view.bounds
-		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.view.addSubview(self.activityIndicator)
-
-		let questionsCreatorSetupAlert = UIAlertController.init(title: "Create Topics", message: nil, preferredStyle: .alert)
-		
-		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Number of sets"
-			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
-			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
-		}
-		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Questions per set"
-			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
-			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
-		}
-		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Answers per question"
-			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
-			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
-		}
-		questionsCreatorSetupAlert.addAction(title: "Cancel", style: .cancel) { _ in
-			self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
-		}
-		questionsCreatorSetupAlert.addAction(title: "Generate form", style: .default) { action in
-		
-			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
-				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
-				let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
-				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr)  {
-				
-				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
-				self.webView.loadHTMLString(self.questionsCreatorWrapper?.web ?? "", baseURL: nil)
-			}
-			else {
-				self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
-			}
-		}
-		self.present(questionsCreatorSetupAlert, animated: true)
+		self.setupWebView()
+		self.setupActivityIndicator()
+		self.promptUserWithFormGenerator()
     }
 	
 	// MARK: - Web view Delegate
@@ -83,6 +40,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	
 	func webViewDidFinishLoad(_ webView: UIWebView) {
 		self.activityIndicator.stopAnimating()
+		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")
+		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")
 	}
 	
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
@@ -176,7 +135,64 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		self.invalidQuizAlert()
 	}
 	
-	func invalidQuizAlert() {
+	// MARK: - Convenience
+	
+	private func setupWebView() {
+		self.webView.delegate = self
+		self.webView.scrollView.showsHorizontalScrollIndicator = false
+		self.webView.backgroundColor = .themeStyle(dark: .black, light: .white)
+	}
+	
+	private func setupActivityIndicator() {
+		self.activityIndicator.frame = self.view.bounds
+		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.view.addSubview(self.activityIndicator)
+	}
+	
+	private func promptUserWithFormGenerator() {
+		let questionsCreatorSetupAlert = UIAlertController(title: "Create Topics", message: nil, preferredStyle: .alert)
+		
+		questionsCreatorSetupAlert.addTextField { textField in
+			textField.placeholder = "Number of sets"
+			textField.keyboardType = .numberPad
+			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+		}
+		questionsCreatorSetupAlert.addTextField { textField in
+			textField.placeholder = "Questions per set"
+			textField.keyboardType = .numberPad
+			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+		}
+		questionsCreatorSetupAlert.addTextField { textField in
+			textField.placeholder = "Answers per question"
+			textField.keyboardType = .numberPad
+			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+		}
+		questionsCreatorSetupAlert.addAction(title: "Cancel", style: .cancel) { _ in
+			self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+		}
+		questionsCreatorSetupAlert.addAction(title: "Generate form", style: .default) { action in
+			
+			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
+				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
+				let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
+				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr)  {
+				
+				self.activityIndicator.startAnimating()
+				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
+				self.webView.loadHTMLString(self.questionsCreatorWrapper?.web ?? "", baseURL: nil)
+			}
+			else {
+				self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+			}
+		}
+		self.present(questionsCreatorSetupAlert, animated: true)
+	}
+	
+	
+	private func invalidQuizAlert() {
 		let alertVC = UIAlertController(title: "Invalid quiz", message: nil, preferredStyle: .alert)
 		self.present(alertVC, animated: true) {
 			DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
@@ -184,14 +200,4 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			}
 		}
 	}
-	
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

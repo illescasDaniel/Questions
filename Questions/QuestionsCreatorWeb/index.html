@@ -9,22 +9,29 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	</head>
 	<style>
+		.body-style {
+			margin: 10pt 10pt;
+			background-color: black;
+			color: white;
+		}
 		.rounded-button {
 			width: 20pt;
 			height: 20pt;
 			border-radius: 10pt;
 			text-align: center;
-			vertical-align: middle;
+			vertical-align: center;
 			line-height: 0;
-			font-size: 15pt;
-			padding: 0pt;
+			
+			color: white;
+			background-color: orange;
+			border-color: red;
 		}
 	</style>
-	<body style="margin: 10pt 10pt">
+	<body class="body-style">
 		<h1 style="font-weight: bold">Topic Creator</h1>
 		
 		<section id="full-options" style="margin-top: 10pt">
-			<h4>Options <button id="options-button" type="button" class="btn btn-primary btn-sm rounded-button"> + </button></h4>
+			<h4>Options <button id="options-button" type="button" class="btn btn-sm rounded-button"> + </button></h4>
 			<section id="options-content" style="display: none">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
@@ -76,7 +83,7 @@
 		<section id="full-topic-1" style="margin-top: 10pt">
 			
 			<section id="full-question1" style="margin-top: 10pt">
-				<h4><button id="question1-button" type="button" class="btn btn-primary btn-sm rounded-button" style="margin-right: 6pt"> + </button>Question 1</h4>
+				<h4><button id="question1-button" type="button" class="btn btn-sm rounded-button" style="margin-right: 6pt"> + </button>Question 1</h4>
 				<section id="question1-content" style="display: none; margin-top: 10pt">
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
