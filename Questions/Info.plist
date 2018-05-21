@@ -24,6 +24,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>The app needs Camera acess if you want to read Questions from a QR code</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need access to save the topic as a QR code</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

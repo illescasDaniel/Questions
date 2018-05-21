@@ -47,7 +47,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
-		guard let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
+		guard !self.activityIndicator.isAnimating, let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
 		
 		let name = self.webView.getInputValueFrom(id: "topic-name")
 		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
@@ -104,31 +104,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			&& (quiz.sets.first?.count ?? 0) == Int(questionsCreatorWrapper.questionsPerSet)
 			&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(questionsCreatorWrapper.answersPerQuestion) {
 			
-			let whatToDoAlertController = UIAlertController.init(title: "What to do with the topic?", message: nil, preferredStyle: .alert)
-			whatToDoAlertController.addAction(title: "Wait! I'm not done", style: .cancel)
-			whatToDoAlertController.addAction(title: "Save it", style: .default) { _ in
-				DispatchQueue.global().async {
-					let savedCorrectly = SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
-					let message = savedCorrectly ? "Saved" : "Error while saving"
-					DispatchQueue.main.async {
-						let alertVC = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-						
-						self.present(alertVC, animated: true) {
-							DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
-								alertVC.dismiss(animated: true)
-							}
-						}
-					}
-				}
-			}
-			whatToDoAlertController.addAction(title: "Share it", style: .default) { _ in
-				if let data = try? JSONEncoder().encode(quiz), let quizInJSON = String(data: data, encoding: .utf8) {
-					let activityVC = UIActivityViewController(activityItems: [quizInJSON], applicationActivities: nil)
-					activityVC.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-					self.present(activityVC, animated: true)
-				}
-			}
-			self.present(whatToDoAlertController, animated: true)
+			self.topicActionAlert(quiz: quiz)
+			
 			return
 		}
 		
@@ -141,6 +118,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		self.webView.delegate = self
 		self.webView.scrollView.showsHorizontalScrollIndicator = false
 		self.webView.backgroundColor = .themeStyle(dark: .black, light: .white)
+		self.view.backgroundColor = .themeStyle(dark: .black, light: .white)
 	}
 	
 	private func setupActivityIndicator() {
@@ -191,6 +169,37 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		self.present(questionsCreatorSetupAlert, animated: true)
 	}
 	
+	private func topicActionAlert(quiz: Quiz) {
+		
+		let whatToDoAlertController = UIAlertController(title: "What to do with the topic?", message: nil, preferredStyle: .alert)
+		whatToDoAlertController.addAction(title: "Wait! I'm not done", style: .cancel)
+		whatToDoAlertController.addAction(title: "Save", style: .default) { _ in
+			DispatchQueue.global().async {
+				let savedCorrectly = SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
+				let message = savedCorrectly ? "Saved" : "Error while saving"
+				DispatchQueue.main.async {
+					let alertVC = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+					self.present(alertVC, animated: true) {
+						DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
+							alertVC.dismiss(animated: true)
+						}
+					}
+				}
+			}
+		}
+		
+		whatToDoAlertController.addAction(title: "Share", style: .default) { _ in
+			if let data = try? JSONEncoder().encode(quiz), let jsonQuiz = String(data: data, encoding: .utf8) {
+				let size = min(self.view.bounds.width, self.view.bounds.height)
+				if let outputQR = jsonQuiz.generateQRImageWith(size: (width: size, height: size)) {
+					let activityVC = UIActivityViewController(activityItems: [outputQR, jsonQuiz], applicationActivities: nil)
+					activityVC.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+					self.present(activityVC, animated: true)
+				}
+			}
+		}
+		self.present(whatToDoAlertController, animated: true)
+	}
 	
 	private func invalidQuizAlert() {
 		let alertVC = UIAlertController(title: "Invalid quiz", message: nil, preferredStyle: .alert)
