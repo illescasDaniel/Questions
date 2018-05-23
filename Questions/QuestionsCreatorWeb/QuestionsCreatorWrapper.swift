@@ -129,9 +129,9 @@ struct QuestionsCreatorWrapper {
 		var sets = ""
 		for i in 1...self.numberOfSets {
 			sets += """
-			<section id="full-topic-\(i)" style="margin-top: 10pt">
-			<h4><button id="topic-\(i)-button" type="button" class="btn btn-sm rounded-button" style="margin-right: 6pt"> + </button>Topic \(i) </h4>
-			    <section id="topic-\(i)-content" style="display: none">
+			<section id="full-set-\(i)" style="margin-top: 10pt">
+			<h4><button id="set-\(i)-button" type="button" class="btn btn-sm rounded-button" style="margin-right: 6pt"> + </button>Set \(i) </h4>
+			    <section id="set-\(i)-content" style="display: none">
 			"""
 			
 			var questions = ""
@@ -181,7 +181,7 @@ struct QuestionsCreatorWrapper {
 			    \(questions)
 			</section>
 			</section>
-			<script>hideSectionWithButton("topic-\(i)-content", "topic-\(i)-button")</script>
+			<script>hideSectionWithButton("set-\(i)-content", "set-\(i)-button")</script>
 			"""
 		}
 		

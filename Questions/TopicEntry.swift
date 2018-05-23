@@ -36,6 +36,80 @@ struct Quiz: Codable, Equatable {
 	let options: QuizOptions?
 	let sets: [[QuestionType]]
 	
+	enum ValidationError: Error {
+		
+		case emptySet(count: Int)
+		case emptyQuestion(set: Int, question: Int)
+		case emptyAnswer(set: Int, question: Int, answer: Int)
+		case incorrectAnswersCount(set: Int, question: Int)
+		case incorrectCorrectAnswersCount(set: Int, question: Int, count: Int?)
+		case incorrectCorrectAnswerIndex(set: Int, question: Int, badIndex: Int, maximum: Int)
+		
+		var log: (error: ValidationError, message: String, details: String) {
+			switch self {
+			case .emptySet(let count):
+				return (error: self, message: "At least one set is empty.", details: "Sets count: \(count)")
+			case .emptyQuestion(let set, let question):
+				return (error: self, message: "At least one question is empty.", details: "Set index: \(set), question index: \(question)")
+			case .emptyAnswer(let set, let question, let answer):
+				return (error: self, message: "At least one answer is empty.", details: "Set index: \(set), question index: \(question), answer index: \(answer)")
+			case .incorrectAnswersCount(let set, let question):
+				return (error: self, message: "The number of valid answers is incorrect, repeated answers are not allowed.", details: "Set index: \(set), question index: \(question)")
+			case .incorrectCorrectAnswersCount(let set, let question, let count):
+				return (error: self, message: "The number of correct answers is incorrect.", details: "Set index: \(set), question index: \(question), correct answers count: \(count ?? 0)")
+			case .incorrectCorrectAnswerIndex(let set, let question, let badIndex, let maximum):
+				return (error: self, message: "The 'correct answer' index is incorrect.", details: "Set index: \(set), question index: \(question), bad index: \(badIndex), maximum index: \(maximum)")
+			}
+		}
+	}
+	
+	func validate() -> ValidationError? {
+		
+		guard !self.sets.contains(where: { $0.isEmpty }) else { return .emptySet(count: self.sets.count) }
+		
+		for (indexSet, setOfQuestions) in self.sets.enumerated() {
+			
+			// ~ Number of answers must be consistent in the same set of questions (otherwise don't make this restriction, you might need to make other changes too)
+			let fullQuestionAnswersCount = setOfQuestions.first?.answers.count ?? 4
+			
+			for (indexQuestion, fullQuestion) in setOfQuestions.enumerated() {
+				
+				if fullQuestion.correctAnswers == nil { fullQuestion.correctAnswers = [] }
+				
+				guard !fullQuestion.question.isEmpty else { return .emptyQuestion(set: indexSet, question: indexQuestion) }
+				
+				guard fullQuestion.answers.count == fullQuestionAnswersCount, Set(fullQuestion.answers).count == fullQuestionAnswersCount else {
+					return .incorrectAnswersCount(set: indexSet, question: indexQuestion)
+				}
+				
+				guard !fullQuestion.correctAnswers.contains(where: { $0 >= fullQuestionAnswersCount }),
+					(fullQuestion.correctAnswers?.count ?? 0) < fullQuestionAnswersCount else {
+						return .incorrectCorrectAnswersCount(set: indexSet, question: indexQuestion, count: fullQuestion.correctAnswers?.count)
+				}
+				
+				if let singleCorrectAnswer = fullQuestion.correct {
+					if singleCorrectAnswer >= fullQuestionAnswersCount {
+						return .incorrectCorrectAnswerIndex(set: indexSet, question: indexQuestion, badIndex: Int(singleCorrectAnswer), maximum: fullQuestionAnswersCount)
+					} else {
+						fullQuestion.correctAnswers?.insert(singleCorrectAnswer)
+					}
+				}
+				
+				guard let correctAnswers = fullQuestion.correctAnswers, correctAnswers.count < fullQuestionAnswersCount, correctAnswers.count > 0 else {
+					return .incorrectCorrectAnswersCount(set: indexSet, question: indexQuestion, count: fullQuestion.correctAnswers?.count)
+				}
+				
+				for (indexAnswer, answer) in fullQuestion.answers.enumerated() {
+					if answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+						return .emptyAnswer(set: indexSet, question: indexQuestion, answer: indexAnswer)
+					}
+				}
+			}
+		}
+		
+		return nil
+	}
+	
 	var isValid: Bool {
 		return Quiz.isValid(self)
 	}
@@ -114,11 +188,14 @@ struct TopicEntry: Equatable, Hashable {
 			let data = try Data(contentsOf: url)
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
-			if Quiz.isValid(contentToValidate) {
+			switch contentToValidate.validate()?.log {
+			case .none:
 				self.quiz = contentToValidate
-			} else {
+			case .some(_, let message, let details):
+				print("Error loading \"\(name)\" topic: \(message).\nDetails: \(details)")
 				return nil
 			}
+			
 		} catch {
 			print("Error initializing quiz content. Quiz name: \(name)")
 			return nil
@@ -131,17 +208,17 @@ struct TopicEntry: Equatable, Hashable {
 			let data = try Data(contentsOf: path)
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
 			
-			if Quiz.isValid(contentToValidate) {
-				
-				self.quiz = contentToValidate
-				
-				if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-					self.displayedName = topicName
-				} else {
-					self.displayedName = path.deletingPathExtension().lastPathComponent
-				}
-				
+			if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+				self.displayedName = topicName
 			} else {
+				self.displayedName = path.deletingPathExtension().lastPathComponent
+			}
+			
+			switch contentToValidate.validate()?.log {
+			case .none:
+				self.quiz = contentToValidate
+			case .some(_, let message, let details):
+				print("Error loading \"\(self.displayedName)\" topic: \(message)\nDetails: \(details)")
 				return nil
 			}
 		} catch {
@@ -278,13 +355,17 @@ struct SetOfTopics {
 	
 	func quizFrom(content: String?) -> Quiz? {
 		
-		if let data = content?.data(using: .utf8),
-			let quizContent = try? JSONDecoder().decode(Quiz.self, from: data),
-			Quiz.isValid(quizContent) {
-
-			return quizContent
+		guard let data = content?.data(using: .utf8), let quizContent = try? JSONDecoder().decode(Quiz.self, from: data) else {
+			return nil
 		}
-		return nil
+		
+		switch quizContent.validate()?.log {
+		case .none:
+			return quizContent
+		case .some(_, let message, let details):
+			print(message, "\nDetails: \(details)")
+			return nil
+		}
 	}
 	
 	// MARK: - Convenience

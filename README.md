@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-v3.12.1--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-v3.13--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 Prototype of a Quiz app for iOS.
@@ -54,7 +54,8 @@ Topic Creator
 Since v3.11 anyone is able to create their own topics within the app!
 You can save it or share it with a friend if you want.
 
-<img src="images/topicCreator.jpg" width="225">
+<img src="images/topicCreatorLight.jpg" width="200">
+<img src="images/topicCreatorDark.jpg" width="200">
 
 Topics JSON format
 ---
