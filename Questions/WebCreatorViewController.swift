@@ -57,7 +57,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		let showCorrectIncorrectAnwer = self.webView.isCheckboxChecked(id: "topic-correct-answer")
 		let multipleCorrectAnswersAsMandatory = self.webView.isCheckboxChecked(id: "topic-force-choose")
 		
-		let options = QuizOptions(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
+		let options = Quiz.Options(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
 		
 		var sets: [[QuestionType]] = []
 		
@@ -68,8 +68,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			for j in 1...questionsCreatorWrapper.questionsPerSet {
 				
 				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines), !questionText.isEmpty else {
-					let log = Quiz.ValidationError.emptyQuestion(set: Int(i)-1, question: Int(j)-1).log
-					self.invalidQuizAlert(title: log.message, message: log.details)
+					let error = Quiz.ValidationError.emptyQuestion(set: Int(i), question: Int(j))
+					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
 				
@@ -83,8 +83,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 						if !trimmedAnswer.isEmpty {
 							answers.append(trimmedAnswer)
 						} else {
-							let log = Quiz.ValidationError.emptyAnswer(set: Int(i)-1, question: Int(j)-1, answer: Int(k)-1).log
-							self.invalidQuizAlert(title: log.message, message: log.details)
+							let error = Quiz.ValidationError.emptyAnswer(set: Int(i), question: Int(j), answer: Int(k))
+							self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 							return
 						}
 					}
@@ -93,13 +93,13 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 					}
 				}
 				guard !correct.isEmpty else {
-					let log = Quiz.ValidationError.incorrectCorrectAnswersCount(set: Int(i)-1, question: Int(j)-1, count: 0).log
-					self.invalidQuizAlert(title: log.message, message: log.details);
+					let error = Quiz.ValidationError.incorrectCorrectAnswersCount(set: Int(i), question: Int(j), count: 0)
+					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
 				guard !answers.isEmpty, answers.count == Int(questionsCreatorWrapper.answersPerQuestion) else {
-					let log = Quiz.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j)).log
-					self.invalidQuizAlert(title: log.message, message: log.details)
+					let error = Quiz.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j))
+					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
 				
@@ -111,9 +111,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		
 		let quiz = Quiz(options: options, sets: sets)
 		
-		switch quiz.validate()?.log {
+		switch quiz.validate() {
 		case .none:
-		
 			if quiz.sets.count == Int(questionsCreatorWrapper.numberOfSets)
 				&& (quiz.sets.first?.count ?? 0) == Int(questionsCreatorWrapper.questionsPerSet)
 				&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(questionsCreatorWrapper.answersPerQuestion) {
@@ -121,8 +120,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				return
 			}
 			
-		case .some(_, let message, let details):
-			self.invalidQuizAlert(title: message, message: details)
+		case .some(let error):
+			self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 		}
 		
 		self.invalidQuizAlert()
@@ -220,7 +219,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func invalidQuizAlert(title: String = "", message: String? = nil) {
-		let alertVC = UIAlertController(title: title.isEmpty ? "Invalid quiz" : title, message: message, preferredStyle: .alert)
+		let alertVC = UIAlertController(title: title.isEmpty ? "Invalid quiz" : title, message: message ?? nil, preferredStyle: .alert)
 		alertVC.addAction(title: "OK", style: .default)
 		self.present(alertVC, animated: true)
 	}

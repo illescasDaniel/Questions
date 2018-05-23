@@ -69,16 +69,16 @@ class MainViewController: UIViewController {
 	// MARK: Actions
 	
 	@IBAction func loadAppTopics(_ sender: UIButton) {
-		SetOfTopics.shared.currentSetOfTopics = .app
+		SetOfTopics.shared.current = .app
 	}
 	
 	@IBAction func loadSavedTopics(_ sender: UIButton) {
-		SetOfTopics.shared.currentSetOfTopics = .saved
+		SetOfTopics.shared.current = .saved
 	}
 
 	@IBAction func loadCommunityTopics(_ sender: UIButton) {
 		
-		SetOfTopics.shared.currentSetOfTopics = .community
+		SetOfTopics.shared.current = .community
 		
 		if CommunityTopics.shared == nil {
 			DispatchQueue.global().async {

@@ -18,8 +18,8 @@ class TopicsViewController: UITableViewController {
 		//self.tableView.allowsMultipleSelectionDuringEditing = true
 		//self.clearsSelectionOnViewWillAppear = true
 		
-		self.addBarButtonItem.isEnabled = SetOfTopics.shared.currentSetOfTopics != .app
-		self.refreshBarButtonItem.isEnabled = SetOfTopics.shared.currentSetOfTopics == .community
+		self.addBarButtonItem.isEnabled = SetOfTopics.shared.current != .app
+		self.refreshBarButtonItem.isEnabled = SetOfTopics.shared.current == .community
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -35,7 +35,7 @@ class TopicsViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return (SetOfTopics.shared.currentSetOfTopics == .saved) ? .delete : .none
+		return (SetOfTopics.shared.current == .saved) ? .delete : .none
 	}
 	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -80,7 +80,7 @@ class TopicsViewController: UITableViewController {
 		}
 		else if self.tableView?.backgroundView == nil {
 			
-			if SetOfTopics.shared.currentSetOfTopics == .community {
+			if SetOfTopics.shared.current == .community {
 				
 				let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -151,7 +151,7 @@ class TopicsViewController: UITableViewController {
 		
 		DispatchQueue.global().async {
 			
-			if SetOfTopics.shared.currentSetOfTopics == .community,
+			if SetOfTopics.shared.current == .community,
 				SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
 				let communityTopics = CommunityTopics.shared {
 				
@@ -203,8 +203,8 @@ class TopicsViewController: UITableViewController {
 	
 	@IBAction func addNewTopic(_ sender: UIBarButtonItem) {
 		
-		let titleText = (SetOfTopics.shared.currentSetOfTopics == .saved) ? "New Topic" : "Topic submission"
-		let messageText = (SetOfTopics.shared.currentSetOfTopics == .saved)
+		let titleText = (SetOfTopics.shared.current == .saved) ? "New Topic" : "Topic submission"
+		let messageText = (SetOfTopics.shared.current == .saved)
 			? "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file."
 			: "You can specify a URL which contains an appropiate formatted file or the full topic content."
 		
@@ -236,7 +236,7 @@ class TopicsViewController: UITableViewController {
 			}
 		}
 		
-		let okAction = (SetOfTopics.shared.currentSetOfTopics == .saved) ? "Add" : "Submit"
+		let okAction = (SetOfTopics.shared.current == .saved) ? "Add" : "Submit"
 		newTopicAlert.addAction(title: okAction.localized, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
@@ -283,7 +283,7 @@ class TopicsViewController: UITableViewController {
 		
 		DispatchQueue.global().async {
 			
-			if SetOfTopics.shared.currentSetOfTopics == .community {
+			if SetOfTopics.shared.current == .community {
 				
 				let messageBody = """
 					Topic name: \(topicName)
