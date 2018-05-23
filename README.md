@@ -54,8 +54,7 @@ Topic Creator
 Since v3.11 anyone is able to create their own topics within the app!
 You can save it or share it with a friend if you want.
 
-<img src="images/topicCreatorLight.jpg" width="200">
-<img src="images/topicCreatorDark.jpg" width="200">
+<img src="images/topicCreatorLight.jpg" width="200"> <img src="images/topicCreatorDark.jpg" width="200">
 
 Topics JSON format
 ---
