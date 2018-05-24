@@ -190,6 +190,7 @@
 				65746A5820B62B3000F28769 /* QuestionType.swift */,
 				65746A5A20B62B8900F28769 /* TopicEntry.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* SetOfTopics.swift */,
+				6548F085208896FA005A87D9 /* CommunityTopics.swift */,
 			);
 			name = Topics;
 			sourceTree = "<group>";
@@ -274,7 +275,6 @@
 			children = (
 				65746A5520B62A1500F28769 /* Topics */,
 				65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */,
-				6548F085208896FA005A87D9 /* CommunityTopics.swift */,
 				65AE3EC71D3A9C7500125EE2 /* DataOnDisk.swift */,
 				657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */,
 				657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */,

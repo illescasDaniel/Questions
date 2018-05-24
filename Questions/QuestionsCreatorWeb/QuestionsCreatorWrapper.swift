@@ -19,33 +19,30 @@ struct QuestionsCreatorWrapper {
 		self.questionsPerSet = questionsPerSet
 		self.answersPerQuestion = answersPerQuestion
 	}
-	
+
 	var web: String {
-		
+
 		let bootstrapp = """
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
 """
-		
 		let extraStyles = """
        	<style>
 			.body-style {
-				margin: 10pt 10pt; 
-				
+				margin: 10pt 10pt;
 				background-color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "black" : "white");
 				color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "white" : "black");
 			}
 			.rounded-button {
-				width: 20pt;
-			    	height: 20pt;
-				border-radius: 10pt;
+				width: 24pt;
+			    height: 24pt;
+				border-radius: 12pt;
 				text-align: center;
 				vertical-align: middle;
 				line-height: 0;
-                font-size: 1.1rem;
+                font-size: 1.2rem;
 			   	padding: 0pt;
 			
 				color: white;
@@ -56,12 +53,26 @@ struct QuestionsCreatorWrapper {
 """
 		let scripts = """
 		<script>
+           	function focusInputFaster(inputID) {
+				const inputElement = document.getElementById(inputID)
+				inputElement.ontouchend = function (e) {
+					inputElement.focus()
+                    		e.preventDefault()
+				}
+			}
+			function checkCheckboxFaster(checkboxID) {
+				const checkboxElement = document.getElementById(checkboxID)
+				checkboxElement.ontouchend = function (e) {
+					checkboxElement.click()
+                    		e.preventDefault()
+				}
+			}
 			function hideSectionWithButton(sectionID, buttonID) {
 				
 				const optionsSection = document.getElementById(sectionID)
 				const optionsButton = document.getElementById(buttonID)
 				
-				optionsButton.ontouchstart = function () {
+				optionsButton.ontouchend = function () {
 					if (optionsSection.style.display == "none" || optionsSection.style.display == "") {
 						optionsSection.style.display = "block"
 						optionsButton.textContent = "-"
@@ -73,28 +84,42 @@ struct QuestionsCreatorWrapper {
 			}
 		</script>
 """
+		let focusInputFaster: (String) -> String = { inputID in
+			return """
+			<script>focusInputFaster("\(inputID)")</script>
+			"""
+		}
+		
+		let checkCheckboxFaster: (String) -> String = { checkboxID in
+			return """
+			<script>checkCheckboxFaster("\(checkboxID)")</script>
+			"""
+		}
 
 		let options = """
 		<section id="full-options" style="margin-top: 10pt">
 		<h4>Options <button id="options-button" type="button" class="btn btn-sm rounded-button"> + </button></h4>
 		<section id="options-content" style="display: none">
-			<div class="input-group mb-3">
+			<div class="input-group mb-3" style="margin-top: 10pt;">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Name</span>
 				</div>
 				<input id="topic-name" type="text" class="form-control" placeholder="(Optional but recommended)">
+		        \(focusInputFaster("topic-name"))
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Time per set (s)</span>
 				</div>
-				<input id="topic-time" type="tel" class="form-control" placeholder="(Optional)">
+				<input id="topic-time" type="number" pattern="[0-9]*" class="form-control" placeholder="(Optional)">
+		        \(focusInputFaster("topic-time"))
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Questions in random order</span>
 					<span class="input-group-text">
 						<input id="topic-random-order" type="checkbox" checked>
+						\(checkCheckboxFaster("topic-random-order"))
 					</span>
 				</div>
 			</div>
@@ -103,6 +128,7 @@ struct QuestionsCreatorWrapper {
 					<span class="input-group-text">Enable help button</span>
 					<span class="input-group-text">
 						<input id="topic-help-button" type="checkbox" checked>
+						\(checkCheckboxFaster("topic-help-button"))
 					</span>
 				</div>
 			</div>
@@ -111,6 +137,7 @@ struct QuestionsCreatorWrapper {
 					<span class="input-group-text">Show Correct/Incorrect answers</span>
 					<span class="input-group-text">
 						<input id="topic-correct-answer" type="checkbox" checked>
+		                \(checkCheckboxFaster("topic-correct-answer"))
 					</span>
 				</div>
 			</div>
@@ -119,6 +146,7 @@ struct QuestionsCreatorWrapper {
 					<span class="input-group-text">Force to choose all correct answers</span>
 					<span class="input-group-text">
 						<input id="topic-force-choose" type="checkbox">
+		                \(checkCheckboxFaster("topic-force-choose"))
 					</span>
 				</div>
 			</div>
@@ -146,12 +174,14 @@ struct QuestionsCreatorWrapper {
 								<span class="input-group-text">Question</span>
 							</div>
 							<textarea id="question-text-\(i)-\(j)" class="form-control"></textarea>
+				            \(focusInputFaster("question-text-\(i)-\(j)"))
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Image URL</span>
 							</div>
 							<input id="question-image-\(i)-\(j)" type="url" class="form-control" placeholder="(Optional)">
+				            \(focusInputFaster("question-image-\(i)-\(j)"))
 						</div>
 				        <section id="answers" style="padding-top: 10pt">
 				"""
@@ -163,8 +193,10 @@ struct QuestionsCreatorWrapper {
 						<div class="input-group-prepend">
 							<span class="input-group-text">Answer \(k)</span>
 							<span class="input-group-text"><input id="answer-correct-\(i)-\(j)-\(k)" type="checkbox"></span>
+					        \(checkCheckboxFaster("answer-correct-\(i)-\(j)-\(k)"))
 						</div>
 						<input id="answer-\(i)-\(j)-\(k)" type="text" class="form-control" required>
+					    \(focusInputFaster("answer-\(i)-\(j)-\(k)"))
 					</div>
 					"""
 				}
@@ -191,7 +223,7 @@ struct QuestionsCreatorWrapper {
 		<html>
 			<head>
 				<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no">
+		        <meta name="viewport" content="width=device-width, user-scalable=no">
 				<title>Creator Web</title>
 		        \(bootstrapp)
 		        \(scripts)

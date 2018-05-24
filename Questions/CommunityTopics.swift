@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct CommunityTopic: Codable {
 	let name: String?
 	let remoteContentURL: URL
