@@ -53,11 +53,11 @@ struct QuestionsCreatorWrapper {
 """
 		let scripts = """
 		<script>
-           	function focusInputFaster(inputID) {
+            function focusInputFaster(inputID) {
 				const inputElement = document.getElementById(inputID)
 				inputElement.ontouchend = function (e) {
-					inputElement.focus()
-                    		e.preventDefault()
+                    inputElement.focus()
+					e.preventDefault()
 				}
 			}
 			function checkCheckboxFaster(checkboxID) {
@@ -84,6 +84,7 @@ struct QuestionsCreatorWrapper {
 			}
 		</script>
 """
+		/// Should not be enabled on normal fields since when scrolling it triggers it
 		let focusInputFaster: (String) -> String = { inputID in
 			return """
 			<script>focusInputFaster("\(inputID)")</script>
@@ -174,14 +175,12 @@ struct QuestionsCreatorWrapper {
 								<span class="input-group-text">Question</span>
 							</div>
 							<textarea id="question-text-\(i)-\(j)" class="form-control"></textarea>
-				            \(focusInputFaster("question-text-\(i)-\(j)"))
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Image URL</span>
 							</div>
 							<input id="question-image-\(i)-\(j)" type="url" class="form-control" placeholder="(Optional)">
-				            \(focusInputFaster("question-image-\(i)-\(j)"))
 						</div>
 				        <section id="answers" style="padding-top: 10pt">
 				"""
@@ -196,7 +195,6 @@ struct QuestionsCreatorWrapper {
 					        \(checkCheckboxFaster("answer-correct-\(i)-\(j)-\(k)"))
 						</div>
 						<input id="answer-\(i)-\(j)-\(k)" type="text" class="form-control" required>
-					    \(focusInputFaster("answer-\(i)-\(j)-\(k)"))
 					</div>
 					"""
 				}
