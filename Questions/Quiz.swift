@@ -9,7 +9,11 @@
 import Foundation
 
 struct Quiz: Codable {
-	
+	let options: Options?
+	let sets: [[QuestionType]]
+}
+
+extension Quiz {
 	struct Options: Codable {
 		let name: String?
 		let timePerSetInSeconds: TimeInterval?
@@ -19,9 +23,6 @@ struct Quiz: Codable {
 		let multipleCorrectAnswersAsMandatory: Bool?
 		// case displayFullResults // YET to implement
 	}
-	
-	let options: Options?
-	let sets: [[QuestionType]]
 }
 
 extension Quiz: Equatable {

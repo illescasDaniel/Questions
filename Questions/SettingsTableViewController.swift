@@ -254,7 +254,7 @@ class SettingsTableViewController: UITableViewController {
 	private func resetProgressStatistics() {
 		
 		DataStoreArchiver.shared.completedSets.removeAll()
-		CachedImages.shared.removeAll()
+		CachedImages.shared.clear()
 		SetOfTopics.shared.loadAllTopicsStates()
 		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
 		
@@ -361,7 +361,7 @@ class SettingsTableViewController: UITableViewController {
 		let alertViewController = UIAlertController(title: "Reset cached images".localized, message: nil, preferredStyle: .alert)
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
-			CachedImages.shared.removeAll()
+			CachedImages.shared.clear()
 		}
 		self.present(alertViewController, animated: true)
 	}

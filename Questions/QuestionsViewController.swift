@@ -56,19 +56,12 @@ class QuestionsViewController: UIViewController {
 		self.questionImageButton.clipsToBounds = true
 		self.questionImageButton.layer.cornerRadius = 10
 		
-		if !self.isSetFromJSON {
-			self.setUpQuiz()
-		} else {
+		if self.isSetFromJSON {
 			self.goBack.isHidden = true
-			
-			if self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true {
-				self.set.shuffle()
-			}
-				
-			self.quiz = set.enumerated().makeIterator()
 		}
+		self.setUpQuiz()
 		
-		DispatchQueue.global(qos: .userInitiated).async {
+		DispatchQueue.global().async {
 			self.preloadImages()
 		}
 		
@@ -178,10 +171,10 @@ class QuestionsViewController: UIViewController {
 			alertViewController.addAction(title: "OK".localized, style: .default) { action in self.repeatActionDetailed() }
 			alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 			
-			present(alertViewController, animated: true)
+			self.present(alertViewController, animated: true)
 		}
 		else if self.repeatTimes >= QuestionsAppOptions.maximumRepeatTriesPerQuiz {
-			showOKAlertWith(title: "Attention", message: "Maximum repeat tries per quiz reached")
+			self.showOKAlertWith(title: "Attention", message: "Maximum repeat tries per quiz reached")
 		}
 	}
 	
@@ -367,12 +360,23 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func preloadImages() {
-		for fullQuestion in self.set.dropFirst() { //.dropFirst() Drops the first because it will be cached by the 'pickQuestion()' function
-			if let validImageURL = fullQuestion.imageURL, !validImageURL.isEmpty && !CachedImages.shared.exists(key: validImageURL.hash) {
-				if let validImage = UIImage(contentsOf: URL(string: validImageURL)) {
-					CachedImages.shared.save(image: validImage, withKey: validImageURL.hash)
+		
+		for fullQuestion in self.set.dropFirst() { // Drops the first because it will be cached by the 'pickQuestion()' function
+			
+			guard let validImageURL = fullQuestion.imageURL else { break }
+			
+			print(validImageURL)
+			
+			CachedImages.shared.saveImage(withURL: validImageURL, onError: { cachedImagesError in
+				switch cachedImagesError {
+				case .emptyURL:
+					print("URL was empty")
+				case .couldNotSaveImage:
+					print("Could not save the image")
+				case .couldNotDownloadImage:
+					print("Could not download the image")
 				}
-			}
+			})
 		}
 	}
 	
@@ -497,39 +501,17 @@ class QuestionsViewController: UIViewController {
 			
 			self.remainingQuestionsLabel.text = "\(quiz0.offset + 1)/\(self.set.count)"
 			
-			self.activityIndicatorView.stopAnimating()
-			
-			if let imageString = fullQuestion.imageURL, !imageString.isEmpty {
-				
-				if CachedImages.shared.exists(key: imageString.hash) {
-					CachedImages.shared.asyncManageImage(withKey: imageString.hash) { cachedImage in
-						self.questionImageButton.setImage(cachedImage, for: .normal)
-						self.questionImageButton.isHidden = false
-					}
-				}
-				else {
-					
-					self.questionImageButton.isHidden = true
-					
-					self.activityIndicatorView.startAnimating()
-					
-					self.currentURL = URL(string: imageString)
-					
-					UIImage.manageContentsOf(self.currentURL, completionHandler: { (image, url) in
-						if url == self.currentURL {
-							self.activityIndicatorView.stopAnimating()
-							self.questionImageButton.setImage(image, for: .normal)
-							self.questionImageButton.isHidden = false
-						}
-						CachedImages.shared.save(image: image, withKey: imageString.hash)
-					}, errorHandler: {
-						self.activityIndicatorView.stopAnimating()
-					})
-				}
-			}
-			else {
+			CachedImages.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
+				self.activityIndicatorView.stopAnimating()
+				self.questionImageButton.setImage(cachedImage, for: .normal)
+				self.questionImageButton.isHidden = false
+			}, prepareForDownload: {
 				self.questionImageButton.isHidden = true
-			}
+				self.activityIndicatorView.startAnimating()
+			}, onError: { _ in
+				self.questionImageButton.isHidden = true
+				self.activityIndicatorView.stopAnimating()
+			})
 		}
 		else {
 			self.endOfQuestionsAlert()
@@ -630,13 +612,12 @@ class QuestionsViewController: UIViewController {
 	
 	private func setUpQuiz() {
 		
-		self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex]
+		if !self.isSetFromJSON { self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex] }
 		
-		let questionsInRandomOrder = self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true
-		if questionsInRandomOrder {
-			self.set.shuffle()
+		if self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true {
+			//self.set.shuffle()
 		}
-		self.quiz = set.enumerated().makeIterator()
+		self.quiz = self.set.enumerated().makeIterator()
 	}
 	
 	// Alerts

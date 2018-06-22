@@ -140,6 +140,7 @@ struct SetOfTopics {
 					setOfSavedTopics.insert(validTopic)
 				}
 			}
+			
 			return setOfSavedTopics
 		}
 		return Set<TopicEntry>()

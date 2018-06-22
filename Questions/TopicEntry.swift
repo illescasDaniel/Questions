@@ -44,7 +44,6 @@ struct TopicEntry {
 	}
 	
 	init?(path: URL) {
-		
 		do {
 			let data = try Data(contentsOf: path)
 			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
@@ -63,6 +62,7 @@ struct TopicEntry {
 				return nil
 			}
 		} catch {
+			print(error)
 			print("Error initializing quiz content. Quiz path: \(path.lastPathComponent)")
 			return nil
 		}
