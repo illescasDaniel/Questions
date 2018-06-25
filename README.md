@@ -8,7 +8,7 @@ Prototype of a Quiz app for iOS.
 
 **New**: follow the app roadmap, post your suggestions, vote... on [Trello](https://trello.com/b/UFcp82l6/questions-ios)
 
-Main Features
+Features
 -------------
 - Questions statistics
 - Reset statistics and/or settings
