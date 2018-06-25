@@ -6,9 +6,7 @@ class MainViewController: UIViewController {
 	// MARK: Properties
 	
 	@IBOutlet weak var startButton: UIButton!
-	@IBOutlet weak var savedTopicsButton: UIButton!
 	@IBOutlet weak var communityButton: UIButton!
-	@IBOutlet weak var readQRCodeButton: UIButton!
 	@IBOutlet weak var settingsButton: UIButton!
 	
 	@IBOutlet weak var scoreLabel: UILabel!
@@ -26,6 +24,7 @@ class MainViewController: UIViewController {
 		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
+		self.navigationItem.backBarButtonItem?.title = "Main menu".localized
 		
 		if UserDefaultsManager.parallaxEffectSwitchIsOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
@@ -57,7 +56,7 @@ class MainViewController: UIViewController {
 	override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		// Redraw the buttons to update the rounded corners when rotating the device
-		[self.startButton, self.savedTopicsButton, self.readQRCodeButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
+		[self.startButton, self.communityButton, self.settingsButton].forEach { $0?.setNeedsDisplay() }
 	}
 
 	// MARK: UnwindSegue
@@ -70,10 +69,6 @@ class MainViewController: UIViewController {
 	
 	@IBAction func loadAppTopics(_ sender: UIButton) {
 		SetOfTopics.shared.current = .app
-	}
-	
-	@IBAction func loadSavedTopics(_ sender: UIButton) {
-		SetOfTopics.shared.current = .saved
 	}
 
 	@IBAction func loadCommunityTopics(_ sender: UIButton) {
@@ -103,10 +98,8 @@ class MainViewController: UIViewController {
 	}
 	
 	private func initializeLables() {
-		self.startButton.setTitle("START GAME".localized, for: .normal)
-		self.savedTopicsButton.setTitle("SAVED TOPICS".localized, for: .normal)
+		self.startButton.setTitle("TOPICS".localized, for: .normal)
 		self.communityButton.setTitle("COMMUNITY".localized, for: .normal)
-		self.readQRCodeButton.setTitle("READ QR CODE".localized, for: .normal)
 		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
 	}
 	
@@ -115,7 +108,7 @@ class MainViewController: UIViewController {
 		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		self.backgroundImageView.dontInvertColors()
 		self.startButton.dontInvertColors()
-		self.readQRCodeButton.dontInvertColors()
+		self.communityButton.dontInvertColors()
 		self.settingsButton.dontInvertColors()
 		self.scoreLabel.dontInvertColors()
 	}

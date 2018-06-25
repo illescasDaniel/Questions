@@ -7,10 +7,10 @@
 
 /* -- UI ELEMENTS -- */
 
-"Main Menu" = "Menú principal";
+"Main menu" = "Menú principal";
 
-"START GAME" = "COMENZAR";
-"SAVED TOPICS" = "TEMAS GUARDADOS";
+"TOPICS" = "TEMAS";
+"User topics" = "Temas del usuario";
 "COMMUNITY" = "COMUNIDAD";
 "READ QR CODE" = "LEER CÓDIGO QR";
 "SETTINGS" = "OPCIONES";
@@ -29,13 +29,14 @@
 "OK" = "Aceptar";
 
 "Settings" = "Opciones";
-"Background music" = "Música de fondo";
+"Background Music" = "Música de fondo";
 "Haptic Feedback" = "Respuesta Háptica";
 "*Only available on certain devices." = "*Sólo disponible para ciertos dispositivos.";
 "Parallax effect" = "Efecto parallax";
 "Dark theme" = "Tema oscuro";
 "Licenses" = "Licencias";
 "Reset progress" = "Reiniciar progreso";
+"Clear cached images" = "Limpiar imágenes en caché";
 "RESET_GAME_ADVICE" = "¿Está seguro de que desea reiniciar toda la configuración y progreso del juego?";
 "Everything" = "Todos los datos";
 "Only Statistics" = "Sólo estadísticas";
@@ -47,6 +48,7 @@
 "Completed sets" = "Sets completados";
 
 "Topics" = "Temas";
+"Community" = "Comunidad";
 "Quizzes" = "Cuestionarios";
 
 "Attention" = "Atención";
@@ -67,6 +69,63 @@
 "Questions menu" = "Menú de preguntas";
 
 "Text to encode format" = "Formato del texto a codificar";
+
+// New topic
+
+"Create Topic" = "Crear tema";
+"Number of sets" = "Número de sets";
+"Questions per set" = "Preguntas por set";
+"Answers per question" = "Respuestas por pregunta";
+"Generate form" = "Generar formulario";
+
+"Topic submission" = "Enviar tema";
+"New Topic" = "Nuevo tema";
+"You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file." = "Puedes leer un QR para añadir un tema o descargarlo usando una URL que contenga el fichero apropiadamente formateado.";
+"You can specify a URL which contains an appropiate formatted file or the full topic content." = "Puedes especificar una URL que contenga el fichero apropiadamente formateado o especificar el contenido completo del tema.";
+"Add" = "Añadir";
+"Enviar" = "Submit";
+
+"What to do with the topic" = "Qué hacer con el tema";
+"Wait! I'm not done" = "¡Espera! Todavía no terminé.";
+"Save" = "Guardar";
+"Saved" = "Guardado";
+"Error while saving" = "Error al guardar";
+"Share" = "Compartir";
+
+// Topic checks
+
+"Invalid topic" = "Tema inválido";
+
+"At least one set is empty." = "Al menos un set está vacío,";
+"At least one question is empty." = "Al menos una pregunta está vacía.";
+"At least one answer is empty." = "Al menos una respuesta está vacía.";
+"The number of valid answers is incorrect, repeated answers are not allowed." = "El número de respuestas válidas es incorrecto, respuestas repetidas no están permitidas.";
+"The number of correct answers is incorrect." = "El número de respuestas correctas es incorreto.";
+"The 'correct answer' index is incorrect." = "El índice de la respuesta correcta es incorrecto.";
+
+"Sets count: %d" = "Cantidad de sets: %d";
+"[Location] Set: %d, question: %d" = "[Localización] Set: %d, pregunta: %d";
+"[Location] Set: %d, question: %d, answer: %d" = "[Localización] Set: %d, pregunta: %d, respuesta: %d";
+//"[Location] Set: %d, question: %d"
+"[Location] Set: %d, question: %d, correct answers: %d" = "[Localización] Set: %d, pregunta: %d, respuestas correctas: %d";
+"[Location] Set: %d, question: %d, bad: %d, maximum: %d" = "[Localización] Set: %d, pregunta: %d, mal: %d, máximo: %d";
+
+// Topic creator
+
+"Topic Creator" = "Creador de temas";
+"Options" = "Opciones";
+//"Set" = "Set";
+"Question" = "Pregunta";
+"Image URL" = "URL Imagen";
+"Optional" = "Opcional";
+"Answer" = "Respuesta";
+"Name" = "Nombre";
+"Optional but recommended" = "Opcional pero recomendado";
+"Time per set" = "Tiempo por set";
+"Questions in random order" = "Preguntas en orden aleatorio";
+"Enable help button" = "Habilitar botón de ayuda";
+"Show Correct/Incorrect answers" = "Mostrar respuestas correctas/incorrectas";
+"Force to choose all correct answers" = "Forzar escoger todas las respuestas correctas";
 
 //
 

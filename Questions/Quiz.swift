@@ -57,32 +57,32 @@ extension Quiz {
 				
 				if fullQuestion.correctAnswers == nil { fullQuestion.correctAnswers = [] }
 				
-				guard !fullQuestion.question.isEmpty else { return .emptyQuestion(set: indexSet, question: indexQuestion) }
+				guard !fullQuestion.question.isEmpty else { return .emptyQuestion(set: indexSet+1, question: indexQuestion+1) }
 				
 				guard fullQuestion.answers.count == fullQuestionAnswersCount, Set(fullQuestion.answers).count == fullQuestionAnswersCount else {
-					return .incorrectAnswersCount(set: indexSet, question: indexQuestion)
+					return .incorrectAnswersCount(set: indexSet+1, question: indexQuestion+1)
 				}
 				
 				guard !fullQuestion.correctAnswers.contains(where: { $0 >= fullQuestionAnswersCount }),
 					(fullQuestion.correctAnswers?.count ?? 0) < fullQuestionAnswersCount else {
-						return .incorrectCorrectAnswersCount(set: indexSet, question: indexQuestion, count: fullQuestion.correctAnswers?.count)
+						return .incorrectCorrectAnswersCount(set: indexSet+1, question: indexQuestion+1, count: fullQuestion.correctAnswers?.count)
 				}
 				
 				if let singleCorrectAnswer = fullQuestion.correct {
 					if singleCorrectAnswer >= fullQuestionAnswersCount {
-						return .incorrectCorrectAnswerIndex(set: indexSet, question: indexQuestion, badIndex: Int(singleCorrectAnswer), maximum: fullQuestionAnswersCount)
+						return .incorrectCorrectAnswerIndex(set: indexSet+1, question: indexQuestion+1, badIndex: Int(singleCorrectAnswer)+1, maximum: fullQuestionAnswersCount)
 					} else {
 						fullQuestion.correctAnswers?.insert(singleCorrectAnswer)
 					}
 				}
 				
 				guard let correctAnswers = fullQuestion.correctAnswers, correctAnswers.count < fullQuestionAnswersCount, correctAnswers.count > 0 else {
-					return .incorrectCorrectAnswersCount(set: indexSet, question: indexQuestion, count: fullQuestion.correctAnswers?.count)
+					return .incorrectCorrectAnswersCount(set: indexSet+1, question: indexQuestion+1, count: fullQuestion.correctAnswers?.count)
 				}
 				
 				for (indexAnswer, answer) in fullQuestion.answers.enumerated() {
 					if answer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-						return .emptyAnswer(set: indexSet, question: indexQuestion, answer: indexAnswer)
+						return .emptyAnswer(set: indexSet+1, question: indexQuestion+1, answer: indexAnswer+1)
 					}
 				}
 			}
@@ -112,17 +112,17 @@ extension Quiz.ValidationError: LocalizedError {
 	var recoverySuggestion: String? {
 		switch self {
 		case .emptySet(let count):
-			return "Sets count: \(count)"
+			return String(format: "Sets count: %d".localized, count)
 		case .emptyQuestion(let set, let question):
-			return "[Location] Set: \(set), question: \(question)"
+			return String(format: "[Location] Set: %d, question: %d".localized, set, question)
 		case .emptyAnswer(let set, let question, let answer):
-			return "[Location] Set: \(set), question: \(question), answer: \(answer)"
+			return String(format: "[Location] Set: %d, question: %d, answer: %d".localized, set, question, answer)
 		case .incorrectAnswersCount(let set, let question):
-			return "[Location] Set: \(set), question: \(question)"
+			return String(format: "[Location] Set: %d, question: %d".localized, set, question)
 		case .incorrectCorrectAnswersCount(let set, let question, let count):
-			return "[Location] Set: \(set), question: \(question), correct answers: \(count ?? 0)"
+			return String(format: "[Location] Set: %d, question: %d, correct answers: %d".localized, set, question, count ?? 0)
 		case .incorrectCorrectAnswerIndex(let set, let question, let badIndex, let maximum):
-			return "[Location] Set: \(set), question: \(question), bad: \(badIndex), maximum: \(maximum)"
+			return String(format: "[Location] Set: %d, question: %d, bad: %d, maximum: %d".localized, set, question, badIndex, maximum)
 		}
 	}
 }

@@ -5,21 +5,27 @@ class TopicsViewController: UITableViewController {
 	// MARK: View life cycle
 	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
 	@IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
+	@IBOutlet weak var composeBarButtonItem: UIBarButtonItem!
+	@IBOutlet weak var cameraBarButtonItem: UIBarButtonItem!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.navigationItem.title = "Topics".localized
-		self.navigationItem.backBarButtonItem?.title = "Main Menu".localized
-		
+		self.navigationItem.title = SetOfTopics.shared.current == .community ? "Community".localized : "Topics".localized
+		self.navigationItem.backBarButtonItem?.title = "Main menu".localized
 		/*self.editButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
 		self.navigationItem.rightBarButtonItem = self.editButtonItem
 		self.editButtonItem.action = #selector(self.editModeAction)*/
 		self.isEditing = false
 		//self.tableView.allowsMultipleSelectionDuringEditing = true
 		//self.clearsSelectionOnViewWillAppear = true
-		
-		self.addBarButtonItem.isEnabled = SetOfTopics.shared.current != .app
-		self.refreshBarButtonItem.isEnabled = SetOfTopics.shared.current == .community
+
+		let allowedBarButtonItems: [UIBarButtonItem]?
+		if SetOfTopics.shared.current != .community {
+			allowedBarButtonItems = self.navigationItem.rightBarButtonItems?.filter { $0 != self.refreshBarButtonItem}
+		} else {
+			allowedBarButtonItems = [self.addBarButtonItem, self.refreshBarButtonItem]
+		}
+		self.navigationItem.setRightBarButtonItems(allowedBarButtonItems, animated: false)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 	}
@@ -35,7 +41,12 @@ class TopicsViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-		return (SetOfTopics.shared.current == .saved) ? .delete : .none
+		switch indexPath.section {
+		case 0: return .none
+		case 1: return .delete
+		case 2: return .none
+		default: return .none
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -73,15 +84,8 @@ class TopicsViewController: UITableViewController {
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		let count = SetOfTopics.shared.currentTopics.count
-
-		if count > 0 {
-			self.tableView?.backgroundView = nil
-		}
-		else if self.tableView?.backgroundView == nil {
-			
-			if SetOfTopics.shared.current == .community {
-				
+		if SetOfTopics.shared.current == .community {
+			if self.tableView.backgroundView == nil {
 				let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 				activityIndicatorView.startAnimating()
@@ -105,24 +109,23 @@ class TopicsViewController: UITableViewController {
 					}
 				}
 			}
-			else {
-				let emptyListText = "Empty, read questions from a QR code or from a URL".localized
-				let emptyTableLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-				emptyTableLabel.text = emptyListText.localized
-				emptyTableLabel.font = .preferredFont(forTextStyle: .title3)
-				emptyTableLabel.textColor = .themeStyle(dark: .warmYellow, light: .coolBlue)
-				emptyTableLabel.textAlignment = .center
-				emptyTableLabel.numberOfLines = 0
-				
-				UIView.animate(withDuration: 0.2, animations: {
-					self.tableView?.backgroundView = emptyTableLabel
-				})
-			}
-			
-			self.tableView?.separatorStyle = .none
+			return SetOfTopics.shared.communityTopics.count
 		}
-		
-		return count
+		else {
+			switch section {
+			case 0: return SetOfTopics.shared.topics.count
+			case 1: return SetOfTopics.shared.savedTopics.count
+			default: return 0
+			}
+		}
+	}
+	
+	override func numberOfSections(in tableView: UITableView) -> Int {
+		if SetOfTopics.shared.current == .community {
+			return 1
+		} else {
+			return SetOfTopics.shared.savedTopics.isEmpty ? 1 : 2
+		}
 	}
 	
 	// MARK: UITableViewDelegate
@@ -130,7 +133,17 @@ class TopicsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
-		cell?.textLabel?.text = SetOfTopics.shared.currentTopics[indexPath.row].displayedName.localized
+		
+		if SetOfTopics.shared.current == .community {
+			cell?.textLabel?.text = SetOfTopics.shared.communityTopics[indexPath.row].displayedName.localized
+		}
+		else {
+			switch indexPath.section {
+			case 0: cell?.textLabel?.text = SetOfTopics.shared.topics[indexPath.row].displayedName.localized
+			case 1: cell?.textLabel?.text = SetOfTopics.shared.savedTopics[indexPath.row].displayedName.localized
+			default: break
+			}
+		}
 		
 		// Load theme
 		cell?.textLabel?.font = .preferredFont(forTextStyle: .body)
@@ -139,6 +152,14 @@ class TopicsViewController: UITableViewController {
 		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		
 		return cell ?? UITableViewCell()
+	}
+	
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		switch section {
+		case 0: return nil
+		case 1: return "User topics".localized
+		default: return nil
+		}
 	}
 
 	// TODO:  needs more testing
@@ -172,7 +193,7 @@ class TopicsViewController: UITableViewController {
 			}
 			
 			DispatchQueue.main.async {
-				self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+				self.performSegue(withIdentifier: "selectTopic", sender: indexPath)
 			}
 		}
 		// if is not editing... maybe will add the editing thing in the future
@@ -203,8 +224,8 @@ class TopicsViewController: UITableViewController {
 	
 	@IBAction func addNewTopic(_ sender: UIBarButtonItem) {
 		
-		let titleText = (SetOfTopics.shared.current == .saved) ? "New Topic" : "Topic submission"
-		let messageText = (SetOfTopics.shared.current == .saved)
+		let titleText = (SetOfTopics.shared.current == .community) ? "Topic submission" : "New Topic"
+		let messageText = (SetOfTopics.shared.current != .community)
 			? "You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file."
 			: "You can specify a URL which contains an appropiate formatted file or the full topic content."
 		
@@ -236,7 +257,7 @@ class TopicsViewController: UITableViewController {
 			}
 		}
 		
-		let okAction = (SetOfTopics.shared.current == .saved) ? "Add" : "Submit"
+		let okAction = (SetOfTopics.shared.current != .community) ? "Add" : "Submit"
 		newTopicAlert.addAction(title: okAction.localized, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
@@ -262,12 +283,25 @@ class TopicsViewController: UITableViewController {
 		}
 	}
 	
+	@IBAction func createTopic(_ sender: UIBarButtonItem) {
+		
+	}
+	
+	@IBAction func readTopicFromCamera(_ sender: UIBarButtonItem) {
+		
+	}
 	// MARK: - UIStoryboardSegue Handling
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let topicIndex = sender as? Int, segue.identifier == "selectTopic" {
+		if let topicIndexPath = sender as? IndexPath, segue.identifier == "selectTopic" {
 			let controller = segue.destination as? QuizzesViewController
-			controller?.currentTopicIndex = topicIndex
+			switch topicIndexPath.section {
+			case 0: SetOfTopics.shared.current = .app
+			case 1: SetOfTopics.shared.current = .saved
+			case 2: SetOfTopics.shared.current = .community
+			default: break
+			}
+			controller?.currentTopicIndex = topicIndexPath.row
 		}
 	}
 	

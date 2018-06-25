@@ -55,9 +55,5 @@ class LicensesViewController: UIViewController {
 	@IBAction internal func setFrame() {
 		textView.frame = UIScreen.main.bounds
 	}
-	
-	// MARK: UnwindSegue
-	
-	@IBAction func unwindToLicenses(_ unwindSegue: UIStoryboardSegue) {	}
 }
 

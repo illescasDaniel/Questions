@@ -143,30 +143,30 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func promptUserWithFormGenerator() {
-		let questionsCreatorSetupAlert = UIAlertController(title: "Create Topics", message: nil, preferredStyle: .alert)
+		let questionsCreatorSetupAlert = UIAlertController(title: "Create Topic".localized, message: nil, preferredStyle: .alert)
 		
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Number of sets"
+			textField.placeholder = "Number of sets".localized
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Questions per set"
+			textField.placeholder = "Questions per set".localized
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Answers per question"
+			textField.placeholder = "Answers per question".localized
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
-		questionsCreatorSetupAlert.addAction(title: "Cancel", style: .cancel) { _ in
-			self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+		questionsCreatorSetupAlert.addAction(title: "Cancel".localized, style: .cancel) { _ in
+			self.navigationController?.popViewController(animated: true)
 		}
-		questionsCreatorSetupAlert.addAction(title: "Generate form", style: .default) { action in
+		questionsCreatorSetupAlert.addAction(title: "Generate form".localized, style: .default) { action in
 			
 			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
 				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
@@ -180,7 +180,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			}
 			else {
 				// TODO: tell somehow the user that the input values were incorrect
-				self.performSegue(withIdentifier: "unwindToMainMenu", sender: self)
+				self.navigationController?.popViewController(animated: true)
 			}
 		}
 		self.present(questionsCreatorSetupAlert, animated: true)
@@ -188,14 +188,14 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	
 	private func topicActionAlert(quiz: Quiz) {
 		
-		let whatToDoAlertController = UIAlertController(title: "What to do with the topic?", message: nil, preferredStyle: .alert)
-		whatToDoAlertController.addAction(title: "Wait! I'm not done", style: .cancel)
-		whatToDoAlertController.addAction(title: "Save", style: .default) { _ in
+		let whatToDoAlertController = UIAlertController(title: "What to do with the topic".localized, message: nil, preferredStyle: .alert)
+		whatToDoAlertController.addAction(title: "Wait! I'm not done".localized, style: .cancel)
+		whatToDoAlertController.addAction(title: "Save".localized, style: .default) { _ in
 			DispatchQueue.global().async {
 				let savedCorrectly = SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
 				let message = savedCorrectly ? "Saved" : "Error while saving"
 				DispatchQueue.main.async {
-					let alertVC = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+					let alertVC = UIAlertController(title: message.localized, message: nil, preferredStyle: .alert)
 					self.present(alertVC, animated: true) {
 						DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
 							alertVC.dismiss(animated: true)
@@ -205,7 +205,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			}
 		}
 		
-		whatToDoAlertController.addAction(title: "Share", style: .default) { _ in
+		whatToDoAlertController.addAction(title: "Share".localized, style: .default) { _ in
 			if let data = try? JSONEncoder().encode(quiz), let jsonQuiz = String(data: data, encoding: .utf8) {
 				let size = min(self.view.bounds.width, self.view.bounds.height)
 				if let outputQR = jsonQuiz.generateQRImageWith(size: (width: size, height: size)) {
@@ -219,7 +219,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func invalidQuizAlert(title: String = "", message: String? = nil) {
-		let alertVC = UIAlertController(title: title.isEmpty ? "Invalid quiz" : title, message: message ?? nil, preferredStyle: .alert)
+		let alertVC = UIAlertController(title: title.isEmpty ? "Invalid topic".localized : title, message: message ?? nil, preferredStyle: .alert)
 		alertVC.addAction(title: "OK", style: .default)
 		self.present(alertVC, animated: true)
 	}

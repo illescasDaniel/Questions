@@ -34,7 +34,7 @@ class SettingsTableViewController: UITableViewController {
 	private enum cellLabelsForSection1: String {
 		
 		case resetProgress = "Reset progress"
-		case resetCachedImages = "Reset cached images"
+		case resetCachedImages = "Clear cached images"
 		
 		static let labels: [cellLabelsForSection1] = [.resetProgress, .resetCachedImages]
 		static let count = labels.count
@@ -358,7 +358,7 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetCachedImages() {
 		
-		let alertViewController = UIAlertController(title: "Reset cached images".localized, message: nil, preferredStyle: .alert)
+		let alertViewController = UIAlertController(title: "Clear cached images".localized, message: nil, preferredStyle: .alert)
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
 			CachedImages.shared.clear()
