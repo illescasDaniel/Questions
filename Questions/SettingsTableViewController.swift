@@ -87,6 +87,12 @@ class SettingsTableViewController: UITableViewController {
 		}
 	}
 
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
+		cell.textLabel?.textColor = textLabelColor
+		cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+	}
+	
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
@@ -320,23 +326,13 @@ class SettingsTableViewController: UITableViewController {
 			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 			self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 			
-			let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
 			
 			self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
-			
-			self.tableView.reloadData()
-			
-			for i in 0..<cellLabelsForSection0.count {
-				let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0))
-				cell?.textLabel?.textColor = textLabelColor
-				cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-			}
-			
-			for i in 0..<cellLabelsForSection1.count {
-				let cell = self.tableView.cellForRow(at: IndexPath(row: i, section: 1))
-				cell?.textLabel?.textColor = textLabelColor
-				cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+
+		}, completion: { completed in
+			if completed {
+				self.tableView.reloadData()
 			}
 		})
 	}

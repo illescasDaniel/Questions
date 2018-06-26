@@ -17,29 +17,21 @@ extension UIWebView {
 	}
 }
 
-// TODO: translate
 class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 
 	@IBOutlet weak var webView: UIWebView!
 	
 	var questionsCreatorWrapper: QuestionsCreatorWrapper?
-	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .themeStyle(dark: .white, light: .gray))
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.setupWebView()
-		self.setupActivityIndicator()
 		self.promptUserWithFormGenerator()
     }
 	
 	// MARK: - Web view Delegate
-	
-	func webViewDidStartLoad(_ webView: UIWebView) {
-		self.activityIndicator.startAnimating()
-	}
-	
+
 	func webViewDidFinishLoad(_ webView: UIWebView) {
-		self.activityIndicator.stopAnimating()
 		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")
 		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")
 	}
@@ -47,7 +39,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
-		guard !self.activityIndicator.isAnimating, let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
+		guard let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
 		
 		let name = self.webView.getInputValueFrom(id: "topic-name")
 		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
@@ -136,12 +128,6 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		self.view.backgroundColor = .themeStyle(dark: .black, light: .white)
 	}
 	
-	private func setupActivityIndicator() {
-		self.activityIndicator.frame = self.view.bounds
-		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.view.addSubview(self.activityIndicator)
-	}
-	
 	private func promptUserWithFormGenerator() {
 		let questionsCreatorSetupAlert = UIAlertController(title: "Create Topic".localized, message: nil, preferredStyle: .alert)
 		
@@ -174,7 +160,6 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
 				numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
 				
-				self.activityIndicator.startAnimating()
 				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
 				self.webView.loadHTMLString(self.questionsCreatorWrapper?.web ?? "", baseURL: nil)
 			}
