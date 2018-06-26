@@ -36,25 +36,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			navController?.navigationBar.prefersLargeTitles = true
 		}
 		
-		if #available(iOS 9.0, *) {
-			
-			let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
-			                                                 localizedTitle: "Scan QR Code".localized,
-			                                                 localizedSubtitle: nil,
-			                                                 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
-			
-			let darkTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.DarkTheme.rawValue,
-															 localizedTitle: "Dark Theme".localized,
-															 localizedSubtitle: nil,
-															 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"))
-			
-			let lightTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.LightTheme.rawValue,
-															 localizedTitle: "Light Theme".localized,
-															 localizedSubtitle: nil,
-															 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"))
-			
-			application.shortcutItems = [readQRCode, darkTheme, lightTheme]
-		}
+		let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
+														 localizedTitle: "Scan QR Code".localized,
+														 localizedSubtitle: nil,
+														 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
+		
+		let darkTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.DarkTheme.rawValue,
+														 localizedTitle: "Dark Theme".localized,
+														 localizedSubtitle: nil,
+														 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"))
+		
+		let lightTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.LightTheme.rawValue,
+														 localizedTitle: "Light Theme".localized,
+														 localizedSubtitle: nil,
+														 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"))
+		
+		application.shortcutItems = [readQRCode, darkTheme, lightTheme]
 
 		AppDelegate.updateVolumeBarTheme()
 		VolumeBar.shared.start()

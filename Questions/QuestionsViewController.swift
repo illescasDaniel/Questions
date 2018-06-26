@@ -59,11 +59,9 @@ class QuestionsViewController: UIViewController {
 		if self.isSetFromJSON {
 			self.goBack.isHidden = true
 		}
-		self.setUpQuiz()
 		
-		DispatchQueue.global().async {
-			self.preloadImages()
-		}
+		self.setUpQuiz()
+		self.preloadImages()
 		
 		self.createAnswerButtons()
 		
@@ -136,6 +134,9 @@ class QuestionsViewController: UIViewController {
 						}
 					}
 				})
+			}
+			else {
+				// TODO: complete!
 			}
 		}
 	}
@@ -363,9 +364,7 @@ class QuestionsViewController: UIViewController {
 		
 		for fullQuestion in self.set.dropFirst() { // Drops the first because it will be cached by the 'pickQuestion()' function
 			
-			guard let validImageURL = fullQuestion.imageURL else { break }
-			
-			print(validImageURL)
+			guard let validImageURL = fullQuestion.imageURL else { continue }
 			
 			CachedImages.shared.saveImage(withURL: validImageURL, onError: { cachedImagesError in
 				switch cachedImagesError {
@@ -465,7 +464,6 @@ class QuestionsViewController: UIViewController {
 		}
 	}
 	
-	private var currentURL: URL? = nil
 	public func pickQuestion() {
 		
 		if self.currentQuizOfTopic.options?.multipleCorrectAnswersAsMandatory ?? false {
@@ -615,7 +613,7 @@ class QuestionsViewController: UIViewController {
 		if !self.isSetFromJSON { self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex] }
 		
 		if self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true {
-			//self.set.shuffle()
+			self.set.shuffle()
 		}
 		self.quiz = self.set.enumerated().makeIterator()
 	}

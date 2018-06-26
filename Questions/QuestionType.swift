@@ -30,3 +30,9 @@ extension QuestionType: Equatable {
 		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correctAnswers == rhs.correctAnswers
 	}
 }
+
+extension QuestionType: Hashable {
+	var hashValue: Int {
+		return question.hash
+	}
+}
