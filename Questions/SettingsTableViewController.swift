@@ -46,6 +46,8 @@ class SettingsTableViewController: UITableViewController {
 		self.setUpSwitches()
 		self.loadSwitchesStates()
 		self.loadCurrentTheme(animated: false)
+		
+		self.clearsSelectionOnViewWillAppear = true
 
 		// If user enables Reduce Motion setting, the parallax effect switch updates its value
 		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch), name: .UIAccessibilityReduceMotionStatusDidChange, object: nil)
@@ -76,11 +78,13 @@ class SettingsTableViewController: UITableViewController {
 		case 1:
 			switch indexPath.row {
 			case 0:
-				self.resetProgressAlert()
+				self.resetProgressAlert(cellIndexpath: indexPath)
 				FeedbackGenerator.notificationOcurredOf(type: .warning)
+				self.viewWillAppear(false) // called so it clears the selection properly
 			case 1:
-				self.resetCachedImages()
+				self.resetCachedImages(cellIndexpath: indexPath)
 				FeedbackGenerator.notificationOcurredOf(type: .warning)
+				self.viewWillAppear(false)
 			default: break
 			}
 		default: break
@@ -88,8 +92,13 @@ class SettingsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		let textLabelColor = UIColor.themeStyle(dark: .white, light: .black)
-		cell.textLabel?.textColor = textLabelColor
+		let textLabelColor: UIColor = .themeStyle(dark: .white, light: .black)
+		switch indexPath.section {
+		case 0: cell.textLabel?.textColor = textLabelColor
+		case 1: cell.textLabel?.textColor = UIColor.themeStyle(dark: .lightRed, light: .alternativeRed)
+		default: break
+		}
+		
 		cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 	}
 	
@@ -107,7 +116,7 @@ class SettingsTableViewController: UITableViewController {
 				cell.textLabel?.text = cellLabelsForSection0.backgroundMusic.rawValue.localized
 				cell.accessoryView = backgroundMusicSwitch
 			case 1:
-				cell.textLabel?.text = cellLabelsForSection0.hapticFeedback.rawValue.localized
+				cell.textLabel?.text = cellLabelsForSection0.hapticFeedback.rawValue.localized + "*"
 				cell.accessoryView = hapticFeedbackSwitch
 			case 2:
 				cell.textLabel?.text = cellLabelsForSection0.darkTheme.rawValue.localized
@@ -337,9 +346,9 @@ class SettingsTableViewController: UITableViewController {
 		})
 	}
 	
-	private func resetProgressAlert() {
+	private func resetProgressAlert(cellIndexpath: IndexPath) {
 		
-		let alertViewController = UIAlertController(title: "Reset progress".localized, message: nil, preferredStyle: .alert)
+		let alertViewController = UIAlertController(title: "Reset progress".localized, message: nil, preferredStyle: .actionSheet)
 		
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
@@ -348,17 +357,24 @@ class SettingsTableViewController: UITableViewController {
 		alertViewController.addAction(title: "Only Statistics".localized, style: .default) { action in
 			self.resetProgressStatistics()
 		}
-
+		
+		alertViewController.popoverPresentationController?.sourceView = self.tableView
+		alertViewController.popoverPresentationController?.sourceRect = self.tableView.rectForRow(at: cellIndexpath)
+		
 		self.present(alertViewController, animated: true)
 	}
 	
-	private func resetCachedImages() {
+	private func resetCachedImages(cellIndexpath: IndexPath) {
 		
-		let alertViewController = UIAlertController(title: "Clear cached images".localized, message: nil, preferredStyle: .alert)
+		let alertViewController = UIAlertController(title: "Clear cached images".localized, message: nil, preferredStyle: .actionSheet)
 		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
 		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
 			CachedImages.shared.clear()
 		}
+		
+		alertViewController.popoverPresentationController?.sourceView = self.tableView
+		alertViewController.popoverPresentationController?.sourceRect = self.tableView.rectForRow(at: cellIndexpath)
+		
 		self.present(alertViewController, animated: true)
 	}
 }
