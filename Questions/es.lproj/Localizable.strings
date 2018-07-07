@@ -70,6 +70,11 @@
 
 "Text to encode format" = "Formato del texto a codificar";
 
+// Delete saved items
+
+"Delete" = "Eliminar";
+"Delete %d item%@" = "Eliminar %d ítem%@";
+
 // New topic
 
 "Create Topic" = "Crear tema";

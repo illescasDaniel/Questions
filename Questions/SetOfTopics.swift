@@ -1,19 +1,20 @@
 import Foundation
 
-struct SetOfTopics {
+class SetOfTopics {
 	
-	enum Current {
-		case app
-		case saved
-		case community
+	enum Mode: Int {
+		case app = 0
+		case saved = 1
+		case community = 2
 	}
 	
-	static var shared = SetOfTopics()
+	static let shared = SetOfTopics()
+	static let fileManager = FileManager.default
 	
 	var topics: [TopicEntry] = [] // Manually: [TopicEntry(name: "Technology"), TopicEntry(name: "Social"), TopicEntry(name: "People")]
 	var savedTopics: [TopicEntry] = []
 	var communityTopics: [TopicEntry] = []
-	var current: Current = .app
+	var current: Mode = .app
 	
 	var currentTopics: [TopicEntry] {
 		switch current {
@@ -51,15 +52,47 @@ struct SetOfTopics {
 		}
 	}
 	
-	mutating func loadSavedTopics() {
+	func loadSavedTopics() {
 
-		let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+		let documentsURL = SetOfTopics.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
 		self.savedTopics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: documentsURL))
 		
 		self.loadSetState(for: self.savedTopics)
 	}
 	
-	mutating func loadCommunityTopics() {
+	func removeSavedTopics(named topicNames: [String], reloadAfterDeleting: Bool = false) {
+		
+		for topicName in topicNames where !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+
+			let fileName =  "\(topicName).json"
+			
+			if let fileURL = SetOfTopics.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
+				try? SetOfTopics.fileManager.removeItem(at: fileURL)
+			}
+		}
+		
+		if reloadAfterDeleting {
+			SetOfTopics.shared.loadSavedTopics()
+		}
+	}
+	
+	func removeSavedTopics(withIndexPaths indexPaths: [IndexPath], reloadAfterDeleting: Bool = false) {
+		
+		for topicIndex in indexPaths.map({ $0.row }) where topicIndex < SetOfTopics.shared.savedTopics.count {
+			
+			let fileName =  "\(SetOfTopics.shared.savedTopics[topicIndex].displayedName).json"
+			
+			if let fileURL = SetOfTopics.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
+				try? SetOfTopics.fileManager.removeItem(at: fileURL)
+			}
+		}
+		
+		if reloadAfterDeleting {
+			SetOfTopics.shared.loadSavedTopics()
+		}
+	}
+	
+	func loadCommunityTopics() {
 		
 		self.communityTopics.removeAll(keepingCapacity: true)
 		
@@ -99,7 +132,7 @@ struct SetOfTopics {
 			fileName = topicName
 		}
 		
-		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
+		if let documentsURL = SetOfTopics.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
 			if let data = try? JSONEncoder().encode(topic.quiz) {
 				try? data.write(to: documentsURL)
 				UserDefaultsManager.savedQuestionsCounter += 1
@@ -129,9 +162,8 @@ struct SetOfTopics {
 	
 	private func setOfTopicsFromJSONFilesOfDirectory(url contentURL: URL?) -> Set<TopicEntry> {
 		
-		let fileManager = FileManager.default
-		
-		if let validURL = contentURL, let contentOfFilesPath = (try? fileManager.contentsOfDirectory(at: validURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
+		if let validURL = contentURL,
+			let contentOfFilesPath = (try? SetOfTopics.fileManager.contentsOfDirectory(at: validURL, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) {
 			
 			var setOfSavedTopics = Set<TopicEntry>()
 			

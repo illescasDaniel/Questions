@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
-		
+	
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
 		self.navigationItem.backBarButtonItem?.title = "Main menu".localized

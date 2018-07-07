@@ -12,12 +12,15 @@ class TopicsViewController: UITableViewController {
 		super.viewDidLoad()
 		self.navigationItem.title = SetOfTopics.shared.current == .community ? "Community".localized : "Topics".localized
 		self.navigationItem.backBarButtonItem?.title = "Main menu".localized
-		/*self.editButtonItem.isEnabled = SetOfTopics.shared.isUsingUserSavedTopics
-		self.navigationItem.rightBarButtonItem = self.editButtonItem
-		self.editButtonItem.action = #selector(self.editModeAction)*/
+		
+		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
+		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
+			self.navigationItem.rightBarButtonItems = [self.editButtonItem] + rightBarButtonItems
+		}
+		self.tableView.allowsMultipleSelectionDuringEditing = true
+		self.clearsSelectionOnViewWillAppear = true
+		
 		self.isEditing = false
-		//self.tableView.allowsMultipleSelectionDuringEditing = true
-		//self.clearsSelectionOnViewWillAppear = true
 
 		let allowedBarButtonItems: [UIBarButtonItem]?
 		if SetOfTopics.shared.current != .community {
@@ -27,11 +30,25 @@ class TopicsViewController: UITableViewController {
 		}
 		self.navigationItem.setRightBarButtonItems(allowedBarButtonItems, animated: false)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
+		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareItems))
+		self.toolbarItems = [trashItem, flexibleSpaceItem, shareItem]
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			self.loadCurrentTheme()
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		self.loadCurrentTheme()
+		super.viewWillAppear(animated)
+		self.updateEditButton()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		self.navigationController?.setToolbarHidden(true, animated: false)
+		self.setEditing(false, animated: true)
 	}
 	
 	// MARK: Edit cell, delete
@@ -40,33 +57,34 @@ class TopicsViewController: UITableViewController {
 		self.setEditing(!self.isEditing, animated: true)
 	}
 	
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		self.navigationController?.setToolbarHidden(!editing, animated: true)
+		if editing { self.toolbarItems?.forEach { $0.isEnabled = false }}
+	}
+	
+	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		switch indexPath.section {
+		case SetOfTopics.Mode.app.rawValue: return false
+		case SetOfTopics.Mode.saved.rawValue: return true
+		default: return false
+		}
+	}
+	
 	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
 		switch indexPath.section {
-		case 0: return .none
-		case 1: return .delete
-		case 2: return .none
+		case SetOfTopics.Mode.app.rawValue: return .none
+		case SetOfTopics.Mode.saved.rawValue: return .delete
 		default: return .none
 		}
 	}
 	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+		guard editingStyle == .delete else { return }
 		
-		if editingStyle == .delete {
-			
-			let fileManager = FileManager.default
-			
-			if let cell = tableView.cellForRow(at: indexPath), let labelText = cell.textLabel?.text {
-			
-				let fileName =  "\(labelText).json"
-				
-				if let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
-					let fileURL = documentsDirectory.appendingPathComponent(fileName)
-					if (try? fileManager.removeItem(at: fileURL)) != nil {
-						SetOfTopics.shared.loadSavedTopics()
-						tableView.deleteRows(at: [indexPath], with: .fade)
-					}
-				}
-			}
+		if let cell = tableView.cellForRow(at: indexPath), let labelText = cell.textLabel?.text {
+			SetOfTopics.shared.removeSavedTopics(named: [labelText], reloadAfterDeleting: true)
+			tableView.deleteRows(at: [indexPath], with: .fade)
 		}
 	}
 	
@@ -85,7 +103,7 @@ class TopicsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
 		if SetOfTopics.shared.current == .community {
-			if self.tableView.backgroundView == nil {
+			if self.tableView.backgroundView == nil && SetOfTopics.shared.communityTopics.isEmpty {
 				let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 				activityIndicatorView.startAnimating()
@@ -113,8 +131,8 @@ class TopicsViewController: UITableViewController {
 		}
 		else {
 			switch section {
-			case 0: return SetOfTopics.shared.topics.count
-			case 1: return SetOfTopics.shared.savedTopics.count
+			case SetOfTopics.Mode.app.rawValue: return SetOfTopics.shared.topics.count
+			case SetOfTopics.Mode.saved.rawValue: return SetOfTopics.shared.savedTopics.count
 			default: return 0
 			}
 		}
@@ -130,97 +148,152 @@ class TopicsViewController: UITableViewController {
 	
 	// MARK: UITableViewDelegate
 	
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		//cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
+	}
+	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
+		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell", for: indexPath)
 		
 		if SetOfTopics.shared.current == .community {
-			cell?.textLabel?.text = SetOfTopics.shared.communityTopics[indexPath.row].displayedName.localized
+			cell.textLabel?.text = SetOfTopics.shared.communityTopics[indexPath.row].displayedName.localized
 		}
 		else {
 			switch indexPath.section {
-			case 0: cell?.textLabel?.text = SetOfTopics.shared.topics[indexPath.row].displayedName.localized
-			case 1: cell?.textLabel?.text = SetOfTopics.shared.savedTopics[indexPath.row].displayedName.localized
+			case SetOfTopics.Mode.app.rawValue:
+				cell.textLabel?.text = SetOfTopics.shared.topics[indexPath.row].displayedName.localized
+			case SetOfTopics.Mode.saved.rawValue:
+				cell.textLabel?.text = SetOfTopics.shared.savedTopics[indexPath.row].displayedName.localized
 			default: break
 			}
 		}
 		
 		// Load theme
-		cell?.textLabel?.font = .preferredFont(forTextStyle: .body)
-		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
-		cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		cell.textLabel?.font = .preferredFont(forTextStyle: .body)
 		
-		return cell ?? UITableViewCell()
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			let view = UIView()
+			view.backgroundColor = UIColor.darkGray
+			cell.selectedBackgroundView = view
+		}
+		
+		return cell
 	}
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
-		case 0: return nil
-		case 1: return "User topics".localized
+		case SetOfTopics.Mode.app.rawValue: return nil
+		case SetOfTopics.Mode.saved.rawValue: return "User topics".localized
 		default: return nil
 		}
 	}
+	
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		guard UserDefaultsManager.darkThemeSwitchIsOn else { return } // NOTE: could change depending on your theme settings!
+		let header = view as? UITableViewHeaderFooterView
+		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+	}
 
-	// TODO:  needs more testing
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
-		guard let currentCell = tableView.cellForRow(at: indexPath) else { return }
-		let activityIndicator = UIActivityIndicatorView(frame: currentCell.bounds)
-		activityIndicator.activityIndicatorViewStyle = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
-		activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		if self.isEditing { self.toolbarItems?.forEach { $0.isEnabled = true } }
 		
-		DispatchQueue.global().async {
+		guard !self.isEditing, let currentCell = tableView.cellForRow(at: indexPath) else { return }
+	
+		if SetOfTopics.shared.current == .community {
 			
-			if SetOfTopics.shared.current == .community,
-				SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
+			let activityIndicator = UIActivityIndicatorView(frame: currentCell.bounds)
+			activityIndicator.activityIndicatorViewStyle = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+			activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+			
+			if SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
 				let communityTopics = CommunityTopics.shared {
 				
-				DispatchQueue.main.async {
-					activityIndicator.startAnimating()
-					currentCell.accessoryView = activityIndicator
-				}
+				activityIndicator.startAnimating()
+				currentCell.accessoryView = activityIndicator
 				
 				let currentTopic = communityTopics.topics[indexPath.row]
 				
-				if let validTextFromURL = try? String(contentsOf: currentTopic.remoteContentURL), let quiz = SetOfTopics.shared.quizFrom(content: validTextFromURL) {
-					SetOfTopics.shared.communityTopics[indexPath.row].quiz = quiz
+				DispatchQueue.global().async {
+					if let validTextFromURL = try? String(contentsOf: currentTopic.remoteContentURL), let quiz = SetOfTopics.shared.quizFrom(content: validTextFromURL) {
+						SetOfTopics.shared.communityTopics[indexPath.row].quiz = quiz
+					}
+					DispatchQueue.main.async {
+						activityIndicator.stopAnimating()
+						currentCell.accessoryView = nil
+						self.performSegue(withIdentifier: "selectTopic", sender: indexPath)
+					}
 				}
-				DispatchQueue.main.async {
-					activityIndicator.stopAnimating()
-					currentCell.accessoryView = nil
-				}
-			}
-			
-			DispatchQueue.main.async {
-				self.performSegue(withIdentifier: "selectTopic", sender: indexPath)
+				return
 			}
 		}
-		// if is not editing... maybe will add the editing thing in the future
-		//self.performSegue(withIdentifier: "selectTopic", sender: indexPath.row)
+		self.performSegue(withIdentifier: "selectTopic", sender: indexPath)
 	}
 	
-	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-		
-		let cellColor: UIColor = .themeStyle(dark: .darkGray, light: .highlighedGray)
-		let cell = tableView.cellForRow(at: indexPath)
-		let view = UIView()
-		
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = cellColor
-			view.backgroundColor = cellColor
-			cell?.selectedBackgroundView = view
+	override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+		let selectedRows = tableView.indexPathsForSelectedRows
+		if self.isEditing && (selectedRows == nil || selectedRows?.isEmpty == true) {
+			self.toolbarItems?.forEach { $0.isEnabled = false }
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-		let cell = tableView.cellForRow(at: indexPath)
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-		}
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		return (self.isEditing && indexPath.section == SetOfTopics.Mode.saved.rawValue) || !self.isEditing
 	}
 	
 	// MARK: - Actions
+	
+	@objc
+	private func deleteItems() {
+		
+		guard let selectedItemsIndexPaths = self.tableView.indexPathsForSelectedRows, !selectedItemsIndexPaths.isEmpty else { return }
+		
+		let title = String.localizedStringWithFormat("Delete %d item%@".localized, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
+		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.first
+		
+		deleteItemsAlert.addAction(title: "Delete".localized, style: .destructive) { _ in
+			SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
+			let section = selectedItemsIndexPaths[0].section
+			if self.tableView.numberOfRows(inSection: section) == selectedItemsIndexPaths.count {
+				self.tableView.deleteSections([section], with: .fade)
+				self.updateEditButton()
+			} else {
+				self.tableView.deleteRows(at: selectedItemsIndexPaths, with: .fade)
+			}
+			self.setEditing(false, animated: true)
+		}
+		deleteItemsAlert.addAction(title: "Cancel".localized, style: .cancel)
+		
+		self.present(deleteItemsAlert, animated: true)
+	}
+	
+	@objc
+	private func shareItems() {
+		
+		guard let selectedItemsIndexPaths = self.tableView.indexPathsForSelectedRows, !selectedItemsIndexPaths.isEmpty else { return }
+		
+		var items: [Any] = []
+		
+		for index in selectedItemsIndexPaths.lazy.map ({ $0.row }) {
+			let quizInJSON = SetOfTopics.shared.savedTopics[index].quiz.inJSON
+			items.append(quizInJSON)
+			let size = min(self.view.bounds.width, self.view.bounds.height)
+			if let outputQR = quizInJSON.generateQRImageWith(size: (width: size, height: size)) { items.append(outputQR) }
+		}
+		
+		let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+		activityVC.completionWithItemsHandler = { _, completed, _, _ in
+			if completed { self.setEditing(false, animated: true) }
+		}
+		
+		activityVC.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
+		self.present(activityVC, animated: true)
+	}
 	
 	@IBAction func addNewTopic(_ sender: UIBarButtonItem) {
 		
@@ -294,12 +367,15 @@ class TopicsViewController: UITableViewController {
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let topicIndexPath = sender as? IndexPath, segue.identifier == "selectTopic" {
+			
 			let controller = segue.destination as? QuizzesViewController
-			switch topicIndexPath.section {
-			case 0: SetOfTopics.shared.current = .app
-			case 1: SetOfTopics.shared.current = .saved
-			case 2: SetOfTopics.shared.current = .community
-			default: break
+			
+			if SetOfTopics.shared.current != .community {
+				switch topicIndexPath.section {
+				case SetOfTopics.Mode.app.rawValue: SetOfTopics.shared.current = .app
+				case SetOfTopics.Mode.saved.rawValue: SetOfTopics.shared.current = .saved
+				default: break
+				}
 			}
 			controller?.currentTopicIndex = topicIndexPath.row
 		}
@@ -307,10 +383,13 @@ class TopicsViewController: UITableViewController {
 	
 	// MARK: - Convenience
 	
-	@IBAction internal func loadCurrentTheme() {
-		tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
-		tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
-		tableView.reloadData()
+	private func updateEditButton() {
+		self.editButtonItem.isEnabled = !SetOfTopics.shared.savedTopics.isEmpty
+	}
+	
+	private func loadCurrentTheme() {
+		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 	}
 	
 	private func okActionAddItem(topicName: String, topicURLText: String) {

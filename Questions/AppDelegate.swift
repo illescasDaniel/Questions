@@ -11,8 +11,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	enum ShortcutItemType: String {
 		case QRCode
-		case DarkTheme
-		case LightTheme
 	}
 	
 	static var windowReference: UIWindow?
@@ -25,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStoreArchiver.path) as? DataStoreArchiver {
 			DataStoreArchiver.shared = mySettings
 		}
-		
 		//
 		
 		AppDelegate.windowReference = self.window
@@ -41,17 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 														 localizedSubtitle: nil,
 														 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
 		
-		let darkTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.DarkTheme.rawValue,
-														 localizedTitle: "Dark Theme".localized,
-														 localizedSubtitle: nil,
-														 icon: UIApplicationShortcutIcon(templateImageName: "DarkThemeIcon"))
-		
-		let lightTheme = UIMutableApplicationShortcutItem(type: ShortcutItemType.LightTheme.rawValue,
-														 localizedTitle: "Light Theme".localized,
-														 localizedSubtitle: nil,
-														 icon: UIApplicationShortcutIcon(templateImageName: "LightThemeIcon"))
-		
-		application.shortcutItems = [readQRCode, darkTheme, lightTheme]
+		application.shortcutItems = [readQRCode]
 
 		AppDelegate.updateVolumeBarTheme()
 		VolumeBar.shared.start()
@@ -135,14 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 						viewController.performSegue(withIdentifier: "QRScannerVC", sender: self)
 					}
 				}
-				
-			case .DarkTheme:
-				UserDefaultsManager.darkThemeSwitchIsOn = true
-				AppDelegate.updateVolumeBarTheme()
-				
-			case .LightTheme:
-				UserDefaultsManager.darkThemeSwitchIsOn = false
-				AppDelegate.updateVolumeBarTheme()
 			}
 		}
 	}

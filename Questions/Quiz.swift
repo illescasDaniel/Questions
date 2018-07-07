@@ -112,17 +112,26 @@ extension Quiz.ValidationError: LocalizedError {
 	var recoverySuggestion: String? {
 		switch self {
 		case .emptySet(let count):
-			return String(format: "Sets count: %d".localized, count)
+			return String.localizedStringWithFormat("Sets count: %d".localized, count)
 		case .emptyQuestion(let set, let question):
-			return String(format: "[Location] Set: %d, question: %d".localized, set, question)
+			return String.localizedStringWithFormat("[Location] Set: %d, question: %d".localized, set, question)
 		case .emptyAnswer(let set, let question, let answer):
-			return String(format: "[Location] Set: %d, question: %d, answer: %d".localized, set, question, answer)
+			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, answer: %d".localized, set, question, answer)
 		case .incorrectAnswersCount(let set, let question):
-			return String(format: "[Location] Set: %d, question: %d".localized, set, question)
+			return String.localizedStringWithFormat("[Location] Set: %d, question: %d".localized, set, question)
 		case .incorrectCorrectAnswersCount(let set, let question, let count):
-			return String(format: "[Location] Set: %d, question: %d, correct answers: %d".localized, set, question, count ?? 0)
+			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, correct answers: %d".localized, set, question, count ?? 0)
 		case .incorrectCorrectAnswerIndex(let set, let question, let badIndex, let maximum):
-			return String(format: "[Location] Set: %d, question: %d, bad: %d, maximum: %d".localized, set, question, badIndex, maximum)
+			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, bad: %d, maximum: %d".localized, set, question, badIndex, maximum)
 		}
+	}
+}
+
+extension Quiz {
+	var inJSON: String {
+		if let data = try? JSONEncoder().encode(self), let jsonQuiz = String(data: data, encoding: .utf8) {
+			return jsonQuiz
+		}
+		return ""
 	}
 }

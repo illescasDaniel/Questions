@@ -74,19 +74,17 @@ class QuestionsViewController: UIViewController {
 		self.pauseView.isHidden = true
 		self.blurView.isHidden = true
 		
-		// Theme settings
 		self.loadCurrentTheme()
 		
-		// Loads the theme if user uses a home quick action
-		NotificationCenter.default.addObserver(self, selector: #selector(self.loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: .UIApplicationUserDidTakeScreenshot, object: nil)
+		
+		if QuestionsAppOptions.privacyFeaturesEnabled {
+			NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: .UIApplicationUserDidTakeScreenshot, object: nil)
+		}
 		
 		if UserDefaultsManager.score < abs(QuestionsAppOptions.helpActionPoints) {
 			self.helpButton.alpha = 0.4
 		}
-		
-		self.addSwipeGestures()
 		
 		self.pickQuestion()
 		self.updateTimer()
@@ -102,42 +100,41 @@ class QuestionsViewController: UIViewController {
 	
 	private func updateTimer() {
 		
-		if let quizTimeInterval = self.currentQuizOfTopic.options?.timePerSetInSeconds, quizTimeInterval > 0 {
+		guard let quizTimeInterval = self.currentQuizOfTopic.options?.timePerSetInSeconds, quizTimeInterval > 0 else { return }
 			
-			self.quizTime = quizTimeInterval
+		self.quizTime = quizTimeInterval
+		
+		let timeMoreThan1Minute = self.quizTime > 60
+		
+		DispatchQueue.main.async {
+			self.quizTimerLabel.isHidden = false
+			self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String.localizedStringWithFormat("%.1f", self.quizTime)) + "s"
+		}
+		
+		if #available(iOS 10.0, *) {
 			
-			let timeMoreThan1Minute = self.quizTime > 60
-			
-			DispatchQueue.main.async {
-				self.quizTimerLabel.isHidden = false
-				self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String(format: "%.1f", self.quizTime)) + "s"
-			}
-			
-			if #available(iOS 10.0, *) {
+			Timer.scheduledTimer(withTimeInterval: timeMoreThan1Minute ? 1 : 0.1, repeats: true, block: { timer in
 				
-				Timer.scheduledTimer(withTimeInterval: timeMoreThan1Minute ? 1 : 0.1, repeats: true, block: { timer in
-					
-					guard self.previousQuizTime == -1 else { return }
-					
-					self.quizTime -= timeMoreThan1Minute ? 1 : 0.1
-					
-					if self.quizTime <= 0 {
-						self.quizTime = 0
-						DispatchQueue.main.async { self.quizTimerLabel.text = "0s" }
-						self.presentedViewController?.dismiss(animated: true)
-						self.endOfQuestionsAlert()
-						timer.invalidate()
+				guard self.previousQuizTime == -1 else { return }
+				
+				self.quizTime -= timeMoreThan1Minute ? 1 : 0.1
+				
+				if self.quizTime <= 0 {
+					self.quizTime = 0
+					DispatchQueue.main.async { self.quizTimerLabel.text = "0s" }
+					self.presentedViewController?.dismiss(animated: true)
+					self.endOfQuestionsAlert()
+					timer.invalidate()
+				}
+				else {
+					DispatchQueue.main.async {
+						self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String.localizedStringWithFormat("%.1f", self.quizTime)) + "s"
 					}
-					else {
-						DispatchQueue.main.async {
-							self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String(format: "%.1f", self.quizTime)) + "s"
-						}
-					}
-				})
-			}
-			else {
-				// TODO: complete!
-			}
+				}
+			})
+		}
+		else {
+			// TODO: complete!
 		}
 	}
 	
@@ -319,8 +316,6 @@ class QuestionsViewController: UIViewController {
 	
 	@objc private func userDidTakeScreenshot() {
 		
-		guard QuestionsAppOptions.privacyFeaturesEnabled else { return }
-		
 		if self.pauseView.isHidden {
 			self.pauseMenuAction()
 		}
@@ -402,19 +397,6 @@ class QuestionsViewController: UIViewController {
 		AudioSounds.bgMusic?.setVolumeLevel(to: newVolume)
 	}
 	
-	private func addSwipeGestures() {
-		
-		let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
-		swipeUp.direction = .up
-		swipeUp.numberOfTouchesRequired = 2
-		view.addGestureRecognizer(swipeUp)
-		
-		let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
-		swipeDown.direction = .down
-		swipeDown.numberOfTouchesRequired = 2
-		view.addGestureRecognizer(swipeDown)
-	}
-	
 	@objc func loadCurrentTheme() {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
@@ -437,7 +419,6 @@ class QuestionsViewController: UIViewController {
 		self.answerButtons.forEach { $0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor); $0.dontInvertColors() }
 		
 		self.setNeedsStatusBarAppearanceUpdate()
-		
 		self.detectIfScreenIsCaptured()
 	}
 	

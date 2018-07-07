@@ -11,17 +11,14 @@ class QuizzesViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		navigationItem.title = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName.localized
 		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets.count
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			self.loadCurrentTheme()
+		}
 	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		loadCurrentTheme()
-	}
-	
+
 	// MARK: UITableViewDataSource
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,54 +29,45 @@ class QuizzesViewController: UITableViewController {
 		return "Quizzes".localized
 	}
 	
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		//cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
+		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
+	}
+	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell")
-		cell?.textLabel?.text = "Set \(indexPath.row)"
+		let cell = tableView.dequeueReusableCell(withIdentifier: "setCell", for: indexPath)
+		cell.textLabel?.text = "Set \(indexPath.row)"
 		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName
 		if DataStoreArchiver.shared.completedSets[topicName]?[indexPath.row] ?? false {
-			cell?.accessoryType = .checkmark
+			cell.accessoryType = .checkmark
 		}
 
 		// Load theme
-		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-		cell?.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
-		cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-		cell?.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
 		
-		return cell ?? UITableViewCell()
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			let view = UIView()
+			view.backgroundColor = UIColor.darkGray
+			cell.selectedBackgroundView = view
+		}
+		
+		return cell
 	}
 	
 	// MARK: UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		guard UserDefaultsManager.darkThemeSwitchIsOn else { return } // NOTE: could change depending on your theme settings!
 		let header = view as? UITableViewHeaderFooterView
 		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
-	}
-	
-	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-		
-		let cellColor: UIColor = .themeStyle(dark: .darkGray, light: .highlighedGray)
-		let cell = tableView.cellForRow(at: indexPath)
-		let view = UIView()
-		
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = cellColor
-			view.backgroundColor = cellColor
-			cell?.selectedBackgroundView = view
-		}
-	}
-	
-	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-		let cell = tableView.cellForRow(at: indexPath)
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-		}
 	}
 	
 	// MARK: UIStoryboardSegue Handling
@@ -105,11 +93,10 @@ class QuizzesViewController: UITableViewController {
 	
 	// MARK: Convenience
 	
-	@IBAction internal func loadCurrentTheme() {
+	private func loadCurrentTheme() {
 		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 		tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
-		tableView.reloadData()
 	}
 }

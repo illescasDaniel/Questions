@@ -43,16 +43,16 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.navigationItem.title = "Settings".localized
+		
 		self.setUpSwitches()
 		self.loadSwitchesStates()
-		self.loadCurrentTheme(animated: false)
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			self.loadCurrentTheme(animated: false)
+		}
 		
 		self.clearsSelectionOnViewWillAppear = true
-
-		// If user enables Reduce Motion setting, the parallax effect switch updates its value
-		NotificationCenter.default.addObserver(self, selector: #selector(self.setParallaxEffectSwitch), name: .UIAccessibilityReduceMotionStatusDidChange, object: nil)
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
     }
 	
     // MARK: - Table view data source
@@ -92,13 +92,11 @@ class SettingsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		let textLabelColor: UIColor = .themeStyle(dark: .white, light: .black)
 		switch indexPath.section {
-		case 0: cell.textLabel?.textColor = textLabelColor
+		case 0: cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
 		case 1: cell.textLabel?.textColor = UIColor.themeStyle(dark: .lightRed, light: .alternativeRed)
 		default: break
 		}
-		
 		cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 	}
 	
@@ -137,7 +135,13 @@ class SettingsTableViewController: UITableViewController {
 			}
 		default: break
 		}
-
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			let view = UIView()
+			view.backgroundColor = UIColor.darkGray
+			cell.selectedBackgroundView = view
+		}
+		
         return cell
     }
 	
@@ -167,26 +171,6 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	// UITableView delegate
-	
-	override func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-		
-		let cellColor: UIColor = .themeStyle(dark: .darkGray, light: .highlighedGray)
-		let cell = tableView.cellForRow(at: indexPath)
-		let view = UIView()
-		
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = cellColor
-			view.backgroundColor = cellColor
-			cell?.selectedBackgroundView = view
-		}
-	}
-	
-	override func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-		let cell = tableView.cellForRow(at: indexPath)
-		UIView.animate(withDuration: 0.15) {
-			cell?.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
-		}
-	}
 	
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 		let footer = view as? UITableViewHeaderFooterView
@@ -232,13 +216,8 @@ class SettingsTableViewController: UITableViewController {
 	}
 
 	// MARK: - Convenience
-	
-	@objc internal func loadTheme() {
-		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: false)
-		loadCurrentTheme(animated: false)
-	}
-	
-	@objc internal func setParallaxEffectSwitch() {
+
+	private func setParallaxEffectSwitch() {
 		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
 		let parallaxEffectEnabled = reduceMotionEnabled ? false : UserDefaultsManager.parallaxEffectSwitchIsOn
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
@@ -246,7 +225,7 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func loadSwitchesStates() {
-		setParallaxEffectSwitch()
+		self.setParallaxEffectSwitch()
 		backgroundMusicSwitch.setOn(AudioSounds.bgMusic?.isPlaying ?? false, animated: true)
 		darkThemeSwitch.setOn(UserDefaultsManager.darkThemeSwitchIsOn, animated: true)
 		
@@ -260,10 +239,14 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func setUpSwitches() {
+		
 		self.backgroundMusicSwitch.addTarget(self, action: #selector(backgroundMusicSwitchAction(sender:)), for: .touchUpInside)
 		self.hapticFeedbackSwitch.addTarget(self, action: #selector(hapticFeedbackSwitchAction(sender:)), for: .touchUpInside)
 		self.parallaxEffectSwitch.addTarget(self, action: #selector(parallaxEffectSwitchAction(sender:)), for: .touchUpInside)
 		self.darkThemeSwitch.addTarget(self, action: #selector(darkThemeSwitchAction(sender:)), for: .touchUpInside)
+	
+		let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
+		self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
 	}
 	
 	private func resetProgressStatistics() {
@@ -316,8 +299,6 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func loadCurrentTheme(animated: Bool) {
 		
-		self.navigationItem.title = "Settings".localized
-		
 		let duration: TimeInterval = animated ? 0.2 : 0
 		
 		if #available(iOS 10.0, *) {
@@ -328,15 +309,17 @@ class SettingsTableViewController: UITableViewController {
 		else { // On iOS 9, the barStyle animation is not very nice...
 			navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		}
+		self.navigationController?.toolbar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		self.navigationController?.toolbar.barStyle = UIBarStyle.themeStyle(dark: .blackTranslucent, light: .default)
 		
 		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
+			
 			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 			
 			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 			self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 			
 			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
-			
 			self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
 
 		}, completion: { completed in
@@ -344,6 +327,8 @@ class SettingsTableViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		})
+		
+		AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled()
 	}
 	
 	private func resetProgressAlert(cellIndexpath: IndexPath) {

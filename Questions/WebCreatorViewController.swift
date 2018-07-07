@@ -25,8 +25,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.setupWebView()
 		self.promptUserWithFormGenerator()
+		self.setupWebView()
     }
 	
 	// MARK: - Web view Delegate
@@ -182,6 +182,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				DispatchQueue.main.async {
 					let alertVC = UIAlertController(title: message.localized, message: nil, preferredStyle: .alert)
 					self.present(alertVC, animated: true) {
+						FeedbackGenerator.notificationOcurredOf(type: savedCorrectly ? .success : .error)
 						DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
 							alertVC.dismiss(animated: true)
 						}
@@ -191,14 +192,18 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		}
 		
 		whatToDoAlertController.addAction(title: "Share".localized, style: .default) { _ in
-			if let data = try? JSONEncoder().encode(quiz), let jsonQuiz = String(data: data, encoding: .utf8) {
-				let size = min(self.view.bounds.width, self.view.bounds.height)
-				if let outputQR = jsonQuiz.generateQRImageWith(size: (width: size, height: size)) {
-					let activityVC = UIActivityViewController(activityItems: [outputQR, jsonQuiz], applicationActivities: nil)
-					activityVC.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
-					self.present(activityVC, animated: true)
-				}
-			}
+			
+			var items: [Any] = []
+			
+			let quizInJSON = quiz.inJSON
+			items.append(quizInJSON)
+			
+			let size = min(self.view.bounds.width, self.view.bounds.height)
+			if let outputQR = quizInJSON.generateQRImageWith(size: (width: size, height: size)) { items.append(outputQR) }
+			
+			let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+			activityVC.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+			self.present(activityVC, animated: true)
 		}
 		self.present(whatToDoAlertController, animated: true)
 	}
