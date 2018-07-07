@@ -140,6 +140,8 @@ class SettingsTableViewController: UITableViewController {
 			let view = UIView()
 			view.backgroundColor = UIColor.darkGray
 			cell.selectedBackgroundView = view
+		} else {
+			cell.selectedBackgroundView = nil
 		}
 		
         return cell

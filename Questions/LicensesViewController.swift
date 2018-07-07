@@ -33,27 +33,25 @@ class LicensesViewController: UIViewController {
 		
 		self.navigationItem.title = "Licenses".localized
 		
-		textView.attributedText = licensesAttributedText
-		textView.textAlignment = .center
-		textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
-		loadCurrentTheme()
+		self.textView.attributedText = licensesAttributedText
+		self.textView.textAlignment = .center
+		self.textView.textContainerInset = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+		self.loadCurrentTheme()
 		
-		setFrame()
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(setFrame), name: .UIApplicationDidChangeStatusBarOrientation, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(loadCurrentTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		self.textView.frame = UIScreen.main.bounds
+		self.textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 	
 	// MARK: Convenience
 	
 	@IBAction internal func loadCurrentTheme() {
-		textView.backgroundColor = .themeStyle(dark: .black, light: .white)
-		textView.textColor = .themeStyle(dark: .white, light: .black)
+		
 		textView.tintColor = .themeStyle(dark: .warmColor, light: .coolBlue)
-	}
-	
-	@IBAction internal func setFrame() {
-		textView.frame = UIScreen.main.bounds
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			textView.backgroundColor = .themeStyle(dark: .black, light: .white)
+			textView.textColor = .themeStyle(dark: .white, light: .black)
+		}
 	}
 }
 

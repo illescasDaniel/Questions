@@ -47,7 +47,6 @@ class TopicsViewController: UITableViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		self.navigationController?.setToolbarHidden(true, animated: false)
 		self.setEditing(false, animated: true)
 	}
 	

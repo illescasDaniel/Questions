@@ -186,11 +186,15 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	@IBAction internal func loadTheme() {
-		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		view.backgroundColor = .themeStyle(dark: .black, light: .black)
+		
+		self.view.backgroundColor = .themeStyle(dark: .black, light: .black)
 		self.allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 		self.helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		}
 	}
 	
 	func invalidQRCodeFormat() {
