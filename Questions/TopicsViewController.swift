@@ -323,6 +323,8 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		guard let selectedItemsIndexPaths = self.tableView.indexPathsForSelectedRows, !selectedItemsIndexPaths.isEmpty else { return }
 		
+		FeedbackGenerator.notificationOcurredOf(type: .warning)
+		
 		let title = String.localizedStringWithFormat("Delete %d item%@".localized, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
 		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.first
