@@ -49,6 +49,9 @@
 		65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */; };
 		65D348851F4C512400270B26 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D348841F4C512400270B26 /* UIView+Extension.swift */; };
 		65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD23E01E7422C800462512 /* LicensesViewController.swift */; };
+		65DF00B620F2095700B04860 /* ToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF00B520F2095700B04860 /* ToastAlert.swift */; };
+		65DF00B820F2185900B04860 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF00B720F2185900B04860 /* PreferencesManager.swift */; };
+		65DF00BA20F26A0E00B04860 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF00B920F26A0E00B04860 /* AddContentViewController.swift */; };
 		65F3C76C2057321E009F310E /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3C76B2057321E009F310E /* QuestionsTests.swift */; };
 		65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */; };
 		8E30C75E1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */; };
@@ -122,6 +125,9 @@
 		65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65D348841F4C512400270B26 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		65DD23E01E7422C800462512 /* LicensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicensesViewController.swift; sourceTree = "<group>"; };
+		65DF00B520F2095700B04860 /* ToastAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastAlert.swift; sourceTree = "<group>"; };
+		65DF00B720F2185900B04860 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
+		65DF00B920F26A0E00B04860 /* AddContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
 		65F3C7692057321E009F310E /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65F3C76B2057321E009F310E /* QuestionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsTests.swift; sourceTree = "<group>"; };
 		65F3C76D2057321F009F310E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -169,6 +175,8 @@
 			children = (
 				65AE3EC71D3A9C7500125EE2 /* DataStoreArchiver.swift */,
 				654AF2B020DD54720067107F /* CachedImages.swift */,
+				65DF00B720F2185900B04860 /* PreferencesManager.swift */,
+				657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */,
 			);
 			name = DataOnDisk;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 				65F4207E1E835A4F00BE90F0 /* QRScannerViewController.swift */,
 				657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */,
 				65DD23E01E7422C800462512 /* LicensesViewController.swift */,
+				65DF00B920F26A0E00B04860 /* AddContentViewController.swift */,
 				65456AF31D2BC9620048965E /* TopicsViewController.swift */,
 				654F9A391E775001002B6A82 /* QuizzesViewController.swift */,
 				65479F14206AC0C60042790F /* ImageDetailsViewController.swift */,
@@ -287,11 +296,11 @@
 				654AF2AF20DD544B0067107F /* DataOnDisk */,
 				65746A5520B62A1500F28769 /* Topics */,
 				65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */,
-				657B1CB41F92A94700D127F0 /* UserDefaultsManager.swift */,
 				657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */,
 				6524E2B01F4DE32100EEFB81 /* VolumeBar.swift */,
 				65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */,
 				6574416A206B116400133DDA /* QuestionsAppOptions.swift */,
+				65DF00B520F2095700B04860 /* ToastAlert.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -487,9 +496,11 @@
 				65C285D41D2AB6A4002F7DF8 /* QuestionsViewController.swift in Sources */,
 				65746A5B20B62B8900F28769 /* TopicEntry.swift in Sources */,
 				6548F086208896FA005A87D9 /* CommunityTopics.swift in Sources */,
+				65DF00B820F2185900B04860 /* PreferencesManager.swift in Sources */,
 				65AD8ADF2013FEBD008AD6EE /* RoundedView.swift in Sources */,
 				659212B420B305C600EC7179 /* QR+Extensions.swift in Sources */,
 				657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */,
+				65DF00B620F2095700B04860 /* ToastAlert.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* SetOfTopics.swift in Sources */,
 				65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */,
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,
@@ -503,6 +514,7 @@
 				65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */,
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
+				65DF00BA20F26A0E00B04860 /* AddContentViewController.swift in Sources */,
 				65746A5920B62B3000F28769 /* QuestionType.swift in Sources */,
 				6524E2B11F4DE32100EEFB81 /* VolumeBar.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,

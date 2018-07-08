@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-3.15--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-3.16--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![Trello](https://img.shields.io/badge/-trello-blue.svg)](https://trello.com/b/9YLvTM6S)
 [![Hockeyapp](https://img.shields.io/badge/-hockeyapp-blue.svg)](https://rink.hockeyapp.net/apps/4a9339e52aca4e629bee0b48aef1df5d)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
@@ -117,6 +117,9 @@ Images
 -------
 App background:  
 https://pixabay.com/en/banner-header-question-mark-1090830/
+
+Some icons:
+https://icons8.com/
 
 Sounds
 -------

@@ -15,6 +15,51 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Add Content TableVC-->
+        <scene sceneID="HXC-f9-FxT">
+            <objects>
+                <tableViewController id="5HU-fe-HvN" customClass="AddContentTableVC" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pnh-IO-qXX">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="135"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="addContentCell" id="W3k-8b-Ph1" customClass="CustomUITableViewCell" customModule="Questions" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="250" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="W3k-8b-Ph1" id="R5J-RV-bg4">
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="addTopicCreate" translatesAutoresizingMaskIntoConstraints="NO" id="470-aM-ZuV">
+                                            <rect key="frame" x="7" y="4" width="35" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gM-wD-WpS">
+                                            <rect key="frame" x="49" y="4" width="195" height="35"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="5HU-fe-HvN" id="OAA-FH-75b"/>
+                            <outlet property="delegate" destination="5HU-fe-HvN" id="fmf-oe-GjY"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="250" height="135"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="135"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MRK-wC-92v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="571" y="48"/>
+        </scene>
         <!--Quizzes Sets-->
         <scene sceneID="kgb-fJ-0La">
             <objects>
@@ -51,36 +96,27 @@
                     <navigationItem key="navigationItem" title="Topics" largeTitleDisplayMode="always" id="e8J-nn-9xp">
                         <barButtonItem key="backBarButtonItem" title="Main menu" id="pm3-qY-Zal"/>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="camera" id="Vge-5N-LKB">
-                                <connections>
-                                    <action selector="readTopicFromCamera:" destination="9QX-8c-sEy" id="7rg-o2-Jxb"/>
-                                    <segue destination="I6B-9U-azf" kind="show" identifier="cameraSegue" id="PrW-Oa-b8Y"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="compose" id="S5N-lK-zqj">
-                                <connections>
-                                    <action selector="createTopic:" destination="9QX-8c-sEy" id="3i3-Uc-d92"/>
-                                    <segue destination="GVC-2t-1NK" kind="show" identifier="webCreatorSegue" id="lmc-o3-LSR"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="Fyf-0d-DWx">
-                                <connections>
-                                    <action selector="addNewTopic:" destination="9QX-8c-sEy" id="YsU-3f-nxS"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem systemItem="refresh" id="oEh-xV-1u6">
                                 <connections>
                                     <action selector="refreshTopics:" destination="9QX-8c-sEy" id="1Fk-cp-nyQ"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="add" id="0K2-Ss-g8P">
+                                <connections>
+                                    <action selector="addTopicAction:" destination="9QX-8c-sEy" id="ffc-Dh-7S4"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addBarButtonItem" destination="Fyf-0d-DWx" id="yPg-OQ-x9h"/>
-                        <outlet property="cameraBarButtonItem" destination="Vge-5N-LKB" id="S75-Z9-JCI"/>
-                        <outlet property="composeBarButtonItem" destination="S5N-lK-zqj" id="z7c-RS-Qva"/>
+                        <outlet property="addBarButtonItem" destination="0K2-Ss-g8P" id="bYW-e4-azC"/>
                         <outlet property="refreshBarButtonItem" destination="oEh-xV-1u6" id="Yuk-b2-mJE"/>
                         <segue destination="kse-0a-Wtd" kind="show" identifier="selectTopic" id="UNn-E6-gY8"/>
+                        <segue destination="I6B-9U-azf" kind="show" identifier="cameraViewSegue" id="x5b-uT-Hhn"/>
+                        <segue destination="GVC-2t-1NK" kind="show" identifier="createNewTopicSegue" id="Fx8-hh-JIp"/>
+                        <segue destination="5HU-fe-HvN" kind="popoverPresentation" identifier="addContentTableVC" popoverAnchorBarButtonItem="0K2-Ss-g8P" id="PtY-EQ-cZ4">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKg-Qq-kO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -218,7 +254,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2057" y="-844"/>
+            <point key="canvasLocation" x="2294" y="-597"/>
         </scene>
         <!--Questions-->
         <scene sceneID="syY-Yf-diQ">
@@ -453,7 +489,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfN-P4-Io5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-444" y="1708"/>
+            <point key="canvasLocation" x="-201" y="1680"/>
         </scene>
         <!--Licenses-->
         <scene sceneID="SKB-GU-dMW">
@@ -482,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiO-oa-ZQP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="314" y="1708"/>
+            <point key="canvasLocation" x="508" y="1680"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qMf-q0-piD">
@@ -566,7 +602,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFA-9m-saj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1063" y="-333"/>
+            <point key="canvasLocation" x="1398" y="-265"/>
         </scene>
         <!--Web Creator View Controller-->
         <scene sceneID="YOt-rD-qb6">
@@ -600,7 +636,7 @@
                 <exit id="Jt3-KL-cf1" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egw-1o-MqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="548" y="1186"/>
+            <point key="canvasLocation" x="1398" y="1207"/>
         </scene>
         <!--Questions-->
         <scene sceneID="MEd-vg-hKy">
@@ -1023,10 +1059,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="addTopicCreate" width="100" height="100"/>
         <image name="bg" width="1853" height="1853"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="70N-XG-ao7"/>
+        <segue reference="hFw-j0-O32"/>
         <segue reference="DWg-PE-1c1"/>
         <segue reference="YKe-fL-cs2"/>
     </inferredMetricsTieBreakers>

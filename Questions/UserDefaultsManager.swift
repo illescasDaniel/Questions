@@ -8,100 +8,52 @@
 
 import Foundation
 
-class UserDefaultsManager {
+struct UserDefaultsManager {
 	
-	private static let defaults = UserDefaults.standard
-	
-	enum ItemsToSave: String {
-		
-		case backgroundMusicSwitch
-		case hapticFeedbackSwitch
-		case parallaxEffectSwitch
-		case darkThemeSwitch
-		
-		case score
-		case correctAnswers
-		case incorrectAnswers
-		
-		case savedQuestionsCounter
-		
-		fileprivate static var trueByDefaultSwitches: [ItemsToSave] {
-			return [.backgroundMusicSwitch, .hapticFeedbackSwitch, .parallaxEffectSwitch, .hapticFeedbackSwitch]
-		}
-		
-		fileprivate static var falseByDefaultSwitches: [ItemsToSave] {
-			return [.darkThemeSwitch]
-		}
+	private static func get<T>(property: PreferencesManager.Properties) -> T {
+		return PreferencesManager.standard.valueOrDefault(for: property)
 	}
-	
-	static func loadDefaultValues() {
-		
-		for switchItem in ItemsToSave.trueByDefaultSwitches where defaults.object(forKey: switchItem.rawValue) == nil {
-			defaults.set(true, forKey: switchItem.rawValue)
-		}
-		
-		for switchItem in ItemsToSave.falseByDefaultSwitches where defaults.object(forKey: switchItem.rawValue) == nil {
-			defaults.set(false, forKey: switchItem.rawValue)
-		}
-		
-		let score = ItemsToSave.score.rawValue
-		if defaults.object(forKey: score) == nil {
-			UserDefaultsManager.score = 0
-		}
-		
-		let correctAnswers = ItemsToSave.correctAnswers.rawValue
-		if defaults.object(forKey: correctAnswers) == nil {
-			UserDefaultsManager.correctAnswers = 0
-		}
-		
-		let incorrectAnswers = ItemsToSave.incorrectAnswers.rawValue
-		if defaults.object(forKey: incorrectAnswers) == nil {
-			UserDefaultsManager.incorrectAnswers = 0
-		}
-		
-		let savedQuestionsCounter = ItemsToSave.savedQuestionsCounter.rawValue
-		if defaults.object(forKey: savedQuestionsCounter) == nil {
-			UserDefaultsManager.savedQuestionsCounter = 0
-		}
+	private static func set<T>(property: PreferencesManager.Properties, value: T) {
+		PreferencesManager.standard[property] = value
 	}
 	
 	static var backgroundMusicSwitchIsOn: Bool {
-		get { return defaults.bool(forKey: ItemsToSave.backgroundMusicSwitch.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.backgroundMusicSwitch.rawValue) }
+		get { return get(property: .backgroundMusicSwitch) }
+		set { set(property: .backgroundMusicSwitch, value: newValue) }
 	}
 	
 	static var hapticFeedbackSwitchIsOn: Bool {
-		get { return defaults.bool(forKey: ItemsToSave.hapticFeedbackSwitch.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.hapticFeedbackSwitch.rawValue) }
+		get { return get(property: .hapticFeedbackSwitch) }
+		set { set(property: .hapticFeedbackSwitch, value: newValue) }
 	}
 	
 	static var parallaxEffectSwitchIsOn: Bool {
-		get { return defaults.bool(forKey: ItemsToSave.parallaxEffectSwitch.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.parallaxEffectSwitch.rawValue) }
+		get { return get(property: .parallaxEffectSwitch) }
+		set { set(property: .parallaxEffectSwitch, value: newValue) }
 	}
 	
 	static var darkThemeSwitchIsOn: Bool {
-		get { return defaults.bool(forKey: ItemsToSave.darkThemeSwitch.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.darkThemeSwitch.rawValue) }
+		get { return get(property: .darkThemeSwitch) }
+		set { set(property: .darkThemeSwitch, value: newValue) }
 	}
 	
 	static var score: Int {
-		get { return defaults.integer(forKey: ItemsToSave.score.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.score.rawValue) }
+		get { return get(property: .score) }
+		set { set(property: .score, value: newValue) }
 	}
 	
 	static var correctAnswers: Int {
-		get { return defaults.integer(forKey: ItemsToSave.correctAnswers.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.correctAnswers.rawValue) }
+		get { return get(property: .correctAnswers) }
+		set { set(property: .correctAnswers, value: newValue) }
 	}
 	
 	static var incorrectAnswers: Int {
-		get { return defaults.integer(forKey: ItemsToSave.incorrectAnswers.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.incorrectAnswers.rawValue) }
+		get { return get(property: .incorrectAnswers) }
+		set { set(property: .incorrectAnswers, value: newValue) }
 	}
 	
 	static var savedQuestionsCounter: Int {
-		get { return defaults.integer(forKey: ItemsToSave.savedQuestionsCounter.rawValue) }
-		set { defaults.set(newValue, forKey: ItemsToSave.savedQuestionsCounter.rawValue) }
+		get { return get(property: .savedQuestionsCounter) }
+		set { set(property: .savedQuestionsCounter, value: newValue) }
 	}
 }

@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 		
-		UserDefaultsManager.loadDefaultValues()
-		
 		// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStoreArchiver.path) as? DataStoreArchiver {
 			DataStoreArchiver.shared = mySettings

@@ -85,7 +85,7 @@
 
 "Topic submission" = "Enviar tema";
 "New Topic" = "Nuevo tema";
-"You can read a QR code to add a topic or download it using a URL which contains an appropiate formatted file." = "Puedes leer un QR para añadir un tema o descargarlo usando una URL que contenga el fichero apropiadamente formateado.";
+"You can download a topic using a URL which contains the formatted content or paste the content directly." = "Puedes descargar un tema usando una URL que tenga el contenido formateado o pegar el contenido directamente.";
 "You can specify a URL which contains an appropiate formatted file or the full topic content." = "Puedes especificar una URL que contenga el fichero apropiadamente formateado o especificar el contenido completo del tema.";
 "Add" = "Añadir";
 "Enviar" = "Submit";
@@ -144,6 +144,11 @@
 "Submit" = "Enviar";
 "Help" = "Ayuda";
 "Cancel" = "Cancelar";
+
+"Download remote topic" = "Descargar tema remoto";
+"Create topic" = "Crear tema";
+"Read from camera" = "Leer desde la cámara";
+
 /* -- QUESTION SETS -- */
 
 // --- SOCIAL ---

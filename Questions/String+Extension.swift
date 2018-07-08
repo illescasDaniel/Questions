@@ -16,7 +16,6 @@ extension String {
 }
 
 extension NSAttributedString {
-	
 	static func +(left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
 		let result = NSMutableAttributedString()
 		result.append(left)

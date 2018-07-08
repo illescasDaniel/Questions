@@ -538,22 +538,25 @@ class QuestionsViewController: UIViewController {
 	
 	@objc private func verify(answer: UInt8) {
 		
-		pausePreviousSounds()
+		self.pausePreviousSounds()
 		
 		let isCorrectAnswer = correctAnswersSet.contains(answer)
 		let willNoticeIfAnswerIsCorrectOrIncorrect = self.currentQuizOfTopic.options?.showCorrectIncorrectAnswer ?? true
 		
 		if isCorrectAnswer {
 			correctAnswers += 1
-			if willNoticeIfAnswerIsCorrectOrIncorrect { AudioSounds.correct?.play() }
+			if willNoticeIfAnswerIsCorrectOrIncorrect {
+				DispatchQueue.global().async { AudioSounds.correct?.play() }
+			}
 		}
 		else {
 			incorrectAnswers += 1
-			if willNoticeIfAnswerIsCorrectOrIncorrect { AudioSounds.incorrect?.play() }
+			if willNoticeIfAnswerIsCorrectOrIncorrect {
+				DispatchQueue.global().async { AudioSounds.incorrect?.play() }
+			}
 		}
 		
 		UIView.transition(with: self.answerButtons[Int(answer)], duration: 0.25, options: [.transitionCrossDissolve], animations: {
-			
 			if willNoticeIfAnswerIsCorrectOrIncorrect {
 				self.answerButtons[Int(answer)].backgroundColor = isCorrectAnswer ? .darkGreen : .alternativeRed
 			} else {
@@ -577,15 +580,16 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func pausePreviousSounds() {
-		
-		if let incorrectSound = AudioSounds.incorrect, incorrectSound.isPlaying {
-			incorrectSound.pause()
-			incorrectSound.currentTime = 0
-		}
-		
-		if let correctSound = AudioSounds.correct, correctSound.isPlaying {
-			correctSound.pause()
-			correctSound.currentTime = 0
+		DispatchQueue.global().async {
+			if let incorrectSound = AudioSounds.incorrect, incorrectSound.isPlaying {
+				incorrectSound.pause()
+				incorrectSound.currentTime = 0
+			}
+			
+			if let correctSound = AudioSounds.correct, correctSound.isPlaying {
+				correctSound.pause()
+				correctSound.currentTime = 0
+			}
 		}
 	}
 	

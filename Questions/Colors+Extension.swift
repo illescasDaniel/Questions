@@ -29,6 +29,17 @@ extension UIColor {
 	static let veryLightGray = UIColor(P3ReadyRed: 0.93, green: 0.93, blue: 0.95)
 	static let veryVeryLightGray = UIColor(P3ReadyRed: 0.98, green: 0.98, blue: 0.97)
 	
+	static let materialBlueGray = UIColor(RGBred: 54, green: 72, blue: 81)
+	static let materialLightBlueGray = UIColor(RGBred: 126, green: 147, blue: 158)
+	static let materialVeryLightBlueGray = UIColor(RGBred: 161, green: 176, blue: 184)
+	
+	static var popoverVCBackground: UIColor {
+		return UserDefaultsManager.darkThemeSwitchIsOn ? UIColor(RGBred: 237, green: 177, blue: 98) : UIColor(RGBred: 134, green: 182, blue: 208)
+	}
+	static var popoverVCBackgroundSelected: UIColor {
+		return UserDefaultsManager.darkThemeSwitchIsOn ? UIColor(RGBred: 237-30, green: 177-30, blue: 98-30) : UIColor(RGBred: 134-30, green: 182-30, blue: 208-30)
+	}
+	
 	static func themeStyle(dark: UIColor, light: UIColor) -> UIColor {
 		return UserDefaultsManager.darkThemeSwitchIsOn ? dark : light
 	}

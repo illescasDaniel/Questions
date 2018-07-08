@@ -176,19 +176,9 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		let whatToDoAlertController = UIAlertController(title: "What to do with the topic".localized, message: nil, preferredStyle: .alert)
 		whatToDoAlertController.addAction(title: "Wait! I'm not done".localized, style: .cancel)
 		whatToDoAlertController.addAction(title: "Save".localized, style: .default) { _ in
-			DispatchQueue.global().async {
-				let savedCorrectly = SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
-				let message = savedCorrectly ? "Saved" : "Error while saving"
-				DispatchQueue.main.async {
-					let alertVC = UIAlertController(title: message.localized, message: nil, preferredStyle: .alert)
-					self.present(alertVC, animated: true) {
-						FeedbackGenerator.notificationOcurredOf(type: savedCorrectly ? .success : .error)
-						DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(215)) {
-							alertVC.dismiss(animated: true)
-						}
-					}
-				}
-			}
+			ToastAlert.present(onSuccess: "Saved", onError: "Error while saving", withLength: .short, playHapticFeedback: true, in: self, operation: {
+				return SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
+			})
 		}
 		
 		whatToDoAlertController.addAction(title: "Share".localized, style: .default) { _ in
