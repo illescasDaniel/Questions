@@ -20,7 +20,6 @@ class DataStoreArchiver: NSObject, NSCoding {
 
 	required init (coder unarchiver: NSCoder) {
 		super.init()
-		
 		if let completedSets = unarchiver.decodeObject(forKey: Keys.completedSets.rawValue) as? [String: [Int:Bool]] {
 			self.completedSets = completedSets
 		}

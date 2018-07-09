@@ -29,10 +29,10 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		self.navigationItem.setRightBarButtonItems(allowedBarButtonItems, animated: false)
 		
-		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
-		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
 		let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareItems))
-		self.toolbarItems = [trashItem, flexibleSpaceItem, shareItem]
+		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
+		self.toolbarItems = [shareItem, flexibleSpaceItem, trashItem]
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			self.loadCurrentTheme()
@@ -327,7 +327,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		let title = String.localizedStringWithFormat("Delete %d item%@".localized, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
 		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.first
+		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
 		
 		deleteItemsAlert.addAction(title: "Delete".localized, style: .destructive) { _ in
 			SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
@@ -364,7 +364,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			if completed { self.setEditing(false, animated: true) }
 		}
 		
-		activityVC.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
+		activityVC.popoverPresentationController?.barButtonItem = self.toolbarItems?.first
 		self.present(activityVC, animated: true)
 	}
 	
