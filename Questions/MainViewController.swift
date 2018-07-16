@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
 
 	@IBOutlet weak var mainMenuStack: UIStackView!
 	// MARK: View life cycle
-
+	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()

@@ -24,9 +24,73 @@ SOFTWARE.
 
 import UIKit
 
-class CachedImages {
+/// An easy class to manage online images in Swift.
+///
+/// Reference and more info: [https://github.com/illescasDaniel/CachedImages]()
+///
+/// # Usage
+/**
+## Example 1:
+
+```
+CachedImages.shared.load(image: "https://test.com/image.jpg", into: imageView)
+```
+
+## Example 2:
+
+```
+CachedImages.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
+self.activityIndicatorView.stopAnimating()
+self.questionImageButton.setImage(cachedImage, for: .normal)
+self.questionImageButton.isHidden = false
+}, prepareForDownload: {
+self.questionImageButton.isHidden = true
+self.activityIndicatorView.startAnimating()
+}, onError: { _ in
+self.questionImageButton.isHidden = true
+self.activityIndicatorView.stopAnimating()
+})
+```
+*/
+public final class CachedImages {
 	
-	enum Errors: Error {
+	public class LoadCachedImage {
+		
+		private let stringURL: String
+		private var placeholderImage: UIImage? = nil
+		
+		public init(url: String) {
+			self.stringURL = url
+		}
+		
+		public func placeholder(image: UIImage) -> LoadCachedImage {
+			placeholderImage = image
+			return self
+		}
+		
+		public func into(imageView: UIImageView) {
+			DispatchQueue.main.async {
+				if let placeholderImage = self.placeholderImage {
+					imageView.image = placeholderImage
+				}
+			}
+			CachedImages.shared.load(url: stringURL, onSuccess: { image in
+				imageView.image = image
+			})
+		}
+		public func into(buttonImage: UIButton) {
+			DispatchQueue.main.async {
+				if let placeholderImage = self.placeholderImage {
+					buttonImage.setImage(placeholderImage, for: .normal)
+				}
+			}
+			CachedImages.shared.load(url: stringURL, onSuccess: { image in
+				buttonImage.setImage(image, for: .normal)
+			})
+		}
+	}
+	
+	public enum Errors: Error {
 		case emptyURL
 		case couldNotSaveImage
 		case couldNotDownloadImage
@@ -34,14 +98,26 @@ class CachedImages {
 	
 	private let cachedImagesFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(".cachesImages")
 	
-	static let shared = CachedImages()
+	public static let shared = CachedImages()
 	fileprivate init() { self.createImagesFolderIfItDoesntExist() }
 	
-	func exists(withURL url: String) -> Bool {
+	public func load(image imageURL: String, into imageView: UIImageView, placeholder: UIImage? = nil) {
+		let loadCachedImage = LoadCachedImage(url: imageURL)
+		if let placeholderImage = placeholder {
+			let _ = loadCachedImage.placeholder(image: placeholderImage)
+		}
+		loadCachedImage.into(imageView: imageView)
+	}
+	
+	public func load(image imageURL: String) -> LoadCachedImage {
+		return LoadCachedImage(url: imageURL)
+	}
+	
+	public func exists(withURL url: String) -> Bool {
 		return self.exists(withKey: url.hash)
 	}
 	
-	func saveImage(withURL url: String, onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
+	public func saveImage(withURL url: String, onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
 		
 		DispatchQueue.global().async {
 			
@@ -73,13 +149,7 @@ class CachedImages {
 		}
 	}
 	
-	func load(image imageURL: String, into imageView: UIImageView) {
-		self.load(url: imageURL, onSuccess: { image in
-			imageView.image = image
-		})
-	}
-	
-	func load(url: String, onSuccess: @escaping (UIImage) -> (), prepareForDownload: @escaping () -> () = {}, onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
+	public func load(url: String, onSuccess: @escaping (UIImage) -> (), prepareForDownload: @escaping () -> () = {}, onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
 		DispatchQueue.global().async {
 			
 			let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -118,7 +188,8 @@ class CachedImages {
 	}
 	
 	/// Returns `true` if cached images were cleared successfully
-	@discardableResult func clear() -> Bool {
+	@discardableResult
+	public func clear() -> Bool {
 		let result = (try? FileManager.default.removeItem(atPath: self.cachedImagesFolder.path)) != nil
 		self.createImagesFolderIfItDoesntExist()
 		return result
