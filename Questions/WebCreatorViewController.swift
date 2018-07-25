@@ -129,30 +129,31 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func promptUserWithFormGenerator() {
-		let questionsCreatorSetupAlert = UIAlertController(title: "Create Topic".localized, message: nil, preferredStyle: .alert)
+		
+		let questionsCreatorSetupAlert = UIAlertController(title: Localized.TopicsCreation_Title, message: nil, preferredStyle: .alert)
 		
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Number of sets".localized
+			textField.placeholder = Localized.TopicsCreation_SetsNumber
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Questions per set".localized
+			textField.placeholder = Localized.TopicsCreation_QuestionsPerSet
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = "Answers per question".localized
+			textField.placeholder = Localized.TopicsCreation_AnswersPerQuestion
 			textField.keyboardType = .numberPad
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
-		questionsCreatorSetupAlert.addAction(title: "Cancel".localized, style: .cancel) { _ in
+		questionsCreatorSetupAlert.addAction(title: Localized.Common_Cancel, style: .cancel) { _ in
 			self.navigationController?.popViewController(animated: true)
 		}
-		questionsCreatorSetupAlert.addAction(title: "Generate form".localized, style: .default) { action in
+		questionsCreatorSetupAlert.addAction(title: Localized.TopicsCreation_Generate, style: .default) { action in
 			
 			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
 				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
@@ -173,15 +174,16 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	
 	private func topicActionAlert(quiz: Quiz) {
 		
-		let whatToDoAlertController = UIAlertController(title: "What to do with the topic".localized, message: nil, preferredStyle: .alert)
-		whatToDoAlertController.addAction(title: "Wait! I'm not done".localized, style: .cancel)
-		whatToDoAlertController.addAction(title: "Save".localized, style: .default) { _ in
-			ToastAlert.present(onSuccess: "Saved", onError: "Error while saving", withLength: .short, playHapticFeedback: true, in: self, operation: {
+		let whatToDoAlertController = UIAlertController(title: Localized.TopicsCreation_Alerts_Save_Title, message: nil, preferredStyle: .alert)
+		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Cancel, style: .cancel)
+		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
+			ToastAlert.present(onSuccess: Localized.TopicsCreation_Alerts_Save_Success,
+							   onError: Localized.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
 				return SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
 			})
 		}
 		
-		whatToDoAlertController.addAction(title: "Share".localized, style: .default) { _ in
+		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Share, style: .default) { _ in
 			
 			var items: [Any] = []
 			
@@ -199,7 +201,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func invalidQuizAlert(title: String = "", message: String? = nil) {
-		let alertVC = UIAlertController(title: title.isEmpty ? "Invalid topic".localized : title, message: message ?? nil, preferredStyle: .alert)
+		let alertVC = UIAlertController(title: title.isEmpty ? Localized.TopicsCreation_WebView_Validation_Invalid : title, message: message ?? nil, preferredStyle: .alert)
 		alertVC.addAction(title: "OK", style: .default)
 		self.present(alertVC, animated: true)
 	}

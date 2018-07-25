@@ -9,8 +9,8 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.navigationItem.title = SetOfTopics.shared.current == .community ? "Community".localized : "Topics".localized
-		self.navigationItem.backBarButtonItem?.title = "Main menu".localized
+		self.navigationItem.title = SetOfTopics.shared.current == .community ? Localized.Topics_Community_Title : Localized.Topics_AllTopics_Title
+		self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
 		
 		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
 		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
@@ -194,7 +194,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case SetOfTopics.Mode.app.rawValue: return nil
-		case SetOfTopics.Mode.saved.rawValue: return "User topics".localized
+		case SetOfTopics.Mode.saved.rawValue: return Localized.MainMenu_Entries_UserTopics
 		default: return nil
 		}
 	}
@@ -263,13 +263,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			return
 		}
 		
-		let titleText = "Topic submission"
-		let messageText = "You can specify a URL which contains an appropiate formatted file or the full topic content."
+		let titleText = Localized.Topics_Community_Submission_Title
+		let messageText = Localized.Topics_Community_Submission_Info
 		
-		let newTopicAlert = UIAlertController(title: titleText.localized, message: messageText.localized, preferredStyle: .alert)
+		let newTopicAlert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = "Topic Name".localized
+			textField.placeholder = Localized.Topics_Community_Submission_TopicName
 			textField.keyboardType = .alphabet
 			textField.autocapitalizationType = .sentences
 			textField.autocorrectionType = .yes
@@ -278,13 +278,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = "Topic URL or fomatted content".localized
+			textField.placeholder = Localized.Topics_Community_Submission_TopicContent
 			textField.keyboardType = .URL
 			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 		}
 		
-		newTopicAlert.addAction(title: "Help".localized, style: .default) { _ in
+		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Help, style: .default) { _ in
 			if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(url, options: [:])
@@ -294,11 +294,12 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 		}
 		
-		newTopicAlert.addAction(title: "Submit".localized, style: .default) { _ in
+		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Action, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
 				let topicURLText = newTopicAlert.textFields?.last?.text, !topicURLText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				
+				// TODO: translate
 				let messageBody = """
 					Topic name: \(topicName)
 					Topic URL or content: \(topicURLText)
@@ -314,7 +315,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 		}
 		
-		newTopicAlert.addAction(title: "Cancel".localized, style: .cancel)
+		newTopicAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
 		self.present(newTopicAlert, animated: true)
 	}
 	
@@ -325,11 +326,11 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		FeedbackGenerator.notificationOcurredOf(type: .warning)
 		
-		let title = String.localizedStringWithFormat("Delete %d item%@".localized, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
+		let title = String.localizedStringWithFormat(Localized.Topics_Saved_DeleteAll, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
 		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
 		
-		deleteItemsAlert.addAction(title: "Delete".localized, style: .destructive) { _ in
+		deleteItemsAlert.addAction(title: Localized.Topics_Saved_Delete, style: .destructive) { _ in
 			SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
 			let section = selectedItemsIndexPaths[0].section
 			if self.tableView.numberOfRows(inSection: section) == selectedItemsIndexPaths.count {
@@ -340,7 +341,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 			self.setEditing(false, animated: true)
 		}
-		deleteItemsAlert.addAction(title: "Cancel".localized, style: .cancel)
+		deleteItemsAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
 		
 		self.present(deleteItemsAlert, animated: true)
 	}

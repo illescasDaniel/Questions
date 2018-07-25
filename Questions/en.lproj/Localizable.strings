@@ -1,1 +1,239 @@
-"RESET_GAME_ADVICE" = "Are you sure you want to reset the game configuration and progress?";
+"**HomeQuickActions.ScanQR**" = "Scan QR Code";
+
+"**MainMenu.Title**" = "Main menu";
+"**MainMenu.Entries.Topics**" = "Topics";
+"**MainMenu.Entries.UserTopics**" = "User topics";
+"**MainMenu.Entries.Community**" = "Community";
+"**MainMenu.Entries.ScanQR**" = "Scan QR Code";
+"**MainMenu.Entries.Settings**" = "Settings";
+
+"**Topics.AllTopics.Title**" = "Topics";
+"**Topics.Community.Title**" = "Community";
+"**Topics.Community.Submission.Title**" = "Topic submission";
+"**Topics.Community.Submission.TopicName**" = "Topic Name";
+"**Topics.Community.Submission.Info**" = "You can download a topic using a URL which contains the formatted content or paste the content directly.";
+"**Topics.Community.Submission.Action**" = "Submit";
+"**Topics.Community.Submission.Help**" = "Help";
+"**Topics.Community.Submission.TopicContent**" = "Topic URL or fomatted content";
+"**Topics.Saved.Add.Menu.Download**" = "Download remote topic";
+"**Topics.Saved.Add.Menu.Create**" = "Create topic";
+"**Topics.Saved.Add.Menu.Camera**" = "Read from camera";
+"**Topics.Saved.Add.Download.Title**" = "Add topic";
+"**Topics.Saved.Add.Download.Info**" = "You can specify a URL which contains an appropiate formatted file or the full topic content.";
+"**Topics.Saved.Add.Download.Action**" = "Add";
+"**Topics.Saved.Add.Download.TopicContent**" = "Topic URL or fomatted content";
+"**Topics.Saved.Add.Download.TopicName**" = "Topic Name";
+"**Topics.Saved.Add.Download.Help**" = "Help";
+"**Topics.Saved.Delete**" = "Delete";
+"**Topics.Saved.DeleteAll**" = "Delete %d item%@";
+"**Topics.Quizzes.Title**" = "Quizzes";
+
+"**TopicsCreation.Title**" = "Create Topic";
+"**TopicsCreation.SetsNumber**" = "Number of sets";
+"**TopicsCreation.QuestionsPerSet**" = "Questions per set";
+"**TopicsCreation.AnswersPerQuestion**" = "Answers per question";
+"**TopicsCreation.Generate**" = "Generate form";
+"**TopicsCreation.Alerts.Save.Title**" = "What to do with the topic";
+"**TopicsCreation.Alerts.Save.Cancel**" = "Wait! I'm not done";
+"**TopicsCreation.Alerts.Save.Accept**" = "Save";
+"**TopicsCreation.Alerts.Save.Share**" = "Share";
+"**TopicsCreation.Alerts.Save.Success**" = "Saved";
+"**TopicsCreation.Alerts.Save.Error**" = "Error while saving";
+"**TopicsCreation.WebView.Title**" = "Topic Creator";
+"**TopicsCreation.WebView.Options**" = "Options";
+"**TopicsCreation.WebView.Options.Name**" = "Name";
+"**TopicsCreation.WebView.Options.NamePlaceholder**" = "Optional but recommended";
+"**TopicsCreation.WebView.Options.Time**" = "Time per set";
+"**TopicsCreation.WebView.Options.TimePlaceholder**" = "Optional";
+"**TopicsCreation.WebView.Options.RandomOrderQuestions**" = "Questions in random order";
+"**TopicsCreation.WebView.Options.EnableHelp**" = "Enable help button";
+"**TopicsCreation.WebView.Options.ShowCorrectIncorrect**" = "Show Correct/Incorrect answers";
+"**TopicsCreation.WebView.Options.ForceChooseCorrectAnswers**" = "Force to choose all correct answers";
+"**TopicsCreation.WebView.Set**" = "Set";
+"**TopicsCreation.WebView.Question**" = "Question";
+"**TopicsCreation.WebView.ImageURL**" = "Image URL";
+"**TopicsCreation.WebView.ImageURLPlaceholder**" = "Optional";
+"**TopicsCreation.WebView.Answer**" = "Answer";
+
+"**TopicsCreation.WebView.Validation.Invalid**" = "Invalid topic";
+"**TopicsCreation.WebView.Validation.Sets.Empty**" = "At least one set is empty.";
+"**TopicsCreation.WebView.Validation.Sets.Empty.Recovery**" = "Sets count: %d";
+"**TopicsCreation.WebView.Validation.Questions.Empty**" = "At least question set is empty.";
+"**TopicsCreation.WebView.Validation.Questions.Empty.Recovery**" = "[Location] Set: %d, question: %d";
+"**TopicsCreation.WebView.Validation.Answers.Empty**" = "At least one answer is empty.";
+"**TopicsCreation.WebView.Validation.Answers.Empty.Recovery**" = "[Location] Set: %d, question: %d, answer: %d";
+"**TopicsCreation.WebView.Validation.Answers.IncorrectCount**" = "The number of valid answers is incorrect, repeated answers are not allowed.";
+"**TopicsCreation.WebView.Validation.Answers.IncorrectCount.Recovery**" = "[Location] Set: %d, question: %d";
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount**" = "The number of correct answers is incorrect.";
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount.Recovery**" = "[Location] Set: %d, question: %d, correct answers: %d";
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex**" = "The 'correct answer' index is incorrect.";
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex.Recovery**" = "[Location] Set: %d, question: %d, bad: %d, maximum: %d";
+
+"**ScanQR.Error.InvalidFormat**" = "Invalid QR Code format";
+"**ScanQR.Alerts.Open.Title**" = "Open first question set";
+"**ScanQR.Alerts.Open.OpenIt**" = "Open it";
+"**ScanQR.Alerts.Open.KeepScanning**" = "Keep scanning";
+"**ScanQR.Permissions.Camera.Description**" = "Camera accessf required for QR Scanning";
+"**ScanQR.Permissions.Camera.Access**" = "Allow camera access";
+
+"**Common.OK**" = "OK";
+"**Common.Cancel**" = "Cancel";
+"**Common.Attention**" = "Attention";
+
+"**Settings.Title**" = "Settings";
+"**Settings.Options.Music**" = "Background Music";
+"**Settings.Options.HapticFeedback**" = "Haptic Feedback";
+"**Settings.Options.HapticFeedback.Info**" = "*Only available on certain devices.";
+"**Settings.Options.ParallaxEffect**" = "Parallax Effect";
+"**Settings.Options.DarkTheme**" = "Dark theme";
+"**Settings.Options.Licenses**" = "Licenses";
+"**Settings.Options.ResetProgress**" = "Reset progress";
+"**Settings.Options.ClearCachedImages**" = "Clear cached images";
+"**Settings.Options.ClearCachedImages.Action**" = "Clear";
+"**Settings.Alerts.ResetProgress.Title**" = "Are you sure you want to reset the game configuration and progress?";
+"**Settings.Alerts.ResetProgress.OnlyStatistics**" = "Only Statistics";
+"**Settings.Alerts.ResetProgress.Everything**" = "Everything";
+"**Settings.Statistics.Title**" = "Statistics";
+"**Settings.Statistics.Ratio**" = "Ratio";
+"**Settings.Statistics.CompletedSets**" = "Completed sets";
+"**Settings.Statistics.CorrectAnswers**" = "Correct answers";
+"**Settings.Statistics.IncorrectAnswers**" = "Incorrect answers";
+
+"**Questions.PauseMenu.Pause**" = "Pause";
+"**Questions.PauseMenu.Continue**" = "Continue";
+"**Questions.PauseMenu.Music.Pause**" = "Pause music";
+"**Questions.PauseMenu.Music.Play**" = "Play  music";
+"**Questions.PauseMenu.Back.QuestionsMenu**" = "Questions menu";
+"**Questions.PauseMenu.Back.MainMenu**" = "Main menu";
+
+"**Questions.Alerts.Help.MaxRepeatTriesReached**" = "Maximum repeat tries per quiz reached";
+"**Questions.Alerts.Help.MaxHelpTriesReached**" = "Maximum help tries per question reached";
+"**Questions.Alerts.Help.NotEnoughPoints**" = "Not enough points.\nYou only get points by completing quizzes.";
+"**Questions.Alerts.Repeat.Title**" = "Repeat?";
+"**Questions.Alerts.Repeat.Message**" = "Do you want to start again?";
+"**Questions.Alerts.End.Message**" = "Do you want to repeat it?";
+"**Questions.Alerts.End.CorrectAnswers**" = "Correct answers: %@";
+"**Questions.Alerts.End.Score**" = "Score: %d";
+"**Questions.Alerts.End.Repeat**" = "Repeat";
+"**Questions.Alerts.TimeRunOut**" = "Time ran out";
+
+"**Security.Alerts.ProtectedContent.Title**" = "This content is protected";
+"**Security.Alerts.ProtectedContent.Message**" = "Please don't use the screen recorder or take screenshots";
+"**Security.Alerts.ProtectedContent.Exit**" = "Exit quiz";
+"**Security.Alerts.ProtectedContent.OK**" = "I have disabled it";
+
+/* -- QUESTION SETS -- */
+
+// --- SOCIAL ---
+// "Social" = "Social";
+
+"What's your name?" = "¿Cómo te llamas?¿Cómo te llamas?¿Cómo te llamas? ¿Cómo te llamas?";
+"Sophie" = "Sofía";
+// "Daniel" = "Daniel";
+"Pete" = "Tete";
+"Mr. Incognito" = "Sr. de Incógnito";
+
+"🐶 or 🐱?" = "¿🐶 o 🐱?";
+/*
+ "🐱" = "🐱";
+ "🐶" = "🐶";
+ "Daniel" = "Daniel";
+ */
+"Other" = "Otro";
+
+"Do you like Pizza?" = "¿Te gusta la pizza?";
+"I love it!" = "¡Me encanta!";
+"Yes" = "Sí";
+// "No" = "No";
+"Maybe" = "Tal vez";
+
+// --- TECHNOLOGY ---
+"Technology" = "Tecnología";
+
+"Best desktop OS" = "Mejor SO de escritorio";
+/*
+ "macOS" = "macOS";
+ "Windows" = "Windows";
+ "MS-DOS 😎" = "MS-DOS 😎";
+ "Linux c:" = "Linux c:";
+ */
+
+"Best IDE" = "Mejor IDE";
+/*
+ "Visual Studio" = "Visual Studio";
+ "Xcode" = "Xcode";
+ "Netbeans" = "Netbeans";
+ "Eclipse" = "Eclipse";
+ */
+
+"Best smartphone OS" = "Mejor SO móvil";
+/*
+ "iOS" = "iOS";
+ "Android" = "Android";
+ "BlackBerry OS" = "BlackBerry OS";
+ "Windows Phone c:" = "Windows Phone c:";
+ */
+
+"Latest macOS version" = "Última versión de macOS";
+/*
+ "10.11.5" = "10.11.5";
+ "10.2" = "10.2";
+ "11" = "11";
+ "10.12" = "10.12";
+ */
+
+"Which Windows version is the best?" = "¿Qué versión de Windows es la mejor?";
+/*
+ "Windows XP" = "Windows XP";
+ "Windows 7" = "Windows 7";
+ "Windows Vista 😂" = "Windows Vista 😂";
+ "Windows 10" = "Windows 10";
+ */
+
+"iPhone, iPad or Mac?" = "¿iPhone, iPad o Mac?";
+/*
+ "iPhone" = "iPhone";
+ "iPad" = "iPad";
+ "Mac" = "Mac";
+ */
+"Everyone c:" = "Todos c:";
+
+// --- PEOPLE ---
+"People" = "Gente";
+
+// SET 0
+
+"How old is Barack Obama?" = "¿Qué edad tiene Barack Obama?";
+/*
+ "> 50" = "> 50";
+ "< 50" = "< 50";
+ "35 ☺️" = "35 ☺️";
+ "> 60 👴🏿" = "> 60 👴🏿";
+ */
+
+"Google CEO" = "Director ejecutivo de Google";
+/*
+ "Larry Page" = "Larry Page";
+ "Sergey Brin" = "Sergey Brin";
+ "Sundar Pichai" = "Sundar Pichai";
+ "Andy Rubin" = "Andy Rubin";
+ */
+
+// SET 1
+
+"When was Tim Cook born?" = "¿Cuándo nació Tim Cook?";
+/*
+ "1967" = "1967";
+ "1970" = "1970";
+ "1940" = "1940";
+ "1960" = "1960";
+ */
+
+"When did Steve Jobs die?" = "¿Cuándo falleció Steve Jobs?";
+
+/*
+ "2008" = "2008";
+ "2010" = "2010";
+ "2011" = "2011";
+ "2012" = "2012";
+ */

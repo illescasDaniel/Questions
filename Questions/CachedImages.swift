@@ -28,30 +28,6 @@ import UIKit
 ///
 /// Reference and more info: [https://github.com/illescasDaniel/CachedImages]()
 ///
-/// # Usage
-/**
-## Example 1:
-
-```
-CachedImages.shared.load(image: "https://test.com/image.jpg", into: imageView)
-```
-
-## Example 2:
-
-```
-CachedImages.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
-self.activityIndicatorView.stopAnimating()
-self.questionImageButton.setImage(cachedImage, for: .normal)
-self.questionImageButton.isHidden = false
-}, prepareForDownload: {
-self.questionImageButton.isHidden = true
-self.activityIndicatorView.startAnimating()
-}, onError: { _ in
-self.questionImageButton.isHidden = true
-self.activityIndicatorView.stopAnimating()
-})
-```
-*/
 public final class CachedImages {
 	
 	public class LoadCachedImage {

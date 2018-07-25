@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
 		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
-		self.navigationItem.backBarButtonItem?.title = "Main menu".localized
+		self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
 		
 		if UserDefaultsManager.parallaxEffectSwitchIsOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)
@@ -98,9 +98,9 @@ class MainViewController: UIViewController {
 	}
 	
 	private func initializeLables() {
-		self.startButton.setTitle("TOPICS".localized, for: .normal)
-		self.communityButton.setTitle("COMMUNITY".localized, for: .normal)
-		self.settingsButton.setTitle("SETTINGS".localized, for: .normal)
+		self.startButton.setTitle(Localized.MainMenu_Entries_Topics, for: .normal)
+		self.communityButton.setTitle(Localized.MainMenu_Entries_Community, for: .normal)
+		self.settingsButton.setTitle(Localized.MainMenu_Entries_Settings, for: .normal)
 	}
 	
 	@IBAction func loadTheme() {

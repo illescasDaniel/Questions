@@ -96,33 +96,33 @@ extension Quiz.ValidationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptySet(_):
-			return "At least one set is empty.".localized
+			return Localized.TopicsCreation_WebView_Validation_Sets_Empty
 		case .emptyQuestion(_):
-			return "At least one question is empty.".localized
+			return Localized.TopicsCreation_WebView_Validation_Questions_Empty
 		case .emptyAnswer(_):
-			return "At least one answer is empty.".localized
+			return Localized.TopicsCreation_WebView_Validation_Answers_Empty
 		case .incorrectAnswersCount(_):
-			return "The number of valid answers is incorrect, repeated answers are not allowed.".localized
+			return Localized.TopicsCreation_WebView_Validation_Answers_IncorrectCount
 		case .incorrectCorrectAnswersCount(_):
-			return "The number of correct answers is incorrect.".localized
+			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectCount
 		case .incorrectCorrectAnswerIndex(_):
-			return "The 'correct answer' index is incorrect.".localized
+			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex
 		}
 	}
 	var recoverySuggestion: String? {
 		switch self {
 		case .emptySet(let count):
-			return String.localizedStringWithFormat("Sets count: %d".localized, count)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Sets_Empty_Recovery, count)
 		case .emptyQuestion(let set, let question):
-			return String.localizedStringWithFormat("[Location] Set: %d, question: %d".localized, set, question)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Questions_Empty_Recovery, set, question)
 		case .emptyAnswer(let set, let question, let answer):
-			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, answer: %d".localized, set, question, answer)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_Empty_Recovery, set, question, answer)
 		case .incorrectAnswersCount(let set, let question):
-			return String.localizedStringWithFormat("[Location] Set: %d, question: %d".localized, set, question)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_IncorrectCount_Recovery, set, question)
 		case .incorrectCorrectAnswersCount(let set, let question, let count):
-			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, correct answers: %d".localized, set, question, count ?? 0)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectCount_Recovery, set, question, count ?? 0)
 		case .incorrectCorrectAnswerIndex(let set, let question, let badIndex, let maximum):
-			return String.localizedStringWithFormat("[Location] Set: %d, question: %d, bad: %d, maximum: %d".localized, set, question, badIndex, maximum)
+			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex_Recovery, set, question, badIndex, maximum)
 		}
 	}
 }

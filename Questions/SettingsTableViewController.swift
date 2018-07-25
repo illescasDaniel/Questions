@@ -10,15 +10,15 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 	
-	private enum cellLabelsForSection0: String {
+	private class cellLabelsForSection0 {
 		
-		case backgroundMusic = "Background Music"
-		case hapticFeedback = "Haptic Feedback"
-		case parallaxEffect = "Parallax effect"
-		case darkTheme = "Dark Theme"
-		case licenses = "Licenses"
+		static let backgroundMusic = Localized.Settings_Options_Music
+		static let hapticFeedback = Localized.Settings_Options_HapticFeedback
+		static let parallaxEffect = Localized.Settings_Options_ParallaxEffect
+		static let darkTheme = Localized.Settings_Options_DarkTheme
+		static let licenses = Localized.Settings_Options_Licenses
 		
-		static let labels: [cellLabelsForSection0] = [.backgroundMusic, .hapticFeedback, .parallaxEffect, .darkTheme, .licenses]
+		static let labels: [String] = [cellLabelsForSection0.backgroundMusic, cellLabelsForSection0.hapticFeedback, cellLabelsForSection0.parallaxEffect, cellLabelsForSection0.darkTheme, cellLabelsForSection0.licenses]
 		static let count = labels.count
 	}
 	
@@ -31,19 +31,19 @@ class SettingsTableViewController: UITableViewController {
 		return [backgroundMusicSwitch, hapticFeedbackSwitch, parallaxEffectSwitch, darkThemeSwitch]
 	}
 	
-	private enum cellLabelsForSection1: String {
+	private class cellLabelsForSection1 {
 		
-		case resetProgress = "Reset progress"
-		case resetCachedImages = "Clear cached images"
+		static let resetProgress = Localized.Settings_Options_ResetProgress
+		static let resetCachedImages = Localized.Settings_Options_ClearCachedImages
 		
-		static let labels: [cellLabelsForSection1] = [.resetProgress, .resetCachedImages]
+		static let labels: [String] = [cellLabelsForSection1.resetProgress, cellLabelsForSection1.resetCachedImages]
 		static let count = labels.count
 	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.navigationItem.title = "Settings".localized
+		self.navigationItem.title = Localized.Settings_Title
 		
 		self.setUpSwitches()
 		self.loadSwitchesStates()
@@ -111,26 +111,26 @@ class SettingsTableViewController: UITableViewController {
 		case 0:
 			switch indexPath.row {
 			case 0:
-				cell.textLabel?.text = cellLabelsForSection0.backgroundMusic.rawValue.localized
-				cell.accessoryView = backgroundMusicSwitch
+				cell.textLabel?.text = cellLabelsForSection0.backgroundMusic
+				cell.accessoryView = self.backgroundMusicSwitch
 			case 1:
-				cell.textLabel?.text = cellLabelsForSection0.hapticFeedback.rawValue.localized + "*"
-				cell.accessoryView = hapticFeedbackSwitch
+				cell.textLabel?.text = cellLabelsForSection0.hapticFeedback + "*"
+				cell.accessoryView = self.hapticFeedbackSwitch
 			case 2:
-				cell.textLabel?.text = cellLabelsForSection0.darkTheme.rawValue.localized
-				cell.accessoryView = darkThemeSwitch
+				cell.textLabel?.text = cellLabelsForSection0.darkTheme
+				cell.accessoryView = self.darkThemeSwitch
 			case 3:
-				cell.textLabel?.text = cellLabelsForSection0.parallaxEffect.rawValue.localized
-				cell.accessoryView = parallaxEffectSwitch
+				cell.textLabel?.text = cellLabelsForSection0.parallaxEffect
+				cell.accessoryView = self.parallaxEffectSwitch
 			case 4:
-				cell.textLabel?.text = cellLabelsForSection0.licenses.rawValue.localized
+				cell.textLabel?.text = cellLabelsForSection0.licenses
 				cell.accessoryType = .disclosureIndicator
 			default: break
 			}
 		case 1:
 			switch indexPath.row {
-			case 0: cell.textLabel?.text = cellLabelsForSection1.resetProgress.rawValue.localized
-			case 1: cell.textLabel?.text = cellLabelsForSection1.resetCachedImages.rawValue.localized
+			case 0: cell.textLabel?.text = cellLabelsForSection1.resetProgress
+			case 1: cell.textLabel?.text = cellLabelsForSection1.resetCachedImages
 			default: break
 			}
 		default: break
@@ -164,12 +164,12 @@ class SettingsTableViewController: UITableViewController {
 		let numberOfAnswers = Float(incorrectAnswers + correctAnswers)
 		let correctAnswersPercent = (numberOfAnswers > 0) ? Int(round((Float(correctAnswers) / numberOfAnswers) * 100.0)) : 0
 		
-		return "\n\("Statistics".localized): \n\n" +
-			"\("Completed sets".localized): \(completedSets)\n" +
-			"\("Correct answers".localized): \(correctAnswers)\n" +
-			"\("Incorrect answers".localized): \(incorrectAnswers)\n" +
-			"\("Ratio".localized): \(correctAnswersPercent)%\n\n" +
-			"*Only available on certain devices.".localized + "\n"
+		return "\n\(Localized.Settings_Statistics_Title): \n\n" +
+			"\(Localized.Settings_Statistics_CompletedSets): \(completedSets)\n" +
+			"\(Localized.Settings_Statistics_CorrectAnswers): \(correctAnswers)\n" +
+			"\(Localized.Settings_Statistics_IncorrectAnswers): \(incorrectAnswers)\n" +
+			"\(Localized.Settings_Statistics_Ratio): \(correctAnswersPercent)%\n\n" +
+			Localized.Settings_Options_HapticFeedback_Info + "\n"
 	}
 	
 	// UITableView delegate
@@ -335,13 +335,13 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetProgressAlert(cellIndexpath: IndexPath) {
 		
-		let alertViewController = UIAlertController(title: "Reset progress".localized, message: nil, preferredStyle: .actionSheet)
+		let alertViewController = UIAlertController(title: Localized.Settings_Alerts_ResetProgress_Title, message: nil, preferredStyle: .actionSheet)
 		
-		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
-		alertViewController.addAction(title: "Everything".localized, style: .destructive) { action in
+		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
+		alertViewController.addAction(title: Localized.Settings_Alerts_ResetProgress_Everything, style: .destructive) { action in
 			self.resetProgressOptions()
 		}
-		alertViewController.addAction(title: "Only Statistics".localized, style: .default) { action in
+		alertViewController.addAction(title: Localized.Settings_Alerts_ResetProgress_OnlyStatistics, style: .default) { action in
 			self.resetProgressStatistics()
 		}
 		
@@ -353,9 +353,9 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetCachedImages(cellIndexpath: IndexPath) {
 		
-		let alertViewController = UIAlertController(title: "Clear cached images".localized, message: nil, preferredStyle: .actionSheet)
-		alertViewController.addAction(title: "Cancel".localized, style: .cancel)
-		alertViewController.addAction(title: "Reset".localized, style: .destructive) { action in
+		let alertViewController = UIAlertController(title: Localized.Settings_Options_ClearCachedImages, message: nil, preferredStyle: .actionSheet)
+		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
+		alertViewController.addAction(title: Localized.Settings_Options_ClearCachedImages_Action, style: .destructive) { action in
 			CachedImages.shared.clear()
 		}
 		
