@@ -63,16 +63,18 @@ class Localized {
 	static let TopicsCreation_WebView_Validation_Sets_Empty = "**TopicsCreation.WebView.Validation.Sets.Empty**".localized
 	static let Questions_PauseMenu_Music_Play = "**Questions.PauseMenu.Music.Play**".localized
 	static let Topics_Saved_Add_Menu_Download = "**Topics.Saved.Add.Menu.Download**".localized
-	static let MainMenu_Entries_UserTopics = "**MainMenu.Entries.UserTopics**".localized
 	static let Security_Alerts_ProtectedContent_Title = "**Security.Alerts.ProtectedContent.Title**".localized
 	static let ScanQR_Permissions_Camera_Description = "**ScanQR.Permissions.Camera.Description**".localized
 	static let Topics_Saved_DeleteAll = "**Topics.Saved.DeleteAll**".localized
+	static let Topics_AllTopics_Type_Community = "**Topics.AllTopics.Type.Community**".localized
 	static let TopicsCreation_AnswersPerQuestion = "**TopicsCreation.AnswersPerQuestion**".localized
 	static let Topics_Community_Submission_Action = "**Topics.Community.Submission.Action**".localized
+	static let Topics_AllTopics_SearchBar_PlaceholderText = "**Topics.AllTopics.SearchBar.PlaceholderText**".localized
 	static let Security_Alerts_ProtectedContent_OK = "**Security.Alerts.ProtectedContent.OK**".localized
 	static let TopicsCreation_WebView_Validation_Answers_Empty = "**TopicsCreation.WebView.Validation.Answers.Empty**".localized
 	static let Questions_Alerts_Help_NotEnoughPoints = "**Questions.Alerts.Help.NotEnoughPoints**".localized
 	static let Questions_Alerts_Help_MaxRepeatTriesReached = "**Questions.Alerts.Help.MaxRepeatTriesReached**".localized
+	static let Topics_AllTopics_Type_App = "**Topics.AllTopics.Type.App**".localized
 	static let Settings_Options_HapticFeedback_Info = "**Settings.Options.HapticFeedback.Info**".localized
 	static let Questions_Alerts_End_Repeat = "**Questions.Alerts.End.Repeat**".localized
 	static let Topics_Community_Submission_TopicContent = "**Topics.Community.Submission.TopicContent**".localized
@@ -96,6 +98,7 @@ class Localized {
 	static let TopicsCreation_Alerts_Save_Success = "**TopicsCreation.Alerts.Save.Success**".localized
 	static let TopicsCreation_Title = "**TopicsCreation.Title**".localized
 	static let Topics_Saved_Add_Download_Title = "**Topics.Saved.Add.Download.Title**".localized
+	static let Topics_AllTopics_Type_Saved = "**Topics.AllTopics.Type.Saved**".localized
 	static let Questions_Alerts_Repeat_Message = "**Questions.Alerts.Repeat.Message**".localized
 	static let MainMenu_Title = "**MainMenu.Title**".localized
 	static let Settings_Statistics_CorrectAnswers = "**Settings.Statistics.CorrectAnswers**".localized

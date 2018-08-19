@@ -1,16 +1,18 @@
 import UIKit
 
-class TopicsViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class TopicsViewController: UITableViewController, UIPopoverPresentationControllerDelegate, UISearchBarDelegate {
 	
 	// MARK: View life cycle
 	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
 	@IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
 	
+	let searchController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController") as? SearchTableViewController
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.navigationItem.title = SetOfTopics.shared.current == .community ? Localized.Topics_Community_Title : Localized.Topics_AllTopics_Title
-		self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
+		//self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
 		
 		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
 		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
@@ -34,6 +36,22 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
 		self.toolbarItems = [shareItem, flexibleSpaceItem, trashItem]
 		
+		if #available(iOS 11.0, *), let validSearchController = self.searchController {
+			self.navigationItem.searchController = UISearchController(searchResultsController: validSearchController)
+			validSearchController.parentVC = self
+			self.navigationItem.searchController?.searchBar.delegate = self
+			self.navigationItem.searchController?.delegate = validSearchController
+			self.definesPresentationContext = true
+			self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+			self.navigationItem.hidesSearchBarWhenScrolling = true
+			self.navigationItem.searchController?.searchBar.placeholder = Localized.Topics_AllTopics_SearchBar_PlaceholderText
+			
+			// TODO: add support for async load the community topics
+			if SetOfTopics.shared.current == .community {
+				self.navigationItem.searchController?.searchBar.isHidden = true
+			}
+		}
+	
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			self.loadCurrentTheme()
 		}
@@ -47,6 +65,36 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		self.setEditing(false, animated: true)
+	}
+	
+	// MARK: UISearchBarDelegate
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		
+		DispatchQueue.global(qos: .userInitiated).async {
+			
+			var items: [SetOfTopics.Mode: [TopicEntry]] = [:]
+			
+			if SetOfTopics.shared.current == .community {
+				
+				items[.community] = Array(SetOfTopics.shared.communityTopics.sorted { lhs, rhs in
+						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+					}.prefix(10))
+			}
+			else {
+				items[.app] = Array(SetOfTopics.shared.topics.sorted { lhs, rhs in
+						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+					}.prefix(10))
+				items[.saved] = Array(SetOfTopics.shared.savedTopics.sorted { lhs, rhs in
+						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+					}.prefix(10))
+			}
+			
+			DispatchQueue.main.async {
+				self.searchController?.items = items
+				self.searchController?.tableView.reloadData()
+			}
+		}
 	}
 	
 	// MARK: UIPopoverPresentationControllerDelegate
@@ -194,7 +242,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case SetOfTopics.Mode.app.rawValue: return nil
-		case SetOfTopics.Mode.saved.rawValue: return Localized.MainMenu_Entries_UserTopics
+		case SetOfTopics.Mode.saved.rawValue: return Localized.Topics_AllTopics_Type_Saved
 		default: return nil
 		}
 	}

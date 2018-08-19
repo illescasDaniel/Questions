@@ -11,7 +11,8 @@ class QuizzesViewController: UITableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationItem.title = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName.localized
+		
+		self.navigationItem.title = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName.localized
 		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets.count
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
@@ -67,7 +68,7 @@ class QuizzesViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
+		self.performSegue(withIdentifier: "selectQuiz", sender: indexPath.row)
 	}
 	
 	// MARK: UIStoryboardSegue Handling

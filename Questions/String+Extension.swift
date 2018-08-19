@@ -13,7 +13,60 @@ extension String {
 	var deletingPathExtension: String {
 		return (self as NSString).deletingPathExtension
 	}
+	
+	/// Returns a value from 0.0 to 1.0 indicating the similarity to other string.
+	public func levenshteinDistanceScoreTo(string: String, ignoreCase: Bool = true, trimWhiteSpacesAndNewLines: Bool = true) -> Float {
+		
+		guard !self.isEmpty && !string.isEmpty else { return 0.0 }
+		if self.count == string.count && self == string { return 1.0 }
+		
+		var firstString = self
+		var secondString = string
+		
+		if ignoreCase {
+			firstString = firstString.lowercased()
+			secondString = secondString.lowercased()
+			if firstString.count == secondString.count && firstString == secondString { return 1.0 }
+		}
+		if trimWhiteSpacesAndNewLines {
+			firstString = firstString.trimmingCharacters(in: .whitespacesAndNewlines)
+			secondString = secondString.trimmingCharacters(in: .whitespacesAndNewlines)
+			guard !firstString.isEmpty && !secondString.isEmpty else { return 0.0 }
+			if firstString.count == secondString.count && firstString == secondString { return 1.0 }
+		}
+		
+		let empty = [Int](repeating:0, count: secondString.count)
+		var last = [Int](0...secondString.count)
+		
+		for (i, tLett) in firstString.enumerated() {
+			var cur = [i + 1] + empty
+			for (j, sLett) in secondString.enumerated() {
+				cur[j + 1] = tLett == sLett ? last[j] : Swift.min(last[j], last[j + 1], cur[j])+1
+			}
+			last = cur
+		}
+		
+		// maximum string length between the two
+		let lowestScore = max(firstString.count, secondString.count)
+		
+		if let validDistance = last.last {
+			return  1 - (Float(validDistance) / Float(lowestScore))
+		}
+		
+		return 0.0
+	}
 }
+
+infix operator =~ : ComparisonPrecedence
+
+/// Indicates if two strings are very similar to each other
+public func =~(string: String?, otherString: String?) -> Bool {
+	if let string = string, let otherString = otherString {
+		return string.levenshteinDistanceScoreTo(string: otherString) >= 0.85
+	}
+	return false
+}
+
 
 extension NSAttributedString {
 	static func +(left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {

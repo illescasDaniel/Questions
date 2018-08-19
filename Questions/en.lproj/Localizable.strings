@@ -2,12 +2,15 @@
 
 "**MainMenu.Title**" = "Main menu";
 "**MainMenu.Entries.Topics**" = "Topics";
-"**MainMenu.Entries.UserTopics**" = "User topics";
 "**MainMenu.Entries.Community**" = "Community";
 "**MainMenu.Entries.ScanQR**" = "Scan QR Code";
 "**MainMenu.Entries.Settings**" = "Settings";
 
 "**Topics.AllTopics.Title**" = "Topics";
+"**Topics.AllTopics.Type.App**" = "App";
+"**Topics.AllTopics.Type.Saved**" = "Saved";
+"**Topics.AllTopics.Type.Community**" = "Community";
+"**Topics.AllTopics.SearchBar.PlaceholderText**" = "Topic name";
 "**Topics.Community.Title**" = "Community";
 "**Topics.Community.Submission.Title**" = "Topic submission";
 "**Topics.Community.Submission.TopicName**" = "Topic Name";

@@ -2,12 +2,15 @@
 
 "**MainMenu.Title**" = "Menú principal";
 "**MainMenu.Entries.Topics**" = "Temas";
-"**MainMenu.Entries.UserTopics**" = "Temas del usuario";
 "**MainMenu.Entries.Community**" = "Comunidad";
 "**MainMenu.Entries.ScanQR**" = "Escanear código QR";
 "**MainMenu.Entries.Settings**" = "Ajustes";
 
 "**Topics.AllTopics.Title**" = "Temas";
+"**Topics.AllTopics.Type.App**" = "App";
+"**Topics.AllTopics.Type.Saved**" = "Guardados";
+"**Topics.AllTopics.Type.Community**" = "Comunidad";
+"**Topics.AllTopics.SearchBar.PlaceholderText**" = "Nombre del tema";
 "**Topics.Community.Title**" = "Comunidad";
 "**Topics.Community.Submission.Title**" = "Enviar tema";
 "**Topics.Community.Submission.TopicName**" = "Nombre del tema";

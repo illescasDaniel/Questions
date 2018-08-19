@@ -94,7 +94,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" largeTitleDisplayMode="always" id="e8J-nn-9xp">
-                        <barButtonItem key="backBarButtonItem" title="Main menu" id="pm3-qY-Zal"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="oEh-xV-1u6">
                                 <connections>
@@ -162,7 +161,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hVb-Ia-apk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1398" y="483"/>
+            <point key="canvasLocation" x="1398" y="166"/>
         </scene>
         <!--Image Details View Controller-->
         <scene sceneID="TLL-m8-u8R">
@@ -254,7 +253,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2294" y="-597"/>
+            <point key="canvasLocation" x="2294" y="-959"/>
         </scene>
         <!--Questions-->
         <scene sceneID="syY-Yf-diQ">
@@ -432,9 +431,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Questions" largeTitleDisplayMode="always" id="4da-ip-kPT">
-                        <barButtonItem key="backBarButtonItem" title="Main menu" id="D1M-3H-hoJ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Questions" largeTitleDisplayMode="always" id="4da-ip-kPT"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="1Wy-qM-dRs" id="NSr-Fp-9Us"/>
                         <outlet property="communityButton" destination="cp8-dd-Agr" id="FEI-pc-Bqf"/>
@@ -520,6 +517,35 @@
             </objects>
             <point key="canvasLocation" x="508" y="1680"/>
         </scene>
+        <!--Search Table View Controller-->
+        <scene sceneID="4xP-ha-4OM">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchTableViewController" id="L78-La-vxB" customClass="SearchTableViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="P5F-ie-jSg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Rmf-rx-V06">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rmf-rx-V06" id="rk8-cF-oc4">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="L78-La-vxB" id="jsg-QU-kC1"/>
+                            <outlet property="delegate" destination="L78-La-vxB" id="wx8-pO-a2y"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="kBA-Z6-bIN"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="scZ-7G-61Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1452" y="1543"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="qMf-q0-piD">
             <objects>
@@ -602,7 +628,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NFA-9m-saj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1398" y="-265"/>
+            <point key="canvasLocation" x="1343" y="-606"/>
         </scene>
         <!--Web Creator View Controller-->
         <scene sceneID="YOt-rD-qb6">
@@ -636,7 +662,7 @@
                 <exit id="Jt3-KL-cf1" userLabel="Exit" sceneMemberID="exit"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egw-1o-MqD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1398" y="1207"/>
+            <point key="canvasLocation" x="1398" y="850"/>
         </scene>
         <!--Questions-->
         <scene sceneID="MEd-vg-hKy">
@@ -726,7 +752,7 @@
                                         <rect key="frame" x="0.0" y="59.333333333333343" width="349" height="256.66666666666663"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3n-f2-st4">
-                                                <rect key="frame" x="0.0" y="0.0" width="349" height="224.33333333333334"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="349" height="125.66666666666667"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -743,7 +769,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ndz-tg-crV">
-                                                <rect key="frame" x="0.0" y="229.33333333333331" width="349" height="27.333333333333314"/>
+                                                <rect key="frame" x="0.0" y="130.66666666666669" width="349" height="126"/>
                                             </activityIndicatorView>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4K-Ue-DBd">
                                                 <rect key="frame" x="0.0" y="256.66666666666663" width="349" height="0.0"/>
@@ -1055,7 +1081,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2295" y="66"/>
+            <point key="canvasLocation" x="2294" y="-259"/>
         </scene>
     </scenes>
     <resources>
@@ -1063,7 +1089,7 @@
         <image name="bg" width="1853" height="1853"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hFw-j0-O32"/>
+        <segue reference="70N-XG-ao7"/>
         <segue reference="DWg-PE-1c1"/>
         <segue reference="YKe-fL-cs2"/>
     </inferredMetricsTieBreakers>
