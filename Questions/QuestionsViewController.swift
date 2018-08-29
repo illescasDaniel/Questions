@@ -483,13 +483,24 @@ class QuestionsViewController: UIViewController {
 			
 			CachedImages.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
 				self.activityIndicatorView.stopAnimating()
-				self.questionImageButton.setImage(cachedImage, for: .normal)
 				self.questionImageButton.isHidden = false
+				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
+					self.questionImageButton.alpha = 1.0
+					self.questionImageButton.setImage(cachedImage, for: .normal)
+				})
 			}, prepareForDownload: {
-				self.questionImageButton.isHidden = true
+				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
+					self.questionImageButton.alpha = 0.0
+				}, completion: { completed in
+					self.questionImageButton.isHidden = false
+				})
 				self.activityIndicatorView.startAnimating()
 			}, onError: { _ in
-				self.questionImageButton.isHidden = true
+				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
+					self.questionImageButton.alpha = 0.0
+				}, completion: { completed in
+					self.questionImageButton.isHidden = true
+				})
 				self.activityIndicatorView.stopAnimating()
 			})
 		}

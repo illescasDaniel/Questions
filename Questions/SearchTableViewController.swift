@@ -73,6 +73,11 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 		default: break
 		}
 		
+		if indexPath.section == SetOfTopics.Mode.community.rawValue, let tableVC = self.parentVC as? UITableViewController {
+			tableVC.tableView(tableVC.tableView, didSelectRowAt: IndexPath(row: outputIndexPath.row, section: 0))
+			return
+		}
+		
 		self.parentVC?.performSegue(withIdentifier: "selectTopic", sender: outputIndexPath)
 	}
 }

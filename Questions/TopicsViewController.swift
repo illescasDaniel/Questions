@@ -45,11 +45,6 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
 			self.navigationItem.hidesSearchBarWhenScrolling = true
 			self.navigationItem.searchController?.searchBar.placeholder = Localized.Topics_AllTopics_SearchBar_PlaceholderText
-			
-			// TODO: add support for async load the community topics
-			if SetOfTopics.shared.current == .community {
-				self.navigationItem.searchController?.searchBar.isHidden = true
-			}
 		}
 	
 		if UserDefaultsManager.darkThemeSwitchIsOn {
@@ -333,7 +328,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		
 		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Help, style: .default) { _ in
-			if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
+			if let url = URL(string: QuestionsAppOptions.questionJSONFormatURL) {
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(url, options: [:])
 				} else {

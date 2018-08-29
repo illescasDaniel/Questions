@@ -22,4 +22,6 @@ struct QuestionsAppOptions {
 	static let privacyFeaturesEnabled: Bool = false
 	
 	static let communityTopicsURL: String = "https://pastebin.com/raw/hgmNQ0xh"
+	
+	static let questionJSONFormatURL: String = "https://github.com/illescasDaniel/Questions#topics-json-format"
 }
