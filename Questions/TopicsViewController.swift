@@ -6,13 +6,12 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
 	@IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
 	
-	let searchController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchTableViewController") as? SearchTableViewController
+	let searchController = SearchTableViewController()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		self.navigationItem.title = SetOfTopics.shared.current == .community ? Localized.Topics_Community_Title : Localized.Topics_AllTopics_Title
-		//self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
 		
 		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
 		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
@@ -36,11 +35,11 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
 		self.toolbarItems = [shareItem, flexibleSpaceItem, trashItem]
 		
-		if #available(iOS 11.0, *), let validSearchController = self.searchController {
-			self.navigationItem.searchController = UISearchController(searchResultsController: validSearchController)
-			validSearchController.parentVC = self
+		if #available(iOS 11.0, *) {
+			self.navigationItem.searchController = UISearchController(searchResultsController: self.searchController)
+			self.searchController.parentVC = self
 			self.navigationItem.searchController?.searchBar.delegate = self
-			self.navigationItem.searchController?.delegate = validSearchController
+			self.navigationItem.searchController?.delegate = self.searchController
 			self.definesPresentationContext = true
 			self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
 			self.navigationItem.hidesSearchBarWhenScrolling = true
@@ -86,8 +85,8 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 			
 			DispatchQueue.main.async {
-				self.searchController?.items = items
-				self.searchController?.tableView.reloadData()
+				self.searchController.items = items
+				self.searchController.tableView.reloadData()
 			}
 		}
 	}
@@ -118,7 +117,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+	override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
 		switch indexPath.section {
 		case SetOfTopics.Mode.app.rawValue: return .none
 		case SetOfTopics.Mode.saved.rawValue: return .delete
@@ -126,7 +125,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 	}
 	
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete else { return }
 		
 		if let cell = tableView.cellForRow(at: indexPath), let labelText = cell.textLabel?.text {
@@ -152,7 +151,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		if SetOfTopics.shared.current == .community {
 			if self.tableView.backgroundView == nil && SetOfTopics.shared.communityTopics.isEmpty {
-				let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+				let activityIndicatorView = UIActivityIndicatorView(style: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 				activityIndicatorView.startAnimating()
 				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = false }
@@ -257,7 +256,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		if SetOfTopics.shared.current == .community {
 			
 			let activityIndicator = UIActivityIndicatorView(frame: currentCell.bounds)
-			activityIndicator.activityIndicatorViewStyle = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+			activityIndicator.style = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 			activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			
 			if SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
@@ -367,7 +366,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		guard let selectedItemsIndexPaths = self.tableView.indexPathsForSelectedRows, !selectedItemsIndexPaths.isEmpty else { return }
 		
-		FeedbackGenerator.notificationOcurredOf(type: .warning)
+		if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .warning) }
 		
 		let title = String.localizedStringWithFormat(Localized.Topics_Saved_DeleteAll, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
 		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
@@ -447,7 +446,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		
 		if segue.identifier == "addContentTableVC", let addContentTableVC = segue.destination as? AddContentTableVC, SetOfTopics.shared.current != .community {
-			FeedbackGenerator.impactOcurredWith(style: .light)
+			if #available(iOS 10.0, *) { FeedbackGenerator.impactOcurredWith(style: .light) }
 			addContentTableVC.popoverPresentationController?.delegate = self
 			addContentTableVC.parentVC = self
 			self.setEditing(false, animated: true)

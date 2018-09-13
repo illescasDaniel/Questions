@@ -54,7 +54,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 				self.captureSession.startRunning()
 			}
 			
-			NotificationCenter.default.addObserver(self, selector: #selector(self.loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(self.loadTheme), name: UIApplication.didBecomeActiveNotification, object: nil)
 		}
 	}
 
@@ -64,7 +64,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	override func viewWillAppear(_ animated: Bool) {
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: UIApplication.didBecomeActiveNotification, object: nil)
 		loadTheme()
 		
 		guard self.captureDevice != nil else { return }
@@ -109,7 +109,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			self.captureSession.stopRunning()
 			
 			SetOfTopics.shared.save(topic: TopicEntry(name: "", content: validContent))
-			FeedbackGenerator.notificationOcurredOf(type: .success)
+			if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .success) }
 			
 			let openQuestionsAlert = UIAlertController(title: nil, message: Localized.ScanQR_Alerts_Open_Title, preferredStyle: .alert)
 			openQuestionsAlert.addAction(title: Localized.ScanQR_Alerts_Open_OpenIt, style: .default) { _ in
@@ -138,7 +138,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	@IBAction func helpButtonAction() {
 		
-		FeedbackGenerator.impactOcurredWith(style: .light)
+		if #available(iOS 10.0, *) { FeedbackGenerator.impactOcurredWith(style: .light) }
 		
 		if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
 			if #available(iOS 10.0, *) {
@@ -156,7 +156,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		
 		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
 		alertViewController.addAction(title: Localized.ScanQR_Permissions_Camera_Access, style: .default) { action in
-			if let settingsURL = URL(string: UIApplicationOpenSettingsURLString) {
+			if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
 				UIApplication.shared.openURL(settingsURL)
 			}
 		}
@@ -182,7 +182,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			view.layer.addSublayer(newLayer)
 		}
 		
-		view.bringSubview(toFront: helpButton)
+		view.bringSubviewToFront(helpButton)
 	}
 	
 	@IBAction internal func loadTheme() {
@@ -199,7 +199,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	func invalidQRCodeFormat() {
 		self.captureSession.stopRunning()
-		FeedbackGenerator.notificationOcurredOf(type: .error)
+		if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .error) }
 		let alertViewController = UIAlertController(title: Localized.Common_Attention, message: Localized.ScanQR_Error_InvalidFormat, preferredStyle: .alert)
 		alertViewController.addAction(title: Localized.Common_OK, style: .default) { _ in
 			self.captureSession.startRunning()

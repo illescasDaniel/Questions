@@ -57,14 +57,14 @@ extension UIStatusBarStyle {
 	}
 }
 
-extension UIActivityIndicatorViewStyle {
-	static func themeStyle(dark: UIActivityIndicatorViewStyle, light: UIActivityIndicatorViewStyle) -> UIActivityIndicatorViewStyle {
+extension UIActivityIndicatorView.Style {
+	static func themeStyle(dark: UIActivityIndicatorView.Style, light: UIActivityIndicatorView.Style) -> UIActivityIndicatorView.Style {
 		return UserDefaultsManager.darkThemeSwitchIsOn ? dark : light
 	}
 }
 
 extension UIButton {
-	func setTitleColor(dark: UIColor, light: UIColor, for state: UIControlState) {
+	func setTitleColor(dark: UIColor, light: UIColor, for state: UIControl.State) {
 		self.setTitleColor(UIColor.themeStyle(dark: dark, light: light), for: state)
 	}
 }

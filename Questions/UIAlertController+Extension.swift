@@ -2,7 +2,7 @@ import UIKit
 
 extension UIAlertController {
 	
-	func addAction(title: String?, style: UIAlertActionStyle, handler: ((UIAlertAction) -> Void)? = nil) {
+	func addAction(title: String?, style: UIAlertAction.Style, handler: ((UIAlertAction) -> Void)? = nil) {
 		let alertAction = UIAlertAction(title: title, style: style, handler: handler)
 		self.addAction(alertAction)
 	}

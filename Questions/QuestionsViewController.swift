@@ -77,10 +77,10 @@ class QuestionsViewController: UIViewController {
 		
 		self.loadCurrentTheme()
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
 		
 		if QuestionsAppOptions.privacyFeaturesEnabled {
-			NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: .UIApplicationUserDidTakeScreenshot, object: nil)
+			NotificationCenter.default.addObserver(self, selector: #selector(self.userDidTakeScreenshot), name: UIApplication.userDidTakeScreenshotNotification, object: nil)
 		}
 		
 		if UserDefaultsManager.score < abs(QuestionsAppOptions.helpActionPoints) {
@@ -153,13 +153,13 @@ class QuestionsViewController: UIViewController {
 	// MARK: UIResponder
 
 	// If user shake the device, an alert to repeat the quiz pop ups
-	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+	override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
 		
 		guard motion == .motionShake else { return }
 		
 		let currentQuestion = Int(String(remainingQuestionsLabel.text?.first ?? "0")) ?? 0
 		
-		FeedbackGenerator.impactOcurredWith(style: .medium)
+		if #available(iOS 10.0, *) { FeedbackGenerator.impactOcurredWith(style: .medium) }
 		
 		if self.repeatTimes < QuestionsAppOptions.maximumRepeatTriesPerQuiz && currentQuestion > 1 {
 			
@@ -231,7 +231,7 @@ class QuestionsViewController: UIViewController {
 	
 	@IBAction func helpAction() {
 		
-		FeedbackGenerator.impactOcurredWith(style: .light)
+		if #available(iOS 10.0, *) { FeedbackGenerator.impactOcurredWith(style: .light) }
 		
 		if UserDefaultsManager.score >= abs(QuestionsAppOptions.helpActionPoints) {
 			
@@ -402,7 +402,7 @@ class QuestionsViewController: UIViewController {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
-		self.activityIndicatorView.activityIndicatorViewStyle = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		self.activityIndicatorView.style = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
 		self.helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
 		self.remainingQuestionsLabel.textColor = currentThemeColor
 		self.quizTimerLabel.textColor = currentThemeColor
@@ -583,11 +583,12 @@ class QuestionsViewController: UIViewController {
 				})
 			}
 		}
-		
-		if willNoticeIfAnswerIsCorrectOrIncorrect {
-			FeedbackGenerator.notificationOcurredOf(type: isCorrectAnswer ? .success : .error)
-		} else {
-			FeedbackGenerator.impactOcurredWith(style: .light)
+		if #available(iOS 10.0, *) {
+			if willNoticeIfAnswerIsCorrectOrIncorrect {
+				FeedbackGenerator.notificationOcurredOf(type: isCorrectAnswer ? .success : .error)
+			} else {
+				FeedbackGenerator.impactOcurredWith(style: .light)
+			}
 		}
 	}
 	

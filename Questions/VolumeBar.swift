@@ -175,7 +175,7 @@ public final class VolumeBar: NSObject {
 	/// A Bool representing whether or not the volume bar is showing.
 	fileprivate var isHidden: Bool = true {
 		didSet {
-			volumeWindow.windowLevel = isHidden ? UIWindowLevelNormal : UIWindowLevelStatusBar + 1
+			volumeWindow.windowLevel = isHidden ? UIWindow.Level.normal : UIWindow.Level.statusBar + 1
 		}
 	}
 	
@@ -393,11 +393,11 @@ extension VolumeBar {
 		AVAudioSession.sharedInstance().addObserver(self, forKeyPath: VolumeBar.AVAudioSessionOutputVolumeKey, options: [.old, .new], context: nil)
 		
 		// Observe when application enters and resumes from background
-		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.applicationWillResignActive(notification:)), name: .UIApplicationWillResignActive, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.applicationDidBecomeActive(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
 		
 		// Observe device rotation
-		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.updateHeight), name: .UIDeviceOrientationDidChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(VolumeBar.updateHeight), name: UIDevice.orientationDidChangeNotification, object: nil)
 	}
 	
 	fileprivate func removeVolumeBarObservers() {
@@ -405,13 +405,13 @@ extension VolumeBar {
 		AVAudioSession.sharedInstance().removeObserver(self, forKeyPath: VolumeBar.AVAudioSessionOutputVolumeKey)
 		
 		// Stop observing device rotation
-		NotificationCenter.default.removeObserver(self, name: .UIDeviceOrientationDidChange, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
 	}
 	
 	fileprivate func removeVolumeBarAppObservers() {
 		// Remove suspend/resume observers
-		NotificationCenter.default.removeObserver(self, name: .UIApplicationWillResignActive, object: nil)
-		NotificationCenter.default.removeObserver(self, name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 	
 	/// Observe changes in volume.
@@ -496,7 +496,7 @@ private class VolumeBarViewController: UIViewController {
 		let segmentWidth = (effectiveWidth - CGFloat(bar.segmentCount) * bar.interitemSpacing) / CGFloat(bar.segmentCount)
 		
 		// Layout track view
-		trackView.frame = UIEdgeInsetsInsetRect(view.frame, edgeInsets)
+		trackView.frame = view.frame.inset(by: edgeInsets)
 		
 		// Layout segments
 		for (index, segment) in segmentViews.enumerated() {

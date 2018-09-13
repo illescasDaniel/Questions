@@ -15,19 +15,15 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			self.loadCurrentTheme()
+		}
+    }
 	
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+	private func loadCurrentTheme() {
+		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+	}
 
     // MARK: - Table view data source
 
@@ -41,6 +37,19 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 		}
 		return 0
     }
+	
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		guard UserDefaultsManager.darkThemeSwitchIsOn else { return } // NOTE: could change depending on your theme settings!
+		let header = view as? UITableViewHeaderFooterView
+		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+	}
+	
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		cell.textLabel?.font = .preferredFont(forTextStyle: .body)
+		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
+	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
@@ -48,6 +57,12 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 
 		if let mode = SetOfTopics.Mode(rawValue: indexPath.section), let topics = self.items[mode] {
 			cell.textLabel?.text = topics[indexPath.row].displayedName.localized
+		}
+		
+		if UserDefaultsManager.darkThemeSwitchIsOn {
+			let view = UIView()
+			view.backgroundColor = UIColor.darkGray
+			cell.selectedBackgroundView = view
 		}
 		
         return cell

@@ -24,9 +24,7 @@ SOFTWARE.
 
 import Foundation
 
-#if swift(>=4.2)
 @dynamicMemberLookup
-#endif
 class PreferencesManager {
 	
 	enum Properties: String {
@@ -82,7 +80,6 @@ class PreferencesManager {
 		return self[property] ?? defaultvalue
 	}
 	
-	#if swift(>=4.2)
 	subscript<T>(property: Properties) -> T? {
 		get { return self[dynamicMember: property.rawValue] }
 		set { self[dynamicMember: property.rawValue] = newValue }
@@ -91,12 +88,6 @@ class PreferencesManager {
 		get { return self.userDefaults.value(fromKey: propertyKey) }
 		set { self.userDefaults.set(newValue, forKey: propertyKey) }
 	}
-	#else
-	subscript<T>(property: Properties) -> T? {
-		get { return self.userDefaults.value(fromKey: property.rawValue) }
-		set { self.userDefaults.set(newValue, forKey: property.rawValue) }
-	}
-	#endif
 	
 	subscript<T: Codable>(property: Properties.Custom) -> T? {
 		get { return self.userDefaults.decodableValue(fromKey: property.rawValue) }

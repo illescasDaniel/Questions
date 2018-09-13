@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
 		self.initializeLables()
 		
 		// Load the theme if user uses a home quick action
-		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: .UIApplicationDidBecomeActive, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(loadTheme), name: UIApplication.didBecomeActiveNotification, object: nil)
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {

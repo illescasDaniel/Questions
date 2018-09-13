@@ -79,11 +79,15 @@ class SettingsTableViewController: UITableViewController {
 			switch indexPath.row {
 			case 0:
 				self.resetProgressAlert(cellIndexpath: indexPath)
-				FeedbackGenerator.notificationOcurredOf(type: .warning)
+				if #available(iOS 10.0, *) {
+					FeedbackGenerator.notificationOcurredOf(type: .warning)
+				}
 				self.viewWillAppear(false) // called so it clears the selection properly
 			case 1:
 				self.resetCachedImages(cellIndexpath: indexPath)
-				FeedbackGenerator.notificationOcurredOf(type: .warning)
+				if #available(iOS 10.0, *) {
+					FeedbackGenerator.notificationOcurredOf(type: .warning)
+				}
 				self.viewWillAppear(false)
 			default: break
 			}
@@ -220,7 +224,7 @@ class SettingsTableViewController: UITableViewController {
 	// MARK: - Convenience
 
 	private func setParallaxEffectSwitch() {
-		let reduceMotionEnabled = UIAccessibilityIsReduceMotionEnabled()
+		let reduceMotionEnabled = UIAccessibility.isReduceMotionEnabled
 		let parallaxEffectEnabled = reduceMotionEnabled ? false : UserDefaultsManager.parallaxEffectSwitchIsOn
 		parallaxEffectSwitch.setOn(parallaxEffectEnabled, animated: true)
 		parallaxEffectSwitch.isEnabled = !reduceMotionEnabled
@@ -279,7 +283,7 @@ class SettingsTableViewController: UITableViewController {
 		UserDefaultsManager.hapticFeedbackSwitchIsOn = true
 		
 		
-		let reduceMotion = UIAccessibilityIsReduceMotionEnabled()
+		let reduceMotion = UIAccessibility.isReduceMotionEnabled
 		self.parallaxEffectSwitch.setOn(!reduceMotion, animated: true)
 		self.parallaxEffectSwitch.isEnabled = !reduceMotion
 		

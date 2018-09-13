@@ -109,7 +109,7 @@ public final class CachedImages {
 			guard !FileManager.default.fileExists(atPath: cachedImage.path) else { return }
 			
 			UIImage.manageContentsOf(URL(string: trimmedURL), completionHandler: { (downloadedImage, url) in
-				if let validImageData = UIImageJPEGRepresentation(downloadedImage, 0.95) {
+				if let validImageData = downloadedImage.jpegData(compressionQuality: 0.95) {
 					do {
 						try validImageData.write(to: cachedImage)
 					} catch {
@@ -203,7 +203,7 @@ public final class CachedImages {
 			let cachedImage = self.cachedImagesFolder.appendingPathComponent("\(key)", isDirectory: false)
 			guard !FileManager.default.fileExists(atPath: cachedImage.path) else { return }
 			
-			if let validImageData = UIImageJPEGRepresentation(image, 0.95) {
+			if let validImageData = image.jpegData(compressionQuality: 0.95) {
 				do {
 					try validImageData.write(to: cachedImage)
 				} catch {
