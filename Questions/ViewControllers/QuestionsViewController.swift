@@ -35,15 +35,15 @@ class QuestionsViewController: UIViewController {
 	var currentTopicIndex = Int()
 	var currentSetIndex = Int()
 	var isSetFromJSON = false
-	var set: [QuestionType] = []
-	var quiz: EnumeratedIterator<IndexingIterator<Array<QuestionType>>>!
+	var set: [Question] = []
+	var quiz: EnumeratedIterator<IndexingIterator<Array<Question>>>!
 	var quizTime = TimeInterval()
 	var previousQuizTime: TimeInterval = -1
 	var answersUntilNextQuestion: Int = 0
 	
 	// MARK: View life cycle
 	
-	private var currentQuizOfTopic: Quiz {
+	private var currentQuizOfTopic: Topic {
 		return SetOfTopics.shared.currentTopics[currentTopicIndex].quiz
 	}
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class QuestionType: Codable, CustomStringConvertible {
+class Question: Codable, CustomStringConvertible {
 	
 	let question: String
 	let answers: [String]
@@ -25,13 +25,13 @@ class QuestionType: Codable, CustomStringConvertible {
 	}
 }
 
-extension QuestionType: Equatable {
-	static func ==(lhs: QuestionType, rhs: QuestionType) -> Bool {
+extension Question: Equatable {
+	static func ==(lhs: Question, rhs: Question) -> Bool {
 		return lhs.question == rhs.question && lhs.answers == rhs.answers && lhs.correctAnswers == rhs.correctAnswers
 	}
 }
 
-extension QuestionType: Hashable {
+extension Question: Hashable {
 	var hashValue: Int {
 		return question.hash
 	}

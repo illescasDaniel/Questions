@@ -27,8 +27,8 @@
 		656043531E787FEE00A96192 /* bensound-thelounge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043501E787FEE00A96192 /* bensound-thelounge.mp3 */; };
 		656043541E787FEE00A96192 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043511E787FEE00A96192 /* correct.mp3 */; };
 		6574416B206B116400133DDA /* QuestionsAppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574416A206B116400133DDA /* QuestionsAppOptions.swift */; };
-		65746A5720B62A2400F28769 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5620B62A2400F28769 /* Quiz.swift */; };
-		65746A5920B62B3000F28769 /* QuestionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5820B62B3000F28769 /* QuestionType.swift */; };
+		65746A5720B62A2400F28769 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5620B62A2400F28769 /* Topic.swift */; };
+		65746A5920B62B3000F28769 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5820B62B3000F28769 /* Question.swift */; };
 		65746A5B20B62B8900F28769 /* TopicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5A20B62B8900F28769 /* TopicEntry.swift */; };
 		657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */; };
 		657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */; };
@@ -103,8 +103,8 @@
 		656043501E787FEE00A96192 /* bensound-thelounge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-thelounge.mp3"; sourceTree = "<group>"; };
 		656043511E787FEE00A96192 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		6574416A206B116400133DDA /* QuestionsAppOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsAppOptions.swift; sourceTree = "<group>"; };
-		65746A5620B62A2400F28769 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
-		65746A5820B62B3000F28769 /* QuestionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionType.swift; sourceTree = "<group>"; };
+		65746A5620B62A2400F28769 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		65746A5820B62B3000F28769 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		65746A5A20B62B8900F28769 /* TopicEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEntry.swift; sourceTree = "<group>"; };
 		657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
@@ -232,7 +232,6 @@
 				65E12DA421C27A410067B4D0 /* resources */,
 				65E12DA721C27B330067B4D0 /* config */,
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
-				650745F01EACCDF200BC178E /* InfoPlist.strings */,
 				65CB4C491D29C3E300D2E1C1 /* Main.storyboard */,
 			);
 			path = Questions;
@@ -275,8 +274,8 @@
 		65E12DA321C27A110067B4D0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				65746A5620B62A2400F28769 /* Quiz.swift */,
-				65746A5820B62B3000F28769 /* QuestionType.swift */,
+				65746A5820B62B3000F28769 /* Question.swift */,
+				65746A5620B62A2400F28769 /* Topic.swift */,
 				65746A5A20B62B8900F28769 /* TopicEntry.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* SetOfTopics.swift */,
 				6548F085208896FA005A87D9 /* CommunityTopics.swift */,
@@ -301,6 +300,7 @@
 			children = (
 				65C9BF0A210922EB004D8B37 /* Localized.swift */,
 				65456AEF1D2BBEF90048965E /* Localizable.strings */,
+				650745F01EACCDF200BC178E /* InfoPlist.strings */,
 			);
 			path = i18n;
 			sourceTree = "<group>";
@@ -560,7 +560,7 @@
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,
 				65456FF81D77A07A004A13B6 /* Colors+Extension.swift in Sources */,
 				65479F11206A52EB0042790F /* Image+Extension.swift in Sources */,
-				65746A5720B62A2400F28769 /* Quiz.swift in Sources */,
+				65746A5720B62A2400F28769 /* Topic.swift in Sources */,
 				65E12DBB21C27C540067B4D0 /* PreferencesManager.swift in Sources */,
 				65C9BF0B210922EB004D8B37 /* Localized.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
@@ -571,7 +571,7 @@
 				65DD23E11E7422C800462512 /* LicensesViewController.swift in Sources */,
 				65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */,
 				65DF00BA20F26A0E00B04860 /* AddContentViewController.swift in Sources */,
-				65746A5920B62B3000F28769 /* QuestionType.swift in Sources */,
+				65746A5920B62B3000F28769 /* Question.swift in Sources */,
 				6524E2B11F4DE32100EEFB81 /* VolumeBar.swift in Sources */,
 				65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */,
 				65479F15206AC0C60042790F /* ImageDetailsViewController.swift in Sources */,

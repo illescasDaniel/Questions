@@ -11,9 +11,9 @@ import Foundation
 struct TopicEntry {
 	
 	private(set) var displayedName = String()
-	var quiz = Quiz(options: nil, sets: [[]])
+	var quiz = Topic(options: nil, sets: [[]])
 	
-	init(name: String, content: Quiz) {
+	init(name: String, content: Topic) {
 		self.displayedName = name
 		self.quiz = content
 	}
@@ -27,7 +27,7 @@ struct TopicEntry {
 		
 		do {
 			let data = try Data(contentsOf: url)
-			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			let contentToValidate = try JSONDecoder().decode(Topic.self, from: data)
 			
 			switch contentToValidate.validate() {
 			case .none:
@@ -46,7 +46,7 @@ struct TopicEntry {
 	init?(path: URL) {
 		do {
 			let data = try Data(contentsOf: path)
-			let contentToValidate = try JSONDecoder().decode(Quiz.self, from: data)
+			let contentToValidate = try JSONDecoder().decode(Topic.self, from: data)
 			
 			if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				self.displayedName = topicName

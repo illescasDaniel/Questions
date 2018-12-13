@@ -104,7 +104,7 @@ class SetOfTopics {
 		for topic in communityTopics.topics where topic.isVisible {
 			
 			let topicName = topic.name ?? "Community Topic - \(self.communityTopics.count)"
-			let topicEntry = TopicEntry(name: topicName, content: Quiz(options: nil, sets: [[]]))
+			let topicEntry = TopicEntry(name: topicName, content: Topic(options: nil, sets: [[]]))
 			
 			self.communityTopics.append(topicEntry)
 		}
@@ -143,9 +143,9 @@ class SetOfTopics {
 		return false
 	}
 	
-	func quizFrom(content: String?) -> Quiz? {
+	func quizFrom(content: String?) -> Topic? {
 		
-		guard let data = content?.data(using: .utf8), let quizContent = try? JSONDecoder().decode(Quiz.self, from: data) else {
+		guard let data = content?.data(using: .utf8), let quizContent = try? JSONDecoder().decode(Topic.self, from: data) else {
 			return nil
 		}
 		

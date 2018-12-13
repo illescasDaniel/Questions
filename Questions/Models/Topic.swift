@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Quiz: Codable {
+struct Topic: Codable {
 	let options: Options?
-	let sets: [[QuestionType]]
+	let sets: [[Question]]
 }
 
-extension Quiz {
+extension Topic {
 	struct Options: Codable {
 		let name: String?
 		let timePerSetInSeconds: TimeInterval?
@@ -25,15 +25,15 @@ extension Quiz {
 	}
 }
 
-extension Quiz: Equatable {
-	static func ==(lhs: Quiz, rhs: Quiz) -> Bool {
+extension Topic: Equatable {
+	static func ==(lhs: Topic, rhs: Topic) -> Bool {
 		let flatLhs = lhs.sets.flatMap { return $0 }
 		let flatRhs = rhs.sets.flatMap { return $0 }
 		return flatLhs == flatRhs
 	}
 }
 
-extension Quiz {
+extension Topic {
 	
 	enum ValidationError: Error {
 		case emptySet(count: Int)
@@ -92,7 +92,7 @@ extension Quiz {
 	}
 }
 
-extension Quiz.ValidationError: LocalizedError {
+extension Topic.ValidationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptySet(_):
@@ -127,7 +127,7 @@ extension Quiz.ValidationError: LocalizedError {
 	}
 }
 
-extension Quiz {
+extension Topic {
 	var inJSON: String {
 		if let data = try? JSONEncoder().encode(self), let jsonQuiz = String(data: data, encoding: .utf8) {
 			return jsonQuiz

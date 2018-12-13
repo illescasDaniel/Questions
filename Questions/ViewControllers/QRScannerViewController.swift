@@ -125,7 +125,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	// MARK: UIStoryboardSegue Handling
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let content = sender as? Quiz, segue.identifier == "unwindToQuestions" {
+		if let content = sender as? Topic, segue.identifier == "unwindToQuestions" {
 			let controller = segue.destination as? QuestionsViewController
 			controller?.isSetFromJSON = true
 			controller?.set = content.sets[0]

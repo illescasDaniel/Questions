@@ -49,18 +49,18 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		let showCorrectIncorrectAnwer = self.webView.isCheckboxChecked(id: "topic-correct-answer")
 		let multipleCorrectAnswersAsMandatory = self.webView.isCheckboxChecked(id: "topic-force-choose")
 		
-		let options = Quiz.Options(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
+		let options = Topic.Options(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
 		
-		var sets: [[QuestionType]] = []
+		var sets: [[Question]] = []
 		
 		for i in 1...questionsCreatorWrapper.numberOfSets {
 			
-			var questions: [QuestionType] = []
+			var questions: [Question] = []
 			
 			for j in 1...questionsCreatorWrapper.questionsPerSet {
 				
 				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines), !questionText.isEmpty else {
-					let error = Quiz.ValidationError.emptyQuestion(set: Int(i), question: Int(j))
+					let error = Topic.ValidationError.emptyQuestion(set: Int(i), question: Int(j))
 					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
@@ -75,7 +75,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 						if !trimmedAnswer.isEmpty {
 							answers.append(trimmedAnswer)
 						} else {
-							let error = Quiz.ValidationError.emptyAnswer(set: Int(i), question: Int(j), answer: Int(k))
+							let error = Topic.ValidationError.emptyAnswer(set: Int(i), question: Int(j), answer: Int(k))
 							self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 							return
 						}
@@ -85,30 +85,30 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 					}
 				}
 				guard !correct.isEmpty else {
-					let error = Quiz.ValidationError.incorrectCorrectAnswersCount(set: Int(i), question: Int(j), count: 0)
+					let error = Topic.ValidationError.incorrectCorrectAnswersCount(set: Int(i), question: Int(j), count: 0)
 					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
 				guard !answers.isEmpty, answers.count == Int(questionsCreatorWrapper.answersPerQuestion) else {
-					let error = Quiz.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j))
+					let error = Topic.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j))
 					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
 				
-				questions.append(QuestionType(question: questionText, answers: answers, correct: correct, imageURL: imageURL))
+				questions.append(Question(question: questionText, answers: answers, correct: correct, imageURL: imageURL))
 			}
 			
 			sets.append(questions)
 		}
 		
-		let quiz = Quiz(options: options, sets: sets)
+		let quiz = Topic(options: options, sets: sets)
 		
 		switch quiz.validate() {
 		case .none:
 			if quiz.sets.count == Int(questionsCreatorWrapper.numberOfSets)
 				&& (quiz.sets.first?.count ?? 0) == Int(questionsCreatorWrapper.questionsPerSet)
 				&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(questionsCreatorWrapper.answersPerQuestion) {
-				self.topicActionAlert(quiz: quiz)
+				self.topicActionAlert(topic: quiz)
 				return
 			}
 			
@@ -172,14 +172,14 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		self.present(questionsCreatorSetupAlert, animated: true)
 	}
 	
-	private func topicActionAlert(quiz: Quiz) {
+	private func topicActionAlert(topic: Topic) {
 		
 		let whatToDoAlertController = UIAlertController(title: Localized.TopicsCreation_Alerts_Save_Title, message: nil, preferredStyle: .alert)
 		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Cancel, style: .cancel)
 		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
 			ToastAlert.present(onSuccess: Localized.TopicsCreation_Alerts_Save_Success,
 							   onError: Localized.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
-				return SetOfTopics.shared.save(topic: TopicEntry(name: quiz.options?.name ?? "", content: quiz))
+				return SetOfTopics.shared.save(topic: TopicEntry(name: topic.options?.name ?? "", content: topic))
 			})
 		}
 		
@@ -187,7 +187,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 			
 			var items: [Any] = []
 			
-			let quizInJSON = quiz.inJSON
+			let quizInJSON = topic.inJSON
 			items.append(quizInJSON)
 			
 			let size = min(self.view.bounds.width, self.view.bounds.height)
