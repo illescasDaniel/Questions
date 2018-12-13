@@ -1,9 +1,10 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
 [![Version](https://img.shields.io/badge/version-3.19--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
-[![Trello](https://img.shields.io/badge/-trello-blue.svg)](https://trello.com/b/9YLvTM6S)
-[![Hockeyapp](https://img.shields.io/badge/-hockeyapp-blue.svg)](https://rink.hockeyapp.net/apps/4a9339e52aca4e629bee0b48aef1df5d)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
+
+[![Trello](https://img.shields.io/badge/community-Trello-blue.svg)](https://trello.com/b/9YLvTM6S)
+[![AppCenter](https://img.shields.io/badge/download-AppCenter-ff69b4.svg)](https://install.appcenter.ms/users/illescas-daniel/apps/Questions)
 
 Prototype of a Quiz app for iOS.
 
