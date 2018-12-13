@@ -13,8 +13,7 @@ Check our [trello board](https://trello.com/b/9YLvTM6S) to follow the app roadma
 
 ## Testing
 
-You can test the app in your device easily by downloading it from HockeyApp, first request access to the app from [here](https://rink.hockeyapp.net/recruit/e27df7ff11ee4efdafcfe770c8de5cc2), then you'll be able to see the app in your [dashboard](https://rink.hockeyapp.net/manage/dashboard).  
-If the request access page doesn't work, try [this simple form](https://docs.google.com/forms/d/1p4s0W0SmJJ35lEnGQpbsKQ555nyY9VRE03nP9ZDg6BM) and I will manually send you an invitation link.
+You can test the app in your device easily by downloading it from AppCenter (formerly HockeyApp) from [here](https://install.appcenter.ms/users/illescas-daniel/apps/Questions).  
 
 Features
 -------------
