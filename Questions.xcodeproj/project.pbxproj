@@ -301,7 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				65E12DBC21C27CDE0067B4D0 /* io */,
-				65E12DAC21C27C530067B4D0 /* questionsWebCreator */,
+				65E12DAC21C27C530067B4D0 /* webTopicCreator */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -383,14 +383,14 @@
 			path = config;
 			sourceTree = "<group>";
 		};
-		65E12DAC21C27C530067B4D0 /* questionsWebCreator */ = {
+		65E12DAC21C27C530067B4D0 /* webTopicCreator */ = {
 			isa = PBXGroup;
 			children = (
 				65AF1CF821C8E645001C68E7 /* static */,
 				65E12DAD21C27C530067B4D0 /* WebTopicCreator.swift */,
 				65E12DAE21C27C530067B4D0 /* index.html */,
 			);
-			path = questionsWebCreator;
+			path = webTopicCreator;
 			sourceTree = "<group>";
 		};
 		65E12DAF21C27C540067B4D0 /* dataOnDisk */ = {
