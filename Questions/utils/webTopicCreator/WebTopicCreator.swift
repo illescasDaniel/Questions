@@ -20,99 +20,116 @@ struct WebTopicCreator {
 		self.answersPerQuestion = answersPerQuestion
 	}
 
-	var outputWebCode: String {
+	var outputWebCode: String {		
+		return """
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<meta charset="UTF-8">
+		        <meta name="viewport" content="width=device-width, user-scalable=no">
+				<title>Creator Web</title>
+			</head>
+			\(self.bootstrapCSS)
+			\(self.bootstrapScripts)
+			\(self.appStyles)
+			\(self.appScripts)
+			<body class="body-style">
+				<h1 style="font-weight: bold">\(Localized.TopicsCreation_WebView_Title)</h1>
+				\(self.options)
+				\(self.sets)
+			</body>
+		</html>
+		"""
+	}
+	
+	private var bootstrapCSS: String {
+		return "<style>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "css") ?? "")</style>"
+	}
+	
+	private var bootstrapScripts: String {
+		return "<script>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "js") ?? "")</script>"
+	}
+	
+	private var appScripts: String {
+		return "<script>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-scripts", withExtension: "js") ?? "")</script>"
+	}
+	
+	private var appStyles: String {
 		
-		// Bootstrap 4.1.0
-		let bootstrapCSS = "<style>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "css") ?? "")</style>"
-		let bootstrapScripts = "<script>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "js") ?? "")</script>"
-		
-		// Web styles
 		let bodyStyleBackgroundColor = UserDefaultsManager.darkThemeSwitchIsOn ? "black" : "white"
 		let bodyStyleColor = UserDefaultsManager.darkThemeSwitchIsOn ? "white" : "black"
 		let roundedButtonBackgroundColor = UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)"
 		let roundedButtonBorderColor = UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)"
 		
-		let extraStyles = "<style>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-styles", withExtension: "css") ?? "")</style>"
+		return "<style>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-styles", withExtension: "css") ?? "")</style>"
 			.replacingOccurrences(of: "<bodyStyleBackgroundColor>", with: bodyStyleBackgroundColor)
 			.replacingOccurrences(of: "<bodyStyleColor>", with: bodyStyleColor)
 			.replacingOccurrences(of: "<roundedButtonBackgroundColor>", with: roundedButtonBackgroundColor)
 			.replacingOccurrences(of: "<roundedButtonBorderColor>", with: roundedButtonBorderColor)
-
-		// Web scripts
-		let scripts = "<script>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-scripts", withExtension: "js") ?? "")</script>"
-		
-		// Some scripts
-		/// Should not be enabled on normal fields since when scrolling it triggers it
-		let focusInputFaster: (String) -> String = { inputID in
-			return """
-			<script>focusInputFaster("\(inputID)")</script>
-			"""
-		}
-		let checkCheckboxFaster: (String) -> String = { checkboxID in
-			return """
-			<script>checkCheckboxFaster("\(checkboxID)")</script>
-			"""
-		}
-
-		let options = """
-		<section id="full-options" style="margin-top: 10pt">
-		<h4>\(Localized.TopicsCreation_WebView_Options) <button id="options-button" type="button" class="btn btn-sm rounded-button"> + </button></h4>
-		<section id="options-content" style="display: none">
-			<div class="input-group mb-3" style="margin-top: 10pt;">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_Name)</span>
+	}
+	
+	private var options: String {
+		return """
+			<section id="full-options" style="margin-top: 10pt">
+			<h4>\(Localized.TopicsCreation_WebView_Options) <button id="options-button" type="button" class="btn btn-sm rounded-button"> + </button></h4>
+			<section id="options-content" style="display: none">
+				<div class="input-group mb-3" style="margin-top: 10pt;">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_Name)</span>
+					</div>
+					<input id="topic-name" type="text" class="form-control" placeholder="(\(Localized.TopicsCreation_WebView_Options_NamePlaceholder))">
+					\(focusInputFaster("topic-name"))
 				</div>
-				<input id="topic-name" type="text" class="form-control" placeholder="(\(Localized.TopicsCreation_WebView_Options_NamePlaceholder))">
-		        \(focusInputFaster("topic-name"))
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_Time) (s)</span>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_Time) (s)</span>
+					</div>
+					<input id="topic-time" type="number" pattern="[0-9]*" class="form-control" placeholder="(\(Localized.TopicsCreation_WebView_Options_TimePlaceholder))">
+					\(focusInputFaster("topic-time"))
 				</div>
-				<input id="topic-time" type="number" pattern="[0-9]*" class="form-control" placeholder="(\(Localized.TopicsCreation_WebView_Options_TimePlaceholder))">
-		        \(focusInputFaster("topic-time"))
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_RandomOrderQuestions)</span>
-					<span class="input-group-text">
-						<input id="topic-random-order" type="checkbox" checked>
-						\(checkCheckboxFaster("topic-random-order"))
-					</span>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_RandomOrderQuestions)</span>
+						<span class="input-group-text">
+							<input id="topic-random-order" type="checkbox" checked>
+							\(checkCheckboxFaster("topic-random-order"))
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_EnableHelp)</span>
-					<span class="input-group-text">
-						<input id="topic-help-button" type="checkbox" checked>
-						\(checkCheckboxFaster("topic-help-button"))
-					</span>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_EnableHelp)</span>
+						<span class="input-group-text">
+							<input id="topic-help-button" type="checkbox" checked>
+							\(checkCheckboxFaster("topic-help-button"))
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_ShowCorrectIncorrect)</span>
-					<span class="input-group-text">
-						<input id="topic-correct-answer" type="checkbox" checked>
-		                \(checkCheckboxFaster("topic-correct-answer"))
-					</span>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_ShowCorrectIncorrect)</span>
+						<span class="input-group-text">
+							<input id="topic-correct-answer" type="checkbox" checked>
+							\(checkCheckboxFaster("topic-correct-answer"))
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_ForceChooseCorrectAnswers)</span>
-					<span class="input-group-text">
-						<input id="topic-force-choose" type="checkbox">
-		                \(checkCheckboxFaster("topic-force-choose"))
-					</span>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">\(Localized.TopicsCreation_WebView_Options_ForceChooseCorrectAnswers)</span>
+						<span class="input-group-text">
+							<input id="topic-force-choose" type="checkbox">
+							\(checkCheckboxFaster("topic-force-choose"))
+						</span>
+					</div>
 				</div>
-			</div>
+			</section>
 		</section>
-	</section>
-	<script>hideSectionWithButton("options-content", "options-button")</script>
-"""
-		
+		<script>hideSectionWithButton("options-content", "options-button")</script>
+		"""
+	}
+	
+	private var sets: String {
 		var sets = ""
 		for i in 1...self.numberOfSets {
 			sets += """
@@ -172,26 +189,18 @@ struct WebTopicCreator {
 			<script>hideSectionWithButton("set-\(i)-content", "set-\(i)-button")</script>
 			"""
 		}
-		
+		return sets
+	}
+	
+	/// Some scripts for the web. Should not be enabled on normal fields since when scrolling it triggers it
+	private func focusInputFaster(_ inputID: String) -> String {
 		return """
-		<!DOCTYPE html>
-		<html>
-			<head>
-				<meta charset="UTF-8">
-		        <meta name="viewport" content="width=device-width, user-scalable=no">
-				<title>Creator Web</title>
-				\(bootstrapCSS)
-				\(bootstrapScripts)
-		        \(scripts)
-			</head>
-			\(extraStyles)
-			<body class="body-style">
-				<h1 style="font-weight: bold">\(Localized.TopicsCreation_WebView_Title)</h1>
-				\(options)
-				\(sets)
-			</body>
-		</html>
-
-"""
+		<script>focusInputFaster("\(inputID)")</script>
+		"""
+	}
+	private func checkCheckboxFaster(_ checkboxID: String) -> String {
+		return """
+		<script>checkCheckboxFaster("\(checkboxID)")</script>
+		"""
 	}
 }
