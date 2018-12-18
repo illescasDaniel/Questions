@@ -21,7 +21,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 
 	@IBOutlet weak var webView: UIWebView!
 	
-	var questionsCreatorWrapper: QuestionsCreatorWrapper?
+	var webTopicCreator: WebTopicCreator?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
-		guard let questionsCreatorWrapper = self.questionsCreatorWrapper else { return }
+		guard let questionsCreatorWrapper = self.webTopicCreator else { return }
 		
 		let name = self.webView.getInputValueFrom(id: "topic-name")
 		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
@@ -161,8 +161,8 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
 				numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
 				
-				self.questionsCreatorWrapper = QuestionsCreatorWrapper(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
-				self.webView.loadHTMLString(self.questionsCreatorWrapper?.web ?? "", baseURL: nil)
+				self.webTopicCreator = WebTopicCreator(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
+				self.webView.loadHTMLString(self.webTopicCreator?.outputWebCode ?? "", baseURL: nil)
 			}
 			else {
 				// TODO: tell somehow the user that the input values were incorrect

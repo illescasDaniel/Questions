@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct QuestionsCreatorWrapper {
+struct WebTopicCreator {
 	
 	let numberOfSets: UInt8
 	let questionsPerSet: UInt8
@@ -20,17 +20,12 @@ struct QuestionsCreatorWrapper {
 		self.answersPerQuestion = answersPerQuestion
 	}
 
-	var web: String {
-
-		/* REMOVED:
-		<script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-		*/
-		let bootstrapp = """
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" media="none" onload="if(media!='all')media='all'"><noscript><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"></noscript>
-
-		<script async defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-"""
+	var outputWebCode: String {
+		
+		// Bootstrap 4.1.0
+		let bootstrapCSS = "<style>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "css") ?? "")</style>"
+		let bootstrapScripts = "<script>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "js") ?? "")</script>"
+		
 		let extraStyles = """
        	<style>
 			.body-style {
@@ -55,46 +50,14 @@ struct QuestionsCreatorWrapper {
 			}
 		</style>
 """
-		let scripts = """
-		<script>
-            function focusInputFaster(inputID) {
-				const inputElement = document.getElementById(inputID)
-				inputElement.ontouchend = function (e) {
-                    inputElement.focus()
-					e.preventDefault()
-				}
-			}
-			function checkCheckboxFaster(checkboxID) {
-				const checkboxElement = document.getElementById(checkboxID)
-				checkboxElement.ontouchend = function (e) {
-					checkboxElement.click()
-                    		e.preventDefault()
-				}
-			}
-			function hideSectionWithButton(sectionID, buttonID) {
-				
-				const optionsSection = document.getElementById(sectionID)
-				const optionsButton = document.getElementById(buttonID)
-				
-				optionsButton.ontouchend = function () {
-					if (optionsSection.style.display == "none" || optionsSection.style.display == "") {
-						optionsSection.style.display = "block"
-						optionsButton.textContent = "-"
-					} else {
-						optionsSection.style.display = "none"
-						optionsButton.textContent = "+"						
-					}
-				}
-			}
-		</script>
-"""
+		let scripts = "<script>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-scripts", withExtension: "js") ?? "")</script>"
+		
 		/// Should not be enabled on normal fields since when scrolling it triggers it
 		let focusInputFaster: (String) -> String = { inputID in
 			return """
 			<script>focusInputFaster("\(inputID)")</script>
 			"""
 		}
-		
 		let checkCheckboxFaster: (String) -> String = { checkboxID in
 			return """
 			<script>checkCheckboxFaster("\(checkboxID)")</script>
@@ -227,7 +190,8 @@ struct QuestionsCreatorWrapper {
 				<meta charset="UTF-8">
 		        <meta name="viewport" content="width=device-width, user-scalable=no">
 				<title>Creator Web</title>
-		        \(bootstrapp)
+				\(bootstrapCSS)
+				\(bootstrapScripts)
 		        \(scripts)
 			</head>
 			\(extraStyles)
