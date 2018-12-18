@@ -26,32 +26,22 @@ struct WebTopicCreator {
 		let bootstrapCSS = "<style>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "css") ?? "")</style>"
 		let bootstrapScripts = "<script>\(Bundle.main.fileContent(ofResource: "bootstrap.min", withExtension: "js") ?? "")</script>"
 		
-		let extraStyles = """
-       	<style>
-			.body-style {
-				margin: 10pt 10pt;
-				background-color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "black" : "white");
-				color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "white" : "black");
-		        font-family: system-ui;
-			}
-			.rounded-button {
-				width: 24pt;
-			    height: 24pt;
-				border-radius: 12pt;
-				text-align: center;
-				vertical-align: middle;
-				line-height: 0;
-                font-size: 1.2rem;
-			   	padding: 0pt;
-			
-				color: white;
-				background-color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)");
-				border-color: \(UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)");
-			}
-		</style>
-"""
+		// Web styles
+		let bodyStyleBackgroundColor = UserDefaultsManager.darkThemeSwitchIsOn ? "black" : "white"
+		let bodyStyleColor = UserDefaultsManager.darkThemeSwitchIsOn ? "white" : "black"
+		let roundedButtonBackgroundColor = UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)"
+		let roundedButtonBorderColor = UserDefaultsManager.darkThemeSwitchIsOn ? "orange" : "rgb(0, 122, 255)"
+		
+		let extraStyles = "<style>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-styles", withExtension: "css") ?? "")</style>"
+			.replacingOccurrences(of: "<bodyStyleBackgroundColor>", with: bodyStyleBackgroundColor)
+			.replacingOccurrences(of: "<bodyStyleColor>", with: bodyStyleColor)
+			.replacingOccurrences(of: "<roundedButtonBackgroundColor>", with: roundedButtonBackgroundColor)
+			.replacingOccurrences(of: "<roundedButtonBorderColor>", with: roundedButtonBorderColor)
+
+		// Web scripts
 		let scripts = "<script>\(Bundle.main.fileContent(ofResource: "WebTopicCreator-scripts", withExtension: "js") ?? "")</script>"
 		
+		// Some scripts
 		/// Should not be enabled on normal fields since when scrolling it triggers it
 		let focusInputFaster: (String) -> String = { inputID in
 			return """
