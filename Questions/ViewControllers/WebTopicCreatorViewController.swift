@@ -17,16 +17,19 @@ extension UIWebView {
 	}
 }
 
-class WebCreatorViewController: UIViewController, UIWebViewDelegate {
+class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 
 	@IBOutlet weak var webView: UIWebView!
 	
-	var numberOfSets: UInt8?
-	var questionsPerSet: UInt8?
-	var answersPerQuestion: UInt8?
+	private var numberOfSets: UInt8?
+	private var questionsPerSet: UInt8?
+	private var answersPerQuestion: UInt8?
+	
+	private let activityIndicator = UIActivityIndicatorView()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.setupActivityIndicator()
 		self.promptUserWithFormGenerator()
 		self.setupWebView()
     }
@@ -36,6 +39,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	func webViewDidFinishLoad(_ webView: UIWebView) {
 		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")
 		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")
+		self.activityIndicator.stopAnimating()
 	}
 	
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
@@ -128,6 +132,14 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	
 	// MARK: - Convenience
 	
+	private func setupActivityIndicator() {
+		self.activityIndicator.frame = self.view.bounds
+		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.activityIndicator.style = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		self.activityIndicator.hidesWhenStopped = true
+		self.view.addSubview(self.activityIndicator)
+	}
+	
 	private func setupWebView() {
 		self.webView.delegate = self
 		self.webView.scrollView.showsHorizontalScrollIndicator = false
@@ -179,7 +191,9 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				self.navigationController?.popViewController(animated: true)
 			}
 		}
-		self.present(questionsCreatorSetupAlert, animated: true)
+		self.present(questionsCreatorSetupAlert, animated: true, completion: {
+			self.activityIndicator.startAnimating()
+		})
 	}
 	
 	private func topicActionAlert(topic: Topic) {
