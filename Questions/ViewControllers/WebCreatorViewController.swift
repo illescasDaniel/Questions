@@ -21,7 +21,9 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 
 	@IBOutlet weak var webView: UIWebView!
 	
-	var webTopicCreator: WebTopicCreator?
+	var numberOfSets: UInt8?
+	var questionsPerSet: UInt8?
+	var answersPerQuestion: UInt8?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,12 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 	/// We'll retrieve the info from the form, validate it and promt the user what to do with it
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
-		guard let questionsCreatorWrapper = self.webTopicCreator else { return }
+		guard let numberOfSets = self.numberOfSets,
+			let questionsPerSet = self.questionsPerSet,
+			let answersPerQuestion = self.answersPerQuestion else {
+				self.invalidQuizAlert()
+				return
+		}
 		
 		let name = self.webView.getInputValueFrom(id: "topic-name")
 		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
@@ -53,11 +60,11 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		
 		var sets: [[Question]] = []
 		
-		for i in 1...questionsCreatorWrapper.numberOfSets {
+		for i in 1...numberOfSets {
 			
 			var questions: [Question] = []
 			
-			for j in 1...questionsCreatorWrapper.questionsPerSet {
+			for j in 1...questionsPerSet {
 				
 				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines), !questionText.isEmpty else {
 					let error = Topic.ValidationError.emptyQuestion(set: Int(i), question: Int(j))
@@ -69,7 +76,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				var answers: [String] = []
 				var correct: Set<UInt8> = []
 				
-				for k in 1...questionsCreatorWrapper.answersPerQuestion {
+				for k in 1...answersPerQuestion {
 					if let answerText = self.webView.getInputValueFrom(id: "answer-\(i)-\(j)-\(k)") {
 						let trimmedAnswer = answerText.trimmingCharacters(in: .whitespacesAndNewlines)
 						if !trimmedAnswer.isEmpty {
@@ -89,7 +96,7 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
 				}
-				guard !answers.isEmpty, answers.count == Int(questionsCreatorWrapper.answersPerQuestion) else {
+				guard !answers.isEmpty, answers.count == Int(answersPerQuestion) else {
 					let error = Topic.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j))
 					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
 					return
@@ -105,9 +112,9 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 		
 		switch quiz.validate() {
 		case .none:
-			if quiz.sets.count == Int(questionsCreatorWrapper.numberOfSets)
-				&& (quiz.sets.first?.count ?? 0) == Int(questionsCreatorWrapper.questionsPerSet)
-				&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(questionsCreatorWrapper.answersPerQuestion) {
+			if quiz.sets.count == Int(numberOfSets)
+				&& (quiz.sets.first?.count ?? 0) == Int(questionsPerSet)
+				&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(answersPerQuestion) {
 				self.topicActionAlert(topic: quiz)
 				return
 			}
@@ -161,8 +168,11 @@ class WebCreatorViewController: UIViewController, UIWebViewDelegate {
 				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
 				numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
 				
-				self.webTopicCreator = WebTopicCreator(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
-				self.webView.loadHTMLString(self.webTopicCreator?.outputWebCode ?? "", baseURL: nil)
+				self.numberOfSets = numberOfSets
+				self.questionsPerSet = questionsPerSet
+				self.answersPerQuestion = answersPerQuestion
+				let outputWebCode = WebTopicCreator.shared.outputWebCode(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
+				self.webView.loadHTMLString(outputWebCode, baseURL: nil)
 			}
 			else {
 				// TODO: tell somehow the user that the input values were incorrect
