@@ -24,6 +24,8 @@ SOFTWARE.
 
 import UIKit
 
+// TODO: use DownloadManager instead (from other project)
+
 /// An easy class to manage online images in Swift.
 ///
 /// Reference and more info: [https://github.com/illescasDaniel/CachedImages]()

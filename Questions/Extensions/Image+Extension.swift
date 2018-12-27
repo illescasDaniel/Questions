@@ -34,27 +34,3 @@ extension UIImage {
 		}
 	}
 }
-
-extension CIImage {
-	func nonInterpolatedImageWith(width: CGFloat, height: CGFloat) -> UIImage? {
-		
-		guard let cgImage = CIContext().createCGImage(self, from: extent) else { return nil }
-		
-		let size = CGSize(width: extent.size.width * width, height: extent.size.height * height)
-		
-		UIGraphicsBeginImageContextWithOptions(size, true, 0)
-		
-		guard let context = UIGraphicsGetCurrentContext() else { return nil }
-		
-		context.interpolationQuality = .none
-		context.translateBy(x: 0, y: height)
-		context.scaleBy(x: 1.0, y: -1.0)
-		context.draw(cgImage, in: context.boundingBoxOfClipPath)
-		
-		let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-		
-		UIGraphicsEndImageContext()
-		
-		return finalImage
-	}
-}

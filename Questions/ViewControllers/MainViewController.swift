@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
 		
 		// Add parallax effect to background image view
 		MainViewController.backgroundView = backgroundImageView
-		//self.navigationItem.backBarButtonItem?.title = Localized.MainMenu_Title
 		
 		if UserDefaultsManager.parallaxEffectSwitchIsOn {
 			MainViewController.addParallax(toView: MainViewController.backgroundView)

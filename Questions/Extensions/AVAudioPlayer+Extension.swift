@@ -28,4 +28,3 @@ extension AVAudioPlayer {
 		}
 	}
 }
-typealias AudioTypes = AVAudioPlayer.AudioTypes

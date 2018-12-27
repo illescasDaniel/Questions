@@ -20,7 +20,7 @@ output += """
 }
 """
 print(output)
-let url = URL(fileURLWithPath: "/Users/daniel/Documents/Programming/IDE Projects/Xcode/Projects/Questions/Questions/resources/i18n/Localized.swift")
+let url = URL(fileURLWithPath: "../Localized.swift")
 if ((try? output.write(to: url, atomically: true, encoding: .utf8)) == nil) {
 	print("Error writing Localized.swift")
 }

@@ -49,7 +49,7 @@ class SettingsTableViewController: UITableViewController {
 		self.loadSwitchesStates()
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
-			self.loadCurrentTheme(animated: false)
+			self.loadCurrentTheme()
 		}
 		
 		self.clearsSelectionOnViewWillAppear = true
@@ -142,7 +142,7 @@ class SettingsTableViewController: UITableViewController {
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			let view = UIView()
-			view.backgroundColor = UIColor.darkGray
+			view.backgroundColor = .darkGray
 			cell.selectedBackgroundView = view
 		} else {
 			cell.selectedBackgroundView = nil
@@ -217,7 +217,7 @@ class SettingsTableViewController: UITableViewController {
 	
 	@IBAction func darkThemeSwitchAction(sender: UISwitch) {
 		UserDefaultsManager.darkThemeSwitchIsOn = sender.isOn
-		self.loadCurrentTheme(animated: true)
+		self.loadCurrentTheme()
 		AppDelegate.updateVolumeBarTheme()
 	}
 
@@ -300,39 +300,26 @@ class SettingsTableViewController: UITableViewController {
 		
 		AudioSounds.bgMusic?.play()
 		
-		self.loadCurrentTheme(animated: true)
+		self.loadCurrentTheme()
 	}
 	
-	private func loadCurrentTheme(animated: Bool) {
+	private func loadCurrentTheme() {
 		
-		let duration: TimeInterval = animated ? 0.2 : 0
-		
-		if #available(iOS 10.0, *) {
-			UIView.animate(withDuration: duration) {
-				self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-			}
-		}
-		else { // On iOS 9, the barStyle animation is not very nice...
-			navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		}
+		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		self.navigationController?.toolbar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		self.navigationController?.toolbar.barStyle = UIBarStyle.themeStyle(dark: .blackTranslucent, light: .default)
 		
-		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
-			
-			self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-			
-			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
-			self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
-			
-			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
-			self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
-
-		}, completion: { completed in
-			if completed {
-				self.tableView.reloadData()
-			}
-		})
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		
+		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+		
+		let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
+		self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
+		
+		DispatchQueue.main.async {
+			self.tableView.reloadData()
+		}
 		
 		AppDelegate.windowReference?.dontInvertIfDarkModeIsEnabled()
 	}

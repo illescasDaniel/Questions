@@ -11,59 +11,46 @@ import Foundation
 struct TopicEntry {
 	
 	private(set) var displayedName = String()
-	var quiz = Topic(options: nil, sets: [[]])
+	var topic = Topic(options: nil, sets: [[]])
 	
 	init(name: String, content: Topic) {
 		self.displayedName = name
-		self.quiz = content
+		self.topic = content
 	}
 	
-	init?(name: String) {
+	init?(path: URL) {
 		
-		self.displayedName = name
+		let data = try? Data(contentsOf: path)
 		
-		guard let path = Bundle.main.path(forResource: name, ofType: "json") else { print("Quiz incorrect path. Topic name: \(name)"); return }
-		let url = URL(fileURLWithPath: path)
+		if let topicName = self.topic.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+			self.displayedName = topicName
+		} else {
+			self.displayedName = path.deletingPathExtension().lastPathComponent
+		}
 		
-		do {
-			let data = try Data(contentsOf: url)
-			let contentToValidate = try JSONDecoder().decode(Topic.self, from: data)
-			
-			switch contentToValidate.validate() {
-			case .none:
-				self.quiz = contentToValidate
-			case .some(let error):
-				print("Error loading \"\(name)\" topic: \(error.localizedDescription).\nDetails: \(error.recoverySuggestion ?? "")")
-				return nil
-			}
-			
-		} catch {
-			print("Error initializing quiz content. Quiz name: \(name)")
+		if let topic = self.validatedQuiz(data: data, name: self.displayedName) {
+			self.topic = topic
+		} else {
 			return nil
 		}
 	}
 	
-	init?(path: URL) {
+	private func validatedQuiz(data: Data?, name: String) -> Topic? {
+		
+		guard let data = data else { return nil }
+		
 		do {
-			let data = try Data(contentsOf: path)
 			let contentToValidate = try JSONDecoder().decode(Topic.self, from: data)
-			
-			if let topicName = self.quiz.options?.name, !topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-				self.displayedName = topicName
-			} else {
-				self.displayedName = path.deletingPathExtension().lastPathComponent
-			}
 			
 			switch contentToValidate.validate() {
 			case .none:
-				self.quiz = contentToValidate
+				return contentToValidate
 			case .some(let error):
-				print("Error loading \"\(self.displayedName)\" topic: \(error.localizedDescription)\nDetails: \(error.recoverySuggestion ?? "")")
+				print("Error loading \"\(name)\" topic: \(error.localizedDescription).\nDetails: \(error.recoverySuggestion ?? "")")
 				return nil
 			}
 		} catch {
-			print(error)
-			print("Error initializing quiz content. Quiz path: \(path.lastPathComponent)")
+			print("Error initializing quiz content. Quiz name: \(name)")
 			return nil
 		}
 	}
@@ -71,12 +58,12 @@ struct TopicEntry {
 
 extension TopicEntry: Equatable {
 	static func ==(lhs: TopicEntry, rhs: TopicEntry) -> Bool {
-		return lhs.displayedName == rhs.displayedName || lhs.quiz == rhs.quiz
+		return lhs.displayedName == rhs.displayedName || lhs.topic == rhs.topic
 	}
 }
 
 extension TopicEntry: Hashable {
 	var hashValue: Int {
-		return displayedName.hashValue + (quiz.sets.count * (quiz.sets.first?.count ?? 1))
+		return displayedName.hashValue + (topic.sets.count * (topic.sets.first?.count ?? 1))
 	}
 }

@@ -29,6 +29,7 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.navigationItem.title = Localized.TopicsCreation_WebView_Title
 		self.setupActivityIndicator()
 		self.promptUserWithFormGenerator()
 		self.setupWebView()
@@ -135,16 +136,18 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	private func setupActivityIndicator() {
 		self.activityIndicator.frame = self.view.bounds
 		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.activityIndicator.style = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		self.activityIndicator.style = .themeStyle(dark: .white , light: .gray)
 		self.activityIndicator.hidesWhenStopped = true
 		self.view.addSubview(self.activityIndicator)
 	}
 	
 	private func setupWebView() {
+		let bgColor: UIColor = .themeStyle(dark: .black,
+										   light: UIColor(RGBred: 239, green: 239, blue: 244) /* groupTableViewBackground */ )
 		self.webView.delegate = self
 		self.webView.scrollView.showsHorizontalScrollIndicator = false
-		self.webView.backgroundColor = .themeStyle(dark: .black, light: .white)
-		self.view.backgroundColor = .themeStyle(dark: .black, light: .white)
+		self.webView.backgroundColor = bgColor
+		self.view.backgroundColor = bgColor
 	}
 	
 	private func promptUserWithFormGenerator() {

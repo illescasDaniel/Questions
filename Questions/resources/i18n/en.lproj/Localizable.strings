@@ -1,9 +1,7 @@
 "**HomeQuickActions.ScanQR**" = "Scan QR Code";
 
-"**MainMenu.Title**" = "Main menu";
 "**MainMenu.Entries.Topics**" = "Topics";
 "**MainMenu.Entries.Community**" = "Community";
-"**MainMenu.Entries.ScanQR**" = "Scan QR Code";
 "**MainMenu.Entries.Settings**" = "Settings";
 
 "**Topics.AllTopics.Title**" = "Topics";
@@ -43,7 +41,7 @@
 "**TopicsCreation.Alerts.Save.Success**" = "Saved";
 "**TopicsCreation.Alerts.Save.Error**" = "Error while saving";
 "**TopicsCreation.WebView.Title**" = "Topic Creator";
-"**TopicsCreation.WebView.Options**" = "Options";
+"**TopicsCreation.WebView.Options.SectionTitle**" = "Options";
 "**TopicsCreation.WebView.Options.Name**" = "Name";
 "**TopicsCreation.WebView.Options.NamePlaceholder**" = "Optional but recommended";
 "**TopicsCreation.WebView.Options.Time**" = "Time per set";
@@ -114,7 +112,6 @@
 "**Questions.Alerts.Help.NotEnoughPoints**" = "Not enough points.\nYou only get points by completing quizzes.";
 "**Questions.Alerts.Repeat.Title**" = "Repeat?";
 "**Questions.Alerts.Repeat.Message**" = "Do you want to start again?";
-"**Questions.Alerts.End.Message**" = "Do you want to repeat it?";
 "**Questions.Alerts.End.CorrectAnswers**" = "Correct answers: %@";
 "**Questions.Alerts.End.Score**" = "Score: %d";
 "**Questions.Alerts.End.Repeat**" = "Repeat";

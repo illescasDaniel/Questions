@@ -18,3 +18,9 @@
 	background-color: <roundedButtonBackgroundColor>;
 	border-color: <roundedButtonBorderColor>;
 }
+
+.light-input-group-text {
+	background-color: rgb(160,160,160);
+	color: white;
+	border-color: rgb(160,160,160);
+}

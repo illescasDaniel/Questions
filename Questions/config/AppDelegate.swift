@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
-														 localizedTitle: "Scan QR Code".localized,
+														 localizedTitle: Localized.HomeQuickActions_ScanQR,
 														 localizedSubtitle: nil,
 														 icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
 		

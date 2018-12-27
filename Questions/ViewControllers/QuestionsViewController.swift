@@ -44,7 +44,7 @@ class QuestionsViewController: UIViewController {
 	// MARK: View life cycle
 	
 	private var currentQuizOfTopic: Topic {
-		return SetOfTopics.shared.currentTopics[currentTopicIndex].quiz
+		return SetOfTopics.shared.currentTopics[currentTopicIndex].topic
 	}
 
 	override func viewDidLoad() {
@@ -385,7 +385,7 @@ class QuestionsViewController: UIViewController {
 			self.detectIfScreenIsCaptured()
 		}
 		
-		let duration: TimeInterval = 0.1
+		let duration: TimeInterval = animated ? 0.1 : 0.0
 		let title = (pauseView.isHidden) ? Localized.Questions_PauseMenu_Continue : Localized.Questions_PauseMenu_Pause
 		pauseButton.setTitle(title.localized, for: .normal)
 
@@ -608,7 +608,7 @@ class QuestionsViewController: UIViewController {
 	
 	private func setUpQuiz() {
 		
-		if !self.isSetFromJSON { self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets[currentSetIndex] }
+		if !self.isSetFromJSON { self.set = SetOfTopics.shared.currentTopics[currentTopicIndex].topic.sets[currentSetIndex] }
 		
 		if self.currentQuizOfTopic.options?.questionsInRandomOrder ?? true {
 			self.set.shuffle()

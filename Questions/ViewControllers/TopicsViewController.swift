@@ -6,7 +6,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	@IBOutlet weak var addBarButtonItem: UIBarButtonItem!
 	@IBOutlet weak var refreshBarButtonItem: UIBarButtonItem!
 	
-	let searchController = SearchTableViewController()
+	private let searchController = SearchTableViewController()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -259,7 +259,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			activityIndicator.style = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 			activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			
-			if SetOfTopics.shared.communityTopics[indexPath.row].quiz.sets.flatMap({ $0 }).isEmpty,
+			if SetOfTopics.shared.communityTopics[indexPath.row].topic.sets.flatMap({ $0 }).isEmpty,
 				let communityTopics = CommunityTopics.shared {
 				
 				activityIndicator.startAnimating()
@@ -270,7 +270,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 				
 				DispatchQueue.global().async {
 					if let validTextFromURL = try? String(contentsOf: currentTopic.remoteContentURL), let quiz = SetOfTopics.shared.quizFrom(content: validTextFromURL) {
-						SetOfTopics.shared.communityTopics[indexPath.row].quiz = quiz
+						SetOfTopics.shared.communityTopics[indexPath.row].topic = quiz
 					}
 					DispatchQueue.main.async {
 						activityIndicator.stopAnimating()
@@ -396,7 +396,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		var items: [Any] = []
 		
 		for index in selectedItemsIndexPaths.lazy.map ({ $0.row }) {
-			let quizInJSON = SetOfTopics.shared.savedTopics[index].quiz.inJSON
+			let quizInJSON = SetOfTopics.shared.savedTopics[index].topic.inJSON
 			items.append(quizInJSON)
 			let size = min(self.view.bounds.width, self.view.bounds.height)
 			if let outputQR = quizInJSON.generateQRImageWith(size: (width: size, height: size)) { items.append(outputQR) }

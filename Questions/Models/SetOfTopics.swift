@@ -39,7 +39,7 @@ class SetOfTopics {
 	func loadSetState(for topicSet: [TopicEntry]) {
 		
 		for topic in topicSet {
-			for quiz in topic.quiz.sets.enumerated() {
+			for quiz in topic.topic.sets.enumerated() {
 				
 				if DataStoreArchiver.shared.completedSets[topic.displayedName] == nil {
 					DataStoreArchiver.shared.completedSets[topic.displayedName] = [:]
@@ -120,7 +120,7 @@ class SetOfTopics {
 		let fileName: String
 		let topicName = topic.displayedName
 		if topicName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-			if let topicNameFromJSON = topic.quiz.options?.name, !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+			if let topicNameFromJSON = topic.topic.options?.name, !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				fileName = topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines) + ".json"
 			} else {
 				fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
@@ -133,7 +133,7 @@ class SetOfTopics {
 		}
 		
 		if let documentsURL = SetOfTopics.fileManager.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(fileName) {
-			if let data = try? JSONEncoder().encode(topic.quiz) {
+			if let data = try? JSONEncoder().encode(topic.topic) {
 				try? data.write(to: documentsURL)
 				UserDefaultsManager.savedQuestionsCounter += 1
 				SetOfTopics.shared.loadSavedTopics()
@@ -175,6 +175,6 @@ class SetOfTopics {
 			
 			return setOfSavedTopics
 		}
-		return Set<TopicEntry>()
+		return []
 	}
 }

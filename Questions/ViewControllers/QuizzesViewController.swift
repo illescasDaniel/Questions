@@ -13,7 +13,7 @@ class QuizzesViewController: UITableViewController {
 		super.viewDidLoad()
 		
 		self.navigationItem.title = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName.localized
-		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].quiz.sets.count
+		setCount =  SetOfTopics.shared.currentTopics[currentTopicIndex].topic.sets.count
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			self.loadCurrentTheme()
