@@ -24,8 +24,6 @@ SOFTWARE.
 
 import UIKit
 
-// TODO: use DownloadManager instead (from other project)
-
 /// An easy class to manage online images in Swift.
 ///
 /// Reference and more info: [https://github.com/illescasDaniel/CachedImages]()
@@ -127,7 +125,11 @@ public final class CachedImages {
 		}
 	}
 	
-	public func load(url: String, onSuccess: @escaping (UIImage) -> (), prepareForDownload: @escaping () -> () = {}, onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
+	public func load(url: String,
+					 onSuccess: @escaping (UIImage) -> (),
+					 prepareForDownload: @escaping () -> () = {},
+					 onError: @escaping (CachedImages.Errors) -> () = {_ in }) {
+		
 		DispatchQueue.global().async {
 			
 			let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -149,8 +151,8 @@ public final class CachedImages {
 					prepareForDownload()
 				}
 				
-				DispatchQueue.global().async {
-					if let validImage = UIImage(contentsOf: URL(string: trimmedURL)) {
+				DownloadManager.shared.manageData(from: URL(string: trimmedURL)) { data in
+					if let data = data, let validImage = UIImage(data: data) {
 						DispatchQueue.main.async {
 							onSuccess(validImage)
 						}
@@ -190,9 +192,9 @@ public final class CachedImages {
 	
 	private func image(withKey key: Int) -> UIImage? {
 		
-		let cachedImageURL = self.cachedImagesFolder.appendingPathComponent("\(key)")
+		let cachedImagePath = self.cachedImagesFolder.appendingPathComponent("\(key)")
 		
-		if let imageData = try? Data(contentsOf: cachedImageURL) {
+		if let imageData = try? Data(contentsOf: cachedImagePath) {
 			return UIImage(data: imageData)
 		}
 		return nil

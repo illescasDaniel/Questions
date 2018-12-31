@@ -74,11 +74,11 @@ class MainViewController: UIViewController {
 		
 		SetOfTopics.shared.current = .community
 		
-		if CommunityTopics.shared == nil {
+		/*if CommunityTopics.shared == nil {
 			DispatchQueue.global().async {
 				SetOfTopics.shared.loadCommunityTopics()
 			}
-		}
+		}*/
 	}
 	
 	// MARK: Convenience

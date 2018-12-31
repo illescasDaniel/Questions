@@ -9,20 +9,9 @@
 import UIKit
 
 extension UIImage {
-	convenience init?(contentsOf url: URL?) {
-		
-		guard let validURL = url else { return nil }
-		
-		if let imageData = try? Data(contentsOf: validURL) {
-			self.init(data: imageData)
-			return
-		}
-		return nil
-	}
-	
 	static func manageContentsOf(_ url: URL?, completionHandler: @escaping ((UIImage, URL?) -> ()), errorHandler: (() -> ())? = nil) {
-		DispatchQueue.global().async {
-			if let validImage = UIImage(contentsOf: url) {
+		DownloadManager.shared.manageData(from: url) { data in
+			if let data = data, let validImage = UIImage(data: data) {
 				DispatchQueue.main.async {
 					completionHandler(validImage, url)
 				}

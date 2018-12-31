@@ -92,25 +92,24 @@ class SetOfTopics {
 		}
 	}
 	
-	func loadCommunityTopics() {
+	func loadCommunityTopics(completionHandler loadCTCH: (() -> Void)? = nil) {
 		
 		self.communityTopics.removeAll(keepingCapacity: true)
 		
-		CommunityTopics.areLoaded = false
-		CommunityTopics.initializeSynchronously()
-		
-		guard let communityTopics = CommunityTopics.shared else { return }
+		CommunityTopics.initialize(completionHandler: { loadedCommunityTopics in
+			guard let loadedCommunityTopics = loadedCommunityTopics else { return }
+			CommunityTopics.shared = loadedCommunityTopics
 			
-		for topic in communityTopics.topics where topic.isVisible {
-			
-			let topicName = topic.name ?? "Community Topic - \(self.communityTopics.count)"
-			let topicEntry = TopicEntry(name: topicName, content: Topic(options: nil, sets: [[]]))
-			
-			self.communityTopics.append(topicEntry)
-		}
-		
-		self.loadSetState(for: self.communityTopics)
-		CommunityTopics.areLoaded = true
+			self.communityTopics = loadedCommunityTopics.topics
+				.filter { $0.isVisible }
+				.map { topic in
+					let topicName = topic.name ?? "Community Topic - \(self.communityTopics.count)"
+					return TopicEntry(name: topicName, content: Topic(options: nil, sets: [[]]))
+				}
+
+			self.loadSetState(for: self.communityTopics)
+			loadCTCH?()
+		})
 	}
 	
 	@discardableResult func save(topic: TopicEntry) -> Bool {
@@ -141,6 +140,21 @@ class SetOfTopics {
 			}
 		}
 		return false
+	}
+	
+	func quizFrom(content: Data?) -> Topic? {
+		
+		guard let data = content, let quizContent = try? JSONDecoder().decode(Topic.self, from: data) else {
+			return nil
+		}
+		
+		switch quizContent.validate() {
+		case .none:
+			return quizContent
+		case .some(let error):
+			print(error.localizedDescription, "\nDetails: \(error.recoverySuggestion ?? "")")
+			return nil
+		}
 	}
 	
 	func quizFrom(content: String?) -> Topic? {

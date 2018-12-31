@@ -14,8 +14,8 @@ extension String {
 		return (self as NSString).deletingPathExtension
 	}
 	
-	/// Returns a value from 0.0 to 1.0 indicating the similarity to other string.
-	public func levenshteinDistanceScoreTo(string: String, ignoreCase: Bool = true, trimWhiteSpacesAndNewLines: Bool = true) -> Float {
+	/// Levenshtein distance returning a value from 0.0 to 1.0 indicating the similarity to other string
+	public func similarityTo(string: String, ignoreCase: Bool = true, trimWhiteSpacesAndNewLines: Bool = true) -> Float {
 		
 		guard !self.isEmpty && !string.isEmpty else { return 0.0 }
 		if self.count == string.count && self == string { return 1.0 }
@@ -56,17 +56,6 @@ extension String {
 		return 0.0
 	}
 }
-
-infix operator =~ : ComparisonPrecedence
-
-/// Indicates if two strings are very similar to each other
-public func =~(string: String?, otherString: String?) -> Bool {
-	if let string = string, let otherString = otherString {
-		return string.levenshteinDistanceScoreTo(string: otherString) >= 0.85
-	}
-	return false
-}
-
 
 extension NSAttributedString {
 	static func +(left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {

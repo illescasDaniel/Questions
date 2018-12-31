@@ -14,29 +14,25 @@ struct CommunityTopic: Codable {
 	var isVisible: Bool
 }
 
+// improve
 struct CommunityTopics: Codable {
 	
-	let topics: [CommunityTopic]
+	var topics: [CommunityTopic] = []
 	
-	static var shared: CommunityTopics? = nil
-	static var areLoaded: Bool = false
+	static var shared = CommunityTopics()
 	
 	static func initialize(completionHandler: ((CommunityTopics?) -> ())? = nil) {
-		DispatchQueue.global().async {
-			if let communityTopicsURL = URL(string: QuestionsAppOptions.communityTopicsURL),
-				let data = try? Data(contentsOf: communityTopicsURL),
-				let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
-				CommunityTopics.shared = communityTopics
+		
+		guard let url = URL(string: QuestionsAppOptions.communityTopicsURL) else { return }
+		
+		DownloadManager.shared.cancelTaskWith(url: url)
+		CommunityTopics.shared.topics.forEach { DownloadManager.shared.cancelTaskWith(url: $0.remoteContentURL) }
+		
+		DownloadManager.shared.manageData(from: url) { data in
+			if let data = data, let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
+				CommunityTopics.shared.topics = communityTopics.topics
 			}
 			completionHandler?(CommunityTopics.shared)
-		}
-	}
-	
-	static func initializeSynchronously() {
-		if let communityTopicsURL = URL(string: QuestionsAppOptions.communityTopicsURL),
-			let data = try? Data(contentsOf: communityTopicsURL),
-			let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
-			CommunityTopics.shared = communityTopics
 		}
 	}
 }

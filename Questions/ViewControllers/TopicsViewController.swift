@@ -11,40 +11,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.navigationItem.title = SetOfTopics.shared.current == .community ? Localized.Topics_Community_Title : Localized.Topics_AllTopics_Title
+		self.loadCommunityTopics()
 		
-		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
-		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
-			self.navigationItem.rightBarButtonItems = [self.editButtonItem] + rightBarButtonItems
-		}
 		self.tableView.allowsMultipleSelectionDuringEditing = true
 		self.clearsSelectionOnViewWillAppear = true
-		
 		self.isEditing = false
-
-		let allowedBarButtonItems: [UIBarButtonItem]?
-		if SetOfTopics.shared.current != .community {
-			allowedBarButtonItems = self.navigationItem.rightBarButtonItems?.filter { $0 != self.refreshBarButtonItem}
-		} else {
-			allowedBarButtonItems = [self.addBarButtonItem, self.refreshBarButtonItem]
-		}
-		self.navigationItem.setRightBarButtonItems(allowedBarButtonItems, animated: false)
 		
-		let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareItems))
-		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
-		self.toolbarItems = [shareItem, flexibleSpaceItem, trashItem]
-		
-		if #available(iOS 11.0, *) {
-			self.navigationItem.searchController = UISearchController(searchResultsController: self.searchController)
-			self.searchController.parentVC = self
-			self.navigationItem.searchController?.searchBar.delegate = self
-			self.navigationItem.searchController?.delegate = self.searchController
-			self.definesPresentationContext = true
-			self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
-			self.navigationItem.hidesSearchBarWhenScrolling = true
-			self.navigationItem.searchController?.searchBar.placeholder = Localized.Topics_AllTopics_SearchBar_PlaceholderText
-		}
+		self.setupNavigationItem()
 	
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			self.loadCurrentTheme()
@@ -54,6 +27,9 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.updateEditButton()
+		if !SetOfTopics.shared.savedTopics.isEmpty {
+			self.tableView.reloadData()
+		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -70,17 +46,16 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			var items: [SetOfTopics.Mode: [TopicEntry]] = [:]
 			
 			if SetOfTopics.shared.current == .community {
-				
 				items[.community] = Array(SetOfTopics.shared.communityTopics.sorted { lhs, rhs in
-						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+					return lhs.displayedName.localized.similarityTo(string: searchText) > rhs.displayedName.localized.similarityTo(string: searchText)
 					}.prefix(10))
 			}
 			else {
 				items[.app] = Array(SetOfTopics.shared.topics.sorted { lhs, rhs in
-						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+						return lhs.displayedName.localized.similarityTo(string: searchText) > rhs.displayedName.localized.similarityTo(string: searchText)
 					}.prefix(10))
 				items[.saved] = Array(SetOfTopics.shared.savedTopics.sorted { lhs, rhs in
-						return lhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText) > rhs.displayedName.localized.levenshteinDistanceScoreTo(string: searchText)
+						return lhs.displayedName.localized.similarityTo(string: searchText) > rhs.displayedName.localized.similarityTo(string: searchText)
 					}.prefix(10))
 			}
 			
@@ -127,54 +102,22 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard editingStyle == .delete else { return }
-		
-		if let cell = tableView.cellForRow(at: indexPath), let labelText = cell.textLabel?.text {
-			SetOfTopics.shared.removeSavedTopics(named: [labelText], reloadAfterDeleting: true)
-			tableView.deleteRows(at: [indexPath], with: .fade)
-		}
+		self.removeSavedTopics(withIndexPaths: [indexPath])
 	}
 	
 	// MARK: UITableViewDataSource
 	
-	@objc private func reloadTopicIfCommunityTopicsLoaded(_ timer: Timer) {
-		if CommunityTopics.shared != nil && CommunityTopics.areLoaded {
-			DispatchQueue.main.async {
-				(self.tableView?.backgroundView as? UIActivityIndicatorView)?.stopAnimating()
-				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = true }
-				self.tableView.reloadData()
-			}
-			timer.invalidate()
-		}
-	}
-	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		
 		if SetOfTopics.shared.current == .community {
 			if self.tableView.backgroundView == nil && SetOfTopics.shared.communityTopics.isEmpty {
 				let activityIndicatorView = UIActivityIndicatorView(style: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 				activityIndicatorView.startAnimating()
 				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = false }
-				
 				self.tableView?.backgroundView = activityIndicatorView
-				
-				if CommunityTopics.shared == nil || !CommunityTopics.areLoaded {
-					
-					if #available(iOS 10.0, *) {
-						Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-							if CommunityTopics.shared != nil && CommunityTopics.areLoaded {
-								DispatchQueue.main.async {
-									activityIndicatorView.stopAnimating()
-									self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = true }
-									self.tableView.reloadData()
-								}
-								timer.invalidate()
-							}
-						}
-					} else {
-						Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.reloadTopicIfCommunityTopicsLoaded), userInfo: nil, repeats: true)
-					}
-				}
+			} else {
+				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = true }
+				self.tableView?.backgroundView = nil
 			}
 			return SetOfTopics.shared.communityTopics.count
 		}
@@ -259,19 +202,16 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			activityIndicator.style = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
 			activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			
-			if SetOfTopics.shared.communityTopics[indexPath.row].topic.sets.flatMap({ $0 }).isEmpty,
-				let communityTopics = CommunityTopics.shared {
+			if !CommunityTopics.shared.topics.isEmpty, SetOfTopics.shared.communityTopics[indexPath.row].topic.sets.flatMap({ $0 }).isEmpty {
 				
 				activityIndicator.startAnimating()
 				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = false }
 				currentCell.accessoryView = activityIndicator
 				
-				let currentTopic = communityTopics.topics[indexPath.row]
-				
-				DispatchQueue.global().async {
-					if let validTextFromURL = try? String(contentsOf: currentTopic.remoteContentURL), let quiz = SetOfTopics.shared.quizFrom(content: validTextFromURL) {
-						SetOfTopics.shared.communityTopics[indexPath.row].topic = quiz
-					}
+				let currentTopic = CommunityTopics.shared.topics[indexPath.row]
+				DownloadManager.shared.manageData(from: currentTopic.remoteContentURL) { data in
+					guard let data = data, let topic = SetOfTopics.shared.quizFrom(content: data) else { return }
+					SetOfTopics.shared.communityTopics[indexPath.row].topic = topic
 					DispatchQueue.main.async {
 						activityIndicator.stopAnimating()
 						self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = true }
@@ -373,7 +313,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
 		
 		deleteItemsAlert.addAction(title: Localized.Topics_Saved_Delete, style: .destructive) { _ in
-			SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
+			/*SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
 			let section = selectedItemsIndexPaths[0].section
 			if self.tableView.numberOfRows(inSection: section) == selectedItemsIndexPaths.count {
 				self.tableView.deleteSections([section], with: .fade)
@@ -381,11 +321,25 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			} else {
 				self.tableView.deleteRows(at: selectedItemsIndexPaths, with: .fade)
 			}
-			self.setEditing(false, animated: true)
+			self.setEditing(false, animated: true)*/
+			self.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths)
 		}
 		deleteItemsAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
 		
 		self.present(deleteItemsAlert, animated: true)
+	}
+	
+	// Assuming all indexPaths are fromthe same section
+	private func removeSavedTopics(withIndexPaths indexPaths: [IndexPath]) {
+		SetOfTopics.shared.removeSavedTopics(withIndexPaths: indexPaths, reloadAfterDeleting: true)
+		let section = indexPaths[0].section
+		if self.tableView.numberOfRows(inSection: section) == indexPaths.count {
+			self.tableView.deleteSections([section], with: .fade)
+			self.updateEditButton()
+		} else {
+			self.tableView.deleteRows(at: indexPaths, with: .fade)
+		}
+		self.setEditing(false, animated: true)
 	}
 	
 	@objc
@@ -414,13 +368,10 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	@IBAction func refreshTopics(_ sender: UIBarButtonItem) {
 		
 		SetOfTopics.shared.communityTopics.removeAll(keepingCapacity: true)
-		CommunityTopics.shared = nil
-		CommunityTopics.areLoaded = false
 		self.tableView.backgroundView = nil
 		self.tableView.reloadData()
 		
-		DispatchQueue.global().async {
-			SetOfTopics.shared.loadCommunityTopics()
+		SetOfTopics.shared.loadCommunityTopics {
 			DispatchQueue.main.async {
 				self.tableView.reloadData()
 			}
@@ -455,6 +406,15 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	
 	// MARK: - Convenience
 	
+	private func loadCommunityTopics() {
+		guard SetOfTopics.shared.communityTopics.isEmpty else { return }
+		SetOfTopics.shared.loadCommunityTopics {
+			DispatchQueue.main.async {
+				self.tableView.reloadData()
+			}
+		}
+	}
+	
 	private func updateEditButton() {
 		self.editButtonItem.isEnabled = !SetOfTopics.shared.savedTopics.isEmpty
 	}
@@ -462,5 +422,43 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	private func loadCurrentTheme() {
 		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
 		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+	}
+	
+	private func setupNavigationItem() {
+		
+		self.navigationItem.title = SetOfTopics.shared.current == .community
+			? Localized.Topics_Community_Title
+			: Localized.Topics_AllTopics_Title
+		
+		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
+		
+		if let rightBarButtonItems = self.navigationItem.rightBarButtonItems {
+			self.navigationItem.rightBarButtonItems = [self.editButtonItem] + rightBarButtonItems
+		}
+		
+		let allowedBarButtonItems: [UIBarButtonItem]? =
+			SetOfTopics.shared.current == .community
+				? [self.addBarButtonItem, self.refreshBarButtonItem]
+				: self.navigationItem.rightBarButtonItems?.filter { $0 != self.refreshBarButtonItem}
+		self.navigationItem.setRightBarButtonItems(allowedBarButtonItems, animated: false)
+		
+		let shareItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareItems))
+		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+		let trashItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteItems))
+		self.toolbarItems = [shareItem, flexibleSpaceItem, trashItem]
+		
+		self.setupSearchController()
+	}
+	
+	private func setupSearchController() {
+		guard #available(iOS 11.0, *) else { return }
+		self.navigationItem.searchController = UISearchController(searchResultsController: self.searchController)
+		self.searchController.parentVC = self
+		self.navigationItem.searchController?.searchBar.delegate = self
+		self.navigationItem.searchController?.delegate = self.searchController
+		self.definesPresentationContext = true
+		self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+		self.navigationItem.hidesSearchBarWhenScrolling = true
+		self.navigationItem.searchController?.searchBar.placeholder = Localized.Topics_AllTopics_SearchBar_PlaceholderText
 	}
 }
