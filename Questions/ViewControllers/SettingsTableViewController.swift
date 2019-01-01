@@ -34,9 +34,8 @@ class SettingsTableViewController: UITableViewController {
 	private class cellLabelsForSection1 {
 		
 		static let resetProgress = Localized.Settings_Options_ResetProgress
-		static let resetCachedImages = Localized.Settings_Options_ClearCachedImages
 		
-		static let labels: [String] = [cellLabelsForSection1.resetProgress, cellLabelsForSection1.resetCachedImages]
+		static let labels: [String] = [cellLabelsForSection1.resetProgress]
 		static let count = labels.count
 	}
 
@@ -83,12 +82,6 @@ class SettingsTableViewController: UITableViewController {
 					FeedbackGenerator.notificationOcurredOf(type: .warning)
 				}
 				self.viewWillAppear(false) // called so it clears the selection properly
-			case 1:
-				self.resetCachedImages(cellIndexpath: indexPath)
-				if #available(iOS 10.0, *) {
-					FeedbackGenerator.notificationOcurredOf(type: .warning)
-				}
-				self.viewWillAppear(false)
 			default: break
 			}
 		default: break
@@ -134,7 +127,6 @@ class SettingsTableViewController: UITableViewController {
 		case 1:
 			switch indexPath.row {
 			case 0: cell.textLabel?.text = cellLabelsForSection1.resetProgress
-			case 1: cell.textLabel?.text = cellLabelsForSection1.resetCachedImages
 			default: break
 			}
 		default: break
@@ -258,7 +250,6 @@ class SettingsTableViewController: UITableViewController {
 	private func resetProgressStatistics() {
 		
 		DataStoreArchiver.shared.completedSets.removeAll()
-		CachedImages.shared.clear()
 		SetOfTopics.shared.loadAllTopicsStates()
 		guard DataStoreArchiver.shared.save() else { print("Error saving settings"); return }
 		
@@ -334,20 +325,6 @@ class SettingsTableViewController: UITableViewController {
 		}
 		alertViewController.addAction(title: Localized.Settings_Alerts_ResetProgress_OnlyStatistics, style: .default) { action in
 			self.resetProgressStatistics()
-		}
-		
-		alertViewController.popoverPresentationController?.sourceView = self.tableView
-		alertViewController.popoverPresentationController?.sourceRect = self.tableView.rectForRow(at: cellIndexpath)
-		
-		self.present(alertViewController, animated: true)
-	}
-	
-	private func resetCachedImages(cellIndexpath: IndexPath) {
-		
-		let alertViewController = UIAlertController(title: Localized.Settings_Options_ClearCachedImages, message: nil, preferredStyle: .actionSheet)
-		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
-		alertViewController.addAction(title: Localized.Settings_Options_ClearCachedImages_Action, style: .destructive) { action in
-			CachedImages.shared.clear()
 		}
 		
 		alertViewController.popoverPresentationController?.sourceView = self.tableView

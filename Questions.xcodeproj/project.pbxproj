@@ -71,7 +71,7 @@
 		65E12DB621C27C540067B4D0 /* index-demo-idea.html in Resources */ = {isa = PBXBuildFile; fileRef = 65E12DAE21C27C530067B4D0 /* index-demo-idea.html */; };
 		65E12DB721C27C540067B4D0 /* DataStoreArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E12DB021C27C540067B4D0 /* DataStoreArchiver.swift */; };
 		65E12DB821C27C540067B4D0 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E12DB121C27C540067B4D0 /* UserDefaultsManager.swift */; };
-		65E12DB921C27C540067B4D0 /* CachedImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E12DB221C27C540067B4D0 /* CachedImages.swift */; };
+		65E12DB921C27C540067B4D0 /* OnlineImagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E12DB221C27C540067B4D0 /* OnlineImagesManager.swift */; };
 		65E12DBB21C27C540067B4D0 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E12DB421C27C540067B4D0 /* PreferencesManager.swift */; };
 		65E12DC021C27D9A0067B4D0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65E12DBF21C27D9A0067B4D0 /* Default-568h@2x.png */; };
 		65F3C76C2057321E009F310E /* QuestionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3C76B2057321E009F310E /* QuestionsTests.swift */; };
@@ -155,7 +155,7 @@
 		65E12DAE21C27C530067B4D0 /* index-demo-idea.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "index-demo-idea.html"; sourceTree = "<group>"; };
 		65E12DB021C27C540067B4D0 /* DataStoreArchiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStoreArchiver.swift; sourceTree = "<group>"; };
 		65E12DB121C27C540067B4D0 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		65E12DB221C27C540067B4D0 /* CachedImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedImages.swift; sourceTree = "<group>"; };
+		65E12DB221C27C540067B4D0 /* OnlineImagesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineImagesManager.swift; sourceTree = "<group>"; };
 		65E12DB421C27C540067B4D0 /* PreferencesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		65E12DBF21C27D9A0067B4D0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		65F3C7692057321E009F310E /* QuestionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +279,15 @@
 			path = sounds;
 			sourceTree = "<group>";
 		};
+		65646CDA21DB9037009C2695 /* downloads */ = {
+			isa = PBXGroup;
+			children = (
+				65E12DB221C27C540067B4D0 /* OnlineImagesManager.swift */,
+				65646CD621DA0669009C2695 /* DownloadManager.swift */,
+			);
+			path = downloads;
+			sourceTree = "<group>";
+		};
 		65AF1CF821C8E645001C68E7 /* static */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,9 +382,9 @@
 		65E12DA121C278910067B4D0 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				65646CDA21DB9037009C2695 /* downloads */,
 				65E12DBC21C27CDE0067B4D0 /* io */,
 				65E12DAC21C27C530067B4D0 /* webTopicCreator */,
-				65646CD621DA0669009C2695 /* DownloadManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -461,7 +470,6 @@
 			children = (
 				65E12DB021C27C540067B4D0 /* DataStoreArchiver.swift */,
 				65E12DB121C27C540067B4D0 /* UserDefaultsManager.swift */,
-				65E12DB221C27C540067B4D0 /* CachedImages.swift */,
 				65E12DB421C27C540067B4D0 /* PreferencesManager.swift */,
 			);
 			path = dataOnDisk;
@@ -720,7 +728,7 @@
 				65E12DB721C27C540067B4D0 /* DataStoreArchiver.swift in Sources */,
 				654F9A3A1E775001002B6A82 /* QuizzesViewController.swift in Sources */,
 				65646CD721DA0669009C2695 /* DownloadManager.swift in Sources */,
-				65E12DB921C27C540067B4D0 /* CachedImages.swift in Sources */,
+				65E12DB921C27C540067B4D0 /* OnlineImagesManager.swift in Sources */,
 				65E12DB821C27C540067B4D0 /* UserDefaultsManager.swift in Sources */,
 				6574416B206B116400133DDA /* QuestionsAppOptions.swift in Sources */,
 				657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */,

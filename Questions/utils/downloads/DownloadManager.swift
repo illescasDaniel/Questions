@@ -12,16 +12,18 @@ class DownloadManager {
 	static let shared = DownloadManager()
 	
 	private var tasks: [URLSessionTask] = []
-	
+
 	func manageData(from url: URL?, _ handleData: @escaping ((Data?) -> Void)) {
 		
-		guard let url = url, !self.tasks.contains(where: { $0.originalRequest?.url == url }) else {
+		guard let url = url, !self.tasks.contains(where: { $0.originalRequest?.url == url && $0.state == .running }) else {
 			return
 		}
-		
-		let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+
+		let task = URLSession.shared.downloadTask(with: url) { (url, response, error) in
 			DispatchQueue.main.async {
-				handleData(data)
+				if let url = url, let data = try? Data(contentsOf: url) {
+					handleData(data)
+				}
 			}
 		}
 		

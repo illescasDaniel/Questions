@@ -25,9 +25,6 @@ struct CommunityTopics: Codable {
 		
 		guard let url = URL(string: QuestionsAppOptions.communityTopicsURL) else { return }
 		
-		DownloadManager.shared.cancelTaskWith(url: url)
-		CommunityTopics.shared.topics.forEach { DownloadManager.shared.cancelTaskWith(url: $0.remoteContentURL) }
-		
 		DownloadManager.shared.manageData(from: url) { data in
 			if let data = data, let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
 				CommunityTopics.shared.topics = communityTopics.topics

@@ -362,7 +362,7 @@ class QuestionsViewController: UIViewController {
 			
 			guard let validImageURL = fullQuestion.imageURL else { continue }
 			
-			CachedImages.shared.saveImage(withURL: validImageURL, onError: { cachedImagesError in
+			OnlineImagesManager.shared.preloadImage(withURL: validImageURL, onError: { cachedImagesError in
 				switch cachedImagesError {
 				case .emptyURL:
 					print("URL was empty")
@@ -481,7 +481,7 @@ class QuestionsViewController: UIViewController {
 			
 			self.remainingQuestionsLabel.text = "\(quiz0.offset + 1)/\(self.set.count)"
 			
-			CachedImages.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
+			OnlineImagesManager.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
 				self.activityIndicatorView.stopAnimating()
 				self.questionImageButton.isHidden = false
 				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
