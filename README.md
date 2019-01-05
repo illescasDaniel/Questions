@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-4-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-3.22--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-3.22.1--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 [![Trello](https://img.shields.io/badge/community-Trello-blue.svg)](https://trello.com/b/9YLvTM6S)
@@ -20,11 +20,10 @@ Features
 -------------
 - Questions statistics
 - Reset statistics and/or settings
-- Parallax effect on main menu
-- Haptic feedback
+- Haptic Feedback
 - Multilanguage support
 - Repeat quizzes by shaking the device
-- Read Questions from a QR Code saving them for later use
+- Read Questions from a QR Code and saving them for later use
 - Read Questions form a URL
 - Questions can have multiple correct anwers
 - Each set of questions can have different number of answers
@@ -32,7 +31,7 @@ Features
 - Add sets of questions / new topics just by dragging a formatted json file to Xcode
 - You can specify some options for the questions sets, like specify a timer, show the questions in random order or not, enable the help button, etc.
 - The app offers OPTIONAL privacy features such as blurring the multitask screenshot, detecting if the user is capturing the screen or if it took a screenshot
-- Community topics! A section where submited topics are available for all the users.
+- Community topics! A section where submitted topics are available for all the users.
 - Creators section! You can create your own questions, save it, send it to friends, etc.
 - Dark theme
 - Switch between themes by:

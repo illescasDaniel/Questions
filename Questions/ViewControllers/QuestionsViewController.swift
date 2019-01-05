@@ -190,7 +190,7 @@ class QuestionsViewController: UIViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 	
 		if segue.identifier == "unwindToQRScanner" {
-			AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
+			AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.defaultBGMusicLevel)
 		}
 		else if segue.identifier == "imageDetailsSegue", let imageDetailsVC = segue.destination as? ImageDetailsViewController {
 			imageDetailsVC.modalPresentationStyle = .overCurrentContext
@@ -394,7 +394,7 @@ class QuestionsViewController: UIViewController {
 			self.blurView.isHidden = !self.blurView.isHidden
 		})
 		
-		let newVolume = (pauseView.isHidden) ? AudioSounds.bgMusicVolume : (AudioSounds.bgMusicVolume / 5.0)
+		let newVolume = (pauseView.isHidden) ? AudioSounds.defaultBGMusicLevel : (AudioSounds.defaultBGMusicLevel / 5.0)
 		AudioSounds.bgMusic?.setVolumeLevel(to: newVolume)
 	}
 	
@@ -464,7 +464,7 @@ class QuestionsViewController: UIViewController {
 			}
 		}
 		
-		if let quiz0 = quiz.next() {
+		if let quiz0 = self.quiz.next() {
 			
 			let fullQuestion = quiz0.element
 			

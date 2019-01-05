@@ -82,7 +82,7 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 		var outputIndexPath = indexPath
 		
 		switch indexPath.section {
-		case SetOfTopics.Mode.app.rawValue: outputIndexPath.row = SetOfTopics.shared.topics.index(of: self.items[.app]![indexPath.row])!
+		case SetOfTopics.Mode.app.rawValue: outputIndexPath.row = SetOfTopics.shared.topicsEntry.index(of: self.items[.app]![indexPath.row])!
 		case SetOfTopics.Mode.saved.rawValue: outputIndexPath.row = SetOfTopics.shared.savedTopics.index(of: self.items[.saved]![indexPath.row])!
 		case SetOfTopics.Mode.community.rawValue: outputIndexPath.row = SetOfTopics.shared.communityTopics.index(of: self.items[.community]![indexPath.row])!
 		default: break

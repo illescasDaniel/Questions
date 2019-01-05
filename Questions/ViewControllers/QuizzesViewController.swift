@@ -84,7 +84,7 @@ class QuizzesViewController: UITableViewController {
 	
 	@IBAction func unwindToQuizSelector(_ segue: UIStoryboardSegue) {
 		
-		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
+		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.defaultBGMusicLevel)
 		
 		let topicName = SetOfTopics.shared.currentTopics[currentTopicIndex].displayedName
 		for i in 0..<setCount where ( DataStoreArchiver.shared.completedSets[topicName]?[i]) ?? false {

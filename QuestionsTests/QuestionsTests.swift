@@ -32,9 +32,43 @@ class QuestionsTests: XCTestCase {
 		
 		vc.view.reloadInputViews()
 		
-		for k in 0..<SetOfTopics.shared.topics.count {
+		for (topicEntryIndex, topicEntry) in SetOfTopics.shared.topicsEntry.enumerated() {
+			for (topicSetIndex, _) in topicEntry.topic.sets.enumerated() {
+				vc.answerButtons = []
+				vc.currentTopicIndex = topicEntryIndex
+				vc.currentSetIndex = topicSetIndex
+				vc.viewDidLoad()
+				
+				for (vcFullQuestionIndex, vcFullQuestion) in vc.set.enumerated() {
+					answersFromJson = vcFullQuestion.answers
+					question = vcFullQuestion.question.localized
+					
+					// TEST QUESTION
+					
+					if let text = vc.questionLabel.text?.localized {
+						print("· Question \(vcFullQuestionIndex):\nQuestionLabel: \(text)\nJsonQuestion: \(question)\n")
+						XCTAssert(text == question, "Question \(vcFullQuestionIndex) string didn't load correctly")
+					}
+					else { XCTAssert(true, "Question \(vcFullQuestionIndex) string didn't load correctly (nil)") }
+					
+					// TEST ANSWERS
+					for (answerButtonIndex, answerButton) in vc.answerButtons.enumerated() {
+						print("·· Answer \(answerButtonIndex):\nLabel: \(answerButton.currentTitle!)\nJson: \(answersFromJson[answerButtonIndex])\n")
+						
+						if let title = answerButton.currentTitle?.localized {
+							XCTAssert(title == answersFromJson[answerButtonIndex].localized, "Error loading answer string \(answerButtonIndex) from set \(vc.currentSetIndex)")
+						}
+						else { XCTAssert(true, "Error loading answer string \(answerButtonIndex) from set \(vc.currentSetIndex) (nil)") }
+					}
+					
+					vc.pickQuestion()
+				}
+			}
+		}
+		
+		/*for k in 0..<SetOfTopics.shared.topicsEntry.count {
 			
-			for i in 0..<SetOfTopics.shared.topics[k].content.topic.count {
+			for i in 0..<SetOfTopics.shared.topicsEntry[k].topic.sets.count {
 				
 				vc.currentTopicIndex = k
 				vc.currentSetIndex = i
@@ -66,7 +100,7 @@ class QuestionsTests: XCTestCase {
 					vc.pickQuestion()
 				}
 			}
-		}
+		}*/
 	}
 
 	func testSettingsEnabled() {
@@ -74,7 +108,7 @@ class QuestionsTests: XCTestCase {
 		guard let settingsVC = storyboard.instantiateViewController(withIdentifier: "settingsViewController") as? SettingsTableViewController else { return }
 		settingsVC.view.reloadInputViews()
 		
-		UserDefaultsManager.loadDefaultValues()
+		//UserDefaultsManager.loadDefaultValues()
 		
 		XCTAssert(UserDefaultsManager.backgroundMusicSwitchIsOn == settingsVC.backgroundMusicSwitch.isOn, "Background music switch not working")
 		XCTAssert(UserDefaultsManager.parallaxEffectSwitchIsOn == settingsVC.parallaxEffectSwitch.isOn, "Parallax effect switch not working")

@@ -39,6 +39,8 @@
 		656043531E787FEE00A96192 /* bensound-thelounge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043501E787FEE00A96192 /* bensound-thelounge.mp3 */; };
 		656043541E787FEE00A96192 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 656043511E787FEE00A96192 /* correct.mp3 */; };
 		65646CD721DA0669009C2695 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65646CD621DA0669009C2695 /* DownloadManager.swift */; };
+		65646CDD21DF967F009C2695 /* ApplyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65646CDC21DF967F009C2695 /* ApplyProtocol.swift */; };
+		65646CDF21DF96A7009C2695 /* Apply+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65646CDE21DF96A7009C2695 /* Apply+Extension.swift */; };
 		6574416B206B116400133DDA /* QuestionsAppOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6574416A206B116400133DDA /* QuestionsAppOptions.swift */; };
 		65746A5720B62A2400F28769 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5620B62A2400F28769 /* Topic.swift */; };
 		65746A5920B62B3000F28769 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5820B62B3000F28769 /* Question.swift */; };
@@ -120,6 +122,8 @@
 		656043501E787FEE00A96192 /* bensound-thelounge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bensound-thelounge.mp3"; sourceTree = "<group>"; };
 		656043511E787FEE00A96192 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
 		65646CD621DA0669009C2695 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		65646CDC21DF967F009C2695 /* ApplyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyProtocol.swift; sourceTree = "<group>"; };
+		65646CDE21DF96A7009C2695 /* Apply+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apply+Extension.swift"; sourceTree = "<group>"; };
 		6574416A206B116400133DDA /* QuestionsAppOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsAppOptions.swift; sourceTree = "<group>"; };
 		65746A5620B62A2400F28769 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		65746A5820B62B3000F28769 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 			children = (
 				65AF1D0321C8E94E001C68E7 /* Bundle+Extension.swift */,
 				65456AF11D2BC01C0048965E /* String+Extension.swift */,
+				65646CDE21DF96A7009C2695 /* Apply+Extension.swift */,
 			);
 			name = Foundation;
 			sourceTree = "<group>";
@@ -286,6 +291,14 @@
 				65646CD621DA0669009C2695 /* DownloadManager.swift */,
 			);
 			path = downloads;
+			sourceTree = "<group>";
+		};
+		65646CDB21DF9667009C2695 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				65646CDC21DF967F009C2695 /* ApplyProtocol.swift */,
+			);
+			path = protocols;
 			sourceTree = "<group>";
 		};
 		65AF1CF821C8E645001C68E7 /* static */ = {
@@ -382,6 +395,7 @@
 		65E12DA121C278910067B4D0 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				65646CDB21DF9667009C2695 /* protocols */,
 				65646CDA21DB9037009C2695 /* downloads */,
 				65E12DBC21C27CDE0067B4D0 /* io */,
 				65E12DAC21C27C530067B4D0 /* webTopicCreator */,
@@ -700,9 +714,11 @@
 				6548F086208896FA005A87D9 /* CommunityTopics.swift in Sources */,
 				650DE5F82128A62000FF6A0F /* SearchTableViewController.swift in Sources */,
 				65AD8ADF2013FEBD008AD6EE /* RoundedView.swift in Sources */,
+				65646CDF21DF96A7009C2695 /* Apply+Extension.swift in Sources */,
 				659212B420B305C600EC7179 /* QR+Extensions.swift in Sources */,
 				657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */,
 				65DF00B620F2095700B04860 /* ToastAlert.swift in Sources */,
+				65646CDD21DF967F009C2695 /* ApplyProtocol.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* SetOfTopics.swift in Sources */,
 				65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */,
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,

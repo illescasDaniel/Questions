@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
 	// MARK: UnwindSegue
 
 	@IBAction func unwindToMainMenu(_ unwindSegue: UIStoryboardSegue) {
-		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.bgMusicVolume)
+		AudioSounds.bgMusic?.setVolumeLevel(to: AudioSounds.defaultBGMusicLevel)
 	}
 	
 	// MARK: Actions
@@ -71,29 +71,15 @@ class MainViewController: UIViewController {
 	}
 
 	@IBAction func loadCommunityTopics(_ sender: UIButton) {
-		
 		SetOfTopics.shared.current = .community
-		
-		/*if CommunityTopics.shared == nil {
-			DispatchQueue.global().async {
-				SetOfTopics.shared.loadCommunityTopics()
-			}
-		}*/
 	}
 	
 	// MARK: Convenience
 	
 	private func initializeSounds() {
-		
-		AudioSounds.bgMusic = AVAudioPlayer(file: "bensound-thelounge", type: .mp3, volume: AudioSounds.bgMusicVolume)
-		AudioSounds.correct = AVAudioPlayer(file: "correct", type: .mp3, volume: 0.10)
-		AudioSounds.incorrect = AVAudioPlayer(file: "incorrect", type: .wav, volume: 0.25)
-		
 		if UserDefaultsManager.backgroundMusicSwitchIsOn {
 			AudioSounds.bgMusic?.play()
 		}
-		
-		AudioSounds.bgMusic?.numberOfLoops = -1
 	}
 	
 	private func initializeLables() {

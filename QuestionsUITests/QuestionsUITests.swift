@@ -5,7 +5,6 @@ class QuestionsUITests: XCTestCase {
 	
     override func setUp() {
         super.setUp()
-		
 		XCUIApplication().launch()
     }
     
@@ -14,16 +13,16 @@ class QuestionsUITests: XCTestCase {
 		XCUIDevice.shared.orientation = .portrait
 		
 		let app = XCUIApplication()
-		app.buttons["SETTINGS"].tap()
+		app.buttons["Settings"].tap()
 		app.navigationBars["Settings"].buttons["Questions"].tap()
-		app.buttons["READ QR CODE"].tap()
-		app.navigationBars["Questions.QRScannerView"].buttons["Questions"].tap()
-		app.buttons["START GAME"].tap()
+		app.buttons["Topics"].tap()
 		
 		let tablesQuery = app.tables
-		tablesQuery.staticTexts["Technology"].tap()
-		tablesQuery.staticTexts["Set 0"].tap()
+		tablesQuery.cells.firstMatch.tap()
+		tablesQuery.cells.firstMatch.tap()
 		app.buttons["Pause"].tap()
 		app.buttons["Main menu"].tap()
+		app.buttons["Community"].tap()
+		app.navigationBars["Community"].buttons["Questions"].tap()
 	}
 }

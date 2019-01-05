@@ -51,7 +51,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 					}.prefix(10))
 			}
 			else {
-				items[.app] = Array(SetOfTopics.shared.topics.sorted { lhs, rhs in
+				items[.app] = Array(SetOfTopics.shared.topicsEntry.sorted { lhs, rhs in
 						return lhs.displayedName.localized.similarityTo(string: searchText) > rhs.displayedName.localized.similarityTo(string: searchText)
 					}.prefix(10))
 				items[.saved] = Array(SetOfTopics.shared.savedTopics.sorted { lhs, rhs in
@@ -123,7 +123,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		else {
 			switch section {
-			case SetOfTopics.Mode.app.rawValue: return SetOfTopics.shared.topics.count
+			case SetOfTopics.Mode.app.rawValue: return SetOfTopics.shared.topicsEntry.count
 			case SetOfTopics.Mode.saved.rawValue: return SetOfTopics.shared.savedTopics.count
 			default: return 0
 			}
@@ -157,7 +157,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		else {
 			switch indexPath.section {
 			case SetOfTopics.Mode.app.rawValue:
-				cell.textLabel?.text = SetOfTopics.shared.topics[indexPath.row].displayedName.localized
+				cell.textLabel?.text = SetOfTopics.shared.topicsEntry[indexPath.row].displayedName.localized
 			case SetOfTopics.Mode.saved.rawValue:
 				cell.textLabel?.text = SetOfTopics.shared.savedTopics[indexPath.row].displayedName.localized
 			default: break
@@ -313,15 +313,6 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
 		
 		deleteItemsAlert.addAction(title: Localized.Topics_Saved_Delete, style: .destructive) { _ in
-			/*SetOfTopics.shared.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths, reloadAfterDeleting: true)
-			let section = selectedItemsIndexPaths[0].section
-			if self.tableView.numberOfRows(inSection: section) == selectedItemsIndexPaths.count {
-				self.tableView.deleteSections([section], with: .fade)
-				self.updateEditButton()
-			} else {
-				self.tableView.deleteRows(at: selectedItemsIndexPaths, with: .fade)
-			}
-			self.setEditing(false, animated: true)*/
 			self.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths)
 		}
 		deleteItemsAlert.addAction(title: Localized.Common_Cancel, style: .cancel)

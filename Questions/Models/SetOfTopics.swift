@@ -11,14 +11,14 @@ class SetOfTopics {
 	static let shared = SetOfTopics()
 	static let fileManager = FileManager.default
 	
-	var topics: [TopicEntry] = [] // Manually: [TopicEntry(name: "Technology"), TopicEntry(name: "Social"), TopicEntry(name: "People")]
+	var topicsEntry: [TopicEntry] = [] // Manually: [TopicEntry(name: "Technology"), TopicEntry(name: "Social"), TopicEntry(name: "People")]
 	var savedTopics: [TopicEntry] = []
 	var communityTopics: [TopicEntry] = []
 	var current: Mode = .app
 	
 	var currentTopics: [TopicEntry] {
 		switch current {
-		case .app: return self.topics
+		case .app: return self.topicsEntry
 		case .saved: return self.savedTopics
 		case .community: return self.communityTopics
 		}
@@ -26,13 +26,13 @@ class SetOfTopics {
 
 	// Automatically loads all .json files :)
 	fileprivate init() {
-		self.topics = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: Bundle.main.bundleURL))
+		self.topicsEntry = Array(self.setOfTopicsFromJSONFilesOfDirectory(url: Bundle.main.bundleURL))
 		self.loadSavedTopics()
 		self.loadAllTopicsStates()
 	}
 	
 	func loadAllTopicsStates() {
-		self.loadSetState(for: self.topics)
+		self.loadSetState(for: self.topicsEntry)
 		self.loadSetState(for: self.savedTopics)
 	}
 	
