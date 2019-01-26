@@ -40,7 +40,6 @@ public final class OnlineImagesManager {
 	
 	public enum Errors: Error {
 		case emptyURL
-		case couldNotSaveImage
 		case couldNotDownloadImage
 	}
 
@@ -60,50 +59,27 @@ public final class OnlineImagesManager {
 	}
 
 	// TODO: might need some testing to check if is worth it, but it should since it downloads the image and stores it in a file that will later be used
-	public func preloadImage(withURL url: String, onError: @escaping (OnlineImagesManager.Errors) -> () = {_ in }) {
-			
-		let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
-		guard !trimmedURL.isEmpty else {
-			DispatchQueue.main.async {
-				onError(.emptyURL)
-			}
-			return
-		}
-	
-		UIImage.manageContentsOf(URL(string: trimmedURL), completionHandler: { (downloadedImage, url) in
+	public func preloadImage(withURL url: String?, onError: @escaping (DownloadManager.Errors) -> () = {_ in }) {
+		DownloadManager.shared.manageData(from: url, onSuccess: { _ in
 			// empty on purpose
-		}, errorHandler: {
-			onError(.couldNotDownloadImage)
-		})
+		}, onError: onError)
 	}
 	
 	public func load(url: String,
-					 onSuccess: @escaping (UIImage) -> (),
 					 prepareForDownload: @escaping () -> () = {},
-					 onError: @escaping (OnlineImagesManager.Errors) -> () = {_ in }) {
-			
-		let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
-		guard !trimmedURL.isEmpty else {
-			DispatchQueue.main.async {
-				onError(.emptyURL)
-			}
-			return
-		}
+					 onSuccess: @escaping (UIImage) -> (),
+					 onError: @escaping (DownloadManager.Errors) -> () = {_ in }) {
 
 		DispatchQueue.main.async {
 			prepareForDownload()
 		}
-
-		DownloadManager.shared.manageData(from: URL(string: trimmedURL)) { data in
-			if let data = data, let validImage = UIImage(data: data) {
+		
+		DownloadManager.shared.manageData(from: url, onSuccess:  { data in
+			if let validImage = UIImage(data: data) { // TODO: use global async here
 				DispatchQueue.main.async {
 					onSuccess(validImage)
 				}
-			} else {
-				DispatchQueue.main.async {
-					onError(.couldNotDownloadImage)
-				}
 			}
-		}
+		}, onError: onError)
 	}
 }

@@ -357,21 +357,8 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	private func preloadImages() {
-		
 		for fullQuestion in self.set.dropFirst() { // Drops the first because it will be cached by the 'pickQuestion()' function
-			
-			guard let validImageURL = fullQuestion.imageURL else { continue }
-			
-			OnlineImagesManager.shared.preloadImage(withURL: validImageURL, onError: { cachedImagesError in
-				switch cachedImagesError {
-				case .emptyURL:
-					print("URL was empty")
-				case .couldNotSaveImage:
-					print("Could not save the image")
-				case .couldNotDownloadImage:
-					print("Could not download the image")
-				}
-			})
+			OnlineImagesManager.shared.preloadImage(withURL: fullQuestion.imageURL)
 		}
 	}
 	
@@ -481,22 +468,21 @@ class QuestionsViewController: UIViewController {
 			
 			self.remainingQuestionsLabel.text = "\(quiz0.offset + 1)/\(self.set.count)"
 			
-			OnlineImagesManager.shared.load(url: fullQuestion.imageURL ?? "", onSuccess: { cachedImage in
+			OnlineImagesManager.shared.load(url: fullQuestion.imageURL ?? "", prepareForDownload: {
+				self.questionImageButton.alpha = 0.0
+				self.questionImageButton.isHidden = true
+				self.activityIndicatorView.startAnimating()
+			},
+			onSuccess: { cachedImage in
 				self.activityIndicatorView.stopAnimating()
 				self.questionImageButton.isHidden = false
-				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
+				UIView.transition(with: self.questionImageButton, duration: 0.2, options: [.curveEaseInOut], animations: {
 					self.questionImageButton.alpha = 1.0
 					self.questionImageButton.setImage(cachedImage, for: .normal)
 				})
-			}, prepareForDownload: {
-				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
-					self.questionImageButton.alpha = 0.0
-				}, completion: { completed in
-					self.questionImageButton.isHidden = false
-				})
-				self.activityIndicatorView.startAnimating()
-			}, onError: { _ in
-				UIView.transition(with: self.questionImageButton, duration: 0.15, options: [.curveEaseInOut], animations: {
+			},
+			onError: { _ in
+				UIView.transition(with: self.questionImageButton, duration: 0.2, options: [.curveEaseInOut], animations: {
 					self.questionImageButton.alpha = 0.0
 				}, completion: { completed in
 					self.questionImageButton.isHidden = true

@@ -190,6 +190,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
 	}
 
+	// TODO: refactor
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
 		if self.isEditing { self.toolbarItems?.forEach { $0.isEnabled = true } }
@@ -209,8 +210,8 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 				currentCell.accessoryView = activityIndicator
 				
 				let currentTopic = CommunityTopics.shared.topics[indexPath.row]
-				DownloadManager.shared.manageData(from: currentTopic.remoteContentURL) { data in
-					guard let data = data, let topic = SetOfTopics.shared.quizFrom(content: data) else { return }
+				DownloadManager.shared.manageData(from: currentTopic.remoteContentURL, onSuccess: { data in
+					guard let topic = SetOfTopics.shared.quizFrom(content: data) else { return }
 					SetOfTopics.shared.communityTopics[indexPath.row].topic = topic
 					DispatchQueue.main.async {
 						activityIndicator.stopAnimating()
@@ -218,7 +219,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 						currentCell.accessoryView = nil
 						self.performSegue(withIdentifier: "selectTopic", sender: indexPath)
 					}
-				}
+				})
 				return
 			}
 		}

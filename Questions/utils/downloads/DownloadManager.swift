@@ -7,26 +7,61 @@
 
 import Foundation
 
-class DownloadManager {
+public class DownloadManager {
+	
+	typealias URLHash = Int
+	typealias URLPath = URL
 	
 	static let shared = DownloadManager()
 	
 	private var tasks: [URLSessionTask] = []
-
-	func manageData(from url: URL?, _ handleData: @escaping ((Data?) -> Void)) {
-		
-		guard let url = url, !self.tasks.contains(where: { $0.originalRequest?.url == url && $0.state == .running }) else {
+	private var cachedData: [URLHash: URLPath] = [:]
+	
+	public enum Errors {
+		// case task already in tasks ??
+		case invalidInputURL
+		case invalidFileURL
+		case invalidData
+	}
+	
+	func manageData(from url: String?, savingOnDisk: Bool = true,
+					onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
+		guard let url = url else {
+			DispatchQueue.main.async {
+				onError(.invalidInputURL)
+			}
 			return
 		}
-
-		let task = URLSession.shared.downloadTask(with: url) { (url, response, error) in
+		let trimmedURL = url.trimmingCharacters(in: .whitespacesAndNewlines)
+		guard !trimmedURL.isEmpty else {
 			DispatchQueue.main.async {
-				if let url = url, let data = try? Data(contentsOf: url) {
-					handleData(data)
-				}
+				onError(.invalidInputURL)
 			}
+			return
+		}
+		self.manageData(from: URL(string: trimmedURL), savingOnDisk: savingOnDisk, onSuccess: onSuccess, onError: onError)
+	}
+	
+	func manageData(from url: URL?, savingOnDisk: Bool = true,
+					onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
+		guard let url = url else {
+			onError(.invalidInputURL)
+			return
 		}
 		
+		if let cachedDataURL = self.cachedData[url.hashValue], FileManager.default.fileExists(atPath: cachedDataURL.path) {
+			self.manageDataTask(dataURL: cachedDataURL, urlResponse: nil, error: nil, onSuccess: onSuccess, onError: onError)
+			return
+		}
+		
+		let task = savingOnDisk
+			? URLSession.shared.downloadTask(with: url) { (dataURL, response, error) in
+				self.cachedData[url.hashValue] = dataURL
+				self.manageDataTask(dataURL: dataURL, urlResponse: response, error: error, onSuccess: onSuccess, onError: onError)
+			}
+			: URLSession.shared.dataTask(with: url) { (data, response, error) in
+				self.manageDownloadTask(data: data, urlResponse: response, error: error, onSuccess: onSuccess, onError: onError)
+			}
 		task.resume()
 		self.tasks.append(task)
 	}
@@ -35,6 +70,38 @@ class DownloadManager {
 		if let taskIndex = tasks.index(where: { $0.originalRequest?.url == url }) {
 			self.tasks[taskIndex].cancel()
 			self.tasks.remove(at: taskIndex)
+		}
+	}
+	
+	// MAKR: - Convenience
+	
+	private func manageDataTask(dataURL: URL?, urlResponse: URLResponse?, error: Error?,
+								onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
+		if let dataURL = dataURL {
+			DispatchQueue.global().async {
+				if let data = try? Data(contentsOf: dataURL) {
+					DispatchQueue.main.async {
+						onSuccess(data)
+					}
+				} else {
+					DispatchQueue.main.async {
+						onError(.invalidData)
+					}
+				}
+			}
+		} else {
+			onError(.invalidFileURL)
+		}
+	}
+	
+	private func manageDownloadTask(data: Data?, urlResponse: URLResponse?, error: Error?,
+								onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
+		DispatchQueue.main.async {
+			if let data = data {
+				onSuccess(data)
+			} else {
+				onError(.invalidData)
+			}
 		}
 	}
 }

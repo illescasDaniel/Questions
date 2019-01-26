@@ -14,7 +14,6 @@ struct CommunityTopic: Codable {
 	var isVisible: Bool
 }
 
-// improve
 struct CommunityTopics: Codable {
 	
 	var topics: [CommunityTopic] = []
@@ -25,11 +24,11 @@ struct CommunityTopics: Codable {
 		
 		guard let url = URL(string: QuestionsAppOptions.communityTopicsURL) else { return }
 		
-		DownloadManager.shared.manageData(from: url) { data in
-			if let data = data, let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
+		DownloadManager.shared.manageData(from: url, onSuccess: { data in
+			if let communityTopics = try? JSONDecoder().decode(CommunityTopics.self, from: data) {
 				CommunityTopics.shared.topics = communityTopics.topics
 			}
 			completionHandler?(CommunityTopics.shared)
-		}
+		})
 	}
 }
