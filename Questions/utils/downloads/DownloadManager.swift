@@ -8,14 +8,11 @@
 import Foundation
 
 public class DownloadManager {
-	
-	typealias URLHash = Int
-	typealias URLPath = URL
-	
+
 	static let shared = DownloadManager()
 	
 	private var tasks: [URLSessionTask] = []
-	private var cachedData: [URLHash: URLPath] = [:]
+	private var cachedData = NSCache<NSNumber, NSURL>()
 	
 	public enum Errors {
 		// case task already in tasks ??
@@ -26,6 +23,7 @@ public class DownloadManager {
 	
 	func manageData(from url: String?, savingOnDisk: Bool = true,
 					onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
+		
 		guard let url = url else {
 			DispatchQueue.main.async {
 				onError(.invalidInputURL)
@@ -45,18 +43,22 @@ public class DownloadManager {
 	func manageData(from url: URL?, savingOnDisk: Bool = true,
 					onSuccess: @escaping ((Data) -> Void), onError: @escaping ((DownloadManager.Errors) -> Void) = {_ in }) {
 		guard let url = url else {
-			onError(.invalidInputURL)
+			DispatchQueue.main.async {
+				onError(.invalidInputURL)
+			}
 			return
 		}
 		
-		if let cachedDataURL = self.cachedData[url.hashValue], FileManager.default.fileExists(atPath: cachedDataURL.path) {
-			self.manageDataTask(dataURL: cachedDataURL, urlResponse: nil, error: nil, onSuccess: onSuccess, onError: onError)
+		if savingOnDisk, let recoveredCachedData = self.cachedData.object(forKey: NSNumber(value: url.hashValue)) {
+			self.manageDataTask(dataURL: recoveredCachedData as URL, urlResponse: nil, error: nil, onSuccess: onSuccess, onError: onError)
 			return
 		}
 		
 		let task = savingOnDisk
 			? URLSession.shared.downloadTask(with: url) { (dataURL, response, error) in
-				self.cachedData[url.hashValue] = dataURL
+				if let validDataURL = dataURL {
+					self.cachedData.setObject(validDataURL as NSURL, forKey: NSNumber(value: url.hashValue))
+				}
 				self.manageDataTask(dataURL: dataURL, urlResponse: response, error: error, onSuccess: onSuccess, onError: onError)
 			}
 			: URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -90,7 +92,9 @@ public class DownloadManager {
 				}
 			}
 		} else {
-			onError(.invalidFileURL)
+			DispatchQueue.main.async {
+				onError(.invalidFileURL)
+			}
 		}
 	}
 	

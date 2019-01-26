@@ -30,13 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillResignActive(_ application: UIApplication) {
 		guard QuestionsAppOptions.privacyFeaturesEnabled else { return }
-		blurView.isHidden = false
+		self.blurView.isHidden = false
 		self.window?.bringSubviewToFront(blurView)
 	}
 	
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		
-		if wasPlaying {
+		if self.wasPlaying {
 			AudioSounds.bgMusic?.play()
 		}
 		
@@ -113,7 +113,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// - MARK: Convenience
 	
 	private func setupURLCache() {
-		URLCache.shared.diskCapacity = 100 * 1024 * 1024
+		URLCache.shared.diskCapacity = 150 * 1024 * 1024
+		URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
 	}
 	
 	// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
@@ -155,9 +156,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	private func setupBlurView() {
-		blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
-		blurView.isHidden = true
+		self.blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		self.blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+		self.blurView.isHidden = true
 		self.window?.addSubview(blurView)
 	}
 }
