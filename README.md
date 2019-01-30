@@ -70,7 +70,7 @@ Topics JSON format
 ---
 ```java
 {
-    options": {
+    "options": {
         "name": "Cool Social topic",
         "timePerSetInSeconds": 300,
         "questionsInRandomOrder": false,
