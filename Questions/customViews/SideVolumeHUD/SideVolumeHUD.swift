@@ -25,15 +25,20 @@ public class SideVolumeHUD {
 	/// Default options: dark, vertical, slideLeftRight animation, with 'special effects'
 	public func setup(withOptions options: Set<Option> = []) {
 		
-		let sideVolumeHUD = SideVolumeHUDHolderView(withOptions: self.optionSetToOptions(options: options), hudWindow: self.window)
+		let options = self.optionSetToOptions(options: options)
+		let sideVolumeHUD = SideVolumeHUDHolderView(withOptions: options, hudWindow: self.window)
 		
 		let viewController = UIViewController()
 		viewController.view.frame = self.window.frame
 		viewController.view.backgroundColor = .clear
 		sideVolumeHUD.configure(for: viewController.view)
 		viewController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundViewAction)))
+		let navController = UINavigationController(rootViewController: viewController)
+		navController.navigationBar.barStyle = options.theme == .dark ? .blackTranslucent : .default
+		navController.navigationBar.isTranslucent = true
+		navController.navigationBar.isHidden = true
 		
-		self.window.rootViewController = viewController
+		self.window.rootViewController = navController
 	}
 	
 	@objc private func backgroundViewAction(_ sender: UIView) {
