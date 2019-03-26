@@ -1,6 +1,6 @@
 # Questions
 [![Swift version](https://img.shields.io/badge/Swift-5-orange.svg)](https://swift.org/download)
-[![Version](https://img.shields.io/badge/version-3.3--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
+[![Version](https://img.shields.io/badge/version-3.24--beta-green.svg)](https://github.com/illescasDaniel/Questions/releases)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/illescasDaniel/Questions/blob/master/LICENSE)
 
 [![Trello](https://img.shields.io/badge/community-Trello-blue.svg)](https://trello.com/b/9YLvTM6S)
