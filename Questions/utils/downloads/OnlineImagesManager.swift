@@ -38,11 +38,6 @@ public final class OnlineImagesManager {
 		}
 	}
 	
-	public enum Errors: Error {
-		case emptyURL
-		case couldNotDownloadImage
-	}
-
 	public static let shared = OnlineImagesManager()
 	fileprivate init() { }
 	

@@ -69,11 +69,15 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
     }
 	
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch section {
-		case SetOfTopics.Mode.app.rawValue: return Localized.Topics_AllTopics_Type_App
-		case SetOfTopics.Mode.saved.rawValue: return Localized.Topics_AllTopics_Type_Saved
-		case SetOfTopics.Mode.community.rawValue: return Localized.Topics_AllTopics_Type_Community
-		default: return nil
+		switch SetOfTopics.Mode(rawValue: section) {
+		case .some(let sectionMode):
+			switch sectionMode {
+			case SetOfTopics.Mode.app: return Localized.Topics_AllTopics_Type_App
+			case SetOfTopics.Mode.saved: return Localized.Topics_AllTopics_Type_Saved
+			case SetOfTopics.Mode.community: return Localized.Topics_AllTopics_Type_Community
+			}
+		case .none:
+			return nil
 		}
 	}
 	
@@ -82,9 +86,9 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 		var outputIndexPath = indexPath
 		
 		switch indexPath.section {
-		case SetOfTopics.Mode.app.rawValue: outputIndexPath.row = SetOfTopics.shared.topicsEntry.index(of: self.items[.app]![indexPath.row])!
-		case SetOfTopics.Mode.saved.rawValue: outputIndexPath.row = SetOfTopics.shared.savedTopics.index(of: self.items[.saved]![indexPath.row])!
-		case SetOfTopics.Mode.community.rawValue: outputIndexPath.row = SetOfTopics.shared.communityTopics.index(of: self.items[.community]![indexPath.row])!
+		case SetOfTopics.Mode.app.rawValue: outputIndexPath.row = SetOfTopics.shared.topicsEntry.firstIndex(of: self.items[.app]![indexPath.row])!
+		case SetOfTopics.Mode.saved.rawValue: outputIndexPath.row = SetOfTopics.shared.savedTopics.firstIndex(of: self.items[.saved]![indexPath.row])!
+		case SetOfTopics.Mode.community.rawValue: outputIndexPath.row = SetOfTopics.shared.communityTopics.firstIndex(of: self.items[.community]![indexPath.row])!
 		default: break
 		}
 		

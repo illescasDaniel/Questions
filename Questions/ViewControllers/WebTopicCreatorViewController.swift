@@ -10,10 +10,10 @@ import UIKit
 
 extension UIWebView {
 	func getInputValueFrom(id: String) -> String? {
-		return self.stringByEvaluatingJavaScript(from: "document.getElementById(\"\(id)\").value")
+		return self.stringByEvaluatingJavaScript(from: #"document.getElementById("\#(id)").value"#)
 	}
 	func isCheckboxChecked(id: String) -> Bool {
-		return self.stringByEvaluatingJavaScript(from: "document.getElementById(\"\(id)\").checked") == "true"
+		return self.stringByEvaluatingJavaScript(from: #"document.getElementById("\#(id)").checked"#) == "true"
 	}
 }
 

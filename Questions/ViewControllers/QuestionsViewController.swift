@@ -36,7 +36,7 @@ class QuestionsViewController: UIViewController {
 	var currentSetIndex = Int()
 	var isSetFromJSON = false
 	var set: [Question] = []
-	var quiz: EnumeratedIterator<IndexingIterator<Array<Question>>>!
+	var quiz: EnumeratedSequence<[Question]>.Iterator!
 	var quizTime = TimeInterval()
 	var previousQuizTime: TimeInterval = -1
 	var answersUntilNextQuestion: Int = 0
@@ -249,14 +249,14 @@ class QuestionsViewController: UIViewController {
 				
 				UserDefaultsManager.score += QuestionsAppOptions.helpActionPoints
 				
-				var randomQuestionIndex = UInt32()
+				var randomQuestionIndex = Int()
 				
 				repeat {
-					randomQuestionIndex = arc4random_uniform(UInt32(self.answerButtons.count))
-				} while(self.correctAnswersSet.contains(UInt8(randomQuestionIndex)) || (answerButtons[Int(randomQuestionIndex)].alpha != 1.0))
+					randomQuestionIndex = Int.random(in: 0..<self.answerButtons.count)
+				} while(self.correctAnswersSet.contains(UInt8(randomQuestionIndex)) || (answerButtons[randomQuestionIndex].alpha != 1.0))
 				
 				UIView.animate(withDuration: 0.4) {
-					self.answerButtons[Int(randomQuestionIndex)].alpha = 0.4
+					self.answerButtons[randomQuestionIndex].alpha = 0.4
 				}
 			}
 			else {
@@ -294,11 +294,9 @@ class QuestionsViewController: UIViewController {
 			
 			if !darkThemeEnabled && (swipeGesture.direction == .down) {
 				UserDefaultsManager.darkThemeSwitchIsOn = true
-				AppDelegate.updateVolumeBarTheme()
 			}
 			else if darkThemeEnabled && (swipeGesture.direction == .up) {
 				UserDefaultsManager.darkThemeSwitchIsOn = false
-				AppDelegate.updateVolumeBarTheme()
 			}
 			else { return }
 			

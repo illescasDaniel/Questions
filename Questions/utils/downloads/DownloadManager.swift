@@ -69,7 +69,7 @@ public class DownloadManager {
 	}
 	
 	func cancelTaskWith(url: URL) {
-		if let taskIndex = tasks.index(where: { $0.originalRequest?.url == url }) {
+		if let taskIndex = tasks.firstIndex(where: { $0.originalRequest?.url == url }) {
 			self.tasks[taskIndex].cancel()
 			self.tasks.remove(at: taskIndex)
 		}

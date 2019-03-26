@@ -18,11 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 		
+		let sideVolumeTheme: SideVolumeHUD.Option.Theme = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+		SideVolumeHUD.shared.setup(withOptions: [.animationStyle(.slideLeftRight), .theme(sideVolumeTheme)])
+		
 		self.setupURLCache()
 		self.loadConfigFiles()
 		self.preferLargeTitles()
 		self.setupAppShorcuts(for: application)
-		self.startVolumeBar()
 		self.setupPrivacyFeatures()
 		
 		return true
@@ -104,12 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window?.dontInvertIfDarkModeIsEnabled()
 	}
 	
-	static func updateVolumeBarTheme() {
-		VolumeBar.shared.backgroundColor = .themeStyle(dark: .black, light: .white)
-		VolumeBar.shared.tintColor = .themeStyle(dark: .lightGray, light: .black)
-		VolumeBar.shared.trackTintColor = .themeStyle(dark: UIColor.lightGray.withAlphaComponent(0.3), light: UIColor.black.withAlphaComponent(0.1))
-	}
-	
 	// - MARK: Convenience
 	
 	private func setupURLCache() {
@@ -137,11 +133,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 														  localizedSubtitle: nil,
 														  icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
 		application.shortcutItems = [readQRCode]
-	}
-	
-	private func startVolumeBar() {
-		AppDelegate.updateVolumeBarTheme()
-		VolumeBar.shared.start()
 	}
 	
 	private func setupWindow() {

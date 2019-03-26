@@ -46,7 +46,7 @@ struct TopicEntry {
 			case .none:
 				return contentToValidate
 			case .some(let error):
-				print("Error loading \"\(name)\" topic: \(error.localizedDescription).\nDetails: \(error.recoverySuggestion ?? "")")
+				print(#"Error loading "\#(name)" topic: \#(error.localizedDescription).\nDetails: \#(error.recoverySuggestion ?? "")"#)
 				return nil
 			}
 		} catch {
@@ -63,7 +63,8 @@ extension TopicEntry: Equatable {
 }
 
 extension TopicEntry: Hashable {
-	var hashValue: Int {
-		return displayedName.hashValue + (topic.sets.count * (topic.sets.first?.count ?? 1))
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(displayedName.hashValue)
+		hasher.combine(topic.sets.count * (topic.sets.first?.count ?? 1))
 	}
 }

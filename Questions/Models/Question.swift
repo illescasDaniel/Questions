@@ -32,7 +32,7 @@ extension Question: Equatable {
 }
 
 extension Question: Hashable {
-	var hashValue: Int {
-		return question.hash
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(self.question.hash)
 	}
 }

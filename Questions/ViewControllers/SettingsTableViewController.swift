@@ -160,12 +160,17 @@ class SettingsTableViewController: UITableViewController {
 		let numberOfAnswers = Float(incorrectAnswers + correctAnswers)
 		let correctAnswersPercent = (numberOfAnswers > 0) ? Int(round((Float(correctAnswers) / numberOfAnswers) * 100.0)) : 0
 		
-		return "\n\(Localized.Settings_Statistics_Title): \n\n" +
-			"\(Localized.Settings_Statistics_CompletedSets): \(completedSets)\n" +
-			"\(Localized.Settings_Statistics_CorrectAnswers): \(correctAnswers)\n" +
-			"\(Localized.Settings_Statistics_IncorrectAnswers): \(incorrectAnswers)\n" +
-			"\(Localized.Settings_Statistics_Ratio): \(correctAnswersPercent)%\n\n" +
-			Localized.Settings_Options_HapticFeedback_Info + "\n"
+		return """
+		
+		\(Localized.Settings_Statistics_Title):
+		
+		\(Localized.Settings_Statistics_CompletedSets): \(completedSets)
+		\(Localized.Settings_Statistics_CorrectAnswers): \(correctAnswers)
+		\(Localized.Settings_Statistics_IncorrectAnswers): \(incorrectAnswers)
+		\(Localized.Settings_Statistics_Ratio): \(correctAnswersPercent)%
+		
+		\(Localized.Settings_Options_HapticFeedback_Info)
+		"""
 	}
 	
 	// UITableView delegate
@@ -210,7 +215,6 @@ class SettingsTableViewController: UITableViewController {
 	@IBAction func darkThemeSwitchAction(sender: UISwitch) {
 		UserDefaultsManager.darkThemeSwitchIsOn = sender.isOn
 		self.loadCurrentTheme()
-		AppDelegate.updateVolumeBarTheme()
 	}
 
 	// MARK: - Convenience
