@@ -18,15 +18,15 @@ class LicensesViewController: UIViewController {
 		let incorrectSound = "\nGame Sound Wrong.wav, creator: Bertrof\n\"This work is licensed under the Attribution License.\": \n".attributedStringWith(headlineFontStyle)
 		let incorrectSoundLink = "https://www.freesound.org/people/Bertrof/sounds/131657/\n https://creativecommons.org/licenses/by/3.0/legalcode\n".attributedStringWith(subheadFontStyle)
 		
-		let volumeBar = "\nVolumeBar - gizmosachin. Licensed under the MIT License\n".attributedStringWith(headlineFontStyle)
-		let volumeBarLink = "https://github.com/gizmosachin/VolumeBar".attributedStringWith(subheadFontStyle)
+		let sideVolumeHUD = "\nSideVolumeHUD - illescasDaniel. Licensed under the MIT License\n".attributedStringWith(headlineFontStyle)
+		let sideVolumeHUDLink = "https://github.com/illescasDaniel/SideVolumeHUD\n".attributedStringWith(subheadFontStyle)
 		
 		let icons = "\nIcons 8\n".attributedStringWith(headlineFontStyle)
 		let icon1 = "https://icons8.com/icon/1054/screenshot".attributedStringWith(subheadFontStyle)
 		let icon2 = "https://icons8.com/icon/8186/create-filled".attributedStringWith(subheadFontStyle)
 		let icon3 = "https://icons8.com/icon/2897/cloud-filled".attributedStringWith(subheadFontStyle)
 		
-		let attributedText = bgMusicBensound + bgMusicBensoundLink + correctSound + correctSoundLink + incorrectSound + incorrectSoundLink + volumeBar + volumeBarLink + icons + icon1 + icon2 + icon3
+		let attributedText = bgMusicBensound + bgMusicBensoundLink + correctSound + correctSoundLink + incorrectSound + incorrectSoundLink + sideVolumeHUD + sideVolumeHUDLink + icons + icon1 + icon2 + icon3
 		
 		return attributedText
 	}()
