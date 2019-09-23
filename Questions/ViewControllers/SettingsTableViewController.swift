@@ -54,6 +54,16 @@ class SettingsTableViewController: UITableViewController {
 		self.clearsSelectionOnViewWillAppear = true
     }
 	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		if #available(iOS 11.0, *) {
+			self.navigationController?.navigationBar.prefersLargeTitles = true
+		}
+		loadCurrentTheme()
+		self.tableView.reloadData()
+	}
+	
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -89,6 +99,9 @@ class SettingsTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		if #available(iOS 13, *) {
+			return
+		}
 		switch indexPath.section {
 		case 0: cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
 		case 1: cell.textLabel?.textColor = UIColor.themeStyle(dark: .lightRed, light: .alternativeRed)
@@ -116,6 +129,9 @@ class SettingsTableViewController: UITableViewController {
 			case 2:
 				cell.textLabel?.text = cellLabelsForSection0.darkTheme
 				cell.accessoryView = self.darkThemeSwitch
+				if #available(iOS 13, *) {
+					self.darkThemeSwitch.isEnabled = false
+				}
 			case 3:
 				cell.textLabel?.text = cellLabelsForSection0.parallaxEffect
 				cell.accessoryView = self.parallaxEffectSwitch
@@ -130,6 +146,10 @@ class SettingsTableViewController: UITableViewController {
 			default: break
 			}
 		default: break
+		}
+		
+		if #available(iOS 13, *) {
+			return cell
 		}
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
@@ -176,6 +196,9 @@ class SettingsTableViewController: UITableViewController {
 	// UITableView delegate
 	
 	override func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+		if #available(iOS 13, *) {
+			return
+		}
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
 		footer?.contentView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
@@ -299,6 +322,12 @@ class SettingsTableViewController: UITableViewController {
 	}
 	
 	private func loadCurrentTheme() {
+		
+		if #available(iOS 13, *) {
+			let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
+			self.switches.forEach { $0.onTintColor = switchTintColor; $0.dontInvertColors() }
+			return
+		}
 		
 		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		self.navigationController?.toolbar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)

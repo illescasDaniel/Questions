@@ -187,6 +187,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	
 	@IBAction internal func loadTheme() {
 		
+		if #available(iOS 13, *) { return }
+		
 		self.view.backgroundColor = .themeStyle(dark: .black, light: .black)
 		self.allowCameraButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)
 		self.helpButton.setTitleColor(dark: .warmYellow, light: .coolBlue, for: .normal)

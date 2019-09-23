@@ -37,6 +37,16 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		self.setEditing(false, animated: true)
 	}
 	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		if #available(iOS 11.0, *) {
+			self.navigationController?.navigationBar.prefersLargeTitles = true
+		}
+		loadCurrentTheme()
+		self.tableView.reloadData()
+	}
+	
 	// MARK: UISearchBarDelegate
 	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -141,7 +151,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	// MARK: UITableViewDelegate
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		if #available(iOS 13.0, *) {
+			cell.textLabel?.textColor = .label
+			cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			return
+		}
 		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		
 		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		//cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
@@ -167,6 +183,9 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		// Load theme
 		cell.textLabel?.font = .preferredFont(forTextStyle: .body)
 		
+		if #available(iOS 13, *) {
+			return cell
+		}
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			let view = UIView()
 			view.backgroundColor = UIColor.darkGray
@@ -256,15 +275,21 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			textField.keyboardType = .alphabet
 			textField.autocapitalizationType = .sentences
 			textField.autocorrectionType = .yes
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		
 		newTopicAlert.addTextField { textField in
 			textField.placeholder = Localized.Topics_Community_Submission_TopicContent
 			textField.keyboardType = .URL
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		
 		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Help, style: .default) { _ in

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct UserDefaultsManager {
 	
@@ -33,8 +34,15 @@ struct UserDefaultsManager {
 	}
 	
 	static var darkThemeSwitchIsOn: Bool {
-		get { return get(property: .darkThemeSwitch) }
-		set { set(property: .darkThemeSwitch, value: newValue) }
+		get {
+			if #available(iOS 13, *) {
+				return UIApplication.shared.keyWindow?.traitCollection.userInterfaceStyle == .dark
+			}
+			return get(property: .darkThemeSwitch)
+		}
+		set {
+			set(property: .darkThemeSwitch, value: newValue)
+		}
 	}
 	
 	static var score: Int {

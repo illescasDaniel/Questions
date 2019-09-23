@@ -21,8 +21,11 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
     }
 	
 	private func loadCurrentTheme() {
-		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
-		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+		guard #available(iOS 13, *) else {
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+			self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+			return
+		}
 	}
 
     // MARK: - Table view data source
@@ -39,16 +42,22 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
     }
 	
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		guard UserDefaultsManager.darkThemeSwitchIsOn else { return } // NOTE: could change depending on your theme settings!
-		let header = view as? UITableViewHeaderFooterView
-		header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+		guard #available(iOS 13, *) else {
+			guard UserDefaultsManager.darkThemeSwitchIsOn else { return } // NOTE: could change depending on your theme settings!
+			let header = view as? UITableViewHeaderFooterView
+			header?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
+			return
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		cell.textLabel?.font = .preferredFont(forTextStyle: .body)
-		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
-		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
+		guard #available(iOS 13, *) else {
+			cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+			cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
+			return
+		}
 	}
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,6 +66,10 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 
 		if let mode = SetOfTopics.Mode(rawValue: indexPath.section), let topics = self.items[mode] {
 			cell.textLabel?.text = topics[indexPath.row].displayedName.localized
+		}
+		
+		if #available(iOS 13, *) {
+			return cell
 		}
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {

@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 		
-		let sideVolumeTheme: SideVolumeHUD.Option.Theme = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
-		SideVolumeHUD.shared.setup(withOptions: [.animationStyle(.slideLeftRight), .theme(sideVolumeTheme)])
+		if #available(iOS 13, *) {}
+		else {
+			let sideVolumeTheme: SideVolumeHUD.Option.Theme = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+			SideVolumeHUD.shared.setup(withOptions: [.animationStyle(.slideLeftRight), .theme(sideVolumeTheme)])
+		}
 		
 		self.setupURLCache()
 		self.loadConfigFiles()

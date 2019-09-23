@@ -43,7 +43,7 @@
 "**TopicsCreation.Alerts.Save.Success**" = "Guardado";
 "**TopicsCreation.Alerts.Save.Error**" = "Error al guardar";
 "**TopicsCreation.WebView.Title**" = "Creador de temas";
-"**TopicsCreation.WebView.Options**" = "Opciones";
+"**TopicsCreation.WebView.Options.SectionTitle**" = "Opciones";
 "**TopicsCreation.WebView.Options.Name**" = "Nombre";
 "**TopicsCreation.WebView.Options.NamePlaceholder**" = "Opcional pero recomendado";
 "**TopicsCreation.WebView.Options.Time**" = "Tiempo por set";

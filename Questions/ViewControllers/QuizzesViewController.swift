@@ -19,6 +19,16 @@ class QuizzesViewController: UITableViewController {
 			self.loadCurrentTheme()
 		}
 	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		if #available(iOS 11.0, *) {
+			self.navigationController?.navigationBar.prefersLargeTitles = true
+		}
+		loadCurrentTheme()
+		self.tableView.reloadData()
+	}
 
 	// MARK: UITableViewDataSource
 	
@@ -31,7 +41,13 @@ class QuizzesViewController: UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		if #available(iOS 13.0, *) {
+			cell.textLabel?.textColor = .label
+			cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			return
+		}
 		cell.textLabel?.textColor = .themeStyle(dark: .white, light: .black)
+		
 		cell.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		//cell.backgroundColor = .themeStyle(dark: .veryDarkGray, light: .white)
 		if UserDefaultsManager.darkThemeSwitchIsOn { cell.backgroundColor = .veryDarkGray }
@@ -49,6 +65,10 @@ class QuizzesViewController: UITableViewController {
 
 		// Load theme
 		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+		
+		if #available(iOS 13, *) {
+			return cell
+		}
 		
 		if UserDefaultsManager.darkThemeSwitchIsOn {
 			let view = UIView()
@@ -95,9 +115,12 @@ class QuizzesViewController: UITableViewController {
 	// MARK: Convenience
 	
 	private func loadCurrentTheme() {
-		navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
-		navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
-		tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+		guard #available(iOS 13, *) else {
+			navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
+			navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+			tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+			tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
+			return
+		}
 	}
 }

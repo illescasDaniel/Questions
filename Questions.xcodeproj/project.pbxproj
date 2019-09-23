@@ -384,7 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				65E12DA121C278910067B4D0 /* utils */,
-				65E12DA021C2785B0067B4D0 /* customViews */,
+				65E12DA021C2785B0067B4D0 /* Supporting views */,
 				65E12DA321C27A110067B4D0 /* Models */,
 				65E12DA221C279FE0067B4D0 /* Extensions */,
 				65E12DA621C27AA50067B4D0 /* ViewControllers */,
@@ -396,14 +396,14 @@
 			path = Questions;
 			sourceTree = "<group>";
 		};
-		65E12DA021C2785B0067B4D0 /* customViews */ = {
+		65E12DA021C2785B0067B4D0 /* Supporting views */ = {
 			isa = PBXGroup;
 			children = (
 				6583F2D6224ADF8F0061F77D /* SideVolumeHUD */,
 				65AD8ADE2013FEBD008AD6EE /* RoundedView.swift */,
 				65DF00B520F2095700B04860 /* ToastAlert.swift */,
 			);
-			path = customViews;
+			path = "Supporting views";
 			sourceTree = "<group>";
 		};
 		65E12DA121C278910067B4D0 /* utils */ = {

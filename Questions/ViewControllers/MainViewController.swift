@@ -89,7 +89,6 @@ class MainViewController: UIViewController {
 	}
 	
 	@IBAction func loadTheme() {
-		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		self.backgroundImageView.dontInvertColors()
 		self.startButton.dontInvertColors()

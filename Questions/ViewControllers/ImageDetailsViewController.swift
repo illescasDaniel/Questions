@@ -15,11 +15,24 @@ class ImageDetailsViewController: UIViewController {
 	@IBOutlet weak var scrollView: UIScrollView!
 	@IBOutlet var customPanGesture: UIPanGestureRecognizer!
 	
-	private let originalBGColor = UIColor.themeStyle(dark: .black, light: .white)
+	private var originalBGColor: UIColor {
+		if #available(iOS 13, *) {
+			return .secondarySystemBackground
+		}
+		return UIColor.themeStyle(dark: .black, light: .white)
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.backgroundColor = originalBGColor
+		self.closeViewButton.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+	}
+	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+		self.view.backgroundColor = originalBGColor
+		self.closeViewButton.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 	}
 	
 	// MARK: - Actions

@@ -102,15 +102,21 @@ class AddContentTableVC: PopoverTableViewController {
 			textField.keyboardType = .alphabet
 			textField.autocapitalizationType = .sentences
 			textField.autocorrectionType = .yes
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		
 		newTopicAlert.addTextField { textField in
 			textField.placeholder = Localized.Topics_Saved_Add_Download_TopicContent
 			textField.keyboardType = .URL
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		
 		newTopicAlert.addAction(title: Localized.Topics_Saved_Add_Download_Help, style: .default) { _ in

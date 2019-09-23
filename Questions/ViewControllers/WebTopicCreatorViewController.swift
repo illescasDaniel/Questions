@@ -157,20 +157,29 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 		questionsCreatorSetupAlert.addTextField { textField in
 			textField.placeholder = Localized.TopicsCreation_SetsNumber
 			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
 			textField.placeholder = Localized.TopicsCreation_QuestionsPerSet
 			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
 			textField.placeholder = Localized.TopicsCreation_AnswersPerQuestion
 			textField.keyboardType = .numberPad
-			textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+			guard #available(iOS 13, *) else {
+				textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+				return
+			}
 		}
 		questionsCreatorSetupAlert.addAction(title: Localized.Common_Cancel, style: .cancel) { _ in
 			self.navigationController?.popViewController(animated: true)

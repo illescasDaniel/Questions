@@ -383,7 +383,33 @@ class QuestionsViewController: UIViewController {
 		AudioSounds.bgMusic?.setVolumeLevel(to: newVolume)
 	}
 	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+		loadCurrentTheme()
+	}
+	
 	@objc func loadCurrentTheme() {
+		
+		if #available(iOS 13, *) {
+			
+			self.questionLabel.textColor = .label
+			self.remainingQuestionsLabel.textColor = .secondaryLabel
+			self.quizTimerLabel.textColor = .secondaryLabel
+			self.blurView.effect = UserDefaultsManager.darkThemeSwitchIsOn ? UIBlurEffect(style: .dark) : UIBlurEffect(style: .light)
+			
+			self.answerButtons.forEach {
+				$0.backgroundColor = .themeStyle(dark: .orange, light: .defaultTintColor)
+				$0.dontInvertColors()
+			}
+			
+			self.pauseButton.backgroundColor = .secondarySystemBackground
+			self.pauseButton.setTitleColor(dark: .white, light: .defaultTintColor, for: .normal)
+			self.helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
+			
+			detectIfScreenIsCaptured()
+			
+			return
+		}
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
