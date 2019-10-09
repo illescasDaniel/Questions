@@ -413,7 +413,11 @@ class QuestionsViewController: UIViewController {
 		
 		let currentThemeColor = UIColor.themeStyle(dark: .white, light: .black)
 		
-		self.activityIndicatorView.style = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		if #available(iOS 13, *) {
+			self.activityIndicatorView.style = .medium
+		} else {
+			self.activityIndicatorView.style = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+		}
 		self.helpButton.setTitleColor(dark: .orange, light: .defaultTintColor, for: .normal)
 		self.remainingQuestionsLabel.textColor = currentThemeColor
 		self.quizTimerLabel.textColor = currentThemeColor

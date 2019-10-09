@@ -136,7 +136,11 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	private func setupActivityIndicator() {
 		self.activityIndicator.frame = self.view.bounds
 		self.activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		self.activityIndicator.style = .themeStyle(dark: .white , light: .gray)
+		if #available(iOS 13, *) {
+			self.activityIndicator.style = .medium
+		} else {
+			self.activityIndicator.style = .themeStyle(dark: .white , light: .gray)
+		}
 		self.activityIndicator.hidesWhenStopped = true
 		self.view.addSubview(self.activityIndicator)
 	}

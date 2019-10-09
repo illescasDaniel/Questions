@@ -6,6 +6,7 @@
 import UIKit
 import class MediaPlayer.MPVolumeView
 
+@available(iOS, deprecated: 13.0)
 public class SideVolumeHUD {
 	
 	public static let shared = SideVolumeHUD()
@@ -80,6 +81,7 @@ public class SideVolumeHUD {
 }
 
 // MARK: - Details
+@available(iOS, deprecated: 13.0)
 extension SideVolumeHUD {
 	public enum Option: Hashable {
 		/// Only available if useSpecialEffects is true (which is its default value)
@@ -97,6 +99,7 @@ extension SideVolumeHUD {
 	}
 }
 
+@available(iOS, deprecated: 13.0)
 public extension SideVolumeHUD.Option {
 	enum AnimationStyle: Hashable {
 		case enlarge

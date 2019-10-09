@@ -118,8 +118,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	// Load configuration file (if it doesn't exist it creates a new one when the app goes to background)
 	private func loadConfigFiles() {
-		if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStoreArchiver.path) as? DataStoreArchiver {
-			DataStoreArchiver.shared = mySettings
+		if #available(iOS 11, *) {
+			if let settingsData = try? Data(contentsOf: URL(fileURLWithPath: DataStoreArchiver.path)),
+				let mySettings = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(settingsData) as? DataStoreArchiver{
+				DataStoreArchiver.shared = mySettings
+			}
+		} else {
+			if let mySettings = NSKeyedUnarchiver.unarchiveObject(withFile: DataStoreArchiver.path) as? DataStoreArchiver {
+				DataStoreArchiver.shared = mySettings
+			}
 		}
 	}
 	

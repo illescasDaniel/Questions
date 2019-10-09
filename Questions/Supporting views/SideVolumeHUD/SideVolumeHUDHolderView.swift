@@ -16,6 +16,7 @@ fileprivate extension Notification.Name {
 	}
 }
 
+@available(iOS, deprecated: 13.0)
 class SideVolumeHUDHolderView: UIView {
 	
 	private static var (leading_, top_, height_, width_): (CGFloat,CGFloat,CGFloat,CGFloat) = (15, 95, 160, 50)

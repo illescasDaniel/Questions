@@ -9,6 +9,7 @@ import MediaPlayer
 import FontAwesome
 #endif
 
+@available(iOS, deprecated: 13.0)
 class SideVolumeHUDView: MPVolumeView {
 	
 	convenience init(frame: CGRect, portrait: Bool, theme: SideVolumeHUD.Option.Theme) {

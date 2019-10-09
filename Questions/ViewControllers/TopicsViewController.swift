@@ -120,7 +120,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if SetOfTopics.shared.current == .community {
 			if self.tableView.backgroundView == nil && SetOfTopics.shared.communityTopics.isEmpty {
-				let activityIndicatorView = UIActivityIndicatorView(style: UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+				let activityIndicatorStyle: UIActivityIndicatorView.Style
+				if #available(iOS 13, *) {
+					activityIndicatorStyle = .medium
+				} else {
+					activityIndicatorStyle = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+				}
+				let activityIndicatorView = UIActivityIndicatorView(style: activityIndicatorStyle)
 				activityIndicatorView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 				activityIndicatorView.startAnimating()
 				self.navigationItem.rightBarButtonItems?.forEach { $0.isEnabled = false }
@@ -218,8 +224,14 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	
 		if SetOfTopics.shared.current == .community {
 			
+			let activityIndicatorStyle: UIActivityIndicatorView.Style
+			if #available(iOS 13, *) {
+				activityIndicatorStyle = .medium
+			} else {
+				activityIndicatorStyle = UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray
+			}
 			let activityIndicator = UIActivityIndicatorView(frame: currentCell.bounds)
-			activityIndicator.style = (UserDefaultsManager.darkThemeSwitchIsOn ? .white : .gray)
+			activityIndicator.style = activityIndicatorStyle
 			activityIndicator.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 			
 			if !CommunityTopics.shared.topics.isEmpty, SetOfTopics.shared.communityTopics[indexPath.row].topic.sets.flatMap({ $0 }).isEmpty {
@@ -318,7 +330,11 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 				let fullURL = "mailto:\(devEmail)?subject=\(subject)&body=\(messageBody)"
 				
 				if let validURL = URL(string: fullURL) {
-					UIApplication.shared.openURL(validURL)
+					if #available(iOS 10.0, *) {
+						UIApplication.shared.open(validURL, options: [:])
+					} else {
+						UIApplication.shared.openURL(validURL)
+					}
 				}
 			}
 		}
@@ -437,7 +453,11 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	}
 	
 	private func loadCurrentTheme() {
-		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		if #available(iOS 13, *) {
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .systemGroupedBackground)
+		} else {
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		}
 		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 	}
 	

@@ -157,7 +157,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
 		alertViewController.addAction(title: Localized.ScanQR_Permissions_Camera_Access, style: .default) { action in
 			if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-				UIApplication.shared.openURL(settingsURL)
+				if #available(iOS 10.0, *) {
+					UIApplication.shared.open(settingsURL, options: [:])
+				} else {
+					UIApplication.shared.openURL(settingsURL)
+				}
 			}
 		}
 		present(alertViewController, animated: true)

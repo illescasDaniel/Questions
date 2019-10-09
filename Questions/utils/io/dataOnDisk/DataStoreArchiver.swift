@@ -1,13 +1,17 @@
 import UIKit
 
-class DataStoreArchiver: NSObject, NSCoding {
+class DataStoreArchiver: NSObject, NSCoding, NSSecureCoding {
+	
+	static var supportsSecureCoding: Bool {
+		return true
+	}
 	
 	enum Keys: String {
 		case completedSets
 	}
 	
 	static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path
-	static let path = "\(DataStoreArchiver.documentsDirectory)/.DataStore.archive"
+	static let path = "\(documentsDirectory)/.DataStore.archive"
 	
 	var completedSets: [String: [Int:Bool]] = [:]
 	
@@ -26,6 +30,13 @@ class DataStoreArchiver: NSObject, NSCoding {
 	}
 	
 	func save() -> Bool {
-		return NSKeyedArchiver.archiveRootObject(self, toFile: DataStoreArchiver.path)
+		if #available(iOS 11, *) {
+			guard let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true) else {
+				return false
+			}
+			return FileManager.default.createFile(atPath: Self.path, contents: data)
+		} else {
+			return NSKeyedArchiver.archiveRootObject(self, toFile: DataStoreArchiver.path)
+		}
 	}
 }

@@ -201,7 +201,11 @@ class SettingsTableViewController: UITableViewController {
 		}
 		let footer = view as? UITableViewHeaderFooterView
 		footer?.textLabel?.textColor = .themeStyle(dark: .lightGray, light: .gray)
-		footer?.contentView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		if #available(iOS 13, *) {
+			footer?.contentView.backgroundColor = .themeStyle(dark: .black, light: .systemGroupedBackground)
+		} else {
+			footer?.contentView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		}
 	}
 	
 	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -331,11 +335,19 @@ class SettingsTableViewController: UITableViewController {
 		
 		self.navigationController?.navigationBar.barStyle = .themeStyle(dark: .black, light: .default)
 		self.navigationController?.toolbar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
-		self.navigationController?.toolbar.barStyle = UIBarStyle.themeStyle(dark: .blackTranslucent, light: .default)
+		if #available(iOS 13, *) {
+			self.navigationController?.toolbar.isTranslucent = true
+		} else {
+			self.navigationController?.toolbar.barStyle = UIBarStyle.themeStyle(dark: .blackTranslucent, light: .default)
+		}
 		
 		self.navigationController?.navigationBar.tintColor = .themeStyle(dark: .orange, light: .defaultTintColor)
 		
-		self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		if #available(iOS 13.0, *) {
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .systemGroupedBackground)
+		} else {
+			self.tableView.backgroundColor = .themeStyle(dark: .black, light: .groupTableViewBackground)
+		}
 		self.tableView.separatorColor = .themeStyle(dark: .black, light: .defaultSeparatorColor)
 		
 		let switchTintColor = UIColor.themeStyle(dark: .warmColor, light: .coolBlue)
