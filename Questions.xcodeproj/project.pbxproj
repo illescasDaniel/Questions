@@ -48,6 +48,7 @@
 		65746A5B20B62B8900F28769 /* TopicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65746A5A20B62B8900F28769 /* TopicEntry.swift */; };
 		657B1CB31F9292DE00D127F0 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */; };
 		657B1CB71F92B0CF00D127F0 /* FeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */; };
+		65806AE72659A4D900EE18D2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65806AE62659A4D900EE18D2 /* Launch Screen.storyboard */; };
 		65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */; };
 		6583F2DA224ADF9A0061F77D /* SideVolumeHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6583F2D7224ADF9A0061F77D /* SideVolumeHUDView.swift */; };
 		6583F2DB224ADF9A0061F77D /* SideVolumeHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6583F2D8224ADF9A0061F77D /* SideVolumeHUD.swift */; };
@@ -135,6 +136,7 @@
 		65746A5A20B62B8900F28769 /* TopicEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEntry.swift; sourceTree = "<group>"; };
 		657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		65806AE62659A4D900EE18D2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6580B8502659A0CB00396F60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		6583F2D7224ADF9A0061F77D /* SideVolumeHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideVolumeHUDView.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				65E12DA721C27B330067B4D0 /* config */,
 				65CB4C511D29C3E300D2E1C1 /* Info.plist */,
 				65CB4C491D29C3E300D2E1C1 /* Main.storyboard */,
+				65806AE62659A4D900EE18D2 /* Launch Screen.storyboard */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				65479F13206A92300042790F /* ImagesTest.json in Resources */,
 				65456AED1D2BBEF90048965E /* Localizable.strings in Resources */,
 				65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */,
+				65806AE72659A4D900EE18D2 /* Launch Screen.storyboard in Resources */,
 				65E12DC021C27D9A0067B4D0 /* Default-568h@2x.png in Resources */,
 				65E12DB621C27C540067B4D0 /* index-demo-idea.html in Resources */,
 				65AF1D0121C8E645001C68E7 /* bootstrap.min.js in Resources */,
