@@ -103,9 +103,9 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 						
 						for (questionIndex, questionWithAnswers) in questionsWithAnswers.enumerated() {
 							
-							let questionText: String = questionWithAnswers.question
+							let questionText: String = questionWithAnswers.question.trimmingCharacters(in: .whitespacesAndNewlines)
 							let imageURL: String? = questionWithAnswers.questionImage?.trimmingCharacters(in: .whitespacesAndNewlines)
-							let answers: [String] = questionWithAnswers.answers.map({ $0.answer })
+							let answers: [String] = questionWithAnswers.answers.map({ $0.answer.trimmingCharacters(in: .whitespacesAndNewlines) })
 							let correct: Set<UInt8> = Set(questionWithAnswers.answers.enumerated().compactMap({ $1.isCorrect ? UInt8($0) : nil }))
 							
 							guard !correct.isEmpty else {
