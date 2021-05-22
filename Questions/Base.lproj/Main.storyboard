@@ -604,34 +604,20 @@
             <objects>
                 <viewController id="GVC-2t-1NK" customClass="WebTopicCreatorViewController" customModule="Questions" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fnd-kV-Mxx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPG-ob-CI3">
-                                <rect key="frame" x="0.0" y="140" width="375" height="638"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </webView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="tgE-0Y-972"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="KPG-ob-CI3" firstAttribute="top" secondItem="tgE-0Y-972" secondAttribute="top" id="7v0-Dk-Ces"/>
-                            <constraint firstItem="tgE-0Y-972" firstAttribute="trailing" secondItem="KPG-ob-CI3" secondAttribute="trailing" id="Dj9-j6-mQx"/>
-                            <constraint firstItem="KPG-ob-CI3" firstAttribute="leading" secondItem="tgE-0Y-972" secondAttribute="leading" id="EZy-dL-wnA"/>
-                            <constraint firstItem="KPG-ob-CI3" firstAttribute="centerX" secondItem="tgE-0Y-972" secondAttribute="centerX" id="FSk-4U-uZl"/>
-                            <constraint firstItem="tgE-0Y-972" firstAttribute="bottom" secondItem="KPG-ob-CI3" secondAttribute="bottom" id="KaH-iZ-dPi"/>
-                            <constraint firstItem="KPG-ob-CI3" firstAttribute="centerY" secondItem="tgE-0Y-972" secondAttribute="centerY" id="iub-Ks-rPZ"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Topic Creator" largeTitleDisplayMode="always" id="L4T-er-ZLU">
+                    <navigationItem key="navigationItem" title="Topic Creator" largeTitleDisplayMode="never" id="L4T-er-ZLU">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="xa1-00-1O2">
                             <connections>
                                 <action selector="outputBarButtonAction:" destination="GVC-2t-1NK" id="GzU-cu-gO0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="webView" destination="KPG-ob-CI3" id="AsP-gq-ADC"/>
                         <segue destination="Jt3-KL-cf1" kind="unwind" identifier="unwindToTopics" unwindAction="unwindToTopics:" id="nt2-fz-uCk"/>
                     </connections>
                 </viewController>

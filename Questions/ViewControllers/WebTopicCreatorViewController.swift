@@ -7,19 +7,11 @@
 //
 
 import UIKit
+import WebKit
 
-extension UIWebView {
-	func getInputValueFrom(id: String) -> String? {
-		return self.stringByEvaluatingJavaScript(from: #"document.getElementById("\#(id)").value"#)
-	}
-	func isCheckboxChecked(id: String) -> Bool {
-		return self.stringByEvaluatingJavaScript(from: #"document.getElementById("\#(id)").checked"#) == "true"
-	}
-}
-
-class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
-
-	@IBOutlet weak var webView: UIWebView!
+class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
+	
+	private let webView = WKWebView()
 	
 	private var numberOfSets: UInt8?
 	private var questionsPerSet: UInt8?
@@ -27,19 +19,18 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	
 	private let activityIndicator = UIActivityIndicatorView()
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		self.navigationItem.title = Localized.TopicsCreation_WebView_Title
 		self.setupActivityIndicator()
 		self.promptUserWithFormGenerator()
 		self.setupWebView()
-    }
+	}
 	
 	// MARK: - Web view Delegate
-
-	func webViewDidFinishLoad(_ webView: UIWebView) {
-		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitUserSelect='none'")
-		self.webView.stringByEvaluatingJavaScript(from: "document.documentElement.style.webkitTouchCallout='none'")
+	
+	
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		self.activityIndicator.stopAnimating()
 	}
 	
@@ -47,88 +38,112 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	@IBAction func outputBarButtonAction(_ sender: UIBarButtonItem) {
 		
 		guard let numberOfSets = self.numberOfSets,
-			let questionsPerSet = self.questionsPerSet,
-			let answersPerQuestion = self.answersPerQuestion else {
-				self.invalidQuizAlert()
-				return
+			  let questionsPerSet = self.questionsPerSet,
+			  let answersPerQuestion = self.answersPerQuestion else {
+			self.invalidQuizAlert()
+			return
 		}
 		
-		let name = self.webView.getInputValueFrom(id: "topic-name")
-		let topicTime = self.webView.getInputValueFrom(id: "topic-time") ?? ""
-		let timePerSetInSeconds = TimeInterval(topicTime)
-		let questionsInRandomOrder = self.webView.isCheckboxChecked(id: "topic-random-order")
-		let helpButtonEnabled = self.webView.isCheckboxChecked(id: "topic-help-button")
-		let showCorrectIncorrectAnwer = self.webView.isCheckboxChecked(id: "topic-correct-answer")
-		let multipleCorrectAnswersAsMandatory = self.webView.isCheckboxChecked(id: "topic-force-choose")
-		
-		let options = Topic.Options(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
-		
-		var sets: [[Question]] = []
-		
-		for i in 1...numberOfSets {
+		let inputFieldIDs = [
+			"topic-name", "topic-time"
+		]
+		webView.multipleInputValuesFrom(ids: inputFieldIDs) { values in
+			let name = values[0]
+			let topicTime = values[1] ?? ""
+			let timePerSetInSeconds = TimeInterval(topicTime)
 			
-			var questions: [Question] = []
+			let checkboxFieldsIDs = [
+				"topic-random-order", "topic-help-button",
+				"topic-correct-answer", "topic-force-choose"
+			]
+			self.webView.checkedCheckboxes(ids: checkboxFieldsIDs) { checkedCheckboxes in
+				let questionsInRandomOrder = checkedCheckboxes[0]
+				let helpButtonEnabled =  checkedCheckboxes[1]
+				let showCorrectIncorrectAnwer = checkedCheckboxes[2]
+				let multipleCorrectAnswersAsMandatory = checkedCheckboxes[3]
 			
-			for j in 1...questionsPerSet {
+				let options = Topic.Options(name: name, timePerSetInSeconds: timePerSetInSeconds, helpButtonEnabled: helpButtonEnabled, questionsInRandomOrder: questionsInRandomOrder, showCorrectIncorrectAnswer: showCorrectIncorrectAnwer, multipleCorrectAnswersAsMandatory: multipleCorrectAnswersAsMandatory)
 				
-				guard let questionText = self.webView.getInputValueFrom(id: "question-text-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines), !questionText.isEmpty else {
-					let error = Topic.ValidationError.emptyQuestion(set: Int(i), question: Int(j))
-					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
-					return
+				var questionAndAnswersIDs: QuestionsWithAnswersIDs = []
+				
+				for i in 1...numberOfSets {
+					for j in 1...questionsPerSet {
+						
+						let questionID = "question-text-\(i)-\(j)"
+						let questionImageID = "question-image-\(i)-\(j)"
+						
+						var answerIDs: [(answerValueID: String, isAnswerCorrectID: String)] = []
+						for k in 1...answersPerQuestion {
+							let answerID = "answer-\(i)-\(j)-\(k)"
+							let isCorrectID = "answer-correct-\(i)-\(j)-\(k)"
+							answerIDs.append((answerID, isCorrectID))
+						}
+						
+						questionAndAnswersIDs.append((questionID: questionID, questionImageID: questionImageID, answerIDs: answerIDs))
+					}
 				}
 				
-				let imageURL = self.webView.getInputValueFrom(id: "question-image-\(i)-\(j)")?.trimmingCharacters(in: .whitespacesAndNewlines)
-				var answers: [String] = []
-				var correct: Set<UInt8> = []
-				
-				for k in 1...answersPerQuestion {
-					if let answerText = self.webView.getInputValueFrom(id: "answer-\(i)-\(j)-\(k)") {
-						let trimmedAnswer = answerText.trimmingCharacters(in: .whitespacesAndNewlines)
-						if !trimmedAnswer.isEmpty {
-							answers.append(trimmedAnswer)
-						} else {
-							let error = Topic.ValidationError.emptyAnswer(set: Int(i), question: Int(j), answer: Int(k))
-							self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
-							return
+				self.webView.questionAndAnswers(questionAndAnswersIDs: questionAndAnswersIDs) { allQuestionsAndAswers in
+					
+					var setsOfQuestions: [[QuestionWithAnswersForm]] = Array(repeating: [], count: Int(numberOfSets))
+					
+					var setIndex = 0
+					for questionWithAnswers in allQuestionsAndAswers {
+						setsOfQuestions[setIndex].append(questionWithAnswers)
+						if setsOfQuestions[setIndex].count == Int(questionsPerSet) {
+							setIndex += 1
 						}
 					}
-					if self.webView.isCheckboxChecked(id: "answer-correct-\(i)-\(j)-\(k)") {
-						correct.insert(k-1)
+					
+					var sets: [[Question]] = []
+					
+					for (setIndex, questionsWithAnswers) in setsOfQuestions.enumerated() {
+						
+						var questions: [Question] = []
+						
+						for (questionIndex, questionWithAnswers) in questionsWithAnswers.enumerated() {
+							
+							let questionText: String = questionWithAnswers.question
+							let imageURL: String? = questionWithAnswers.questionImage?.trimmingCharacters(in: .whitespacesAndNewlines)
+							let answers: [String] = questionWithAnswers.answers.map({ $0.answer })
+							let correct: Set<UInt8> = Set(questionWithAnswers.answers.enumerated().compactMap({ $1.isCorrect ? UInt8($0) : nil }))
+							
+							guard !correct.isEmpty else {
+								let error = Topic.ValidationError.incorrectCorrectAnswersCount(set: setIndex, question: questionIndex, count: 0)
+								self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
+								return
+							}
+							
+							guard !answers.isEmpty, answers.count == Int(answersPerQuestion) else {
+								let error = Topic.ValidationError.incorrectAnswersCount(set: setIndex, question: questionIndex)
+								self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
+								return
+							}
+													
+							questions.append(Question(question: questionText, answers: answers, correct: correct, imageURL: imageURL))
+						}
+						
+						sets.append(questions)
 					}
+					
+					let quiz = Topic(options: options, sets: sets)
+
+					switch quiz.validate() {
+					case .none:
+						if quiz.sets.count == Int(numberOfSets)
+							&& (quiz.sets.first?.count ?? 0) == Int(questionsPerSet)
+							&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(answersPerQuestion) {
+							self.topicActionAlert(topic: quiz)
+							return
+						}
+					case .some(let error):
+						self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
+					}
+
+					self.invalidQuizAlert()
 				}
-				guard !correct.isEmpty else {
-					let error = Topic.ValidationError.incorrectCorrectAnswersCount(set: Int(i), question: Int(j), count: 0)
-					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
-					return
-				}
-				guard !answers.isEmpty, answers.count == Int(answersPerQuestion) else {
-					let error = Topic.ValidationError.incorrectAnswersCount(set: Int(i), question: Int(j))
-					self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
-					return
-				}
-				
-				questions.append(Question(question: questionText, answers: answers, correct: correct, imageURL: imageURL))
 			}
-			
-			sets.append(questions)
 		}
-		
-		let quiz = Topic(options: options, sets: sets)
-		
-		switch quiz.validate() {
-		case .none:
-			if quiz.sets.count == Int(numberOfSets)
-				&& (quiz.sets.first?.count ?? 0) == Int(questionsPerSet)
-				&& (quiz.sets.first?.first?.answers.count ?? 0) == Int(answersPerQuestion) {
-				self.topicActionAlert(topic: quiz)
-				return
-			}
-			
-		case .some(let error):
-			self.invalidQuizAlert(title: error.localizedDescription, message: error.recoverySuggestion)
-		}
-		
-		self.invalidQuizAlert()
 	}
 	
 	// MARK: - Convenience
@@ -146,9 +161,20 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 	}
 	
 	private func setupWebView() {
+		
+		webView.clipsToBounds = true
+		webView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(webView)
+		NSLayoutConstraint.activate([
+			webView.topAnchor.constraint(equalTo: view.topAnchor),
+			webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+			webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
+		
 		let bgColor: UIColor = .themeStyle(dark: .black,
 										   light: UIColor(RGBred: 239, green: 239, blue: 244) /* groupTableViewBackground */ )
-		self.webView.delegate = self
+		self.webView.navigationDelegate = self
 		self.webView.scrollView.showsHorizontalScrollIndicator = false
 		self.webView.backgroundColor = bgColor
 		self.view.backgroundColor = bgColor
@@ -191,10 +217,10 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 		questionsCreatorSetupAlert.addAction(title: Localized.TopicsCreation_Generate, style: .default) { action in
 			
 			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
-				let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
-				let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
-				let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
-				numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
+			   let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
+			   let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
+			   let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
+			   numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
 				
 				self.numberOfSets = numberOfSets
 				self.questionsPerSet = questionsPerSet
@@ -219,8 +245,8 @@ class WebTopicCreatorViewController: UIViewController, UIWebViewDelegate {
 		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
 			ToastAlert.present(onSuccess: Localized.TopicsCreation_Alerts_Save_Success,
 							   onError: Localized.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
-				return SetOfTopics.shared.save(topic: TopicEntry(name: topic.options?.name ?? "", content: topic))
-			})
+								return SetOfTopics.shared.save(topic: TopicEntry(name: topic.options?.name ?? "", content: topic))
+							   })
 		}
 		
 		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Share, style: .default) { _ in

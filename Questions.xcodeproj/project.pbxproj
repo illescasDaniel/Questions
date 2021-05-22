@@ -22,6 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		650DE5F82128A62000FF6A0F /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650DE5F72128A62000FF6A0F /* SearchTableViewController.swift */; };
+		651F569326592CC0003D408C /* WKWebKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F569226592CC0003D408C /* WKWebKit+Extension.swift */; };
+		651F569526592CDA003D408C /* QuestionWithAnswersForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F569426592CDA003D408C /* QuestionWithAnswersForm.swift */; };
 		653D056F1D43CD2D00865D43 /* QuestionsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */; };
 		65456AED1D2BBEF90048965E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65456AEF1D2BBEF90048965E /* Localizable.strings */; };
 		65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65456AF11D2BC01C0048965E /* String+Extension.swift */; };
@@ -104,6 +106,8 @@
 /* Begin PBXFileReference section */
 		650745EF1EACCDF200BC178E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		650DE5F72128A62000FF6A0F /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		651F569226592CC0003D408C /* WKWebKit+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebKit+Extension.swift"; sourceTree = "<group>"; };
+		651F569426592CDA003D408C /* QuestionWithAnswersForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionWithAnswersForm.swift; sourceTree = "<group>"; };
 		653D056C1D43CD2D00865D43 /* QuestionsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuestionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653D056E1D43CD2D00865D43 /* QuestionsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsUITests.swift; sourceTree = "<group>"; };
 		653D05701D43CD2D00865D43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,6 +203,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		651F569126592CA3003D408C /* WKWebKit */ = {
+			isa = PBXGroup;
+			children = (
+				651F569226592CC0003D408C /* WKWebKit+Extension.swift */,
+			);
+			name = WKWebKit;
+			sourceTree = "<group>";
+		};
 		6533008921D54D6B00007C1A /* Topics */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +432,7 @@
 		65E12DA221C279FE0067B4D0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				651F569126592CA3003D408C /* WKWebKit */,
 				6533009121D54E7700007C1A /* UIKit */,
 				6533008E21D54DFF00007C1A /* Foundation */,
 				8E30C75D1D351E6000CD32B0 /* AVAudioPlayer+Extension.swift */,
@@ -436,6 +449,7 @@
 				65746A5A20B62B8900F28769 /* TopicEntry.swift */,
 				8E7F0EFB1D351CEA0048F1A0 /* SetOfTopics.swift */,
 				6548F085208896FA005A87D9 /* CommunityTopics.swift */,
+				651F569426592CDA003D408C /* QuestionWithAnswersForm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -737,10 +751,12 @@
 				65646CDD21DF967F009C2695 /* ApplyProtocol.swift in Sources */,
 				8E7F0EFC1D351CEA0048F1A0 /* SetOfTopics.swift in Sources */,
 				65456AF41D2BC9620048965E /* TopicsViewController.swift in Sources */,
+				651F569326592CC0003D408C /* WKWebKit+Extension.swift in Sources */,
 				65F4207F1E835A4F00BE90F0 /* QRScannerViewController.swift in Sources */,
 				65456FF81D77A07A004A13B6 /* Colors+Extension.swift in Sources */,
 				6583F2DB224ADF9A0061F77D /* SideVolumeHUD.swift in Sources */,
 				6583F2DC224ADF9A0061F77D /* SideVolumeHUDHolderView.swift in Sources */,
+				651F569526592CDA003D408C /* QuestionWithAnswersForm.swift in Sources */,
 				65479F11206A52EB0042790F /* Image+Extension.swift in Sources */,
 				65746A5720B62A2400F28769 /* Topic.swift in Sources */,
 				65AF1D0421C8E94E001C68E7 /* Bundle+Extension.swift in Sources */,
@@ -1008,7 +1024,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "3.25.1-beta";
+				MARKETING_VERSION = "3.26-beta";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.illescas-Daniel.QuestionsApp";
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
@@ -1032,7 +1048,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "3.25.1-beta";
+				MARKETING_VERSION = "3.26-beta";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.illescas-Daniel.QuestionsApp";
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
