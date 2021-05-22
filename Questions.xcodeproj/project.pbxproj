@@ -1024,7 +1024,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "3.26-beta";
+				MARKETING_VERSION = "3.26.1-beta";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.illescas-Daniel.QuestionsApp";
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
@@ -1048,7 +1048,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "3.26-beta";
+				MARKETING_VERSION = "3.26.1-beta";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.illescas-Daniel.QuestionsApp";
 				PRODUCT_NAME = Questions;
 				PROVISIONING_PROFILE = "";
