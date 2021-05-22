@@ -68,15 +68,15 @@ class AddContentTableVC: PopoverTableViewController {
 		switch indexPath.row {
 		case 0:
 			cell.imageView?.image = #imageLiteral(resourceName: "addTopicRemote")
-			cell.textLabel?.text = Localized.Topics_Saved_Add_Menu_Download
+			cell.textLabel?.text = L10n.Topics_Saved_Add_Menu_Download
 			cell.textLabel?.adjustsFontSizeToFitWidth = true
 		case 1:
 			cell.imageView?.image = #imageLiteral(resourceName: "addTopicCreate")
-			cell.textLabel?.text = Localized.Topics_Saved_Add_Menu_Create
+			cell.textLabel?.text = L10n.Topics_Saved_Add_Menu_Create
 			cell.textLabel?.adjustsFontSizeToFitWidth = true
 		case 2:
 			cell.imageView?.image = #imageLiteral(resourceName: "addTopicCamera")
-			cell.textLabel?.text = Localized.Topics_Saved_Add_Menu_Camera
+			cell.textLabel?.text = L10n.Topics_Saved_Add_Menu_Camera
 			cell.textLabel?.adjustsFontSizeToFitWidth = true
 		default: break
 		}
@@ -92,13 +92,13 @@ class AddContentTableVC: PopoverTableViewController {
 
 	private func addRemoteTopicOrContent() {
 		
-		let titleText = Localized.Topics_Saved_Add_Download_Title
-		let messageText = Localized.Topics_Saved_Add_Download_Info
+		let titleText = L10n.Topics_Saved_Add_Download_Title
+		let messageText = L10n.Topics_Saved_Add_Download_Info
 		
 		let newTopicAlert = UIAlertController(title: titleText.localized, message: messageText.localized, preferredStyle: .alert)
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = Localized.Topics_Saved_Add_Download_TopicName
+			textField.placeholder = L10n.Topics_Saved_Add_Download_TopicName
 			textField.keyboardType = .alphabet
 			textField.autocapitalizationType = .sentences
 			textField.autocorrectionType = .yes
@@ -110,7 +110,7 @@ class AddContentTableVC: PopoverTableViewController {
 		}
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = Localized.Topics_Saved_Add_Download_TopicContent
+			textField.placeholder = L10n.Topics_Saved_Add_Download_TopicContent
 			textField.keyboardType = .URL
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 			guard #available(iOS 13, *) else {
@@ -119,7 +119,7 @@ class AddContentTableVC: PopoverTableViewController {
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Topics_Saved_Add_Download_Help, style: .default) { _ in
+		newTopicAlert.addAction(title: L10n.Topics_Saved_Add_Download_Help, style: .default) { _ in
 			if let url = URL(string: "https://github.com/illescasDaniel/Questions#topics-json-format") {
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(url, options: [:])
@@ -129,7 +129,7 @@ class AddContentTableVC: PopoverTableViewController {
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Topics_Saved_Add_Download_Action, style: .default) { _ in
+		newTopicAlert.addAction(title: L10n.Topics_Saved_Add_Download_Action, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
 				let topicURLText = newTopicAlert.textFields?.last?.text, !topicURLText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -154,7 +154,7 @@ class AddContentTableVC: PopoverTableViewController {
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
+		newTopicAlert.addAction(title: L10n.Common_Cancel, style: .cancel)
 		
 		self.presentOnParent(newTopicAlert)
 	}

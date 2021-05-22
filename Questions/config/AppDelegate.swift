@@ -139,7 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	private func setupAppShorcuts(for application: UIApplication) {
 		let readQRCode = UIMutableApplicationShortcutItem(type: ShortcutItemType.QRCode.rawValue,
-														  localizedTitle: Localized.HomeQuickActions_ScanQR,
+														  localizedTitle: L10n.HomeQuickActions_ScanQR,
 														  localizedSubtitle: nil,
 														  icon: UIApplicationShortcutIcon(templateImageName: "QRCodeIcon"))
 		application.shortcutItems = [readQRCode]

@@ -85,9 +85,9 @@ class SearchTableViewController: UITableViewController, UISearchControllerDelega
 		switch SetOfTopics.Mode(rawValue: section) {
 		case .some(let sectionMode):
 			switch sectionMode {
-			case SetOfTopics.Mode.app: return Localized.Topics_AllTopics_Type_App
-			case SetOfTopics.Mode.saved: return Localized.Topics_AllTopics_Type_Saved
-			case SetOfTopics.Mode.community: return Localized.Topics_AllTopics_Type_Community
+			case SetOfTopics.Mode.app: return L10n.Topics_AllTopics_Type_App
+			case SetOfTopics.Mode.saved: return L10n.Topics_AllTopics_Type_Saved
+			case SetOfTopics.Mode.community: return L10n.Topics_AllTopics_Type_Community
 			}
 		case .none:
 			return nil

@@ -96,33 +96,33 @@ extension Topic.ValidationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptySet:
-			return Localized.TopicsCreation_WebView_Validation_Sets_Empty
+			return L10n.TopicsCreation_WebView_Validation_Sets_Empty
 		case .emptyQuestion:
-			return Localized.TopicsCreation_WebView_Validation_Questions_Empty
+			return L10n.TopicsCreation_WebView_Validation_Questions_Empty
 		case .emptyAnswer:
-			return Localized.TopicsCreation_WebView_Validation_Answers_Empty
+			return L10n.TopicsCreation_WebView_Validation_Answers_Empty
 		case .incorrectAnswersCount:
-			return Localized.TopicsCreation_WebView_Validation_Answers_IncorrectCount
+			return L10n.TopicsCreation_WebView_Validation_Answers_IncorrectCount
 		case .incorrectCorrectAnswersCount:
-			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectCount
+			return L10n.TopicsCreation_WebView_Validation_Answers_BadCorrectCount
 		case .incorrectCorrectAnswerIndex:
-			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex
+			return L10n.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex
 		}
 	}
 	var recoverySuggestion: String? {
 		switch self {
 		case .emptySet(let count):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Sets_Empty_Recovery, count)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Sets_Empty_Recovery, count)
 		case .emptyQuestion(let set, let question):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Questions_Empty_Recovery, set, question)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Questions_Empty_Recovery, set, question)
 		case .emptyAnswer(let set, let question, let answer):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_Empty_Recovery, set, question, answer)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Answers_Empty_Recovery, set, question, answer)
 		case .incorrectAnswersCount(let set, let question):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_IncorrectCount_Recovery, set, question)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Answers_IncorrectCount_Recovery, set, question)
 		case .incorrectCorrectAnswersCount(let set, let question, let count):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectCount_Recovery, set, question, count ?? 0)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Answers_BadCorrectCount_Recovery, set, question, count ?? 0)
 		case .incorrectCorrectAnswerIndex(let set, let question, let badIndex, let maximum):
-			return String.localizedStringWithFormat(Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex_Recovery, set, question, badIndex, maximum)
+			return String.localizedStringWithFormat(L10n.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex_Recovery, set, question, badIndex, maximum)
 		}
 	}
 }

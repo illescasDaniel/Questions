@@ -12,11 +12,11 @@ class SettingsTableViewController: UITableViewController {
 	
 	private class cellLabelsForSection0 {
 		
-		static let backgroundMusic = Localized.Settings_Options_Music
-		static let hapticFeedback = Localized.Settings_Options_HapticFeedback
-		static let parallaxEffect = Localized.Settings_Options_ParallaxEffect
-		static let darkTheme = Localized.Settings_Options_DarkTheme
-		static let licenses = Localized.Settings_Options_Licenses
+		static let backgroundMusic = L10n.Settings_Options_Music
+		static let hapticFeedback = L10n.Settings_Options_HapticFeedback
+		static let parallaxEffect = L10n.Settings_Options_ParallaxEffect
+		static let darkTheme = L10n.Settings_Options_DarkTheme
+		static let licenses = L10n.Settings_Options_Licenses
 		
 		static let labels: [String] = [cellLabelsForSection0.backgroundMusic, cellLabelsForSection0.hapticFeedback, cellLabelsForSection0.parallaxEffect, cellLabelsForSection0.darkTheme, cellLabelsForSection0.licenses]
 		static let count = labels.count
@@ -33,7 +33,7 @@ class SettingsTableViewController: UITableViewController {
 	
 	private class cellLabelsForSection1 {
 		
-		static let resetProgress = Localized.Settings_Options_ResetProgress
+		static let resetProgress = L10n.Settings_Options_ResetProgress
 		
 		static let labels: [String] = [cellLabelsForSection1.resetProgress]
 		static let count = labels.count
@@ -42,7 +42,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.navigationItem.title = Localized.Settings_Title
+		self.navigationItem.title = L10n.Settings_Title
 		
 		self.setUpSwitches()
 		self.loadSwitchesStates()
@@ -182,14 +182,14 @@ class SettingsTableViewController: UITableViewController {
 		
 		return """
 		
-		\(Localized.Settings_Statistics_Title):
+		\(L10n.Settings_Statistics_Title):
 		
-		\(Localized.Settings_Statistics_CompletedSets): \(completedSets)
-		\(Localized.Settings_Statistics_CorrectAnswers): \(correctAnswers)
-		\(Localized.Settings_Statistics_IncorrectAnswers): \(incorrectAnswers)
-		\(Localized.Settings_Statistics_Ratio): \(correctAnswersPercent)%
+		\(L10n.Settings_Statistics_CompletedSets): \(completedSets)
+		\(L10n.Settings_Statistics_CorrectAnswers): \(correctAnswers)
+		\(L10n.Settings_Statistics_IncorrectAnswers): \(incorrectAnswers)
+		\(L10n.Settings_Statistics_Ratio): \(correctAnswersPercent)%
 		
-		\(Localized.Settings_Options_HapticFeedback_Info)
+		\(L10n.Settings_Options_HapticFeedback_Info)
 		"""
 	}
 	
@@ -362,13 +362,13 @@ class SettingsTableViewController: UITableViewController {
 	
 	private func resetProgressAlert(cellIndexpath: IndexPath) {
 		
-		let alertViewController = UIAlertController(title: Localized.Settings_Alerts_ResetProgress_Title, message: nil, preferredStyle: .actionSheet)
+		let alertViewController = UIAlertController(title: L10n.Settings_Alerts_ResetProgress_Title, message: nil, preferredStyle: .actionSheet)
 		
-		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
-		alertViewController.addAction(title: Localized.Settings_Alerts_ResetProgress_Everything, style: .destructive) { action in
+		alertViewController.addAction(title: L10n.Common_Cancel, style: .cancel)
+		alertViewController.addAction(title: L10n.Settings_Alerts_ResetProgress_Everything, style: .destructive) { action in
 			self.resetProgressOptions()
 		}
-		alertViewController.addAction(title: Localized.Settings_Alerts_ResetProgress_OnlyStatistics, style: .default) { action in
+		alertViewController.addAction(title: L10n.Settings_Alerts_ResetProgress_OnlyStatistics, style: .default) { action in
 			self.resetProgressStatistics()
 		}
 		

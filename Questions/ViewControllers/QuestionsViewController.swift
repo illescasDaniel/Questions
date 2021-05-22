@@ -66,12 +66,12 @@ class QuestionsViewController: UIViewController {
 		
 		self.createAnswerButtons()
 		
-		let title = AudioSounds.bgMusic?.isPlaying == true ? Localized.Questions_PauseMenu_Music_Pause : Localized.Questions_PauseMenu_Music_Play
+		let title = AudioSounds.bgMusic?.isPlaying == true ? L10n.Questions_PauseMenu_Music_Pause : L10n.Questions_PauseMenu_Music_Play
 		self.muteMusic.setTitle(title.localized, for: .normal)
 	
-		self.goBack.setTitle(Localized.Questions_PauseMenu_Back_QuestionsMenu.localized, for: .normal)
-		self.mainMenu.setTitle(Localized.Questions_PauseMenu_Back_MainMenu.localized, for: .normal)
-		self.pauseButton.setTitle(Localized.Questions_PauseMenu_Pause, for: .normal)
+		self.goBack.setTitle(L10n.Questions_PauseMenu_Back_QuestionsMenu.localized, for: .normal)
+		self.mainMenu.setTitle(L10n.Questions_PauseMenu_Back_MainMenu.localized, for: .normal)
+		self.pauseButton.setTitle(L10n.Questions_PauseMenu_Pause, for: .normal)
 		self.pauseView.isHidden = true
 		self.blurView.isHidden = true
 		
@@ -163,17 +163,17 @@ class QuestionsViewController: UIViewController {
 		
 		if self.repeatTimes < QuestionsAppOptions.maximumRepeatTriesPerQuiz && currentQuestion > 1 {
 			
-			let alertViewController = UIAlertController(title: Localized.Questions_Alerts_Repeat_Title,
-														message: Localized.Questions_Alerts_Repeat_Message,
+			let alertViewController = UIAlertController(title: L10n.Questions_Alerts_Repeat_Title,
+														message: L10n.Questions_Alerts_Repeat_Message,
 														preferredStyle: .alert)
 			
-			alertViewController.addAction(title: Localized.Common_OK, style: .default) { action in self.repeatActionDetailed() }
-			alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
+			alertViewController.addAction(title: L10n.Common_OK, style: .default) { action in self.repeatActionDetailed() }
+			alertViewController.addAction(title: L10n.Common_Cancel, style: .cancel)
 			
 			self.present(alertViewController, animated: true)
 		}
 		else if self.repeatTimes >= QuestionsAppOptions.maximumRepeatTriesPerQuiz {
-			self.showOKAlertWith(title: Localized.Common_Attention, message: Localized.Questions_Alerts_Help_MaxRepeatTriesReached)
+			self.showOKAlertWith(title: L10n.Common_Attention, message: L10n.Questions_Alerts_Help_MaxRepeatTriesReached)
 		}
 	}
 	
@@ -260,12 +260,12 @@ class QuestionsViewController: UIViewController {
 				}
 			}
 			else {
-				showOKAlertWith(title: Localized.Common_Attention, message: Localized.Questions_Alerts_Help_MaxHelpTriesReached)
+				showOKAlertWith(title: L10n.Common_Attention, message: L10n.Questions_Alerts_Help_MaxHelpTriesReached)
 				self.helpButton.alpha = 0.4
 			}
 		}
 		else {
-			showOKAlertWith(title: Localized.Common_Attention, message: Localized.Questions_Alerts_Help_NotEnoughPoints)
+			showOKAlertWith(title: L10n.Common_Attention, message: L10n.Questions_Alerts_Help_NotEnoughPoints)
 			self.helpButton.alpha = 0.4
 		}
 	}
@@ -276,11 +276,11 @@ class QuestionsViewController: UIViewController {
 			
 			if bgMusic.isPlaying {
 				bgMusic.pause()
-				muteMusic.setTitle(Localized.Questions_PauseMenu_Music_Play, for: .normal)
+				muteMusic.setTitle(L10n.Questions_PauseMenu_Music_Play, for: .normal)
 			}
 			else {
 				bgMusic.play()
-				muteMusic.setTitle(Localized.Questions_PauseMenu_Music_Pause, for: .normal)
+				muteMusic.setTitle(L10n.Questions_PauseMenu_Music_Pause, for: .normal)
 			}
 			UserDefaultsManager.backgroundMusicSwitchIsOn = bgMusic.isPlaying
 		}
@@ -319,11 +319,11 @@ class QuestionsViewController: UIViewController {
 			self.pauseMenuAction()
 		}
 		
-		let contentIsProtectedAlert = UIAlertController(title: Localized.Security_Alerts_ProtectedContent_Title, message: Localized.Security_Alerts_ProtectedContent_Message, preferredStyle: .alert)
-		contentIsProtectedAlert.addAction(title: Localized.Security_Alerts_ProtectedContent_Exit, style: .cancel) { _ in
+		let contentIsProtectedAlert = UIAlertController(title: L10n.Security_Alerts_ProtectedContent_Title, message: L10n.Security_Alerts_ProtectedContent_Message, preferredStyle: .alert)
+		contentIsProtectedAlert.addAction(title: L10n.Security_Alerts_ProtectedContent_Exit, style: .cancel) { _ in
 			self.goBackAction()
 		}
-		contentIsProtectedAlert.addAction(title: Localized.Common_OK, style: .default)
+		contentIsProtectedAlert.addAction(title: L10n.Common_OK, style: .default)
 		self.present(contentIsProtectedAlert, animated: true)
 	}
 	
@@ -371,7 +371,7 @@ class QuestionsViewController: UIViewController {
 		}
 		
 		let duration: TimeInterval = animated ? 0.1 : 0.0
-		let title = (pauseView.isHidden) ? Localized.Questions_PauseMenu_Continue : Localized.Questions_PauseMenu_Pause
+		let title = (pauseView.isHidden) ? L10n.Questions_PauseMenu_Continue : L10n.Questions_PauseMenu_Pause
 		pauseButton.setTitle(title.localized, for: .normal)
 
 		UIView.transition(with: self.view, duration: duration, options: [.transitionCrossDissolve], animations: {
@@ -445,13 +445,13 @@ class QuestionsViewController: UIViewController {
 				self.pauseMenuAction()
 			}
 			
-			let contentIsProtectedAlert = UIAlertController(title: Localized.Security_Alerts_ProtectedContent_Title, message: Localized.Security_Alerts_ProtectedContent_Message, preferredStyle: .alert)
+			let contentIsProtectedAlert = UIAlertController(title: L10n.Security_Alerts_ProtectedContent_Title, message: L10n.Security_Alerts_ProtectedContent_Message, preferredStyle: .alert)
 			
-			contentIsProtectedAlert.addAction(title: Localized.Security_Alerts_ProtectedContent_Exit, style: .cancel) { _ in
+			contentIsProtectedAlert.addAction(title: L10n.Security_Alerts_ProtectedContent_Exit, style: .cancel) { _ in
 				self.goBackAction()
 			}
 			
-			contentIsProtectedAlert.addAction(title: Localized.Security_Alerts_ProtectedContent_OK, style: .default) { _ in
+			contentIsProtectedAlert.addAction(title: L10n.Security_Alerts_ProtectedContent_OK, style: .default) { _ in
 				if UIScreen.main.isCaptured {
 					self.present(contentIsProtectedAlert, animated: true)
 				}
@@ -638,17 +638,17 @@ class QuestionsViewController: UIViewController {
 		let score = (self.correctAnswers * QuestionsAppOptions.correctAnswerPoints) + (self.incorrectAnswers * QuestionsAppOptions.incorrectAnswerPoints) - helpScore
 					//(correctAnswers * 20) - (incorrectAnswers * 10) - helpScore
 		
-		let extraTitle = (self.quizTimerLabel.text == "0s" || self.quizTimerLabel.text == "0.0s") ? "(\(Localized.Questions_Alerts_TimeRunOut)\n" : ""
+		let extraTitle = (self.quizTimerLabel.text == "0s" || self.quizTimerLabel.text == "0.0s") ? "(\(L10n.Questions_Alerts_TimeRunOut)\n" : ""
 		
-		let title = extraTitle.localized + String(format: Localized.Questions_Alerts_End_Score, score) + " pts"
-		let message = String(format: Localized.Questions_Alerts_End_CorrectAnswers, "\(correctAnswers)/\(set.count)")
+		let title = extraTitle.localized + String(format: L10n.Questions_Alerts_End_Score, score) + " pts"
+		let message = String(format: L10n.Questions_Alerts_End_CorrectAnswers, "\(correctAnswers)/\(set.count)")
 		
 		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		
-		alertViewController.addAction(title: Localized.Common_OK, style: .default) { action in self.okActionDetailed() }
+		alertViewController.addAction(title: L10n.Common_OK, style: .default) { action in self.okActionDetailed() }
 		
 		if (self.correctAnswers < set.count) && (self.repeatTimes < 2) && !isSetCompleted() {
-			let repeatText = Localized.Questions_Alerts_End_Repeat + " (\(2 - self.repeatTimes))"
+			let repeatText = L10n.Questions_Alerts_End_Repeat + " (\(2 - self.repeatTimes))"
 			alertViewController.addAction(title: repeatText, style: .cancel) { action in
 				self.repeatActionDetailed()
 				self.blurView.isHidden = true

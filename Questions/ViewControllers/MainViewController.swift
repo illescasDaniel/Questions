@@ -83,9 +83,9 @@ class MainViewController: UIViewController {
 	}
 	
 	private func initializeLables() {
-		self.startButton.setTitle(Localized.MainMenu_Entries_Topics, for: .normal)
-		self.communityButton.setTitle(Localized.MainMenu_Entries_Community, for: .normal)
-		self.settingsButton.setTitle(Localized.MainMenu_Entries_Settings, for: .normal)
+		self.startButton.setTitle(L10n.MainMenu_Entries_Topics, for: .normal)
+		self.communityButton.setTitle(L10n.MainMenu_Entries_Community, for: .normal)
+		self.settingsButton.setTitle(L10n.MainMenu_Entries_Settings, for: .normal)
 	}
 	
 	@IBAction func loadTheme() {

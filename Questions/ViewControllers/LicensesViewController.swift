@@ -36,7 +36,7 @@ class LicensesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-		self.navigationItem.title = Localized.Settings_Options_Licenses
+		self.navigationItem.title = L10n.Settings_Options_Licenses
 		
 		self.textView.attributedText = licensesAttributedText
 		self.textView.textAlignment = .center

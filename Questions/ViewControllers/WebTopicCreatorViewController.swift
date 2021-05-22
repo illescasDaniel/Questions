@@ -21,7 +21,7 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.navigationItem.title = Localized.TopicsCreation_WebView_Title
+		self.navigationItem.title = L10n.TopicsCreation_WebView_Title
 		self.setupActivityIndicator()
 		self.promptUserWithFormGenerator()
 		self.setupWebView()
@@ -182,10 +182,10 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	
 	private func promptUserWithFormGenerator() {
 		
-		let questionsCreatorSetupAlert = UIAlertController(title: Localized.TopicsCreation_Title, message: nil, preferredStyle: .alert)
+		let questionsCreatorSetupAlert = UIAlertController(title: L10n.TopicsCreation_Title, message: nil, preferredStyle: .alert)
 		
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = Localized.TopicsCreation_SetsNumber
+			textField.placeholder = L10n.TopicsCreation_SetsNumber
 			textField.keyboardType = .numberPad
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 			guard #available(iOS 13, *) else {
@@ -194,7 +194,7 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 			}
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = Localized.TopicsCreation_QuestionsPerSet
+			textField.placeholder = L10n.TopicsCreation_QuestionsPerSet
 			textField.keyboardType = .numberPad
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 			guard #available(iOS 13, *) else {
@@ -203,7 +203,7 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 			}
 		}
 		questionsCreatorSetupAlert.addTextField { textField in
-			textField.placeholder = Localized.TopicsCreation_AnswersPerQuestion
+			textField.placeholder = L10n.TopicsCreation_AnswersPerQuestion
 			textField.keyboardType = .numberPad
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 			guard #available(iOS 13, *) else {
@@ -211,10 +211,10 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 				return
 			}
 		}
-		questionsCreatorSetupAlert.addAction(title: Localized.Common_Cancel, style: .cancel) { _ in
+		questionsCreatorSetupAlert.addAction(title: L10n.Common_Cancel, style: .cancel) { _ in
 			self.navigationController?.popViewController(animated: true)
 		}
-		questionsCreatorSetupAlert.addAction(title: Localized.TopicsCreation_Generate, style: .default) { action in
+		questionsCreatorSetupAlert.addAction(title: L10n.TopicsCreation_Generate, style: .default) { action in
 			
 			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
 			   let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
@@ -244,16 +244,16 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	
 	private func topicActionAlert(topic: Topic) {
 		
-		let whatToDoAlertController = UIAlertController(title: Localized.TopicsCreation_Alerts_Save_Title, message: nil, preferredStyle: .alert)
-		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Cancel, style: .cancel)
-		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
-			ToastAlert.present(onSuccess: Localized.TopicsCreation_Alerts_Save_Success,
-							   onError: Localized.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
+		let whatToDoAlertController = UIAlertController(title: L10n.TopicsCreation_Alerts_Save_Title, message: nil, preferredStyle: .alert)
+		whatToDoAlertController.addAction(title: L10n.TopicsCreation_Alerts_Save_Cancel, style: .cancel)
+		whatToDoAlertController.addAction(title: L10n.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
+			ToastAlert.present(onSuccess: L10n.TopicsCreation_Alerts_Save_Success,
+							   onError: L10n.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
 								return SetOfTopics.shared.save(topic: TopicEntry(name: topic.options?.name ?? "", content: topic))
 							   })
 		}
 		
-		whatToDoAlertController.addAction(title: Localized.TopicsCreation_Alerts_Save_Share, style: .default) { _ in
+		whatToDoAlertController.addAction(title: L10n.TopicsCreation_Alerts_Save_Share, style: .default) { _ in
 			
 			var items: [Any] = []
 			
@@ -271,7 +271,7 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	}
 	
 	private func invalidQuizAlert(title: String = "", message: String? = nil) {
-		let alertVC = UIAlertController(title: title.isEmpty ? Localized.TopicsCreation_WebView_Validation_Invalid : title, message: message ?? nil, preferredStyle: .alert)
+		let alertVC = UIAlertController(title: title.isEmpty ? L10n.TopicsCreation_WebView_Validation_Invalid : title, message: message ?? nil, preferredStyle: .alert)
 		alertVC.addAction(title: "OK", style: .default)
 		self.present(alertVC, animated: true)
 	}

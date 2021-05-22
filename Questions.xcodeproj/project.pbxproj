@@ -65,7 +65,7 @@
 		65BF7CE31E68B4F7006A7706 /* AudioSounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */; };
 		65C285C61D2A8176002F7DF8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285C51D2A8176002F7DF8 /* MainViewController.swift */; };
 		65C285D41D2AB6A4002F7DF8 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */; };
-		65C9BF0B210922EB004D8B37 /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9BF0A210922EB004D8B37 /* Localized.swift */; };
+		65C9BF0B210922EB004D8B37 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9BF0A210922EB004D8B37 /* L10n.swift */; };
 		65CB4C461D29C3E300D2E1C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */; };
 		65CB4C4B1D29C3E300D2E1C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65CB4C491D29C3E300D2E1C1 /* Main.storyboard */; };
 		65D1EAFF1D3E89E80003C8DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65D1EAFE1D3E89E80003C8DA /* Assets.xcassets */; };
@@ -151,7 +151,7 @@
 		65BF7CE21E68B4F7006A7706 /* AudioSounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSounds.swift; sourceTree = "<group>"; };
 		65C285C51D2A8176002F7DF8 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		65C285D31D2AB6A4002F7DF8 /* QuestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
-		65C9BF0A210922EB004D8B37 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		65C9BF0A210922EB004D8B37 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		65CB4C421D29C3E300D2E1C1 /* Questions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Questions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65CB4C451D29C3E300D2E1C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65CB4C4A1D29C3E300D2E1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -457,7 +457,7 @@
 		65E12DA421C27A410067B4D0 /* resources */ = {
 			isa = PBXGroup;
 			children = (
-				65E12DA521C27A790067B4D0 /* i18n */,
+				65E12DA521C27A790067B4D0 /* Localization */,
 				6560434F1E787FEE00A96192 /* sounds */,
 				656043481E787D9D00A96192 /* data */,
 				65E12DBF21C27D9A0067B4D0 /* Default-568h@2x.png */,
@@ -466,14 +466,14 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		65E12DA521C27A790067B4D0 /* i18n */ = {
+		65E12DA521C27A790067B4D0 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				65C9BF0A210922EB004D8B37 /* Localized.swift */,
+				65C9BF0A210922EB004D8B37 /* L10n.swift */,
 				65456AEF1D2BBEF90048965E /* Localizable.strings */,
 				650745F01EACCDF200BC178E /* InfoPlist.strings */,
 			);
-			path = i18n;
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		65E12DA621C27AA50067B4D0 /* ViewControllers */ = {
@@ -761,7 +761,7 @@
 				65746A5720B62A2400F28769 /* Topic.swift in Sources */,
 				65AF1D0421C8E94E001C68E7 /* Bundle+Extension.swift in Sources */,
 				65E12DBB21C27C540067B4D0 /* PreferencesManager.swift in Sources */,
-				65C9BF0B210922EB004D8B37 /* Localized.swift in Sources */,
+				65C9BF0B210922EB004D8B37 /* L10n.swift in Sources */,
 				65456AF21D2BC01C0048965E /* String+Extension.swift in Sources */,
 				65D348851F4C512400270B26 /* UIView+Extension.swift in Sources */,
 				65822A141E7D5F4C00A1FE61 /* UIAlertController+Extension.swift in Sources */,

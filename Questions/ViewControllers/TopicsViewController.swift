@@ -204,7 +204,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		switch section {
 		case SetOfTopics.Mode.app.rawValue: return nil
-		case SetOfTopics.Mode.saved.rawValue: return Localized.Topics_AllTopics_Type_Saved
+		case SetOfTopics.Mode.saved.rawValue: return L10n.Topics_AllTopics_Type_Saved
 		default: return nil
 		}
 	}
@@ -277,13 +277,13 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			return
 		}
 		
-		let titleText = Localized.Topics_Community_Submission_Title
-		let messageText = Localized.Topics_Community_Submission_Info
+		let titleText = L10n.Topics_Community_Submission_Title
+		let messageText = L10n.Topics_Community_Submission_Info
 		
 		let newTopicAlert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = Localized.Topics_Community_Submission_TopicName
+			textField.placeholder = L10n.Topics_Community_Submission_TopicName
 			textField.keyboardType = .alphabet
 			textField.autocapitalizationType = .sentences
 			textField.autocorrectionType = .yes
@@ -295,7 +295,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		}
 		
 		newTopicAlert.addTextField { textField in
-			textField.placeholder = Localized.Topics_Community_Submission_TopicContent
+			textField.placeholder = L10n.Topics_Community_Submission_TopicContent
 			textField.keyboardType = .URL
 			textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
 			guard #available(iOS 13, *) else {
@@ -304,7 +304,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Help, style: .default) { _ in
+		newTopicAlert.addAction(title: L10n.Topics_Community_Submission_Help, style: .default) { _ in
 			if let url = URL(string: QuestionsAppOptions.questionJSONFormatURL) {
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(url, options: [:])
@@ -314,7 +314,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Topics_Community_Submission_Action, style: .default) { _ in
+		newTopicAlert.addAction(title: L10n.Topics_Community_Submission_Action, style: .default) { _ in
 			
 			if let topicName = newTopicAlert.textFields?.first?.text,
 				let topicURLText = newTopicAlert.textFields?.last?.text, !topicURLText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -339,7 +339,7 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 			}
 		}
 		
-		newTopicAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
+		newTopicAlert.addAction(title: L10n.Common_Cancel, style: .cancel)
 		self.present(newTopicAlert, animated: true)
 	}
 	
@@ -350,14 +350,14 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		
 		if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .warning) }
 		
-		let title = String.localizedStringWithFormat(Localized.Topics_Saved_DeleteAll, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
+		let title = String.localizedStringWithFormat(L10n.Topics_Saved_DeleteAll, selectedItemsIndexPaths.count, selectedItemsIndexPaths.count > 1 ? "s" : "")
 		let deleteItemsAlert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 		deleteItemsAlert.popoverPresentationController?.barButtonItem = self.toolbarItems?.last
 		
-		deleteItemsAlert.addAction(title: Localized.Topics_Saved_Delete, style: .destructive) { _ in
+		deleteItemsAlert.addAction(title: L10n.Topics_Saved_Delete, style: .destructive) { _ in
 			self.removeSavedTopics(withIndexPaths: selectedItemsIndexPaths)
 		}
-		deleteItemsAlert.addAction(title: Localized.Common_Cancel, style: .cancel)
+		deleteItemsAlert.addAction(title: L10n.Common_Cancel, style: .cancel)
 		
 		self.present(deleteItemsAlert, animated: true)
 	}
@@ -464,8 +464,8 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 	private func setupNavigationItem() {
 		
 		self.navigationItem.title = SetOfTopics.shared.current == .community
-			? Localized.Topics_Community_Title
-			: Localized.Topics_AllTopics_Title
+			? L10n.Topics_Community_Title
+			: L10n.Topics_AllTopics_Title
 		
 		self.editButtonItem.isEnabled = SetOfTopics.shared.current != .community
 		
@@ -496,6 +496,6 @@ class TopicsViewController: UITableViewController, UIPopoverPresentationControll
 		self.definesPresentationContext = true
 		self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
 		self.navigationItem.hidesSearchBarWhenScrolling = true
-		self.navigationItem.searchController?.searchBar.placeholder = Localized.Topics_AllTopics_SearchBar_PlaceholderText
+		self.navigationItem.searchController?.searchBar.placeholder = L10n.Topics_AllTopics_SearchBar_PlaceholderText
 	}
 }

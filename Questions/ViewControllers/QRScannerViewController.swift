@@ -28,7 +28,7 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 		DispatchQueue.main.async {
 			if #available(iOS 11.0, *) { self.navigationItem.largeTitleDisplayMode = .never }
 			
-			self.allowCameraButton.setTitle(Localized.ScanQR_Permissions_Camera_Access, for: .normal)
+			self.allowCameraButton.setTitle(L10n.ScanQR_Permissions_Camera_Access, for: .normal)
 			
 			self.captureDevice = AVCaptureDevice.default(for: .video)
 			
@@ -111,11 +111,11 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 			SetOfTopics.shared.save(topic: TopicEntry(name: "", content: validContent))
 			if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .success) }
 			
-			let openQuestionsAlert = UIAlertController(title: nil, message: Localized.ScanQR_Alerts_Open_Title, preferredStyle: .alert)
-			openQuestionsAlert.addAction(title: Localized.ScanQR_Alerts_Open_OpenIt, style: .default) { _ in
+			let openQuestionsAlert = UIAlertController(title: nil, message: L10n.ScanQR_Alerts_Open_Title, preferredStyle: .alert)
+			openQuestionsAlert.addAction(title: L10n.ScanQR_Alerts_Open_OpenIt, style: .default) { _ in
 				self.performSegue(withIdentifier: "unwindToQuestions", sender: validContent)
 			}
-			openQuestionsAlert.addAction(title: Localized.ScanQR_Alerts_Open_KeepScanning, style: .cancel) { _ in
+			openQuestionsAlert.addAction(title: L10n.ScanQR_Alerts_Open_KeepScanning, style: .cancel) { _ in
 				self.captureSession.startRunning()
 			}
 			self.present(openQuestionsAlert, animated: true)
@@ -150,12 +150,12 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	}
 	
 	@IBAction func allowCameraAction() {
-		let alertViewController = UIAlertController(title: Localized.Common_Attention,
-		                                            message: Localized.ScanQR_Permissions_Camera_Description,
+		let alertViewController = UIAlertController(title: L10n.Common_Attention,
+		                                            message: L10n.ScanQR_Permissions_Camera_Description,
 		                                            preferredStyle: .alert)
 		
-		alertViewController.addAction(title: Localized.Common_Cancel, style: .cancel)
-		alertViewController.addAction(title: Localized.ScanQR_Permissions_Camera_Access, style: .default) { action in
+		alertViewController.addAction(title: L10n.Common_Cancel, style: .cancel)
+		alertViewController.addAction(title: L10n.ScanQR_Permissions_Camera_Access, style: .default) { action in
 			if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
 				if #available(iOS 10.0, *) {
 					UIApplication.shared.open(settingsURL, options: [:])
@@ -206,8 +206,8 @@ class QRScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsD
 	func invalidQRCodeFormat() {
 		self.captureSession.stopRunning()
 		if #available(iOS 10.0, *) { FeedbackGenerator.notificationOcurredOf(type: .error) }
-		let alertViewController = UIAlertController(title: Localized.Common_Attention, message: Localized.ScanQR_Error_InvalidFormat, preferredStyle: .alert)
-		alertViewController.addAction(title: Localized.Common_OK, style: .default) { _ in
+		let alertViewController = UIAlertController(title: L10n.Common_Attention, message: L10n.ScanQR_Error_InvalidFormat, preferredStyle: .alert)
+		alertViewController.addAction(title: L10n.Common_OK, style: .default) { _ in
 			self.captureSession.startRunning()
 		}
 		self.present(alertViewController, animated: true)
