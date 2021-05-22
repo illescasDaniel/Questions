@@ -95,17 +95,17 @@ extension Topic {
 extension Topic.ValidationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
-		case .emptySet(_):
+		case .emptySet:
 			return Localized.TopicsCreation_WebView_Validation_Sets_Empty
-		case .emptyQuestion(_):
+		case .emptyQuestion:
 			return Localized.TopicsCreation_WebView_Validation_Questions_Empty
-		case .emptyAnswer(_):
+		case .emptyAnswer:
 			return Localized.TopicsCreation_WebView_Validation_Answers_Empty
-		case .incorrectAnswersCount(_):
+		case .incorrectAnswersCount:
 			return Localized.TopicsCreation_WebView_Validation_Answers_IncorrectCount
-		case .incorrectCorrectAnswersCount(_):
+		case .incorrectCorrectAnswersCount:
 			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectCount
-		case .incorrectCorrectAnswerIndex(_):
+		case .incorrectCorrectAnswerIndex:
 			return Localized.TopicsCreation_WebView_Validation_Answers_BadCorrectIndex
 		}
 	}
