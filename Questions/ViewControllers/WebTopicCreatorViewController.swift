@@ -229,8 +229,12 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 				self.webView.loadHTMLString(outputWebCode, baseURL: nil)
 			}
 			else {
-				// TODO: tell somehow the user that the input values were incorrect
-				self.navigationController?.popViewController(animated: true)
+                let alert = UIAlertController(title: "Alert", message: "Please enter valid entries.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    NSLog("The \"OK\" alert occured.")
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                self.present(alert, animated: true, completion: nil)
 			}
 		}
 		self.present(questionsCreatorSetupAlert, animated: true, completion: {
