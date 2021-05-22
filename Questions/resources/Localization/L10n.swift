@@ -434,6 +434,12 @@ class L10n {
 		comment: ""
 	)
 	
+	static let TopicsCreation_Alerts_Error_GeneratorForm = NSLocalizedString(
+		"**TopicsCreation.Alerts.Error.GeneratorForm**",
+		value: "Invalid data. Number of sets must be higher than 0, questions per set must be higher than 0 and answers per question must be higher than 1.",
+		comment: ""
+	)
+	
 	static let TopicsCreation_WebView_Validation_Answers_BadCorrectIndex_Recovery = NSLocalizedString(
 		"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex.Recovery**",
 		value: "[Location] Set: %d, question: %d, bad: %d, maximum: %d",

@@ -229,9 +229,8 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 				self.webView.loadHTMLString(outputWebCode, baseURL: nil)
 			}
 			else {
-                let alert = UIAlertController(title: "Alert", message: "Please enter valid entries.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                    NSLog("The \"OK\" alert occured.")
+				let alert = UIAlertController(title: "", message: L10n.TopicsCreation_Alerts_Error_GeneratorForm, preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: L10n.Common_OK, style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 }))
                 self.present(alert, animated: true, completion: nil)

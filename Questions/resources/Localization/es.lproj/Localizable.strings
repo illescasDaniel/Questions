@@ -337,6 +337,9 @@
 /* No comment provided by engineer. */
 "**TopicsCreation.WebView.Validation.Sets.Empty**" = "Al menos un set está vacío.";
 
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Error.GeneratorForm**" = "Datos inválidos. El número de sets de ser mayor que 0, el número de preguntas por set debe ser mayor que 0 y el número de respuestas por pregunta debe ser mayor que 1.";
+
 /* -- QUESTION SETS -- */
 
 // --- SOCIAL ---
