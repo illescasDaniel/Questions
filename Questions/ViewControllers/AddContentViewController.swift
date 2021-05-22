@@ -95,7 +95,7 @@ class AddContentTableVC: PopoverTableViewController {
 		let titleText = L10n.Topics_Saved_Add_Download_Title
 		let messageText = L10n.Topics_Saved_Add_Download_Info
 		
-		let newTopicAlert = UIAlertController(title: titleText.localized, message: messageText.localized, preferredStyle: .alert)
+		let newTopicAlert = UIAlertController(title: titleText, message: messageText, preferredStyle: .alert)
 		
 		newTopicAlert.addTextField { textField in
 			textField.placeholder = L10n.Topics_Saved_Add_Download_TopicName

@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Questions
+
+  Created by Daniel Illescas Romero on 23/04/2017.
+  Copyright © 2017 Daniel Illescas Romero. All rights reserved.
+*/
+
+NSCameraUsageDescription = "The app needs Camera acess if you want to read Questions from a QR code";
+NSPhotoLibraryAddUsageDescription = "We need access to save the topic as a QR code";

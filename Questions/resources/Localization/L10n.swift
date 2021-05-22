@@ -20,6 +20,12 @@ class L10n {
 		comment: ""
 	)
 	
+	static let Topics_Community_Submission_TopicName = NSLocalizedString(
+		"**Topics.Community.Submission.TopicName**",
+		value: "Topic Name",
+		comment: ""
+	)
+	
 	static let ScanQR_Error_InvalidFormat = NSLocalizedString(
 		"**ScanQR.Error.InvalidFormat**",
 		value: "Invalid QR Code format",

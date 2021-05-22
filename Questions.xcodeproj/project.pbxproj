@@ -135,6 +135,7 @@
 		65746A5A20B62B8900F28769 /* TopicEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEntry.swift; sourceTree = "<group>"; };
 		657B1CB21F9292DE00D127F0 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		657B1CB61F92B0CF00D127F0 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		6580B8502659A0CB00396F60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		65822A131E7D5F4C00A1FE61 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		6583F2D7224ADF9A0061F77D /* SideVolumeHUDView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideVolumeHUDView.swift; sourceTree = "<group>"; };
 		6583F2D8224ADF9A0061F77D /* SideVolumeHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideVolumeHUD.swift; sourceTree = "<group>"; };
@@ -812,6 +813,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				650745EF1EACCDF200BC178E /* es */,
+				6580B8502659A0CB00396F60 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

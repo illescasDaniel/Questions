@@ -67,10 +67,10 @@ class QuestionsViewController: UIViewController {
 		self.createAnswerButtons()
 		
 		let title = AudioSounds.bgMusic?.isPlaying == true ? L10n.Questions_PauseMenu_Music_Pause : L10n.Questions_PauseMenu_Music_Play
-		self.muteMusic.setTitle(title.localized, for: .normal)
+		self.muteMusic.setTitle(title, for: .normal)
 	
-		self.goBack.setTitle(L10n.Questions_PauseMenu_Back_QuestionsMenu.localized, for: .normal)
-		self.mainMenu.setTitle(L10n.Questions_PauseMenu_Back_MainMenu.localized, for: .normal)
+		self.goBack.setTitle(L10n.Questions_PauseMenu_Back_QuestionsMenu, for: .normal)
+		self.mainMenu.setTitle(L10n.Questions_PauseMenu_Back_MainMenu, for: .normal)
 		self.pauseButton.setTitle(L10n.Questions_PauseMenu_Pause, for: .normal)
 		self.pauseView.isHidden = true
 		self.blurView.isHidden = true
@@ -114,28 +114,15 @@ class QuestionsViewController: UIViewController {
 		
 		if #available(iOS 10.0, *) {
 			
-			Timer.scheduledTimer(withTimeInterval: timeMoreThan1Minute ? 1 : 0.1, repeats: true, block: { timer in
-				
-				guard self.previousQuizTime == -1 else { return }
-				
-				self.quizTime -= timeMoreThan1Minute ? 1 : 0.1
-				
-				if self.quizTime <= 0 {
-					self.quizTime = 0
-					DispatchQueue.main.async { self.quizTimerLabel.text = "0s" }
-					self.presentedViewController?.dismiss(animated: true)
-					self.endOfQuestionsAlert()
-					timer.invalidate()
-				}
-				else {
-					DispatchQueue.main.async {
-						self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String.localizedStringWithFormat("%.1f", self.quizTime)) + "s"
-					}
-				}
+			let timer = Timer.scheduledTimer(withTimeInterval: timeMoreThan1Minute ? 1 : 0.1, repeats: true, block: { timer in
+				self._updateTime(timer: timer, timeMoreThan1Minute: timeMoreThan1Minute)
 			})
+			
+			RunLoop.main.add(timer, forMode: .common)
 		}
 		else {
-			// TODO: complete!
+			let timer = Timer.scheduledTimer(timeInterval: timeMoreThan1Minute ? 1 : 0.1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+			RunLoop.main.add(timer, forMode: .common)
 		}
 	}
 	
@@ -206,6 +193,29 @@ class QuestionsViewController: UIViewController {
 	}
 	
 	// MARK: Actions
+	
+	@objc private func updateTime(timer: Timer) {
+		_updateTime(timer: timer, timeMoreThan1Minute: false)
+	}
+	
+	private func _updateTime(timer: Timer, timeMoreThan1Minute: Bool) {
+		guard self.previousQuizTime == -1 else { return }
+		
+		self.quizTime -= timeMoreThan1Minute ? 1 : 0.1
+		
+		if self.quizTime <= 0 {
+			self.quizTime = 0
+			DispatchQueue.main.async { self.quizTimerLabel.text = "0s" }
+			self.presentedViewController?.dismiss(animated: true)
+			self.endOfQuestionsAlert()
+			timer.invalidate()
+		}
+		else {
+			DispatchQueue.main.async {
+				self.quizTimerLabel.text = (timeMoreThan1Minute ? String(Int(self.quizTime.rounded(.down))) : String.localizedStringWithFormat("%.1f", self.quizTime)) + "s"
+			}
+		}
+	}
 	
 	@IBAction func tapAnyWhereToClosePauseMenu(_ sender: UITapGestureRecognizer) {
 		if !self.pauseView.isHidden {
@@ -640,7 +650,7 @@ class QuestionsViewController: UIViewController {
 		
 		let extraTitle = (self.quizTimerLabel.text == "0s" || self.quizTimerLabel.text == "0.0s") ? "(\(L10n.Questions_Alerts_TimeRunOut)\n" : ""
 		
-		let title = extraTitle.localized + String(format: L10n.Questions_Alerts_End_Score, score) + " pts"
+		let title = extraTitle + String(format: L10n.Questions_Alerts_End_Score, score) + " pts"
 		let message = String(format: L10n.Questions_Alerts_End_CorrectAnswers, "\(correctAnswers)/\(set.count)")
 		
 		let alertViewController = UIAlertController(title: title, message: message, preferredStyle: .alert)

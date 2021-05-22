@@ -7,3 +7,4 @@
 */
 
 NSCameraUsageDescription = "La app necesita acceso a la cámara si deseas leer preguntas a partir de un código QR";
+NSPhotoLibraryAddUsageDescription = "Necesitamos permiso para guardar las preguntas como un código QR";
