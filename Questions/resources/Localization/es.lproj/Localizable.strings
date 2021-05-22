@@ -1,126 +1,454 @@
-"**HomeQuickActions.ScanQR**" = "Escanear código QR";
-
-"**MainMenu.Title**" = "Menú principal";
-"**MainMenu.Entries.Topics**" = "Temas";
-"**MainMenu.Entries.Community**" = "Comunidad";
-"**MainMenu.Entries.ScanQR**" = "Escanear código QR";
-"**MainMenu.Entries.Settings**" = "Ajustes";
-
-"**Topics.AllTopics.Title**" = "Temas";
-"**Topics.AllTopics.Type.App**" = "App";
-"**Topics.AllTopics.Type.Saved**" = "Guardados";
-"**Topics.AllTopics.Type.Community**" = "Comunidad";
-"**Topics.AllTopics.SearchBar.PlaceholderText**" = "Nombre del tema";
-"**Topics.Community.Title**" = "Comunidad";
-"**Topics.Community.Submission.Title**" = "Enviar tema";
-"**Topics.Community.Submission.TopicName**" = "Nombre del tema";
-"**Topics.Community.Submission.Info**" = "Puedes descargar un tema usando una URL que tenga el contenido formateado o pegar el contenido directamente.";
-"**Topics.Community.Submission.Action**" = "Enviar";
-"**Topics.Community.Submission.Help**" = "Ayuda";
-"**Topics.Community.Submission.TopicContent**" = "URL del tema o contenido";
-"**Topics.Saved.Add.Menu.Download**" = "Descargar tema remoto";
-"**Topics.Saved.Add.Menu.Create**" = "Crear tema";
-"**Topics.Saved.Add.Menu.Camera**" = "Leer desde la cámara";
-"**Topics.Saved.Add.Download.Title**" = "Añadir tema";
-"**Topics.Saved.Add.Download.Info**" = "Puedes especificar una URL que contenga el fichero apropiadamente formateado o el contenido entero";
-"**Topics.Saved.Add.Download.Action**" = "Añadir";
-"**Topics.Saved.Add.Download.TopicContent**" = "URL del tema o contenido";
-"**Topics.Saved.Add.Download.TopicName**" = "Nombre del tema";
-"**Topics.Saved.Add.Download.Help**" = "Ayuda";
-"**Topics.Saved.Delete**" = "Eliminar";
-"**Topics.Saved.DeleteAll**" = "Eliminar %d ítem%@";
-"**Topics.Quizzes.Title**" = "Cuestionarios";
-
-"**TopicsCreation.Title**" = "Crear tema";
-"**TopicsCreation.SetsNumber**" = "Número de sets";
-"**TopicsCreation.QuestionsPerSet**" = "Preguntas por set";
-"**TopicsCreation.AnswersPerQuestion**" = "Respuestas por pregunta";
-"**TopicsCreation.Generate**" = "Generar formulario";
-"**TopicsCreation.Alerts.Save.Title**" = "Qué hacer con el tema";
-"**TopicsCreation.Alerts.Save.Cancel**" = "¡Espera! Todavía no terminé.";
-"**TopicsCreation.Alerts.Save.Accept**" = "Guardar";
-"**TopicsCreation.Alerts.Save.Share**" = "Compartir";
-"**TopicsCreation.Alerts.Save.Success**" = "Guardado";
-"**TopicsCreation.Alerts.Save.Error**" = "Error al guardar";
-"**TopicsCreation.WebView.Title**" = "Creador de temas";
-"**TopicsCreation.WebView.Options.SectionTitle**" = "Opciones";
-"**TopicsCreation.WebView.Options.Name**" = "Nombre";
-"**TopicsCreation.WebView.Options.NamePlaceholder**" = "Opcional pero recomendado";
-"**TopicsCreation.WebView.Options.Time**" = "Tiempo por set";
-"**TopicsCreation.WebView.Options.TimePlaceholder**" = "Opcional";
-"**TopicsCreation.WebView.Options.RandomOrderQuestions**" = "Preguntas en orden aleatorio";
-"**TopicsCreation.WebView.Options.EnableHelp**" = "Habilitar el botón de ayuda";
-"**TopicsCreation.WebView.Options.ShowCorrectIncorrect**" = "Mostrar respuestas correctas/incorrectas";
-"**TopicsCreation.WebView.Options.ForceChooseCorrectAnswers**" = "Forzar escoger todas las respuestas correctas";
-"**TopicsCreation.WebView.Set**" = "Set";
-"**TopicsCreation.WebView.Question**" = "Pregunta";
-"**TopicsCreation.WebView.ImageURL**" = "URL Imagen";
-"**TopicsCreation.WebView.ImageURLPlaceholder**" = "Opcional";
-"**TopicsCreation.WebView.Answer**" = "Respuesta";
-
-"**TopicsCreation.WebView.Validation.Invalid**" = "Tema inválido";
-"**TopicsCreation.WebView.Validation.Sets.Empty**" = "Al menos un set está vacío.";
-"**TopicsCreation.WebView.Validation.Sets.Empty.Recovery**" = "Número de sets: %d";
-"**TopicsCreation.WebView.Validation.Questions.Empty**" = "Al menos una pregunta está vacía.";
-"**TopicsCreation.WebView.Validation.Questions.Empty.Recovery**" = "[Localización] Set: %d, pregunta: %d";
-"**TopicsCreation.WebView.Validation.Answers.Empty**" = "Al menos una respuesta está vacía.";
-"**TopicsCreation.WebView.Validation.Answers.Empty.Recovery**" = "[Localización] Set: %d, pregunta: %d, respuesta: %d";
-"**TopicsCreation.WebView.Validation.Answers.IncorrectCount**" = "El número de respuestas válidas es incorrecto, respuestas repetidas no están permitidas.";
-"**TopicsCreation.WebView.Validation.Answers.IncorrectCount.Recovery**" = "[Localización] Set: %d, pregunta: %d, respuestas correctas: %d";
-"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount**" = "El número de respuestas correctas es incorreto.";
-"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount.Recovery**" = "[Localización] Set: %d, pregunta: %d, mal: %d, máximo: %d";
-"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex**" = "El índice de la respuesta correcta es incorrecto.";
-
-"**ScanQR.Errors.InvalidFormat**" = "Formato de código QR inválido";
-"**ScanQR.Alerts.Open.Title**" = "Abrir primer set de preguntas";
-"**ScanQR.Alerts.Open.OpenIt**" = "Abrirlo";
-"**ScanQR.Alerts.Open.KeepScanning**" = "Seguir escaneando";
-"**ScanQR.Permissions.Camera.Description**" = "Para escanear QR se necesita acceso a la cámara.";
-"**ScanQR.Permissions.Camera.Access**" = "Permitir acceso a la cámara";
-
-"**Common.OK**" = "OK";
-"**Common.Cancel**" = "Cancelar";
+/* No comment provided by engineer. */
 "**Common.Attention**" = "Atención";
 
-"**Settings.Title**" = "Ajustes";
-"**Settings.Options.Music**" = "Música de fondo";
-"**Settings.Options.HapticFeedback**" = "Respuesta háptica";
-"**Settings.Options.HapticFeedback.Info**" = "*Solo disponible en ciertos dispositivos.";
-"**Settings.Options.ParallaxEffect**" = "Efecto parallax";
-"**Settings.Options.DarkTheme**" = "Tema oscuro";
-"**Settings.Options.Licenses**" = "Licencias";
-"**Settings.Options.ResetProgress**" = "Reiniciar progreso";
-"**Settings.Options.ClearCachedImages**" = "Limpiar caché de las imágenes";
-"**Settings.Options.ClearCachedImages.Action**" = "Limpiar";
-"**Settings.Alerts.ResetProgress.Title**" = "¿Estás seguro de que deseas reiniciar la configuración y progreso del juego?";
-"**Settings.Alerts.ResetProgress.OnlyStatistics**" = "Solo estadísticas";
-"**Settings.Alerts.ResetProgress.Everything**" = "Todo";
-"**Settings.Statistics.Title**" = "Estadísticas";
-"**Settings.Statistics.Ratio**" = "Ratio";
-"**Settings.Statistics.CompletedSets**" = "Sets completados";
-"**Settings.Statistics.CorrectAnswers**" = "Respuestas correctas";
-"**Settings.Statistics.IncorrectAnswers**" = "Respuestas incorrectas";
+/* No comment provided by engineer. */
+"**Common.Cancel**" = "Cancelar";
 
-"**Questions.PauseMenu.Pause**" = "Pausar";
-"**Questions.PauseMenu.Continue**" = "Continuar";
-"**Questions.PauseMenu.Music.Pause**" = "Pausar música";
-"**Questions.PauseMenu.Music.Play**" = "Reproducir música";
-"**Questions.PauseMenu.Back.QuestionsMenu**" = "Menú de preguntas";
-"**Questions.PauseMenu.Back.MainMenu**" = "Menú principal";
+/* No comment provided by engineer. */
+"**Common.OK**" = "OK";
 
-"**Questions.Alerts.Help.MaxRepeatTriesReached**" = "Número máximo de intentos alcanzados";
-"**Questions.Alerts.Help.MaxHelpTriesReached**" = "Número máximo de ayudas alcanzados";
-"**Questions.Alerts.Help.NotEnoughPoints**" = "No hay suficientes puntos.\nSolo consigues puntos completando cuestionarios.";
-"**Questions.Alerts.Repeat.Title**" = "¿Repetir?";
-"**Questions.Alerts.Repeat.Message**" = "¿Desea empezar de nuevo?";
-"**Questions.Alerts.End.Message**" = "¿Desea repetirlo?";
+/* No comment provided by engineer. */
+"**HomeQuickActions.ScanQR**" = "Escanear código QR";
+
+/* No comment provided by engineer. */
+"**MainMenu.Entries.Community**" = "Comunidad";
+
+/* No comment provided by engineer. */
+"**MainMenu.Entries.Settings**" = "Ajustes";
+
+/* No comment provided by engineer. */
+"**MainMenu.Entries.Topics**" = "Temas";
+
+/* No comment provided by engineer. */
 "**Questions.Alerts.End.CorrectAnswers**" = "Respuestas correctas: %@";
-"**Questions.Alerts.End.Score**" = "Puntuación: %d";
+
+/* No comment provided by engineer. */
 "**Questions.Alerts.End.Repeat**" = "Repetir";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.End.Score**" = "Puntuación: %d";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.Help.MaxHelpTriesReached**" = "Número máximo de ayudas alcanzados";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.Help.MaxRepeatTriesReached**" = "Número máximo de intentos alcanzados";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.Help.NotEnoughPoints**" = "No hay suficientes puntos.\nSolo consigues puntos completando cuestionarios.";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.Repeat.Message**" = "¿Desea empezar de nuevo?";
+
+/* No comment provided by engineer. */
+"**Questions.Alerts.Repeat.Title**" = "¿Repetir?";
+
+/* No comment provided by engineer. */
 "**Questions.Alerts.TimeRunOut**" = "Se acabó el tiempo";
 
-"**Security.Alerts.ProtectedContent.Title**" = "Este contenido está protegido";
-"**Security.Alerts.ProtectedContent.Message**" = "Por favor no grabe la pantalla o tome capturas";
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Back.MainMenu**" = "Menú principal";
+
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Back.QuestionsMenu**" = "Menú de preguntas";
+
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Continue**" = "Continuar";
+
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Music.Pause**" = "Pausar música";
+
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Music.Play**" = "Reproducir música";
+
+/* No comment provided by engineer. */
+"**Questions.PauseMenu.Pause**" = "Pausar";
+
+/* No comment provided by engineer. */
+"**ScanQR.Alerts.Open.KeepScanning**" = "Seguir escaneando";
+
+/* No comment provided by engineer. */
+"**ScanQR.Alerts.Open.OpenIt**" = "Abrirlo";
+
+/* No comment provided by engineer. */
+"**ScanQR.Alerts.Open.Title**" = "Abrir primer set de preguntas";
+
+/* No comment provided by engineer. */
+"**ScanQR.Error.InvalidFormat**" = "Formato inválido";
+
+/* No comment provided by engineer. */
+"**ScanQR.Permissions.Camera.Access**" = "Permitir acceso a la cámara";
+
+/* No comment provided by engineer. */
+"**ScanQR.Permissions.Camera.Description**" = "Para escanear QR se necesita acceso a la cámara.";
+
+/* No comment provided by engineer. */
 "**Security.Alerts.ProtectedContent.Exit**" = "Finalizar cuestionario";
+
+/* No comment provided by engineer. */
+"**Security.Alerts.ProtectedContent.Message**" = "Por favor no grabe la pantalla o tome capturas";
+
+/* No comment provided by engineer. */
 "**Security.Alerts.ProtectedContent.OK**" = "Lo he deshabilitado";
 
+/* No comment provided by engineer. */
+"**Security.Alerts.ProtectedContent.Title**" = "Este contenido está protegido";
+
+/* No comment provided by engineer. */
+"**Settings.Alerts.ResetProgress.Everything**" = "Todo";
+
+/* No comment provided by engineer. */
+"**Settings.Alerts.ResetProgress.OnlyStatistics**" = "Solo estadísticas";
+
+/* No comment provided by engineer. */
+"**Settings.Alerts.ResetProgress.Title**" = "¿Estás seguro de que deseas reiniciar la configuración y progreso del juego?";
+
+/* No comment provided by engineer. */
+"**Settings.Options.ClearCachedImages.Action**" = "Limpiar";
+
+/* No comment provided by engineer. */
+"**Settings.Options.ClearCachedImages**" = "Limpiar caché de las imágenes";
+
+/* No comment provided by engineer. */
+"**Settings.Options.DarkTheme**" = "Tema oscuro";
+
+/* No comment provided by engineer. */
+"**Settings.Options.HapticFeedback.Info**" = "*Solo disponible en ciertos dispositivos.";
+
+/* No comment provided by engineer. */
+"**Settings.Options.HapticFeedback**" = "Respuesta háptica";
+
+/* No comment provided by engineer. */
+"**Settings.Options.Licenses**" = "Licencias";
+
+/* No comment provided by engineer. */
+"**Settings.Options.Music**" = "Música de fondo";
+
+/* No comment provided by engineer. */
+"**Settings.Options.ParallaxEffect**" = "Efecto parallax";
+
+/* No comment provided by engineer. */
+"**Settings.Options.ResetProgress**" = "Reiniciar progreso";
+
+/* No comment provided by engineer. */
+"**Settings.Statistics.CompletedSets**" = "Sets completados";
+
+/* No comment provided by engineer. */
+"**Settings.Statistics.CorrectAnswers**" = "Respuestas correctas";
+
+/* No comment provided by engineer. */
+"**Settings.Statistics.IncorrectAnswers**" = "Respuestas incorrectas";
+
+/* No comment provided by engineer. */
+"**Settings.Statistics.Ratio**" = "Ratio";
+
+/* No comment provided by engineer. */
+"**Settings.Statistics.Title**" = "Estadísticas";
+
+/* No comment provided by engineer. */
+"**Settings.Title**" = "Ajustes";
+
+/* No comment provided by engineer. */
+"**Topics.AllTopics.SearchBar.PlaceholderText**" = "Nombre del tema";
+
+/* No comment provided by engineer. */
+"**Topics.AllTopics.Title**" = "Temas";
+
+/* No comment provided by engineer. */
+"**Topics.AllTopics.Type.App**" = "App";
+
+/* No comment provided by engineer. */
+"**Topics.AllTopics.Type.Community**" = "Comunidad";
+
+/* No comment provided by engineer. */
+"**Topics.AllTopics.Type.Saved**" = "Guardados";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.Action**" = "Enviar";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.Help**" = "Ayuda";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.Info**" = "Puedes descargar un tema usando una URL que tenga el contenido formateado o pegar el contenido directamente.";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.Title**" = "Enviar tema";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.TopicContent**" = "URL del tema o contenido";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Submission.TopicName**" = "Nombre del tema";
+
+/* No comment provided by engineer. */
+"**Topics.Community.Title**" = "Comunidad";
+
+/* No comment provided by engineer. */
+"**Topics.Quizzes.Title**" = "Cuestionarios";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.Action**" = "Añadir";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.Help**" = "Ayuda";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.Info**" = "Puedes especificar una URL que contenga el fichero apropiadamente formateado o el contenido entero";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.Title**" = "Añadir tema";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.TopicContent**" = "URL del tema o contenido";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Download.TopicName**" = "Nombre del tema";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Menu.Camera**" = "Leer desde la cámara";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Menu.Create**" = "Crear tema";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Add.Menu.Download**" = "Descargar tema remoto";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.Delete**" = "Eliminar";
+
+/* No comment provided by engineer. */
+"**Topics.Saved.DeleteAll**" = "Eliminar %d ítem%@";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Accept**" = "Guardar";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Cancel**" = "¡Espera! Todavía no terminé.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Error**" = "Error al guardar";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Share**" = "Compartir";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Success**" = "Guardado";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Alerts.Save.Title**" = "Qué hacer con el tema";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.AnswersPerQuestion**" = "Respuestas por pregunta";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Generate**" = "Generar formulario";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.QuestionsPerSet**" = "Preguntas por set";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.SetsNumber**" = "Número de sets";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.Title**" = "Crear tema";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Answer**" = "Respuesta";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.ImageURL**" = "URL Imagen";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.ImageURLPlaceholder**" = "Opcional";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.EnableHelp**" = "Habilitar el botón de ayuda";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.ForceChooseCorrectAnswers**" = "Forzar escoger todas las respuestas correctas";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.Name**" = "Nombre";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.NamePlaceholder**" = "Opcional pero recomendado";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.RandomOrderQuestions**" = "Preguntas en orden aleatorio";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.SectionTitle**" = "Opciones";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.ShowCorrectIncorrect**" = "Mostrar respuestas correctas/incorrectas";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.Time**" = "Tiempo por set";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Options.TimePlaceholder**" = "Opcional";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Question**" = "Pregunta";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Set**" = "Set";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Title**" = "Creador de temas";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount.Recovery**" = "[Localización] Set: %d, pregunta: %d, mal: %d, máximo: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectCount**" = "El número de respuestas correctas es incorreto.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex.Recovery**" = "[Localización] Set: %d, pregunta: %d, mal: %d, máximo: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.BadCorrectIndex**" = "El índice de la respuesta correcta es incorrecto.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.Empty.Recovery**" = "[Localización] Set: %d, pregunta: %d, respuesta: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.Empty**" = "Al menos una respuesta está vacía.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.IncorrectCount.Recovery**" = "[Localización] Set: %d, pregunta: %d, respuestas correctas: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Answers.IncorrectCount**" = "El número de respuestas válidas es incorrecto, respuestas repetidas no están permitidas.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Invalid**" = "Tema inválido";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Questions.Empty.Recovery**" = "[Localización] Set: %d, pregunta: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Questions.Empty**" = "Al menos una pregunta está vacía.";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Sets.Empty.Recovery**" = "Número de sets: %d";
+
+/* No comment provided by engineer. */
+"**TopicsCreation.WebView.Validation.Sets.Empty**" = "Al menos un set está vacío.";
+
+/* -- QUESTION SETS -- */
+
+// --- SOCIAL ---
+// "Social" = "Social";
+
+"What's your name?" = "¿Cómo te llamas?";
+"Sophie" = "Sofía";
+// "Daniel" = "Daniel";
+"Pete" = "Tete";
+"Mr. Incognito" = "Sr. de Incógnito";
+
+"🐶 or 🐱?" = "¿🐶 o 🐱?";
+/*
+ "🐱" = "🐱";
+ "🐶" = "🐶";
+ "Daniel" = "Daniel";
+ */
+"Other" = "Otro";
+
+"Do you like Pizza?" = "¿Te gusta la pizza?";
+"I love it!" = "¡Me encanta!";
+"Yes" = "Sí";
+// "No" = "No";
+"Maybe" = "Tal vez";
+
+// --- TECHNOLOGY ---
+"Technology" = "Tecnología";
+
+"Best desktop OS" = "Mejor SO de escritorio";
+/*
+ "macOS" = "macOS";
+ "Windows" = "Windows";
+ "MS-DOS 😎" = "MS-DOS 😎";
+ "Linux c:" = "Linux c:";
+ */
+
+"Best IDE" = "Mejor IDE";
+/*
+ "Visual Studio" = "Visual Studio";
+ "Xcode" = "Xcode";
+ "Netbeans" = "Netbeans";
+ "Eclipse" = "Eclipse";
+ */
+
+"Best smartphone OS" = "Mejor SO móvil";
+/*
+ "iOS" = "iOS";
+ "Android" = "Android";
+ "BlackBerry OS" = "BlackBerry OS";
+ "Windows Phone c:" = "Windows Phone c:";
+ */
+
+"Latest macOS version" = "Última versión de macOS";
+/*
+ "10.11.5" = "10.11.5";
+ "10.2" = "10.2";
+ "11" = "11";
+ "10.12" = "10.12";
+ */
+
+"Which Windows version is the best?" = "¿Qué versión de Windows es la mejor?";
+/*
+ "Windows XP" = "Windows XP";
+ "Windows 7" = "Windows 7";
+ "Windows Vista 😂" = "Windows Vista 😂";
+ "Windows 10" = "Windows 10";
+ */
+
+"iPhone, iPad or Mac?" = "¿iPhone, iPad o Mac?";
+/*
+ "iPhone" = "iPhone";
+ "iPad" = "iPad";
+ "Mac" = "Mac";
+ */
+"Everyone c:" = "Todos c:";
+
+// --- PEOPLE ---
+"People" = "Gente";
+
+// SET 0
+
+"How old is Barack Obama?" = "¿Qué edad tiene Barack Obama?";
+/*
+ "> 50" = "> 50";
+ "< 50" = "< 50";
+ "35 ☺️" = "35 ☺️";
+ "> 60 👴🏿" = "> 60 👴🏿";
+ */
+
+"Google CEO" = "Director ejecutivo de Google";
+/*
+ "Larry Page" = "Larry Page";
+ "Sergey Brin" = "Sergey Brin";
+ "Sundar Pichai" = "Sundar Pichai";
+ "Andy Rubin" = "Andy Rubin";
+ */
+
+// SET 1
+
+"When was Tim Cook born?" = "¿Cuándo nació Tim Cook?";
+/*
+ "1967" = "1967";
+ "1970" = "1970";
+ "1940" = "1940";
+ "1960" = "1960";
+ */
+
+"When did Steve Jobs die?" = "¿Cuándo falleció Steve Jobs?";
+
+/*
+ "2008" = "2008";
+ "2010" = "2010";
+ "2011" = "2011";
+ "2012" = "2012";
+ */
