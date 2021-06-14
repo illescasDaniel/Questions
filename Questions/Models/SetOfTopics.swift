@@ -122,7 +122,8 @@ class SetOfTopics {
 			if let topicNameFromJSON = topic.topic.options?.name, !topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
 				fileName = topicNameFromJSON.trimmingCharacters(in: .whitespacesAndNewlines) + ".json"
 			} else {
-				fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
+				//fileName = "User Topic - \(UserDefaultsManager.savedQuestionsCounter).json" // Could be translated...
+                fileName = topicName+".json"
 			}
 		}
 		else if !topicName.hasSuffix(".json") {

@@ -12,7 +12,8 @@ import WebKit
 class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	
 	private let webView = WKWebView()
-	
+    
+    private var nameOfTopic: String?
 	private var numberOfSets: UInt8?
 	private var questionsPerSet: UInt8?
 	private var answersPerQuestion: UInt8?
@@ -183,7 +184,15 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 	private func promptUserWithFormGenerator() {
 		
 		let questionsCreatorSetupAlert = UIAlertController(title: L10n.TopicsCreation_Title, message: nil, preferredStyle: .alert)
-		
+        questionsCreatorSetupAlert.addTextField { textField in
+            textField.placeholder = "Topic Name" //TODO Refactor localization
+            textField.keyboardType = .alphabet
+            textField.addConstraint(textField.heightAnchor.constraint(equalToConstant: 25))
+            guard #available(iOS 13, *) else {
+                textField.keyboardAppearance = UserDefaultsManager.darkThemeSwitchIsOn ? .dark : .light
+                return
+            }
+        }
 		questionsCreatorSetupAlert.addTextField { textField in
 			textField.placeholder = L10n.TopicsCreation_SetsNumber
 			textField.keyboardType = .numberPad
@@ -216,16 +225,18 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 		}
 		questionsCreatorSetupAlert.addAction(title: L10n.TopicsCreation_Generate, style: .default) { action in
 			
-			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 3, !textFields.contains(where: { !$0.hasText }),
-			   let numberOfSetsStr = textFields[0].text, let numberOfSets = UInt8(numberOfSetsStr),
-			   let questionsPerSetStr = textFields[1].text, let questionsPerSet = UInt8(questionsPerSetStr),
-			   let answersPerQuestionStr = textFields[2].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
+			if let textFields = questionsCreatorSetupAlert.textFields, textFields.count == 4, !textFields.contains(where: { !$0.hasText }),
+               let nameOfTopic = textFields[0].text,
+			   let numberOfSetsStr = textFields[1].text, let numberOfSets = UInt8(numberOfSetsStr),
+			   let questionsPerSetStr = textFields[2].text, let questionsPerSet = UInt8(questionsPerSetStr),
+			   let answersPerQuestionStr = textFields[3].text, let answersPerQuestion = UInt8(answersPerQuestionStr),
 			   numberOfSets > 0, questionsPerSet > 0, answersPerQuestion > 1 {
 				
-				self.numberOfSets = numberOfSets
+                self.nameOfTopic = nameOfTopic
+                self.numberOfSets = numberOfSets
 				self.questionsPerSet = questionsPerSet
 				self.answersPerQuestion = answersPerQuestion
-				let outputWebCode = WebTopicCreator.shared.outputWebCode(numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
+                let outputWebCode = WebTopicCreator.shared.outputWebCode(nameOfTopic: nameOfTopic, numberOfSets: numberOfSets, questionsPerSet: questionsPerSet, answersPerQuestion: answersPerQuestion)
 				self.webView.loadHTMLString(outputWebCode, baseURL: nil)
 			}
 			else {
@@ -248,7 +259,7 @@ class WebTopicCreatorViewController: UIViewController, WKNavigationDelegate {
 		whatToDoAlertController.addAction(title: L10n.TopicsCreation_Alerts_Save_Accept, style: .default) { _ in
 			ToastAlert.present(onSuccess: L10n.TopicsCreation_Alerts_Save_Success,
 							   onError: L10n.TopicsCreation_Alerts_Save_Error, withLength: .short, playHapticFeedback: true, in: self, operation: {
-								return SetOfTopics.shared.save(topic: TopicEntry(name: topic.options?.name ?? "", content: topic))
+                                return SetOfTopics.shared.save(topic: TopicEntry(name: /*topic.options?.name ?? ""*/ self.nameOfTopic!, content: topic))
 							   })
 		}
 		

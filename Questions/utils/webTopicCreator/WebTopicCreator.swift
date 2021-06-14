@@ -13,7 +13,7 @@ class WebTopicCreator {
 	static let shared = WebTopicCreator()
 	fileprivate init() {}
 	
-	func outputWebCode(numberOfSets: UInt8, questionsPerSet: UInt8, answersPerQuestion: UInt8) -> String {
+    func outputWebCode(nameOfTopic: String, numberOfSets: UInt8, questionsPerSet: UInt8, answersPerQuestion: UInt8) -> String {
 		return """
 		<!DOCTYPE html>
 		<html>
